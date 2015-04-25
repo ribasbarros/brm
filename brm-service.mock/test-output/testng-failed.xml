@@ -5,7 +5,6 @@
     <classes>
       <class name="br.com.brm.scp.api.service.test.UsuarioSeviceMockTest">
         <methods>
-          <include name="create" invocation-numbers="0"/>
           <include name="springTestContextAfterTestClass"/>
           <include name="springTestContextBeforeTestClass"/>
           <include name="springTestContextBeforeTestMethod"/>
@@ -13,6 +12,7 @@
           <include name="tearDown"/>
           <include name="springTestContextAfterTestMethod"/>
           <include name="setup"/>
+          <include name="update"/>
         </methods>
       </class> <!-- br.com.brm.scp.api.service.test.UsuarioSeviceMockTest -->
     </classes>

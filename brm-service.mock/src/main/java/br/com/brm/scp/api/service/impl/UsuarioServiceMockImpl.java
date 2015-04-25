@@ -1,5 +1,7 @@
 package br.com.brm.scp.api.service.impl;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.UUID;
 
 import org.springframework.util.Assert;
@@ -60,7 +62,6 @@ public class UsuarioServiceMockImpl implements UsuarioService {
 
 	private UsuarioDocument convert2Document(UsuarioRequestDTO request) {
 		UsuarioDocument usuarioDocument = new UsuarioDocument();
-		usuarioDocument.setId(UUID.randomUUID().getMostSignificantBits());
 		usuarioDocument.setNome(request.getNome());
 		usuarioDocument.setCargo(request.getCargo());
 		usuarioDocument.setEmail(request.getEmail());
@@ -73,26 +74,88 @@ public class UsuarioServiceMockImpl implements UsuarioService {
 		Assert.notNull(id, "brm.usuario.id");
 		
 		UsuarioDocument usuarioDocument = findById(id);
+		if(usuarioDocument == null){
+			throw new UsuarioNotFoundException("brm.usuario.notfound");
+		}
 		
 		return convert2Response(usuarioDocument);
 		
 	}
 
-	private UsuarioDocument findById(Long id) {
+	private UsuarioDocument findById(Long id) throws UsuarioNotFoundException {
 		UsuarioDocument usuarioDocument = dbMock.getUsuarioCollection().get(id);
+		
+		if(usuarioDocument == null){
+			throw new UsuarioNotFoundException("brm.usuario.notfound");
+		}
+		
 		return usuarioDocument;
 	}
 	
 	private void insert(UsuarioDocument usuarioDocument) {
+		
+		usuarioDocument.setId(UUID.randomUUID().getMostSignificantBits());
+		
 		dbMock.getUsuarioCollection().put(usuarioDocument.getId(), usuarioDocument);
 	}
 
 	@Override
-	public UsuarioResponseDTO update(UsuarioRequestDTO usuarioSuccess) {
-		UsuarioDocument document = findById(usuarioSuccess.getId());
+	public UsuarioResponseDTO update(UsuarioRequestDTO request) throws UsuarioNotFoundException {
 		
+		Assert.notNull(request, "brm.usuario.notnull");
+		Assert.notNull(request.getId(), "brm.usuario.id");
+		Assert.notNull(request.getNome(), "brm.usuario.name");
+		Assert.notNull(request.getEmail(), "brm.usuario.email");
+		Assert.notNull(request.getCargo(), "brm.usuario.cargo");
 		
+		Long id = request.getId();
 		
+		UsuarioDocument document = findById(id);
+		document.setId(id);
+		document.setNome(request.getNome());
+		document.setCargo(request.getCargo());
+		document.setEmail(request.getEmail());
+		
+		update(id, document);
+		
+		UsuarioDocument reload = findById(request.getId());
+		
+		return convert2Response(reload);
+	}
+
+	private void update(Long id, UsuarioDocument document) {
+		dbMock.getUsuarioCollection().put(document.getId(), document);
+	}
+
+	@Override
+	public void clearMemory() {
+		dbMock.getUsuarioCollection().clear();
+	}
+
+	@Override
+	public Collection<UsuarioResponseDTO> all() throws UsuarioNotFoundException {
+		
+		Collection<UsuarioDocument> all = findAll();
+		
+		if(all.isEmpty()){
+			throw new UsuarioNotFoundException("brm.usuario.listNotFound");
+		}
+		
+		return convertListDocument2ListResponse(all);
+	}
+
+	private Collection<UsuarioDocument> findAll() {
+		return dbMock.getUsuarioCollection().values();
+	}
+
+	private Collection<UsuarioResponseDTO> convertListDocument2ListResponse(Collection<UsuarioDocument> all) {
+		Collection<UsuarioResponseDTO> result = new ArrayList<UsuarioResponseDTO>();
+		
+		for(UsuarioDocument document : all){
+			result.add(convert2Response(document));
+		}
+		
+		return result;
 	}
 
 }

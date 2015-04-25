@@ -1,5 +1,7 @@
 package br.com.brm.scp.api.service;
 
+import java.util.Collection;
+
 import br.com.brm.scp.api.dto.request.UsuarioRequestDTO;
 import br.com.brm.scp.api.dto.response.UsuarioResponseDTO;
 import br.com.brm.scp.api.exceptions.UsuarioExistentException;
@@ -11,6 +13,10 @@ public interface UsuarioService {
 
 	UsuarioResponseDTO find(Long id) throws UsuarioNotFoundException;
 
-	UsuarioResponseDTO update(UsuarioRequestDTO usuarioSuccess);
+	UsuarioResponseDTO update(UsuarioRequestDTO usuarioSuccess) throws UsuarioNotFoundException;
+
+	void clearMemory();
+
+	Collection<UsuarioResponseDTO> all() throws UsuarioNotFoundException;
 
 }

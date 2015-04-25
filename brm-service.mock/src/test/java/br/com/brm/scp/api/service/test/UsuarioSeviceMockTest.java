@@ -2,6 +2,10 @@ package br.com.brm.scp.api.service.test;
 
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertNotNull;
+import static org.testng.AssertJUnit.assertTrue;
+
+import java.util.Collection;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -13,6 +17,7 @@ import org.testng.annotations.DataProvider;
 import br.com.brm.scp.api.dto.request.UsuarioRequestDTO;
 import br.com.brm.scp.api.dto.response.UsuarioResponseDTO;
 import br.com.brm.scp.api.exceptions.UsuarioExistentException;
+import br.com.brm.scp.api.exceptions.UsuarioNotFoundException;
 import br.com.brm.scp.api.service.UsuarioService;
 import br.com.brm.scp.api.service.test.util.TestCallback;
 import br.com.brm.scp.api.service.test.util.TestUtils;
@@ -29,7 +34,14 @@ public class UsuarioSeviceMockTest extends AbstractTestNGSpringContextTests {
 
 	@BeforeClass
 	public void setup() throws Exception {
-		usuarioSuccess = criarUsuarioSuccess();
+		
+		clearMemory();
+		
+		loadTest();
+	}
+
+	private void clearMemory() {
+		service.clearMemory();
 	}
 
 	@AfterClass
@@ -41,7 +53,7 @@ public class UsuarioSeviceMockTest extends AbstractTestNGSpringContextTests {
 	public void create(final UsuarioRequestDTO request, final UsuarioRequestDTO requestInvalid) throws Exception {
 
 		assertNotNull(request);
-		assertNotNull(request);
+		assertNotNull(requestInvalid);
 
 		UsuarioResponseDTO response = service.create(request);
 
@@ -67,16 +79,63 @@ public class UsuarioSeviceMockTest extends AbstractTestNGSpringContextTests {
 
 	}
 	
-	@org.testng.annotations.Test(enabled = TEST_CRUD, groups = "CRUD", priority = 2)
-	public void update() throws Exception {
+	@org.testng.annotations.Test(enabled = TEST_CRUD, groups = "CRUD", priority = 2, dataProvider = "updateAndFindUsuarioNotFound")
+	public void update(final UsuarioRequestDTO usuarioNotFound) throws Exception {
 		
 		String emailOld = usuarioSuccess.getEmail();
-		String emailNew = "joaquim.silva@brm.com";
+		String emailNew = "joaquim.silva.test@brm.com";
 
 		usuarioSuccess.setEmail(emailNew);
 		
 		UsuarioResponseDTO response = service.update(usuarioSuccess);
 		
+		assertNotNull(response);
+		assertTrue(response.getEmail() != emailOld);
+		assertTrue(response.getEmail() == emailNew);
+		
+		
+		TestUtils.expectException(UsuarioNotFoundException.class, new TestCallback() {
+			@Override
+			public void doTest() throws Exception {
+				service.update(usuarioNotFound);
+			}
+		});
+		
+	}
+	
+	@org.testng.annotations.Test(enabled = TEST_CRUD, groups = "CRUD", priority = 3, dataProvider = "updateAndFindUsuarioNotFound")
+	public void find(final UsuarioRequestDTO usuarioNotFound) throws Exception {
+		
+		UsuarioResponseDTO response = service.find(usuarioSuccess.getId());
+		
+		assertNotNull(response);
+		assertNotNull(response.getEmail());
+		
+		Collection<UsuarioResponseDTO> all = service.all();
+		
+		assertNotNull(all);
+		assertTrue(!all.isEmpty());
+		assertTrue(all.size()>0);
+		
+		TestUtils.expectException(UsuarioNotFoundException.class, new TestCallback() {
+			@Override
+			public void doTest() throws Exception {
+				service.clearMemory();
+				service.all();
+			}
+		});
+		
+		loadTest();
+	}
+	
+	@org.testng.annotations.Test(enabled = TEST_CRUD, groups = "CRUD", priority = 4, dataProvider = "updateAndFindUsuarioNotFound")
+	public void delete(final UsuarioRequestDTO usuarioNotFound) throws Exception {
+
+		
+	}
+
+	private void loadTest() throws UsuarioExistentException {
+		usuarioSuccess = criarUsuarioSuccess();
 	}
 
 	@DataProvider(name = "novoUsuarioRequest")
@@ -85,6 +144,21 @@ public class UsuarioSeviceMockTest extends AbstractTestNGSpringContextTests {
 		UsuarioRequestDTO requestInvalido = dUsuarioInvalido();
 		return new Object[][] { new Object[] { request, requestInvalido } };
 	}
+	
+	@DataProvider(name = "updateAndFindUsuarioNotFound")
+	public Object[][] criaUsuario4TestNotFound(){
+		
+		long random = UUID.randomUUID().getMostSignificantBits();
+		
+		UsuarioRequestDTO requestNotFound = new UsuarioRequestDTO();
+		requestNotFound.setId(random);
+		requestNotFound.setEmail("notfound@notfound.com.br");
+		requestNotFound.setCargo("notfound");
+		requestNotFound.setNome("notfound");
+		
+		return new Object[][] { new Object[] { requestNotFound } };
+	}
+	
 
 	private UsuarioRequestDTO dUsuarioInvalido() {
 		UsuarioRequestDTO requestInvalido = new UsuarioRequestDTO();
@@ -92,11 +166,14 @@ public class UsuarioSeviceMockTest extends AbstractTestNGSpringContextTests {
 	}
 
 	private UsuarioRequestDTO doUsuarioValido() {
+
+		long random = UUID.randomUUID().getMostSignificantBits();
+		
 		UsuarioRequestDTO request = new UsuarioRequestDTO();
 		request.setId(null);
 		request.setCargo("Analista de Sistemas Java");
-		request.setNome("Joaquim da Silva");
-		request.setEmail("joaquim@brm.com.br");
+		request.setNome("Joaquim da Silva - " + random);
+		request.setEmail("joaquim"+random+"@brm.com.br");
 		return request;
 	}
 
