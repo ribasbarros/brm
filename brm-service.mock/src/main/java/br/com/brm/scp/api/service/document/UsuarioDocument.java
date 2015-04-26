@@ -1,7 +1,6 @@
 package br.com.brm.scp.api.service.document;
 
 import java.util.Collection;
-import java.util.UUID;
 
 import br.com.brm.scp.api.dto.response.GrupoPerfilResponse;
 
