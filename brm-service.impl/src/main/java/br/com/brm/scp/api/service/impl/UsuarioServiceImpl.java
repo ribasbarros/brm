@@ -38,5 +38,11 @@ public class UsuarioServiceImpl implements UsuarioService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public UsuarioResponseDTO deletar(UsuarioRequestDTO usuarioDeletado) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }
