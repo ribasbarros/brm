@@ -158,4 +158,10 @@ public class UsuarioServiceMockImpl implements UsuarioService {
 		return result;
 	}
 
+	@Override
+	public UsuarioResponseDTO deletar(UsuarioRequestDTO usuarioDeletado) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

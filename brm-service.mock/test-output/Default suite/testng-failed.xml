@@ -5,14 +5,14 @@
     <classes>
       <class name="br.com.brm.scp.api.service.test.UsuarioSeviceMockTest">
         <methods>
-          <include name="create"/>
-          <include name="springTestContextAfterTestClass"/>
           <include name="springTestContextBeforeTestClass"/>
-          <include name="delete"/>
+          <include name="setup"/>
+          <include name="create" invocation-numbers="0"/>
+          <include name="tearDown"/>
           <include name="springTestContextPrepareTestInstance"/>
+          <include name="springTestContextAfterTestClass"/>
+          <include name="springTestContextBeforeTestMethod"/>
           <include name="springTestContextAfterTestMethod"/>
-          <include name="find"/>
-          <include name="update"/>
         </methods>
       </class> <!-- br.com.brm.scp.api.service.test.UsuarioSeviceMockTest -->
     </classes>

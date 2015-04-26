@@ -31,7 +31,6 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	public void clearMemory() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

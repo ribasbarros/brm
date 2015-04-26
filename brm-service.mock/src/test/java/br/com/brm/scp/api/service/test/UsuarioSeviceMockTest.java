@@ -54,7 +54,8 @@ public class UsuarioSeviceMockTest extends AbstractTestNGSpringContextTests {
 
 		assertNotNull(request);
 		assertNotNull(requestInvalid);
-
+		assertEquals("a", "v");
+		
 		UsuarioResponseDTO response = service.create(request);
 
 		assertNotNull(response);
@@ -76,7 +77,6 @@ public class UsuarioSeviceMockTest extends AbstractTestNGSpringContextTests {
 				service.create(request);
 			}
 		});
-
 	}
 	
 	@org.testng.annotations.Test(enabled = TEST_CRUD, groups = "CRUD", priority = 2, dataProvider = "updateAndFindUsuarioNotFound")
