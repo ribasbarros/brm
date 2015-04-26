@@ -1,7 +1,11 @@
 package br.com.brm.scp.mock.api.service.document;
 
-public class TagDocument {
+import java.io.Serializable;
 
+public class TagDocument implements Serializable {
+
+	private static final long serialVersionUID = -4079619566512672873L;
+	
 	private Long id;
 	private String nome;
 

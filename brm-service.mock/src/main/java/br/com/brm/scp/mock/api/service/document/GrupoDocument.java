@@ -1,9 +1,12 @@
 package br.com.brm.scp.mock.api.service.document;
 
+import java.io.Serializable;
 import java.util.Collection;
 
-public class GrupoDocument {
+public class GrupoDocument implements Serializable {
 
+	private static final long serialVersionUID = -2946370998935414082L;
+	
 	private Long id;
 	private String nome;
 	private Collection<PerfilDocument> perfis;

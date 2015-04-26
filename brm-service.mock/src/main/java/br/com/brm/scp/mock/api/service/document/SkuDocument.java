@@ -1,13 +1,17 @@
 package br.com.brm.scp.mock.api.service.document;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Collection;
 
 import br.com.brm.scp.mock.api.service.document.status.StatusReposicaoEnum;
 
-public class SkuDocument {
+public class SkuDocument implements Serializable {
 
+	private static final long serialVersionUID = 5204544337090545867L;
+	
+	private Long id;
 	private ProdutoDocument produto;
 	private Collection<TagDocument> tags;
 	private Calendar dataMaturidade;
@@ -19,6 +23,7 @@ public class SkuDocument {
 	private Integer loteReposicaoHistorico;
 	private StatusReposicaoEnum status;
 	private String descricao;
+	private Collection<PedidoDocument> pedidos;
 
 	private Integer estoqueMaximo;
 	private Integer estoqueMinimo;
@@ -190,6 +195,22 @@ public class SkuDocument {
 
 	public void setUsuarioAlteracao(UsuarioDocument usuarioAlteracao) {
 		this.usuarioAlteracao = usuarioAlteracao;
+	}
+
+	public Collection<PedidoDocument> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(Collection<PedidoDocument> pedidos) {
+		this.pedidos = pedidos;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

@@ -2,9 +2,10 @@ package br.com.brm.scp.mock.api.service.document;
 
 import java.io.Serializable;
 
-public class CategoriaDocument implements Serializable {
+//TODO REANALISAR
+public class PacotePlanoDocument implements Serializable {
 
-	private static final long serialVersionUID = 4818676017623732383L;
+	private static final long serialVersionUID = 472787030476905806L;
 	
 	private Long id;
 	private String nome;

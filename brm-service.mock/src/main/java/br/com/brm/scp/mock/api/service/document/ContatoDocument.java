@@ -1,9 +1,12 @@
 package br.com.brm.scp.mock.api.service.document;
 
+import java.io.Serializable;
 import java.util.Collection;
 
-public class ContatoDocument {
+public class ContatoDocument implements Serializable {
 
+	private static final long serialVersionUID = -6433003551096069983L;
+	
 	private Long id;
 	private String endereco;
 	private String cidade;

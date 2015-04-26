@@ -1,7 +1,11 @@
 package br.com.brm.scp.mock.api.service.document;
 
-public class PerfilDocument {
+import java.io.Serializable;
 
+public class PerfilDocument implements Serializable {
+
+	private static final long serialVersionUID = 8729468500938963438L;
+	
 	public Long id;
 	private String nome;
 

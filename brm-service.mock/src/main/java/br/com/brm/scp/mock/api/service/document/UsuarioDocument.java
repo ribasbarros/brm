@@ -1,10 +1,13 @@
 package br.com.brm.scp.mock.api.service.document;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 import br.com.brm.scp.api.dto.response.GrupoPerfilResponse;
 
-public class UsuarioDocument {
+public class UsuarioDocument implements Serializable {
+
+	private static final long serialVersionUID = 5905879916255485492L;
 
 	private Long id;
 	private String nome;

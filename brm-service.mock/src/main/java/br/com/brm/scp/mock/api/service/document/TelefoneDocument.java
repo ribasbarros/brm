@@ -1,6 +1,10 @@
 package br.com.brm.scp.mock.api.service.document;
 
-public class TelefoneDocument {
+import java.io.Serializable;
+
+public class TelefoneDocument implements Serializable {
+
+	private static final long serialVersionUID = -6082589107055198601L;
 
 	private Integer numero;
 	private boolean celular;
