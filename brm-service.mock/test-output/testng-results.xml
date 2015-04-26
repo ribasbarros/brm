@@ -2,6 +2,7 @@
 <testng-results skipped="0" failed="1" total="4" passed="3">
   <reporter-output>
   </reporter-output>
+<<<<<<< HEAD
   <suite name="Default suite" duration-ms="611" started-at="2015-04-26T20:58:40Z" finished-at="2015-04-26T20:58:40Z">
     <groups>
       <group name="CRUD">
@@ -26,6 +27,32 @@
           </reporter-output>
         </test-method> <!-- setup -->
         <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:br.com.brm.scp.api.service.test.UsuarioSeviceMockTest@73846619]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="1" started-at="2015-04-26T17:58:40Z" finished-at="2015-04-26T17:58:40Z">
+=======
+  <suite name="Default suite" duration-ms="409" started-at="2015-04-26T20:19:08Z" finished-at="2015-04-26T20:19:08Z">
+    <groups>
+      <group name="CRUD">
+        <method signature="UsuarioSeviceMockTest.create(br.com.brm.scp.api.dto.request.UsuarioRequestDTO, br.com.brm.scp.api.dto.request.UsuarioRequestDTO)[pri:0, instance:br.com.brm.scp.api.service.test.UsuarioSeviceMockTest@2ecca280]" name="create" class="br.com.brm.scp.api.service.test.UsuarioSeviceMockTest"/>
+        <method signature="UsuarioSeviceMockTest.delete(br.com.brm.scp.api.dto.request.UsuarioRequestDTO)[pri:0, instance:br.com.brm.scp.api.service.test.UsuarioSeviceMockTest@2ecca280]" name="delete" class="br.com.brm.scp.api.service.test.UsuarioSeviceMockTest"/>
+        <method signature="UsuarioSeviceMockTest.find(br.com.brm.scp.api.dto.request.UsuarioRequestDTO)[pri:0, instance:br.com.brm.scp.api.service.test.UsuarioSeviceMockTest@2ecca280]" name="find" class="br.com.brm.scp.api.service.test.UsuarioSeviceMockTest"/>
+        <method signature="UsuarioSeviceMockTest.update(br.com.brm.scp.api.dto.request.UsuarioRequestDTO)[pri:0, instance:br.com.brm.scp.api.service.test.UsuarioSeviceMockTest@2ecca280]" name="update" class="br.com.brm.scp.api.service.test.UsuarioSeviceMockTest"/>
+      </group> <!-- CRUD -->
+    </groups>
+    <test name="Default test" duration-ms="409" started-at="2015-04-26T20:19:08Z" finished-at="2015-04-26T20:19:08Z">
+      <class name="br.com.brm.scp.api.service.test.UsuarioSeviceMockTest">
+        <test-method status="PASS" signature="springTestContextBeforeTestClass()[pri:0, instance:br.com.brm.scp.api.service.test.UsuarioSeviceMockTest@2ecca280]" name="springTestContextBeforeTestClass" is-config="true" duration-ms="6" started-at="2015-04-26T17:19:08Z" finished-at="2015-04-26T17:19:08Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestClass -->
+        <test-method status="PASS" signature="springTestContextPrepareTestInstance()[pri:0, instance:br.com.brm.scp.api.service.test.UsuarioSeviceMockTest@2ecca280]" name="springTestContextPrepareTestInstance" is-config="true" duration-ms="368" started-at="2015-04-26T17:19:08Z" depends-on-methods="org.springframework.test.context.testng.AbstractTestNGSpringContextTests.springTestContextBeforeTestClass" finished-at="2015-04-26T17:19:08Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextPrepareTestInstance -->
+        <test-method status="PASS" signature="setup()[pri:0, instance:br.com.brm.scp.api.service.test.UsuarioSeviceMockTest@2ecca280]" name="setup" is-config="true" duration-ms="0" started-at="2015-04-26T17:19:08Z" finished-at="2015-04-26T17:19:08Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:br.com.brm.scp.api.service.test.UsuarioSeviceMockTest@2ecca280]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="1" started-at="2015-04-26T17:19:08Z" finished-at="2015-04-26T17:19:08Z">
+>>>>>>> 239b4f3807ec9728dc4e60d3860c9f25f5f94ab0
           <params>
             <param index="0">
               <value>
@@ -36,16 +63,28 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextBeforeTestMethod -->
+<<<<<<< HEAD
         <test-method status="FAIL" signature="create(br.com.brm.scp.api.dto.request.UsuarioRequestDTO, br.com.brm.scp.api.dto.request.UsuarioRequestDTO)[pri:0, instance:br.com.brm.scp.api.service.test.UsuarioSeviceMockTest@73846619]" name="create" duration-ms="8" started-at="2015-04-26T17:58:40Z" data-provider="novoUsuarioRequest" finished-at="2015-04-26T17:58:40Z">
           <params>
             <param index="0">
               <value>
                 <![CDATA[br.com.brm.scp.api.dto.request.UsuarioRequestDTO@71809907]]>
+=======
+        <test-method status="PASS" signature="create(br.com.brm.scp.api.dto.request.UsuarioRequestDTO, br.com.brm.scp.api.dto.request.UsuarioRequestDTO)[pri:0, instance:br.com.brm.scp.api.service.test.UsuarioSeviceMockTest@2ecca280]" name="create" duration-ms="6" started-at="2015-04-26T17:19:08Z" data-provider="novoUsuarioRequest" finished-at="2015-04-26T17:19:08Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[br.com.brm.scp.api.dto.request.UsuarioRequestDTO@58954f6e]]>
+>>>>>>> 239b4f3807ec9728dc4e60d3860c9f25f5f94ab0
               </value>
             </param>
             <param index="1">
               <value>
+<<<<<<< HEAD
                 <![CDATA[br.com.brm.scp.api.dto.request.UsuarioRequestDTO@3ce1e309]]>
+=======
+                <![CDATA[br.com.brm.scp.api.dto.request.UsuarioRequestDTO@3291ec31]]>
+>>>>>>> 239b4f3807ec9728dc4e60d3860c9f25f5f94ab0
               </value>
             </param>
           </params>
@@ -95,7 +134,11 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- create -->
+<<<<<<< HEAD
         <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:br.com.brm.scp.api.service.test.UsuarioSeviceMockTest@73846619]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="2" started-at="2015-04-26T17:58:40Z" finished-at="2015-04-26T17:58:40Z">
+=======
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:br.com.brm.scp.api.service.test.UsuarioSeviceMockTest@2ecca280]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="1" started-at="2015-04-26T17:19:08Z" finished-at="2015-04-26T17:19:08Z">
+>>>>>>> 239b4f3807ec9728dc4e60d3860c9f25f5f94ab0
           <params>
             <param index="0">
               <value>
@@ -106,29 +149,47 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextAfterTestMethod -->
+<<<<<<< HEAD
         <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:br.com.brm.scp.api.service.test.UsuarioSeviceMockTest@73846619]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="3" started-at="2015-04-26T17:58:40Z" finished-at="2015-04-26T17:58:40Z">
+=======
+        <test-method status="PASS" signature="update(br.com.brm.scp.api.dto.request.UsuarioRequestDTO)[pri:0, instance:br.com.brm.scp.api.service.test.UsuarioSeviceMockTest@2ecca280]" name="update" duration-ms="2" started-at="2015-04-26T17:19:08Z" data-provider="updateAndFindUsuarioNotFound" finished-at="2015-04-26T17:19:08Z">
+>>>>>>> 239b4f3807ec9728dc4e60d3860c9f25f5f94ab0
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void br.com.brm.scp.api.service.test.UsuarioSeviceMockTest.update(br.com.brm.scp.api.dto.request.UsuarioRequestDTO) throws java.lang.Exception]]>
+                <![CDATA[br.com.brm.scp.api.dto.request.UsuarioRequestDTO@4dbbb9f]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
+<<<<<<< HEAD
         </test-method> <!-- springTestContextBeforeTestMethod -->
         <test-method status="PASS" signature="update(br.com.brm.scp.api.dto.request.UsuarioRequestDTO)[pri:0, instance:br.com.brm.scp.api.service.test.UsuarioSeviceMockTest@73846619]" name="update" duration-ms="3" started-at="2015-04-26T17:58:40Z" data-provider="updateAndFindUsuarioNotFound" finished-at="2015-04-26T17:58:40Z">
           <params>
             <param index="0">
               <value>
                 <![CDATA[br.com.brm.scp.api.dto.request.UsuarioRequestDTO@5876a9af]]>
+=======
+        </test-method> <!-- update -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:br.com.brm.scp.api.service.test.UsuarioSeviceMockTest@2ecca280]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2015-04-26T17:19:08Z" finished-at="2015-04-26T17:19:08Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void br.com.brm.scp.api.service.test.UsuarioSeviceMockTest.update(br.com.brm.scp.api.dto.request.UsuarioRequestDTO) throws java.lang.Exception]]>
+>>>>>>> 239b4f3807ec9728dc4e60d3860c9f25f5f94ab0
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
+<<<<<<< HEAD
         </test-method> <!-- update -->
         <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:br.com.brm.scp.api.service.test.UsuarioSeviceMockTest@73846619]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2015-04-26T17:58:40Z" finished-at="2015-04-26T17:58:40Z">
+=======
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:br.com.brm.scp.api.service.test.UsuarioSeviceMockTest@2ecca280]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="1" started-at="2015-04-26T17:19:08Z" finished-at="2015-04-26T17:19:08Z">
+>>>>>>> 239b4f3807ec9728dc4e60d3860c9f25f5f94ab0
           <params>
             <param index="0">
               <value>
@@ -139,7 +200,11 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextAfterTestMethod -->
+<<<<<<< HEAD
         <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:br.com.brm.scp.api.service.test.UsuarioSeviceMockTest@73846619]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="1" started-at="2015-04-26T17:58:40Z" finished-at="2015-04-26T17:58:40Z">
+=======
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:br.com.brm.scp.api.service.test.UsuarioSeviceMockTest@2ecca280]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2015-04-26T17:19:08Z" finished-at="2015-04-26T17:19:08Z">
+>>>>>>> 239b4f3807ec9728dc4e60d3860c9f25f5f94ab0
           <params>
             <param index="0">
               <value>
@@ -150,18 +215,30 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextBeforeTestMethod -->
+<<<<<<< HEAD
         <test-method status="PASS" signature="find(br.com.brm.scp.api.dto.request.UsuarioRequestDTO)[pri:0, instance:br.com.brm.scp.api.service.test.UsuarioSeviceMockTest@73846619]" name="find" duration-ms="4" started-at="2015-04-26T17:58:40Z" data-provider="updateAndFindUsuarioNotFound" finished-at="2015-04-26T17:58:40Z">
           <params>
             <param index="0">
               <value>
                 <![CDATA[br.com.brm.scp.api.dto.request.UsuarioRequestDTO@6ae5aa72]]>
+=======
+        <test-method status="PASS" signature="find(br.com.brm.scp.api.dto.request.UsuarioRequestDTO)[pri:0, instance:br.com.brm.scp.api.service.test.UsuarioSeviceMockTest@2ecca280]" name="find" duration-ms="2" started-at="2015-04-26T17:19:08Z" data-provider="updateAndFindUsuarioNotFound" finished-at="2015-04-26T17:19:08Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[br.com.brm.scp.api.dto.request.UsuarioRequestDTO@61fc0ce6]]>
+>>>>>>> 239b4f3807ec9728dc4e60d3860c9f25f5f94ab0
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- find -->
+<<<<<<< HEAD
         <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:br.com.brm.scp.api.service.test.UsuarioSeviceMockTest@73846619]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2015-04-26T17:58:40Z" finished-at="2015-04-26T17:58:40Z">
+=======
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:br.com.brm.scp.api.service.test.UsuarioSeviceMockTest@2ecca280]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="1" started-at="2015-04-26T17:19:08Z" finished-at="2015-04-26T17:19:08Z">
+>>>>>>> 239b4f3807ec9728dc4e60d3860c9f25f5f94ab0
           <params>
             <param index="0">
               <value>
@@ -172,29 +249,47 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextAfterTestMethod -->
+<<<<<<< HEAD
         <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:br.com.brm.scp.api.service.test.UsuarioSeviceMockTest@73846619]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="1" started-at="2015-04-26T17:58:40Z" finished-at="2015-04-26T17:58:40Z">
+=======
+        <test-method status="PASS" signature="delete(br.com.brm.scp.api.dto.request.UsuarioRequestDTO)[pri:0, instance:br.com.brm.scp.api.service.test.UsuarioSeviceMockTest@2ecca280]" name="delete" duration-ms="1" started-at="2015-04-26T17:19:08Z" data-provider="updateAndFindUsuarioNotFound" finished-at="2015-04-26T17:19:08Z">
+>>>>>>> 239b4f3807ec9728dc4e60d3860c9f25f5f94ab0
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void br.com.brm.scp.api.service.test.UsuarioSeviceMockTest.delete(br.com.brm.scp.api.dto.request.UsuarioRequestDTO) throws java.lang.Exception]]>
+                <![CDATA[br.com.brm.scp.api.dto.request.UsuarioRequestDTO@2bf75a70]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
+<<<<<<< HEAD
         </test-method> <!-- springTestContextBeforeTestMethod -->
         <test-method status="PASS" signature="delete(br.com.brm.scp.api.dto.request.UsuarioRequestDTO)[pri:0, instance:br.com.brm.scp.api.service.test.UsuarioSeviceMockTest@73846619]" name="delete" duration-ms="0" started-at="2015-04-26T17:58:40Z" data-provider="updateAndFindUsuarioNotFound" finished-at="2015-04-26T17:58:40Z">
           <params>
             <param index="0">
               <value>
                 <![CDATA[br.com.brm.scp.api.dto.request.UsuarioRequestDTO@35cabb2a]]>
+=======
+        </test-method> <!-- delete -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:br.com.brm.scp.api.service.test.UsuarioSeviceMockTest@2ecca280]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2015-04-26T17:19:08Z" finished-at="2015-04-26T17:19:08Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void br.com.brm.scp.api.service.test.UsuarioSeviceMockTest.delete(br.com.brm.scp.api.dto.request.UsuarioRequestDTO) throws java.lang.Exception]]>
+>>>>>>> 239b4f3807ec9728dc4e60d3860c9f25f5f94ab0
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
+<<<<<<< HEAD
         </test-method> <!-- delete -->
         <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:br.com.brm.scp.api.service.test.UsuarioSeviceMockTest@73846619]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="5" started-at="2015-04-26T17:58:40Z" finished-at="2015-04-26T17:58:40Z">
+=======
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:br.com.brm.scp.api.service.test.UsuarioSeviceMockTest@2ecca280]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="1" started-at="2015-04-26T17:19:08Z" finished-at="2015-04-26T17:19:08Z">
+>>>>>>> 239b4f3807ec9728dc4e60d3860c9f25f5f94ab0
           <params>
             <param index="0">
               <value>
@@ -205,11 +300,19 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextAfterTestMethod -->
+<<<<<<< HEAD
         <test-method status="PASS" signature="tearDown()[pri:0, instance:br.com.brm.scp.api.service.test.UsuarioSeviceMockTest@73846619]" name="tearDown" is-config="true" duration-ms="4" started-at="2015-04-26T17:58:40Z" finished-at="2015-04-26T17:58:40Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
         <test-method status="PASS" signature="springTestContextAfterTestClass()[pri:0, instance:br.com.brm.scp.api.service.test.UsuarioSeviceMockTest@73846619]" name="springTestContextAfterTestClass" is-config="true" duration-ms="2" started-at="2015-04-26T17:58:40Z" finished-at="2015-04-26T17:58:40Z">
+=======
+        <test-method status="PASS" signature="tearDown()[pri:0, instance:br.com.brm.scp.api.service.test.UsuarioSeviceMockTest@2ecca280]" name="tearDown" is-config="true" duration-ms="0" started-at="2015-04-26T17:19:08Z" finished-at="2015-04-26T17:19:08Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method status="PASS" signature="springTestContextAfterTestClass()[pri:0, instance:br.com.brm.scp.api.service.test.UsuarioSeviceMockTest@2ecca280]" name="springTestContextAfterTestClass" is-config="true" duration-ms="0" started-at="2015-04-26T17:19:08Z" finished-at="2015-04-26T17:19:08Z">
+>>>>>>> 239b4f3807ec9728dc4e60d3860c9f25f5f94ab0
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextAfterTestClass -->
