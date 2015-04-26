@@ -1,0 +1,8 @@
+# ns folders#
+###################
+.project
+.settings
+
+# Temp-files folders#
+###################
+*target*
