@@ -15,7 +15,7 @@ public interface UsuarioService {
 
 	UsuarioResponseDTO update(UsuarioRequestDTO usuarioSuccess) throws UsuarioNotFoundException;
 
-	UsuarioResponseDTO deletar(UsuarioRequestDTO usuarioDeletado);
+	void deletar(Long id) throws UsuarioNotFoundException;
 	
 	void clearMemory();
 

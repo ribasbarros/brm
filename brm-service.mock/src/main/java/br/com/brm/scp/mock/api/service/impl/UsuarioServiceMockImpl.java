@@ -2,6 +2,7 @@ package br.com.brm.scp.mock.api.service.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.UUID;
 
 import org.springframework.util.Assert;
@@ -157,11 +158,27 @@ public class UsuarioServiceMockImpl implements UsuarioService {
 		
 		return result;
 	}
-
+	/*
+	 * TODO VALIDAR DATA DELETADO!! - RIBAMAR
+	 * 
+	 */
 	@Override
-	public UsuarioResponseDTO deletar(UsuarioRequestDTO usuarioDeletado) {
-		// TODO Auto-generated method stub
-		return null;
+	public void deletar(Long id) throws UsuarioNotFoundException {
+		Assert.notNull(id);
+		UsuarioResponseDTO usuario = find(id);
+		usuario.setDataDeletado(new Date());
+		update(convert2Request(usuario));		 
+	}
+	
+	private UsuarioRequestDTO convert2Request(UsuarioResponseDTO usuarioResponse){
+		UsuarioRequestDTO usuarioRequest = new UsuarioRequestDTO();
+		usuarioRequest.setId(usuarioResponse.getId());
+		usuarioRequest.setNome(usuarioResponse.getNome());
+		usuarioRequest.setEmail(usuarioResponse.getEmail());
+		usuarioRequest.setCargo(usuarioResponse.getCargo());
+		usuarioRequest.setGrupoPerfilResponse(usuarioResponse.getGrupoPerfilResponse());
+		usuarioRequest.setDataDeletado(usuarioResponse.getDataDeletado());
+		return usuarioRequest;
 	}
 
 }
