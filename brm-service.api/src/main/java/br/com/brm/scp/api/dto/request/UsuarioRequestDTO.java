@@ -1,5 +1,6 @@
 package br.com.brm.scp.api.dto.request;
 
+import java.util.Date;
 import java.util.Collection;
 
 import br.com.brm.scp.api.dto.response.GrupoPerfilResponse;
@@ -11,6 +12,7 @@ public class UsuarioRequestDTO {
 	private String cargo;
 	private String email;
 	private Collection<GrupoPerfilResponse> grupoPerfilResponse;
+	private Date dataDeletado;
 
 	public Long getId() {
 		return id;
@@ -52,4 +54,12 @@ public class UsuarioRequestDTO {
 		this.grupoPerfilResponse = grupoPerfilResponse;
 	}
 
+	public Date getDataDeletado() {
+		return dataDeletado;
+	}
+
+	public void setDataDeletado(Date dataDeletado) {
+		this.dataDeletado = dataDeletado;
+	}
+	
 }

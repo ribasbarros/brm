@@ -40,9 +40,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 	}
 
 	@Override
-	public UsuarioResponseDTO deletar(UsuarioRequestDTO usuarioDeletado) {
+	public void deletar(Long id) throws UsuarioNotFoundException {
 		// TODO Auto-generated method stub
-		return null;
 	}
-	
 }
