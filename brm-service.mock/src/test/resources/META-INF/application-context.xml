@@ -15,5 +15,9 @@
 	<bean id="usuarioService" class="br.com.brm.scp.mock.api.service.impl.UsuarioServiceMockImpl">
 		<constructor-arg ref="mockData" index="0" />
 	</bean>
+	
+	<bean id="skuService" class="br.com.brm.scp.mock.api.service.impl.SkuServiceMockImpl">
+		<constructor-arg ref="mockData" index="0" />
+	</bean>
 
 </beans>
