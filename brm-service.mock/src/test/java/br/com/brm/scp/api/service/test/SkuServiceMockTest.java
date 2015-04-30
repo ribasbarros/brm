@@ -1,26 +1,12 @@
 package br.com.brm.scp.api.service.test;
 
-import static org.testng.AssertJUnit.assertNotNull;
-import static org.testng.AssertJUnit.assertTrue;
-
-import java.util.Collection;
-import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.DataProvider;
 
-import br.com.brm.scp.api.dto.request.SkuRequestDTO;
-import br.com.brm.scp.api.dto.request.UsuarioRequestDTO;
-import br.com.brm.scp.api.dto.response.UsuarioResponseDTO;
-import br.com.brm.scp.api.exceptions.UsuarioExistentException;
-import br.com.brm.scp.api.exceptions.UsuarioNotFoundException;
 import br.com.brm.scp.api.service.SkuService;
-import br.com.brm.scp.api.service.test.util.TestCallback;
-import br.com.brm.scp.api.service.test.util.TestUtils;
 import br.com.brm.scp.mock.api.mockdata.MockData;
 
 @ContextConfiguration(locations = { "classpath:META-INF/application-context.xml" })
@@ -32,7 +18,13 @@ public class SkuServiceMockTest extends AbstractTestNGSpringContextTests {
 	@Autowired
 	private MockData mockDb;
 
-	private static final boolean ENABLED = true;
+	private static final boolean CRIATION_SKU = true;
+
+	private static final boolean VALIDATION_SKU = true;
+
+	private static final boolean GERAR_PEDIDOS = true;
+
+	private static final boolean HISTORICO = true;
 
 	@BeforeClass
 	public void setup() throws Exception {
@@ -48,7 +40,7 @@ public class SkuServiceMockTest extends AbstractTestNGSpringContextTests {
 		// rollback da massa de dados do teste
 	}
 
-	@org.testng.annotations.Test(enabled = ENABLED, groups = "SKU", priority = 1)
+	@org.testng.annotations.Test(enabled = CRIATION_SKU, groups = "SKU", priority = 1)
 	public void create() throws Exception {
 		
 		//TODO SELECAO DO ITEM
@@ -67,7 +59,16 @@ public class SkuServiceMockTest extends AbstractTestNGSpringContextTests {
 
 	}
 	
-	@org.testng.annotations.Test(enabled = ENABLED, groups = "SKU", priority = 2)
+	@org.testng.annotations.Test(enabled = CRIATION_SKU, groups = "SKU", priority = 2)
+	public void selecionar() throws Exception {
+		
+		//TODO SELECIONA AS ORIGENS DESSA SKU
+		
+		//TODO SELECIONA UMA ORIGEM DEFAULT
+		
+	}
+	
+	@org.testng.annotations.Test(enabled = VALIDATION_SKU, groups = "SKU_VALIDACAO", priority = 3)
 	public void validarSku() throws Exception {
 		
 		//TODO FASE DE VIDA?
@@ -79,35 +80,7 @@ public class SkuServiceMockTest extends AbstractTestNGSpringContextTests {
 		//TODO ESTOQUE ATUAL?
 	}
 		
-	@org.testng.annotations.Test(enabled = ENABLED, groups = "SKU", priority = 3)
-	public void selecionar() throws Exception {
-		
-		//TODO SELECIONA AS ORIGENS DESSA SKU
-		
-		//TODO SELECIONA UMA ORIGEM DEFAULT
-		
-	}
-		
-	@org.testng.annotations.Test(enabled = ENABLED, groups = "SKU", priority = 4)
-	public void createPedido() throws Exception {
-		
-		//TODO CRIAR PEDIDO
-		
-		//TODO LISTAR PEDIDO
-		
-		//TODO APROVAR PEDIDO
-		
-		//TODO REPROVAR PEDIDO
-		
-		//TODO FATURADO PEDIDO
-		
-		//TODO EM TRANSITO
-		
-		//TODO RECEBIDO
-		
-	}
-	
-	@org.testng.annotations.Test(enabled = ENABLED, groups = "SKU", priority = 5)
+	@org.testng.annotations.Test(enabled = VALIDATION_SKU, groups = "SKU_VALIDACAO", priority = 4)
 	public void validarDatas() throws Exception {
 		
 		//TODO DESCONTINUADA?
@@ -117,30 +90,61 @@ public class SkuServiceMockTest extends AbstractTestNGSpringContextTests {
 		//TODO TEMPO DE REANALISE?
 		
 	}
+		
+	@org.testng.annotations.Test(enabled = GERAR_PEDIDOS, groups = "SKU_PEDIDOS", priority = 5)
+	public void createPedido() throws Exception {
+		
+		//TODO CRIAR PEDIDO
+	}
 	
-	@org.testng.annotations.Test(enabled = ENABLED, groups = "SKU", priority = 6)
+	@org.testng.annotations.Test(enabled = GERAR_PEDIDOS, groups = "SKU_PEDIDOS", priority = 6)
+	public void listarPedidoPorSku() throws Exception {
+
+		//TODO LISTAR PEDIDO
+		
+	}
+	
+	@org.testng.annotations.Test(enabled = GERAR_PEDIDOS, groups = "SKU_PEDIDOS", priority = 7)
+	public void aprovarPedido() throws Exception {
+
+		//TODO APROVAR PEDIDO
+		
+	}
+	
+	@org.testng.annotations.Test(enabled = GERAR_PEDIDOS, groups = "SKU_PEDIDOS", priority = 8)
+	public void reprovarPedido() throws Exception {
+		
+		//TODO REPROVAR PEDIDO
+		
+	}
+	
+	@org.testng.annotations.Test(enabled = GERAR_PEDIDOS, groups = "SKU_PEDIDOS", priority = 9)
+	public void faturarPedido() throws Exception {
+		
+		//TODO FATURADO PEDIDO
+		
+	}
+	
+	@org.testng.annotations.Test(enabled = GERAR_PEDIDOS, groups = "SKU_PEDIDOS", priority = 10)
+	public void emTransitoPedido() throws Exception {
+		
+		//TODO EM TRANSITO
+		
+	}
+	
+	@org.testng.annotations.Test(enabled = GERAR_PEDIDOS, groups = "SKU_PEDIDOS", priority = 11)
+	public void recebidoPedido() throws Exception {
+		
+		//TODO RECEBIDO
+		
+	}
+	
+	
+	@org.testng.annotations.Test(enabled = HISTORICO, groups = "SKU_RELATORIOS", priority = 12)
 	public void historico() throws Exception {
 		
 		//TODO PARA GRAFICOS (BOLAR)
 		
-	}
-	
-	
-	@DataProvider(name = "createSkuRequest")
-	public Object[][] criaSkuRequest() {
-		SkuRequestDTO request = doSkuValido();
-		UsuarioRequestDTO requestInvalido = doSkuInvalido();
-		return new Object[][] { new Object[] { request, requestInvalido } };
-	}
-
-	private UsuarioRequestDTO doSkuInvalido() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	private SkuRequestDTO doSkuValido() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
 }
