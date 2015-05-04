@@ -23,5 +23,17 @@
 	<bean id="dfuService" class="br.com.brm.scp.mock.api.service.impl.DfuServiceMockImpl">
 		<constructor-arg ref="mockData" index="0" />
 	</bean>
+	
+	<bean id="perfilService" class="br.com.brm.scp.mock.api.service.impl.PerfilServiceMockImpl">
+		<constructor-arg ref="mockData" index="0" />
+	</bean>
+	
+	<bean id="GrupoService" class="br.com.brm.scp.mock.api.service.impl.GrupoServiceMockImpl">
+		<constructor-arg ref="mockData" index="0" />
+	</bean>
+	
+	<bean id="CalculoService" class="br.com.brm.scp.mock.api.service.impl.CalculoServiceMockImpl">
+		<constructor-arg ref="mockData" index="0" />
+	</bean>
 
 </beans>

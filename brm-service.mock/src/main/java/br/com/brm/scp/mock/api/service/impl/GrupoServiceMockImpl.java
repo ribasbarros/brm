@@ -1,13 +1,13 @@
 package br.com.brm.scp.mock.api.service.impl;
 
-import br.com.brm.scp.api.service.PerfilService;
+import br.com.brm.scp.api.service.GrupoService;
 import br.com.brm.scp.mock.api.mockdata.MockData;
 
-public class PerfilServiceMockImpl implements PerfilService {
+public class GrupoServiceMockImpl implements GrupoService {
 
 	private MockData dbMock;
 
-	public PerfilServiceMockImpl(MockData dbMock) {
+	public GrupoServiceMockImpl(MockData dbMock) {
 		super();
 		this.dbMock = dbMock;
 	}
