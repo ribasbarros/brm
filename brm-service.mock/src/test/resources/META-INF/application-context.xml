@@ -28,11 +28,15 @@
 		<constructor-arg ref="mockData" index="0" />
 	</bean>
 	
-	<bean id="GrupoService" class="br.com.brm.scp.mock.api.service.impl.GrupoServiceMockImpl">
+	<bean id="grupoService" class="br.com.brm.scp.mock.api.service.impl.GrupoServiceMockImpl">
 		<constructor-arg ref="mockData" index="0" />
 	</bean>
 	
-	<bean id="CalculoService" class="br.com.brm.scp.mock.api.service.impl.CalculoServiceMockImpl">
+	<bean id="calculoService" class="br.com.brm.scp.mock.api.service.impl.CalculoServiceMockImpl">
+		<constructor-arg ref="mockData" index="0" />
+	</bean>
+	
+	<bean id="tagService" class="br.com.brm.scp.mock.api.service.impl.TagServiceMockImpl">
 		<constructor-arg ref="mockData" index="0" />
 	</bean>
 
