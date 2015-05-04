@@ -18,7 +18,7 @@ public class SkuServiceMockTest extends AbstractTestNGSpringContextTests {
 	@Autowired
 	private MockData mockDb;
 
-	private static final boolean CRIATION_SKU = true;
+	private static final boolean CREATION_SKU = true;
 
 	private static final boolean VALIDATION_SKU = true;
 
@@ -40,7 +40,7 @@ public class SkuServiceMockTest extends AbstractTestNGSpringContextTests {
 		// rollback da massa de dados do teste
 	}
 
-	@org.testng.annotations.Test(enabled = CRIATION_SKU, groups = "SKU", priority = 1)
+	@org.testng.annotations.Test(enabled = CREATION_SKU, groups = "SKU", priority = 1)
 	public void create() throws Exception {
 		
 		//TODO SELECAO DO ITEM
@@ -59,7 +59,7 @@ public class SkuServiceMockTest extends AbstractTestNGSpringContextTests {
 
 	}
 	
-	@org.testng.annotations.Test(enabled = CRIATION_SKU, groups = "SKU", priority = 2)
+	@org.testng.annotations.Test(enabled = CREATION_SKU, groups = "SKU", priority = 2)
 	public void selecionar() throws Exception {
 		
 		//TODO SELECIONA AS ORIGENS DESSA SKU
