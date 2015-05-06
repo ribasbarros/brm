@@ -10,7 +10,7 @@ public class DfuDocument implements Serializable {
 	private static final long serialVersionUID = -474555671538384916L;
 	
 	private Long id;
-	private ProdutoDocument produto;
+	private ItemDocument produto;
 	private Collection<TagDocument> tags;
 	private Calendar dataMaturidade;
 	private Calendar dataLancamento;
@@ -43,11 +43,11 @@ public class DfuDocument implements Serializable {
 		this.id = id;
 	}
 
-	public ProdutoDocument getProduto() {
+	public ItemDocument getProduto() {
 		return produto;
 	}
 
-	public void setProduto(ProdutoDocument produto) {
+	public void setProduto(ItemDocument produto) {
 		this.produto = produto;
 	}
 

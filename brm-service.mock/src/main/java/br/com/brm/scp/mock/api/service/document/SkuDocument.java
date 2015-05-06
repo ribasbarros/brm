@@ -12,7 +12,7 @@ public class SkuDocument implements Serializable {
 	private static final long serialVersionUID = 5204544337090545867L;
 	
 	private Long id;
-	private ProdutoDocument produto;
+	private ItemDocument produto;
 	private Collection<TagDocument> tags;
 	private Calendar dataMaturidade;
 	private Calendar dataDescontinuacao;
@@ -37,11 +37,11 @@ public class SkuDocument implements Serializable {
 	private UsuarioDocument usuarioCriacao;
 	private UsuarioDocument usuarioAlteracao;
 
-	public ProdutoDocument getProduto() {
+	public ItemDocument getProduto() {
 		return produto;
 	}
 
-	public void setProduto(ProdutoDocument produto) {
+	public void setProduto(ItemDocument produto) {
 		this.produto = produto;
 	}
 

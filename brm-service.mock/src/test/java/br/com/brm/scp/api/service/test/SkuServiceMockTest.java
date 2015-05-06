@@ -1,12 +1,22 @@
 package br.com.brm.scp.api.service.test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
+import br.com.brm.scp.api.dto.request.SkuRequestDTO;
+import br.com.brm.scp.api.dto.response.ItemResponseDTO;
+import br.com.brm.scp.api.dto.response.TagResponseDTO;
+import br.com.brm.scp.api.service.ItemService;
 import br.com.brm.scp.api.service.SkuService;
+import br.com.brm.scp.api.service.TagService;
 import br.com.brm.scp.mock.api.mockdata.MockData;
 
 @ContextConfiguration(locations = { "classpath:META-INF/application-context.xml" })
@@ -17,6 +27,12 @@ public class SkuServiceMockTest extends AbstractTestNGSpringContextTests {
 	
 	@Autowired
 	private MockData mockDb;
+
+	@Autowired
+	private ItemService sItem;
+
+	@Autowired
+	private TagService sTag;
 
 	private static final boolean CREATION_SKU = true;
 
@@ -43,9 +59,22 @@ public class SkuServiceMockTest extends AbstractTestNGSpringContextTests {
 	@org.testng.annotations.Test(enabled = CREATION_SKU, groups = "SKU", priority = 1)
 	public void create() throws Exception {
 		
+		SkuRequestDTO request = new SkuRequestDTO();
+		
 		//TODO SELECAO DO ITEM
+		Collection<ItemResponseDTO> items = sItem.all();
+		request.setItem(new ArrayList<ItemResponseDTO>(items).get(0));
 		
 		//TODO ADIÇÃO DAS TAGS - CLICA EM OK
+		Collection<TagResponseDTO> tags = sTag.find();
+		TagResponseDTO tagResponseDTO = new ArrayList<TagResponseDTO>(tags).get(0);
+		request.getTags().add(tagResponseDTO); //Nivel X
+		
+		tags = sTag.find(tags.toArray());
+		request.getTags().add(tagResponseDTO); //Nivel Y
+		
+		tags = sTag.find(tags.toArray());
+		request.getTags().add(tagResponseDTO); //Nivel Z
 		
 		//TODO JAH EXISTE ESSA SKU?
 		

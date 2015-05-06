@@ -6,7 +6,7 @@ import java.util.Collection;
 
 import br.com.brm.scp.mock.api.service.document.status.StatusProduto;
 
-public class ProdutoDocument implements Serializable {
+public class ItemDocument implements Serializable {
 
 	private static final long serialVersionUID = -852183949869132845L;
 	
