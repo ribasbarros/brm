@@ -45,7 +45,7 @@ public class DfuServiceMockTest extends AbstractTestNGSpringContextTests {
 		
 		//TODO PREENCHE OS CAMPOS
 		
-		//TODO SELECIONA O MODELO DE PLANEJAMENTO
+		//TODO SELECIONA O MODELO DE PLANEJAMENTO (Onde são feitos os ajutes das porcentagens, quais departamentos ajustaram e aprovarao o futuro valor de crescimento)* VISAO QUE OS DEPARTAMENTOS VERAO
 		
 	}
 	
