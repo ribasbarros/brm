@@ -1,13 +1,14 @@
 package br.com.brm.scp.fw.test.converters;
 
+import static org.testng.AssertJUnit.assertTrue;
+
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Arrays;
-import java.util.Collection;
 
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
-
-import scala.annotation.meta.setter;
 
 public class ConverterTest {
 
@@ -23,38 +24,64 @@ public class ConverterTest {
 
 	@org.testng.annotations.Test(enabled = UTILS, groups = "Utils", priority = 1)
 	public void converterHelper() throws Exception {
-		ClassTestA clazzA = new ClassTestA();
-		clazzA.setA("TESTE A");
-		clazzA.setB(new Integer(3));
-		clazzA.setC(Arrays.asList(new Object[] { "value01", "value02" }));
+		ClassTestA obj = new ClassTestA();
+		obj.setA("TESTE A");
+		obj.setB(new Integer(3));
+		obj.setC(Arrays.asList(new Object[] { "value01", "value02" }));
 
-		ClassTestB clazzB = (ClassTestB) convert(clazzA, ClassTestB.class);
+		ClassTestB clazzB = (ClassTestB) convert(obj, ClassTestB.class);
+
+		assertTrue(clazzB.getA().equals(obj.getA()));
+		assertTrue(clazzB.getC().equals(obj.getC()));
 
 	}
 
-	@SuppressWarnings({ "unchecked", "unused" })
-	private <T extends Object, Y extends Object> Object convert(T clazzA, Class<Y> clazzB) {
+	private <T extends Object> Object convert(T instanceFrom, Class<?> clazzB) {
 
+		Object instanceTo = null;
+		
 		try {
-			
-			Object test = (Object) Class.forName(clazzB.getCanonicalName()).newInstance();
-			
-			Class<? extends Object> fromClass = clazzA.getClass();
+
+			instanceTo = (Object) Class.forName(clazzB.getCanonicalName()).newInstance();
+
+			Class<? extends Object> fromClass = instanceFrom.getClass();
 			Field[] fromFields = fromClass.getDeclaredFields();
 
-			for(Field f : fromFields){
-				//test.getClass().getDeclaredMethods().Field(f.getName()).setAccessible(true);
-			}
-			
-			
-			System.out.println(test);
-			
-		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			for (Field f : fromFields) {
 
-		return null;
+				try {
+					Method setterMethodTo = instanceTo.getClass().getDeclaredMethod("set" + toCamelCase(f.getName()), f.getType());
+					setterMethodTo.setAccessible(true);
+
+					Method getterMethodFrom = fromClass.getDeclaredMethod("get" + toCamelCase(f.getName()));
+
+					setterMethodTo.invoke(instanceTo, getterMethodFrom.invoke(instanceFrom));
+
+				} catch (NoSuchMethodException e) {
+				}
+			}
+
+			System.out.println(instanceTo);
+
+		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SecurityException
+				| IllegalArgumentException | InvocationTargetException e) {
+			e.printStackTrace();
+		} 
+
+		return instanceTo;
+	}
+
+	static String toCamelCase(String s) {
+		String[] parts = s.split("_");
+		String camelCaseString = "";
+		for (String part : parts) {
+			camelCaseString = camelCaseString + toProperCase(part);
+		}
+		return camelCaseString;
+	}
+
+	static String toProperCase(String s) {
+		return s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase();
 	}
 
 }
