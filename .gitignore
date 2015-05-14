@@ -2,6 +2,7 @@
 ###################
 *.project*
 *.settings*
+*.log
 
 # Temp-files folders#
 ###################
