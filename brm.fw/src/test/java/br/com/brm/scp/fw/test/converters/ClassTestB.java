@@ -8,6 +8,8 @@ public class ClassTestB {
 
 	private Collection<ClassTestD> listC;
 
+	private ClassTestD objectNoList;
+
 	public String getA() {
 		return a;
 	}
@@ -30,6 +32,14 @@ public class ClassTestB {
 
 	public void setListC(Collection<ClassTestD> listC) {
 		this.listC = listC;
+	}
+
+	public ClassTestD getObjectNoList() {
+		return objectNoList;
+	}
+
+	public void setObjectNoList(ClassTestD objectNoList) {
+		this.objectNoList = objectNoList;
 	}
 
 }

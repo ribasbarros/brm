@@ -1,0 +1,426 @@
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestA para ClassTestB
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - 
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - br.com.brm.scp.fw.test.converters.ClassTestB.setB(java.lang.Integer)
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - 
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - @br.com.brm.scp.fw.test.converters.ConvertFor(value=class br.com.brm.scp.fw.test.converters.ClassTestD)
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestC para ClassTestD
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - 
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - br.com.brm.scp.fw.test.converters.ClassTestD.setY(java.lang.String)
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestC para ClassTestD
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - 
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - br.com.brm.scp.fw.test.converters.ClassTestD.setY(java.lang.String)
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - br.com.brm.scp.fw.test.converters.ClassTestB.setObjectNoList(br.com.brm.scp.fw.test.converters.ClassTestC)
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ********************************
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestA para ClassTestB
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ********************************
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - 
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - br.com.brm.scp.fw.test.converters.ClassTestB.setB(java.lang.Integer)
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - 
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - @br.com.brm.scp.fw.test.converters.ConvertFor(value=class br.com.brm.scp.fw.test.converters.ClassTestD)
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ********************************
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestC para ClassTestD
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ********************************
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - 
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - br.com.brm.scp.fw.test.converters.ClassTestD.setY(java.lang.String)
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ********************************
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestC para ClassTestD
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ********************************
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - 
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - br.com.brm.scp.fw.test.converters.ClassTestD.setY(java.lang.String)
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - br.com.brm.scp.fw.test.converters.ClassTestB.setObjectNoList(br.com.brm.scp.fw.test.converters.ClassTestC)
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestA para ClassTestB
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - 
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - br.com.brm.scp.fw.test.converters.ClassTestB.setB(java.lang.Integer)
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - 
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - @br.com.brm.scp.fw.test.converters.ConvertFor(value=class br.com.brm.scp.fw.test.converters.ClassTestD)
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestC para ClassTestD
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - 
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - br.com.brm.scp.fw.test.converters.ClassTestD.setY(java.lang.String)
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestC para ClassTestD
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - 
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - br.com.brm.scp.fw.test.converters.ClassTestD.setY(java.lang.String)
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - br.com.brm.scp.fw.test.converters.ClassTestB.setObjectNoList(br.com.brm.scp.fw.test.converters.ClassTestC)
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestA para ClassTestB
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - 
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - br.com.brm.scp.fw.test.converters.ClassTestB.setB(java.lang.Integer)
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - 
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - @br.com.brm.scp.fw.test.converters.ConvertFor(value=class br.com.brm.scp.fw.test.converters.ClassTestD)
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestC para ClassTestD
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - 
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - br.com.brm.scp.fw.test.converters.ClassTestD.setY(java.lang.String)
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestC para ClassTestD
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - 
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - br.com.brm.scp.fw.test.converters.ClassTestD.setY(java.lang.String)
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - br.com.brm.scp.fw.test.converters.ClassTestB.setObjectNoList(br.com.brm.scp.fw.test.converters.ClassTestC)
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestA para ClassTestB
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - br.com.brm.scp.fw.test.converters.ClassTestB.setB(java.lang.Integer)
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Anotacao encontrada! Converter $Proxy7 para $Proxy7
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestC para ClassTestD
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - br.com.brm.scp.fw.test.converters.ClassTestD.setY(java.lang.String)
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestC para ClassTestD
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - br.com.brm.scp.fw.test.converters.ClassTestD.setY(java.lang.String)
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - br.com.brm.scp.fw.test.converters.ClassTestB.setObjectNoList(br.com.brm.scp.fw.test.converters.ClassTestC)
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestA para ClassTestB
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - br.com.brm.scp.fw.test.converters.ClassTestB.setB(java.lang.Integer)
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Converter classe anotada para [br.com.brm.scp.fw.test.converters.ClassTestC@68433461, br.com.brm.scp.fw.test.converters.ClassTestC@142401c1]
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestC para ClassTestD
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - br.com.brm.scp.fw.test.converters.ClassTestD.setY(java.lang.String)
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestC para ClassTestD
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - br.com.brm.scp.fw.test.converters.ClassTestD.setY(java.lang.String)
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - br.com.brm.scp.fw.test.converters.ClassTestB.setObjectNoList(br.com.brm.scp.fw.test.converters.ClassTestC)
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestA para ClassTestB
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - br.com.brm.scp.fw.test.converters.ClassTestB.setB(java.lang.Integer)
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ANOTACAO: Converter classe anotada para [br.com.brm.scp.fw.test.converters.ClassTestC@3b19079e, br.com.brm.scp.fw.test.converters.ClassTestC@68433461]
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestC para ClassTestD
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - br.com.brm.scp.fw.test.converters.ClassTestD.setY(java.lang.String)
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestC para ClassTestD
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - br.com.brm.scp.fw.test.converters.ClassTestD.setY(java.lang.String)
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - br.com.brm.scp.fw.test.converters.ClassTestB.setObjectNoList(br.com.brm.scp.fw.test.converters.ClassTestC)
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestA para ClassTestB
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - br.com.brm.scp.fw.test.converters.ClassTestB.setB(java.lang.Integer)
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ANOTACAO: Converter classe anotada para [br.com.brm.scp.fw.test.converters.ClassTestC@7d907b9e, br.com.brm.scp.fw.test.converters.ClassTestC@18a40279]
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestC para ClassTestD
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - br.com.brm.scp.fw.test.converters.ClassTestD.setY(java.lang.String)
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestC para ClassTestD
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - br.com.brm.scp.fw.test.converters.ClassTestD.setY(java.lang.String)
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - br.com.brm.scp.fw.test.converters.ClassTestB.setObjectNoList(br.com.brm.scp.fw.test.converters.ClassTestC)
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestA para ClassTestB
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - br.com.brm.scp.fw.test.converters.ClassTestB.setB(java.lang.Integer)
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestA para ClassTestB
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - b
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ANOTACAO: Converter classe anotada para [br.com.brm.scp.fw.test.converters.ClassTestC@e15fbe, br.com.brm.scp.fw.test.converters.ClassTestC@4c54b365]
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestC para ClassTestD
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - y
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestC para ClassTestD
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - y
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ANOTACAO: Converter classe anotada para br.com.brm.scp.fw.test.converters.ClassTestC@493cd5ba
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestA para ClassTestB
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - b
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ANOTACAO: Converter classe anotada para [br.com.brm.scp.fw.test.converters.ClassTestC@3da60e09, br.com.brm.scp.fw.test.converters.ClassTestC@60e3907d]
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestC para ClassTestD
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - y
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestC para ClassTestD
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - y
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ANOTACAO: Converter classe anotada para br.com.brm.scp.fw.test.converters.ClassTestC@4cd9794b
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestA para ClassTestB
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - Campo b não encontrado!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ANOTACAO: Converter classe anotada para [br.com.brm.scp.fw.test.converters.ClassTestC@3da60e09, br.com.brm.scp.fw.test.converters.ClassTestC@60e3907d]
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestC para ClassTestD
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - Campo y não encontrado!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestC para ClassTestD
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - Campo y não encontrado!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ANOTACAO: Converter classe anotada para br.com.brm.scp.fw.test.converters.ClassTestC@4cd9794b
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestC para ClassTestD
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - Campo y não encontrado!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestA para ClassTestB
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - Campo b não encontrado!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ANOTACAO: Converter classe anotada para [br.com.brm.scp.fw.test.converters.ClassTestC@62ea423e, br.com.brm.scp.fw.test.converters.ClassTestC@1a3272e]
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestC para ClassTestD
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - Campo y não encontrado!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestC para ClassTestD
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - Campo y não encontrado!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ANOTACAO: Converter classe anotada para br.com.brm.scp.fw.test.converters.ClassTestC@44036e4e
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestC para ClassTestD
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - Campo y não encontrado!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestA para ClassTestB
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - Campo b da classe ClassTestB não encontrado!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ANOTACAO: Converter classe anotada para [br.com.brm.scp.fw.test.converters.ClassTestC@62ea423e, br.com.brm.scp.fw.test.converters.ClassTestC@1a3272e]
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestC para ClassTestD
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - Campo y da classe ClassTestD não encontrado!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestC para ClassTestD
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - Campo y da classe ClassTestD não encontrado!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ANOTACAO: Converter classe anotada para br.com.brm.scp.fw.test.converters.ClassTestC@44036e4e
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestC para ClassTestD
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - Campo y da classe ClassTestD não encontrado!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestA para ClassTestB
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+WARN main br.com.brm.scp.fw.test.converters.ConverterTest - Campo b da classe ClassTestB não encontrado!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ANOTACAO: Converter classe anotada para [br.com.brm.scp.fw.test.converters.ClassTestC@1a3272e, br.com.brm.scp.fw.test.converters.ClassTestC@7e613dd8]
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestC para ClassTestD
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+WARN main br.com.brm.scp.fw.test.converters.ConverterTest - Campo y da classe ClassTestD não encontrado!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestC para ClassTestD
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+WARN main br.com.brm.scp.fw.test.converters.ConverterTest - Campo y da classe ClassTestD não encontrado!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ANOTACAO: Converter classe anotada para br.com.brm.scp.fw.test.converters.ClassTestC@3d3ee5c4
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestC para ClassTestD
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+WARN main br.com.brm.scp.fw.test.converters.ConverterTest - Campo y da classe ClassTestD não encontrado!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestA para ClassTestB
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+WARN main br.com.brm.scp.fw.test.converters.ConverterTest - Campo b da classe ClassTestB não encontrado!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ANOTACAO: Converter classe anotada para [br.com.brm.scp.fw.test.converters.ClassTestC@1a3272e, br.com.brm.scp.fw.test.converters.ClassTestC@7e613dd8]
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestC para ClassTestD
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+WARN main br.com.brm.scp.fw.test.converters.ConverterTest - Campo y da classe ClassTestD não encontrado!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestC para ClassTestD
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+WARN main br.com.brm.scp.fw.test.converters.ConverterTest - Campo y da classe ClassTestD não encontrado!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ANOTACAO: Converter classe anotada para br.com.brm.scp.fw.test.converters.ClassTestC@3d3ee5c4
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestC para ClassTestD
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+WARN main br.com.brm.scp.fw.test.converters.ConverterTest - Campo y da classe ClassTestD não encontrado!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestA para ClassTestB
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+WARN main br.com.brm.scp.fw.test.converters.ConverterTest - Campo b da classe ClassTestB não encontrado!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ANOTACAO: Converter classe anotada para [br.com.brm.scp.fw.test.converters.ClassTestC@6bd26ddd, br.com.brm.scp.fw.test.converters.ClassTestC@442aff78]
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestC para ClassTestD
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+WARN main br.com.brm.scp.fw.test.converters.ConverterTest - Campo y da classe ClassTestD não encontrado!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestC para ClassTestD
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+WARN main br.com.brm.scp.fw.test.converters.ConverterTest - Campo y da classe ClassTestD não encontrado!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ANOTACAO: Converter classe anotada para br.com.brm.scp.fw.test.converters.ClassTestC@1f7c814d
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestC para ClassTestD
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+WARN main br.com.brm.scp.fw.test.converters.ConverterTest - Campo y da classe ClassTestD não encontrado!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestA para ClassTestB
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+WARN main br.com.brm.scp.fw.test.converters.ConverterTest - Campo b da classe ClassTestB não encontrado!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ANOTACAO: Converter classe anotada para [br.com.brm.scp.fw.test.converters.ClassTestC@62ea423e, br.com.brm.scp.fw.test.converters.ClassTestC@1a3272e]
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ANOTACAO: Convertendo uma coleção
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestC para ClassTestD
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+WARN main br.com.brm.scp.fw.test.converters.ConverterTest - Campo y da classe ClassTestD não encontrado!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestC para ClassTestD
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+WARN main br.com.brm.scp.fw.test.converters.ConverterTest - Campo y da classe ClassTestD não encontrado!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ANOTACAO: Converter classe anotada para br.com.brm.scp.fw.test.converters.ClassTestC@44036e4e
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ANOTACAO: Convertendo um objeto
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Convertendo objeto ClassTestC para ClassTestD
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - -------------------------------------------------------
+WARN main br.com.brm.scp.fw.test.converters.ConverterTest - Campo y da classe ClassTestD não encontrado!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - Fim da converção!
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - ------------------------------------------------------

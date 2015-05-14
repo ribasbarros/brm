@@ -2,23 +2,23 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="32" started-at="2015-05-12T03:14:47Z" finished-at="2015-05-12T03:14:47Z">
+  <suite name="Default suite" duration-ms="57" started-at="2015-05-14T03:34:36Z" finished-at="2015-05-14T03:34:36Z">
     <groups>
       <group name="Utils">
-        <method signature="ConverterTest.converterHelper()[pri:0, instance:br.com.brm.scp.fw.test.converters.ConverterTest@48ca328f]" name="converterHelper" class="br.com.brm.scp.fw.test.converters.ConverterTest"/>
+        <method signature="ConverterTest.converterHelper()[pri:0, instance:br.com.brm.scp.fw.test.converters.ConverterTest@7dac14dd]" name="converterHelper" class="br.com.brm.scp.fw.test.converters.ConverterTest"/>
       </group> <!-- Utils -->
     </groups>
-    <test name="Default test" duration-ms="32" started-at="2015-05-12T03:14:47Z" finished-at="2015-05-12T03:14:47Z">
+    <test name="Default test" duration-ms="57" started-at="2015-05-14T03:34:36Z" finished-at="2015-05-14T03:34:36Z">
       <class name="br.com.brm.scp.fw.test.converters.ConverterTest">
-        <test-method status="PASS" signature="setup()[pri:0, instance:br.com.brm.scp.fw.test.converters.ConverterTest@48ca328f]" name="setup" is-config="true" duration-ms="8" started-at="2015-05-12T00:14:47Z" finished-at="2015-05-12T00:14:47Z">
+        <test-method status="PASS" signature="setup()[pri:0, instance:br.com.brm.scp.fw.test.converters.ConverterTest@7dac14dd]" name="setup" is-config="true" duration-ms="9" started-at="2015-05-14T00:34:36Z" finished-at="2015-05-14T00:34:36Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method status="PASS" signature="converterHelper()[pri:0, instance:br.com.brm.scp.fw.test.converters.ConverterTest@48ca328f]" name="converterHelper" duration-ms="12" started-at="2015-05-12T00:14:47Z" finished-at="2015-05-12T00:14:47Z">
+        <test-method status="PASS" signature="converterHelper()[pri:0, instance:br.com.brm.scp.fw.test.converters.ConverterTest@7dac14dd]" name="converterHelper" duration-ms="33" started-at="2015-05-14T00:34:36Z" finished-at="2015-05-14T00:34:36Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- converterHelper -->
-        <test-method status="PASS" signature="tearDown()[pri:0, instance:br.com.brm.scp.fw.test.converters.ConverterTest@48ca328f]" name="tearDown" is-config="true" duration-ms="0" started-at="2015-05-12T00:14:47Z" finished-at="2015-05-12T00:14:47Z">
+        <test-method status="PASS" signature="tearDown()[pri:0, instance:br.com.brm.scp.fw.test.converters.ConverterTest@7dac14dd]" name="tearDown" is-config="true" duration-ms="0" started-at="2015-05-14T00:34:36Z" finished-at="2015-05-14T00:34:36Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->

@@ -3,13 +3,16 @@ package br.com.brm.scp.fw.test.converters;
 import java.util.Collection;
 
 public class ClassTestA {
-	
+
 	private String a;
 	private Integer b;
 	private Collection<Object> c;
-	
+
 	@ConvertFor(ClassTestD.class)
 	private Collection<ClassTestC> listC;
+
+	@ConvertFor(ClassTestD.class)
+	private ClassTestC objectNoList;
 
 	public String getA() {
 		return a;
@@ -41,6 +44,14 @@ public class ClassTestA {
 
 	public void setListC(Collection<ClassTestC> listC) {
 		this.listC = listC;
+	}
+
+	public ClassTestC getObjectNoList() {
+		return objectNoList;
+	}
+
+	public void setObjectNoList(ClassTestC objectNoList) {
+		this.objectNoList = objectNoList;
 	}
 
 }

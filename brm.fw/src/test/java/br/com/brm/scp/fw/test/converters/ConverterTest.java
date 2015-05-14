@@ -10,12 +10,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
+import org.apache.log4j.Logger;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
 public class ConverterTest {
 
 	private static final boolean UTILS = true;
+	
+	private Logger logger = Logger.getLogger(ConverterTest.class);
 
 	@BeforeClass
 	public void setup() throws Exception {
@@ -27,75 +30,114 @@ public class ConverterTest {
 
 	@org.testng.annotations.Test(enabled = UTILS, groups = "Utils", priority = 1)
 	public void converterHelper() throws Exception {
-		ClassTestA obj = new ClassTestA();
-		obj.setA("TESTE A");
-		obj.setB(new Integer(3));
-		obj.setC(Arrays.asList(new Object[] { "value01", "value02" }));
-		
+		ClassTestA clazzA = new ClassTestA();
+		clazzA.setA("TESTE A");
+		clazzA.setB(new Integer(3));
+		clazzA.setC(Arrays.asList(new Object[] { "value01", "value02" }));
+
 		Collection<ClassTestC> listC = new ArrayList<ClassTestC>();
 		ClassTestC c = new ClassTestC();
 		c.setY("Y");
 		c.setZ("Z");
 		listC.add(c);
-		obj.setListC(listC);
+		
+		c = new ClassTestC();
+		c.setY("Y01");
+		c.setZ("Z01");
+		listC.add(c);
+		
+		clazzA.setListC(listC);
+		
+		ClassTestC objectNoList = new ClassTestC();
+		objectNoList.setY("Y02");
+		objectNoList.setZ("Z02");
+		clazzA.setObjectNoList(objectNoList);
 
-		ClassTestB clazzB = (ClassTestB) convert(obj, ClassTestB.class);
+		ClassTestB clazzB = (ClassTestB) convert(clazzA, ClassTestB.class);
 
-		assertTrue(clazzB.getA().equals(obj.getA()));
-		assertTrue(clazzB.getC().equals(obj.getC()));
+		assertTrue(clazzB.getA().equals(clazzA.getA()));
+		assertTrue(clazzB.getC().equals(clazzA.getC()));
+		assertTrue(clazzB.getObjectNoList().getZ().equals(clazzA.getObjectNoList().getZ()));
 
 	}
 
 	private <T extends Object> Object convert(T instanceFrom, Class<?> clazzB) {
-
-		Object instanceTo = null;
-
+		
+		logger.info("------------------------------------------------------");
+		logger.info(String.format("Convertendo objeto %s para %s", instanceFrom.getClass().getSimpleName(), clazzB.getSimpleName()));
+		logger.info("-------------------------------------------------------");
+		
+		Object instanceDestine = null;
 		try {
-
-			instanceTo = (Object) Class.forName(clazzB.getCanonicalName()).newInstance();
-
+			instanceDestine = (Object) Class.forName(clazzB.getCanonicalName()).newInstance();
 			Class<? extends Object> fromClass = instanceFrom.getClass();
 			Field[] fromFields = fromClass.getDeclaredFields();
-
 			for (Field f : fromFields) {
-
-				Annotation declaredAnnotations = f.getAnnotation(ConvertFor.class);
-
-				if (declaredAnnotations instanceof ConvertFor) {
-					System.out.println("annotation in " + f.getName());
-				}
-
 				try {
-					Method setterMethodTo = instanceTo.getClass().getDeclaredMethod("set" + toCamelCase(f.getName()),
-							f.getType());
+					
+					String methodGetterNameOrigem = "get" + toFirstProperCase(f.getName());
+					String methodSetterNameDestine = "set" + toFirstProperCase(f.getName());
+
+					Method getterMethodFrom = fromClass.getDeclaredMethod(methodGetterNameOrigem);
+					Class<?> typeObjectDestine = instanceDestine.getClass().getDeclaredField(f.getName()).getType();
+					Method setterMethodTo = instanceDestine.getClass().getDeclaredMethod(methodSetterNameDestine, typeObjectDestine);
 					setterMethodTo.setAccessible(true);
+					
+					Annotation annotation4Conversion = f.getAnnotation(ConvertFor.class);
 
-					Method getterMethodFrom = fromClass.getDeclaredMethod("get" + toCamelCase(f.getName()));
-
-					setterMethodTo.invoke(instanceTo, getterMethodFrom.invoke(instanceFrom));
-
+					if (annotation4Conversion instanceof ConvertFor) {
+						
+						ConvertFor convert2 = (ConvertFor) annotation4Conversion;
+						Object invoke = getterMethodFrom.invoke(instanceFrom);
+						
+						logger.info(String.format("ANOTACAO: Converter classe anotada para %s", invoke));
+						
+						if( invoke instanceof Collection<?> ) {
+							
+							logger.info("ANOTACAO: Convertendo uma coleção");
+							
+							Collection<Object> collectionConverted = convert(convert2, invoke);
+							
+							setterMethodTo.invoke(instanceDestine, collectionConverted);
+						}else if( invoke instanceof Object ) {
+							
+							logger.info("ANOTACAO: Convertendo um objeto");
+							
+							Object element = convert(invoke, convert2.value());
+							setterMethodTo.invoke(instanceDestine, element);
+						}
+					} else {
+						setterMethodTo.invoke(instanceDestine, getterMethodFrom.invoke(instanceFrom));
+					}
 				} catch (NoSuchMethodException e) {
+					logger.debug(e.getMessage());
+				} catch (NoSuchFieldException e) {
+					logger.warn(String.format("Campo %s da classe %s não encontrado!", e.getMessage(), instanceDestine.getClass().getSimpleName()));
 				}
 			}
 		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SecurityException
 				| IllegalArgumentException | InvocationTargetException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
-
-		return instanceTo;
+		
+		logger.info("------------------------------------------------------");
+		logger.info("Fim da converção!");
+		logger.info("------------------------------------------------------");
+		
+		return instanceDestine;
 	}
 
-	static String toCamelCase(String s) {
-		String[] parts = s.split("_");
-		String camelCaseString = "";
-		for (String part : parts) {
-			camelCaseString = camelCaseString + toProperCase(part);
+	private Collection<Object> convert(ConvertFor convert2, Object invoke) {
+		Collection<Object> collectionConverted = new ArrayList<Object>();
+		for (Object elementFromCollection : (ArrayList) invoke) {
+			Object element = convert(elementFromCollection, convert2.value());
+			collectionConverted.add(element);
 		}
-		return camelCaseString;
+		return collectionConverted;
 	}
 
-	static String toProperCase(String s) {
-		return s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase();
+	static String toFirstProperCase(String s) {
+		return s.substring(0, 1).toUpperCase() + s.substring(1);
 	}
 
 }

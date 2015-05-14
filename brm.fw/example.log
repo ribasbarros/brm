@@ -1,0 +1,9 @@
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - 
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - br.com.brm.scp.fw.test.converters.ClassTestB.setB(java.lang.Integer)
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - 
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - @br.com.brm.scp.fw.test.converters.ConvertFor(value=class br.com.brm.scp.fw.test.converters.ClassTestD)
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - 
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - br.com.brm.scp.fw.test.converters.ClassTestD.setY(java.lang.String)
+INFO main br.com.brm.scp.fw.test.converters.ConverterTest - 
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - br.com.brm.scp.fw.test.converters.ClassTestD.setY(java.lang.String)
+DEBUG main br.com.brm.scp.fw.test.converters.ConverterTest - br.com.brm.scp.fw.test.converters.ClassTestB.setObjectNoList(br.com.brm.scp.fw.test.converters.ClassTestC)
