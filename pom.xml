@@ -20,11 +20,11 @@
 	</properties>
 
 	<modules>
+		<module>brm.fw</module>
 		<module>brm-service.api</module>
 		<module>brm-service.impl</module>
 		<module>brm-service.mock</module>
 		<module>brm-service.batch</module>
-		<module>brm.fw</module>
 		<module>brm.web</module>
 	</modules>
 

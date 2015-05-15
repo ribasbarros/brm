@@ -1,9 +1,7 @@
 package br.com.brm.scp.api.service.test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -13,11 +11,14 @@ import org.testng.annotations.BeforeClass;
 
 import br.com.brm.scp.api.dto.request.SkuRequestDTO;
 import br.com.brm.scp.api.dto.response.ItemResponseDTO;
+import br.com.brm.scp.api.dto.response.SkuResponseDTO;
 import br.com.brm.scp.api.dto.response.TagResponseDTO;
 import br.com.brm.scp.api.service.ItemService;
 import br.com.brm.scp.api.service.SkuService;
 import br.com.brm.scp.api.service.TagService;
 import br.com.brm.scp.mock.api.mockdata.MockData;
+import br.com.brm.scp.mock.api.service.strategies.Sku;
+import br.com.brm.scp.mock.api.service.strategies.impl.SkuCreateStrategyImpl;
 
 @ContextConfiguration(locations = { "classpath:META-INF/application-context.xml" })
 public class SkuServiceMockTest extends AbstractTestNGSpringContextTests {
@@ -75,6 +76,8 @@ public class SkuServiceMockTest extends AbstractTestNGSpringContextTests {
 		
 		tags = sTag.find(tags.toArray());
 		request.getTags().add(tagResponseDTO); //Nivel Z
+		
+		SkuResponseDTO response = new Sku(new SkuCreateStrategyImpl()).create(request);
 		
 		//TODO JAH EXISTE ESSA SKU?
 		

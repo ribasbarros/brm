@@ -1,4 +1,4 @@
-package br.com.brm.scp.fw.test.converters;
+package br.com.brm.scp.fw.test.dto;
 
 import java.util.Collection;
 
