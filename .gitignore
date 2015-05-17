@@ -4,6 +4,8 @@
 *.settings*
 *.log
 
+
 # Temp-files folders#
 ###################
 *target*
+*test-output*
