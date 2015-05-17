@@ -67,17 +67,10 @@ public class SkuServiceMockTest extends AbstractTestNGSpringContextTests {
 		request.setItem(new ArrayList<ItemResponseDTO>(items).get(0));
 		
 		//TODO ADIÇÃO DAS TAGS - CLICA EM OK
-		Collection<TagResponseDTO> tags = sTag.find();
-		TagResponseDTO tagResponseDTO = new ArrayList<TagResponseDTO>(tags).get(0);
-		request.getTags().add(tagResponseDTO); //Nivel X
-		
-		tags = sTag.find(tags.toArray());
-		request.getTags().add(tagResponseDTO); //Nivel Y
-		
-		tags = sTag.find(tags.toArray());
-		request.getTags().add(tagResponseDTO); //Nivel Z
-		
-		SkuResponseDTO response = new Sku(new SkuCreateStrategyImpl()).create(request);
+		Collection<TagResponseDTO> selecionadas = new ArrayList<TagResponseDTO>();
+		selecionadas = sTag.selecionar(selecionadas); //Nivel 1
+		selecionadas = sTag.selecionar(selecionadas); //Nivel 2
+		selecionadas = sTag.selecionar(selecionadas); //Nivel 3
 		
 		//TODO JAH EXISTE ESSA SKU?
 		
