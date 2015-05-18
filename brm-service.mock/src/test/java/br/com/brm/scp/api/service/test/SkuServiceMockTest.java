@@ -1,5 +1,7 @@
 package br.com.brm.scp.api.service.test;
 
+import static org.testng.AssertJUnit.assertFalse;
+import static org.testng.AssertJUnit.assertNotNull;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -43,9 +45,12 @@ public class SkuServiceMockTest extends AbstractTestNGSpringContextTests {
 
 	private static final boolean HISTORICO = true;
 
+	private SkuRequestDTO skuRequestSuccess;
+	
 	@BeforeClass
 	public void setup() throws Exception {
 		clearMemory();
+		skuRequestSuccess = new SkuRequestDTO();
 	}
 
 	private void clearMemory() {
@@ -56,31 +61,46 @@ public class SkuServiceMockTest extends AbstractTestNGSpringContextTests {
 	public void tearDown() throws Exception {
 		// rollback da massa de dados do teste
 	}
-
-	@org.testng.annotations.Test(enabled = CREATION_SKU, groups = "SKU", priority = 1)
-	public void create() throws Exception {
-		
-		SkuRequestDTO request = new SkuRequestDTO();
-		
+	
+	@org.testng.annotations.Test(enabled = CREATION_SKU, groups = "CRIACAO_SKU", priority = 1)
+	public void createSelecionarItem(){
 		//TODO SELECAO DO ITEM
 		Collection<ItemResponseDTO> items = sItem.all();
-		request.setItem(new ArrayList<ItemResponseDTO>(items).get(0));
-		
+		skuRequestSuccess.setProduto(new ArrayList<ItemResponseDTO>(items).get(0));
+		assertNotNull(skuRequestSuccess.getProduto());
+	}
+	
+	@org.testng.annotations.Test(enabled = CREATION_SKU, groups = "CRIACAO_SKU", priority = 2)
+	public void createSelecionarTags(){
 		//TODO ADIÇÃO DAS TAGS - CLICA EM OK
 		Collection<TagResponseDTO> selecionadas = new ArrayList<TagResponseDTO>();
 		selecionadas = sTag.selecionar(selecionadas); //Nivel 1
 		selecionadas = sTag.selecionar(selecionadas); //Nivel 2
 		selecionadas = sTag.selecionar(selecionadas); //Nivel 3
-		
+		skuRequestSuccess.setTags(selecionadas);
+		assertNotNull(skuRequestSuccess.getTags());
+	}
+	
+	@org.testng.annotations.Test(enabled = CREATION_SKU, groups = "CRIACAO_SKU", priority = 3)
+	public void createHasSku(){
 		//TODO JAH EXISTE ESSA SKU?
-		
-		//TODO SINALIZADOR?
-		
+		boolean hasSku = service.hasSku(skuRequestSuccess);
+		assertFalse(hasSku);
+	}
+
+	@org.testng.annotations.Test(enabled = CREATION_SKU, groups = "CRIACAO_SKU", priority = 4)
+	public void createPreencherAndCriarCampos(){
 		//TODO PREENCHE OS CAMPOS
+		//skuRequestSuccess.set
+		//TODO SELECIONA FREQUENCIA DE ANALISE
+		
+	}
+	
+
+	@org.testng.annotations.Test(enabled = CREATION_SKU, groups = "SKU", priority = 1)
+	public void create() throws Exception {
 		
 		//TODO SELECIONA O MODELO DE PLANEJAMENTO
-		
-		//TODO SELECIONA FREQUENCIA DE ANALISE
 
 	}
 	

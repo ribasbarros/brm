@@ -3,7 +3,7 @@ package br.com.brm.scp.mock.api.service.document;
 import java.io.Serializable;
 import java.util.Calendar;
 
-import br.com.brm.scp.mock.api.service.document.status.StatusPedido;
+import br.com.brm.scp.mock.api.service.status.StatusPedido;
 
 public class PedidoDocument implements Serializable {
 

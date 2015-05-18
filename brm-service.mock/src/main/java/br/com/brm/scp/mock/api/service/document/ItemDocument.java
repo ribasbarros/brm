@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collection;
 
-import br.com.brm.scp.mock.api.service.document.status.StatusProduto;
+import br.com.brm.scp.mock.api.service.status.StatusProduto;
 
 public class ItemDocument implements Serializable {
 

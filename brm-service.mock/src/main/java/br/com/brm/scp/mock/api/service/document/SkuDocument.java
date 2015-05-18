@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Collection;
 
-import br.com.brm.scp.mock.api.service.document.status.StatusReposicaoEnum;
+import br.com.brm.scp.mock.api.service.status.StatusReposicaoEnum;
 
 public class SkuDocument implements Serializable {
 
