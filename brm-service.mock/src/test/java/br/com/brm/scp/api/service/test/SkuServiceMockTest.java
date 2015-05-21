@@ -2,8 +2,12 @@ package br.com.brm.scp.api.service.test;
 
 import static org.testng.AssertJUnit.assertFalse;
 import static org.testng.AssertJUnit.assertNotNull;
+
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -13,20 +17,28 @@ import org.testng.annotations.BeforeClass;
 
 import br.com.brm.scp.api.dto.request.SkuRequestDTO;
 import br.com.brm.scp.api.dto.response.ItemResponseDTO;
-import br.com.brm.scp.api.dto.response.SkuResponseDTO;
+import br.com.brm.scp.api.dto.response.ModeloPlanejamentoResponseDTO;
+import br.com.brm.scp.api.dto.response.PedidoResponseDTO;
 import br.com.brm.scp.api.dto.response.TagResponseDTO;
+import br.com.brm.scp.api.exceptions.UsuarioNotFoundException;
 import br.com.brm.scp.api.service.ItemService;
 import br.com.brm.scp.api.service.SkuService;
 import br.com.brm.scp.api.service.TagService;
+import br.com.brm.scp.api.service.UsuarioService;
 import br.com.brm.scp.mock.api.mockdata.MockData;
-import br.com.brm.scp.mock.api.service.strategies.Sku;
-import br.com.brm.scp.mock.api.service.strategies.impl.SkuCreateStrategyImpl;
+import br.com.brm.scp.mock.api.service.document.UsuarioDocument;
+import br.com.brm.scp.mock.api.service.status.StatusReposicaoEnum;
 
 @ContextConfiguration(locations = { "classpath:META-INF/application-context.xml" })
 public class SkuServiceMockTest extends AbstractTestNGSpringContextTests {
 
+	private static final long USUARIO_LOGADO_FAKE = UUID.randomUUID().getMostSignificantBits();
+
 	@Autowired
 	private SkuService service;
+	
+	@Autowired
+	private UsuarioService usuarioService;
 	
 	@Autowired
 	private MockData mockDb;
@@ -36,6 +48,7 @@ public class SkuServiceMockTest extends AbstractTestNGSpringContextTests {
 
 	@Autowired
 	private TagService sTag;
+	
 
 	private static final boolean CREATION_SKU = true;
 
@@ -49,12 +62,12 @@ public class SkuServiceMockTest extends AbstractTestNGSpringContextTests {
 	
 	@BeforeClass
 	public void setup() throws Exception {
-		clearMemory();
+		resetMemory();
 		skuRequestSuccess = new SkuRequestDTO();
 	}
 
-	private void clearMemory() {
-	
+	private void resetMemory() {
+		mockDb.getUsuarioCollection().put(USUARIO_LOGADO_FAKE, new UsuarioDocument(USUARIO_LOGADO_FAKE, "Usuario Teste 01", "4Test", "test@test.com.br"));
 	}
 
 	@AfterClass
@@ -89,17 +102,37 @@ public class SkuServiceMockTest extends AbstractTestNGSpringContextTests {
 	}
 
 	@org.testng.annotations.Test(enabled = CREATION_SKU, groups = "CRIACAO_SKU", priority = 4)
-	public void createPreencherAndCriarCampos(){
+	public void createPreencherAndCriarCampos() throws UsuarioNotFoundException{
 		//TODO PREENCHE OS CAMPOS
-		//skuRequestSuccess.set
-		//TODO SELECIONA FREQUENCIA DE ANALISE
+		skuRequestSuccess.setAutomatica(Boolean.TRUE);
+		skuRequestSuccess.setCustoUnitario(BigDecimal.ZERO);
+		//skuRequestSuccess.setDataAlteracao(Calendar.getInstance());
+		skuRequestSuccess.setDataDescontinuacao(Calendar.getInstance());
+		skuRequestSuccess.setDataMaturidade(Calendar.getInstance());
+		skuRequestSuccess.setDescricao("Descricao da sku de teste!");
+		skuRequestSuccess.setEstoqueAtual(0);
+		skuRequestSuccess.setEstoqueIdeal(0);
+		skuRequestSuccess.setEstoqueMaximo(0);
+		skuRequestSuccess.setEstoqueMinimo(0);
+		skuRequestSuccess.setFrequenciaAnalise( new Integer[]{Calendar.DAY_OF_WEEK} );
+		//skuRequestSuccess.setId(id);
+		skuRequestSuccess.setLoteReposicao(100);
+		skuRequestSuccess.setLoteReposicaoHistorico(0);
+		skuRequestSuccess.setPedidos(new ArrayList<PedidoResponseDTO>());
+		skuRequestSuccess.setStatus(StatusReposicaoEnum.DESBLOQUEADA);
+		
+		skuRequestSuccess.setDataCriacao(Calendar.getInstance());
+		skuRequestSuccess.setUsuarioCriacao(usuarioService.find(USUARIO_LOGADO_FAKE));
 		
 	}
 	
 
-	@org.testng.annotations.Test(enabled = CREATION_SKU, groups = "SKU", priority = 1)
+	@org.testng.annotations.Test(enabled = CREATION_SKU, groups = "CRIACAO_SKU", priority = 5)
 	public void create() throws Exception {
 		
+		ModeloPlanejamentoResponseDTO modelo = null;
+		
+		skuRequestSuccess.setModelo(modelo);
 		//TODO SELECIONA O MODELO DE PLANEJAMENTO
 
 	}

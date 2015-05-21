@@ -22,7 +22,7 @@ public class SkuRequestDTO implements Serializable {
 	private Calendar dataMaturidade;
 	private Calendar dataDescontinuacao;
 	private ModeloPlanejamentoResponseDTO modelo;
-	private String[] frequenciaAnalise;
+	private Integer[] frequenciaAnalise;
 	private boolean automatica;
 	private Integer loteReposicao;
 	private Integer loteReposicaoHistorico;
@@ -82,11 +82,11 @@ public class SkuRequestDTO implements Serializable {
 		this.modelo = modelo;
 	}
 
-	public String[] getFrequenciaAnalise() {
+	public Integer[] getFrequenciaAnalise() {
 		return frequenciaAnalise;
 	}
 
-	public void setFrequenciaAnalise(String[] frequenciaAnalise) {
+	public void setFrequenciaAnalise(Integer[] frequenciaAnalise) {
 		this.frequenciaAnalise = frequenciaAnalise;
 	}
 
