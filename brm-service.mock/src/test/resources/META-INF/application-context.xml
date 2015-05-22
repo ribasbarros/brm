@@ -40,8 +40,4 @@
 		<constructor-arg ref="mockData" index="0" />
 	</bean>
 	
-	<bean id="modeloPlanejamento" class="br.com.brm.scp.mock.api.service.impl.ModeloPlanejamentoServiceMockImpl">
-		<constructor-arg ref="mockData" index="0" />
-	</bean>
-
 </beans>

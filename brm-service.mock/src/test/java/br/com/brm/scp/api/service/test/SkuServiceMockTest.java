@@ -17,7 +17,6 @@ import org.testng.annotations.BeforeClass;
 
 import br.com.brm.scp.api.dto.request.SkuRequestDTO;
 import br.com.brm.scp.api.dto.response.ItemResponseDTO;
-import br.com.brm.scp.api.dto.response.ModeloPlanejamentoResponseDTO;
 import br.com.brm.scp.api.dto.response.PedidoResponseDTO;
 import br.com.brm.scp.api.dto.response.TagResponseDTO;
 import br.com.brm.scp.api.exceptions.UsuarioNotFoundException;
@@ -27,6 +26,7 @@ import br.com.brm.scp.api.service.TagService;
 import br.com.brm.scp.api.service.UsuarioService;
 import br.com.brm.scp.mock.api.mockdata.MockData;
 import br.com.brm.scp.mock.api.service.document.UsuarioDocument;
+import br.com.brm.scp.mock.api.service.status.PlanejamentoSku;
 import br.com.brm.scp.mock.api.service.status.StatusReposicaoEnum;
 
 @ContextConfiguration(locations = { "classpath:META-INF/application-context.xml" })
@@ -120,7 +120,8 @@ public class SkuServiceMockTest extends AbstractTestNGSpringContextTests {
 		skuRequestSuccess.setLoteReposicaoHistorico(0);
 		skuRequestSuccess.setPedidos(new ArrayList<PedidoResponseDTO>());
 		skuRequestSuccess.setStatus(StatusReposicaoEnum.DESBLOQUEADA);
-		
+		skuRequestSuccess.setModelo(PlanejamentoSku.ESTOQUE);
+
 		skuRequestSuccess.setDataCriacao(Calendar.getInstance());
 		skuRequestSuccess.setUsuarioCriacao(usuarioService.find(USUARIO_LOGADO_FAKE));
 		
@@ -130,11 +131,6 @@ public class SkuServiceMockTest extends AbstractTestNGSpringContextTests {
 	@org.testng.annotations.Test(enabled = CREATION_SKU, groups = "CRIACAO_SKU", priority = 5)
 	public void create() throws Exception {
 		
-		ModeloPlanejamentoResponseDTO modelo = null;
-		
-		skuRequestSuccess.setModelo(modelo);
-		//TODO SELECIONA O MODELO DE PLANEJAMENTO
-
 	}
 	
 	@org.testng.annotations.Test(enabled = CREATION_SKU, groups = "SKU", priority = 2)

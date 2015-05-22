@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Collection;
 
+import br.com.brm.scp.mock.api.service.status.PlanejamentoSku;
 import br.com.brm.scp.mock.api.service.status.StatusReposicaoEnum;
 
 public class SkuResponseDTO implements Serializable {
@@ -16,7 +17,7 @@ public class SkuResponseDTO implements Serializable {
 	private Collection<TagResponseDTO> tags;
 	private Calendar dataMaturidade;
 	private Calendar dataDescontinuacao;
-	private ModeloPlanejamentoResponseDTO modelo;
+	private PlanejamentoSku modelo;
 	private Integer[] frequenciaAnalise;
 	private boolean automatica;
 	private Integer loteReposicao;
@@ -69,11 +70,11 @@ public class SkuResponseDTO implements Serializable {
 		this.dataDescontinuacao = dataDescontinuacao;
 	}
 
-	public ModeloPlanejamentoResponseDTO getModelo() {
+	public PlanejamentoSku getModelo() {
 		return modelo;
 	}
 
-	public void setModelo(ModeloPlanejamentoResponseDTO modelo) {
+	public void setModelo(PlanejamentoSku modelo) {
 		this.modelo = modelo;
 	}
 

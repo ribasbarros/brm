@@ -6,10 +6,10 @@ import java.util.Calendar;
 import java.util.Collection;
 
 import br.com.brm.scp.api.dto.response.ItemResponseDTO;
-import br.com.brm.scp.api.dto.response.ModeloPlanejamentoResponseDTO;
 import br.com.brm.scp.api.dto.response.PedidoResponseDTO;
 import br.com.brm.scp.api.dto.response.TagResponseDTO;
 import br.com.brm.scp.api.dto.response.UsuarioResponseDTO;
+import br.com.brm.scp.mock.api.service.status.PlanejamentoSku;
 import br.com.brm.scp.mock.api.service.status.StatusReposicaoEnum;
 
 public class SkuRequestDTO implements Serializable {
@@ -21,7 +21,7 @@ public class SkuRequestDTO implements Serializable {
 	private Collection<TagResponseDTO> tags;
 	private Calendar dataMaturidade;
 	private Calendar dataDescontinuacao;
-	private ModeloPlanejamentoResponseDTO modelo;
+	private PlanejamentoSku modelo;
 	private Integer[] frequenciaAnalise;
 	private boolean automatica;
 	private Integer loteReposicao;
@@ -74,11 +74,11 @@ public class SkuRequestDTO implements Serializable {
 		this.dataDescontinuacao = dataDescontinuacao;
 	}
 
-	public ModeloPlanejamentoResponseDTO getModelo() {
+	public PlanejamentoSku getModelo() {
 		return modelo;
 	}
 
-	public void setModelo(ModeloPlanejamentoResponseDTO modelo) {
+	public void setModelo(PlanejamentoSku modelo) {
 		this.modelo = modelo;
 	}
 
