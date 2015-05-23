@@ -1,9 +1,10 @@
 package br.com.brm.scp.api.service;
 
 import br.com.brm.scp.api.dto.request.SkuRequestDTO;
+import br.com.brm.scp.api.dto.response.SkuResponseDTO;
 
 public interface SkuService {
 
-	boolean hasSku(SkuRequestDTO skuRequestSuccess);
+	SkuResponseDTO create(SkuRequestDTO skuRequestSuccess);
 
 }
