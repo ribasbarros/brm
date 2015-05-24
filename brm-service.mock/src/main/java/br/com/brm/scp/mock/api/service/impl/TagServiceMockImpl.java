@@ -22,8 +22,9 @@ public class TagServiceMockImpl implements TagService {
 		this.dbMock = dbMock;
 	}
 
+	//TODO tag = A selecionada   selecionadas = selecionadas na tela (Nao pode haver niveis repetidos)
 	@Override
-	public Collection<TagResponseDTO> selecionar(Collection<TagResponseDTO> selecionadas) {
+	public Collection<TagResponseDTO> selecionar(TagResponseDTO tag, Collection<TagResponseDTO> selecionadas) {
 		
 		logger.info(String.format("Selecionando tags, tags selecionadas %s", selecionadas));
 		
@@ -65,6 +66,6 @@ public class TagServiceMockImpl implements TagService {
 	}
 
 	private Collection<TagDocument> findAll() {
-		return dbMock.getTagDocument().values();
+		return dbMock.getTagCollection().values();
 	}
 }

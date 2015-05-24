@@ -39,5 +39,5 @@
 	<bean id="tagService" class="br.com.brm.scp.mock.api.service.impl.TagServiceMockImpl">
 		<constructor-arg ref="mockData" index="0" />
 	</bean>
-
+	
 </beans>

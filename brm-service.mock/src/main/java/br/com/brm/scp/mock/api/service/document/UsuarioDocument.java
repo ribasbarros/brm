@@ -15,6 +15,19 @@ public class UsuarioDocument implements Serializable {
 	private String email;
 	private Collection<GrupoPerfilResponse> grupoPerfilResponse;
 
+
+	public UsuarioDocument() {
+		super();
+	}
+
+	public UsuarioDocument(Long id, String nome, String cargo, String email) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.cargo = cargo;
+		this.email = email;
+	}
+
 	public Long getId() {
 		return id;
 	}

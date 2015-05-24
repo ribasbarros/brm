@@ -2,9 +2,8 @@ package br.com.brm.scp.mock.api.service.document;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Collection;
 
-import br.com.brm.scp.mock.api.service.document.status.StatusProduto;
+import br.com.brm.scp.mock.api.service.status.StatusProduto;
 
 public class ItemDocument implements Serializable {
 
@@ -16,7 +15,7 @@ public class ItemDocument implements Serializable {
 	private CategoriaDocument categoria;
 	private StatusProduto status;
 	private BigDecimal valorUnitario;
-	private Collection<FornecedorDocument> fornecedor;
+	private FornecedorDocument fornecedor;
 
 	public Long getId() {
 		return id;
@@ -66,11 +65,11 @@ public class ItemDocument implements Serializable {
 		this.valorUnitario = valorUnitario;
 	}
 
-	public Collection<FornecedorDocument> getFornecedor() {
+	public FornecedorDocument getFornecedor() {
 		return fornecedor;
 	}
 
-	public void setFornecedor(Collection<FornecedorDocument> fornecedor) {
+	public void setFornecedor(FornecedorDocument fornecedor) {
 		this.fornecedor = fornecedor;
 	}
 

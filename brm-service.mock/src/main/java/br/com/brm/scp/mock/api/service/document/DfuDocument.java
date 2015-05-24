@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Collection;
 
+import br.com.brm.scp.mock.api.service.status.PlanejamentoDfu;
+
 public class DfuDocument implements Serializable {
 
 	private static final long serialVersionUID = -474555671538384916L;
@@ -16,7 +18,7 @@ public class DfuDocument implements Serializable {
 	private Calendar dataLancamento;
 	private Calendar dataDescontinuacao;
 	private PacotePlanoDocument pacotePlano;
-	private ModeloPlanejamentoDocument modelo;
+	private PlanejamentoDfu modelo;
 	private Calendar validadeModelo;
 	private BigDecimal precoUnitarioMedio;
 	private BigDecimal margemUnitMedio;
@@ -91,11 +93,11 @@ public class DfuDocument implements Serializable {
 		this.pacotePlano = pacotePlano;
 	}
 
-	public ModeloPlanejamentoDocument getModelo() {
+	public PlanejamentoDfu getModelo() {
 		return modelo;
 	}
 
-	public void setModelo(ModeloPlanejamentoDocument modelo) {
+	public void setModelo(PlanejamentoDfu modelo) {
 		this.modelo = modelo;
 	}
 

@@ -12,6 +12,7 @@ import br.com.brm.scp.api.dto.response.UsuarioResponseDTO;
 import br.com.brm.scp.api.exceptions.UsuarioExistentException;
 import br.com.brm.scp.api.exceptions.UsuarioNotFoundException;
 import br.com.brm.scp.api.service.UsuarioService;
+import br.com.brm.scp.fw.helper.objects.RandomHelper;
 import br.com.brm.scp.mock.api.mockdata.MockData;
 import br.com.brm.scp.mock.api.service.document.UsuarioDocument;
 
@@ -95,7 +96,7 @@ public class UsuarioServiceMockImpl implements UsuarioService {
 	
 	private void insert(UsuarioDocument usuarioDocument) {
 		
-		usuarioDocument.setId(UUID.randomUUID().getMostSignificantBits());
+		usuarioDocument.setId(RandomHelper.UUID());
 		
 		dbMock.getUsuarioCollection().put(usuarioDocument.getId(), usuarioDocument);
 	}

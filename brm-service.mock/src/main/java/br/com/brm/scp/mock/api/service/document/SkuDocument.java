@@ -5,19 +5,20 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Collection;
 
-import br.com.brm.scp.mock.api.service.document.status.StatusReposicaoEnum;
+import br.com.brm.scp.mock.api.service.status.PlanejamentoSku;
+import br.com.brm.scp.mock.api.service.status.StatusReposicaoEnum;
 
 public class SkuDocument implements Serializable {
 
 	private static final long serialVersionUID = 5204544337090545867L;
 	
 	private Long id;
-	private ItemDocument produto;
+	private ItemDocument item;
 	private Collection<TagDocument> tags;
 	private Calendar dataMaturidade;
 	private Calendar dataDescontinuacao;
-	private ModeloPlanejamentoDocument modelo;
-	private String[] frequenciaAnalise;
+	private PlanejamentoSku modelo;
+	private Integer[] frequenciaAnalise;
 	private boolean automatica;
 	private Integer loteReposicao;
 	private Integer loteReposicaoHistorico;
@@ -37,12 +38,12 @@ public class SkuDocument implements Serializable {
 	private UsuarioDocument usuarioCriacao;
 	private UsuarioDocument usuarioAlteracao;
 
-	public ItemDocument getProduto() {
-		return produto;
+	public ItemDocument getItem() {
+		return item;
 	}
 
-	public void setProduto(ItemDocument produto) {
-		this.produto = produto;
+	public void setItem(ItemDocument item) {
+		this.item = item;
 	}
 
 	public Collection<TagDocument> getTags() {
@@ -69,19 +70,19 @@ public class SkuDocument implements Serializable {
 		this.dataDescontinuacao = dataDescontinuacao;
 	}
 
-	public ModeloPlanejamentoDocument getModelo() {
+	public PlanejamentoSku getModelo() {
 		return modelo;
 	}
 
-	public void setModelo(ModeloPlanejamentoDocument modelo) {
+	public void setModelo(PlanejamentoSku modelo) {
 		this.modelo = modelo;
 	}
 
-	public String[] getFrequenciaAnalise() {
+	public Integer[] getFrequenciaAnalise() {
 		return frequenciaAnalise;
 	}
 
-	public void setFrequenciaAnalise(String[] frequenciaAnalise) {
+	public void setFrequenciaAnalise(Integer[] frequenciaAnalise) {
 		this.frequenciaAnalise = frequenciaAnalise;
 	}
 
