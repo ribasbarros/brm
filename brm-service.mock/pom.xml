@@ -45,6 +45,11 @@
 			<version>${spring-core.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.neo4j</groupId>
+			<artifactId>neo4j-cypher-compiler-2.1</artifactId>
+			<version>2.1.5</version>
+		</dependency>
 	</dependencies>
 
 	<build>

@@ -6,8 +6,9 @@ import java.util.Collection;
 public class ContatoDocument implements Serializable {
 
 	private static final long serialVersionUID = -6433003551096069983L;
-	
+
 	private Long id;
+	private String nome;
 	private String endereco;
 	private String cidade;
 	private String uf;
@@ -60,6 +61,14 @@ public class ContatoDocument implements Serializable {
 
 	public void setTelefone(Collection<TelefoneDocument> telefone) {
 		this.telefone = telefone;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 }

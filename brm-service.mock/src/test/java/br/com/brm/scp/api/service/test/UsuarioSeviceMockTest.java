@@ -21,6 +21,7 @@ import br.com.brm.scp.api.exceptions.UsuarioNotFoundException;
 import br.com.brm.scp.api.service.UsuarioService;
 import br.com.brm.scp.api.service.test.util.TestCallback;
 import br.com.brm.scp.api.service.test.util.TestUtils;
+import br.com.brm.scp.fw.helper.objects.RandomHelper;
 
 @ContextConfiguration(locations = { "classpath:META-INF/application-context.xml" })
 public class UsuarioSeviceMockTest extends AbstractTestNGSpringContextTests {
@@ -148,7 +149,7 @@ public class UsuarioSeviceMockTest extends AbstractTestNGSpringContextTests {
 	@DataProvider(name = "updateAndFindUsuarioNotFound")
 	public Object[][] criaUsuario4TestNotFound(){
 		
-		long random = UUID.randomUUID().getMostSignificantBits();
+		long random = RandomHelper.UUID();
 		
 		UsuarioRequestDTO requestNotFound = new UsuarioRequestDTO();
 		requestNotFound.setId(random);
@@ -167,7 +168,7 @@ public class UsuarioSeviceMockTest extends AbstractTestNGSpringContextTests {
 
 	private UsuarioRequestDTO doUsuarioValido() {
 
-		long random = UUID.randomUUID().getMostSignificantBits();
+		long random = RandomHelper.UUID();
 		
 		UsuarioRequestDTO request = new UsuarioRequestDTO();
 		request.setId(null);

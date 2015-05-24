@@ -9,6 +9,17 @@ public class CategoriaDocument implements Serializable {
 	private Long id;
 	private String nome;
 
+	
+	public CategoriaDocument() {
+		super();
+	}
+
+	public CategoriaDocument(Long id, String nome) {
+		super();
+		this.id = id;
+		this.nome = nome;
+	}
+
 	public Long getId() {
 		return id;
 	}

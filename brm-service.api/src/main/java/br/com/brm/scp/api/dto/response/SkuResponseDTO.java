@@ -13,7 +13,7 @@ public class SkuResponseDTO implements Serializable {
 	private static final long serialVersionUID = 7347879265505042643L;
 	
 	private Long id;
-	private ItemResponseDTO produto;
+	private ItemResponseDTO item;
 	private Collection<TagResponseDTO> tags;
 	private Calendar dataMaturidade;
 	private Calendar dataDescontinuacao;
@@ -38,12 +38,12 @@ public class SkuResponseDTO implements Serializable {
 	private UsuarioResponseDTO usuarioCriacao;
 	private UsuarioResponseDTO usuarioAlteracao;
 
-	public ItemResponseDTO getProduto() {
-		return produto;
+	public ItemResponseDTO getItem() {
+		return item;
 	}
 
-	public void setProduto(ItemResponseDTO produto) {
-		this.produto = produto;
+	public void setItem(ItemResponseDTO item) {
+		this.item = item;
 	}
 
 	public Collection<TagResponseDTO> getTags() {
