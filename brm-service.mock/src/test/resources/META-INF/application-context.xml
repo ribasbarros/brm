@@ -9,7 +9,6 @@
 
 	<bean id="mockData" class="br.com.brm.scp.mock.api.mockdata.MockData"
 		scope="singleton">
-		<property name="dateFormat" value="${environment.dateFormat}" />
 	</bean> 
 
 	<bean id="usuarioService" class="br.com.brm.scp.mock.api.service.impl.UsuarioServiceMockImpl">

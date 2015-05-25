@@ -3,6 +3,9 @@ package br.com.brm.scp.mock.api.service.document;
 import java.io.Serializable;
 import java.util.Collection;
 
+import br.com.brm.scp.api.dto.ContatoDTO;
+import br.com.brm.scp.fw.annotations.ConvertFor;
+
 public class FornecedorDocument implements Serializable {
 
 	private static final long serialVersionUID = -9082309408255141102L;
@@ -14,6 +17,7 @@ public class FornecedorDocument implements Serializable {
 	private String inscricaoEstadual;
 	private String descricao;
 	
+	@ConvertFor(ContatoDTO.class)
 	private Collection<ContatoDocument> contato;
 
 	public Long getId() {

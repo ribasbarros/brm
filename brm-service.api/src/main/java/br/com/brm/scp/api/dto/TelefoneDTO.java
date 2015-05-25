@@ -1,12 +1,12 @@
-package br.com.brm.scp.mock.api.service.document;
+package br.com.brm.scp.api.dto;
 
 import java.io.Serializable;
 import java.math.BigInteger;
 
-public class TelefoneDocument implements Serializable {
+public class TelefoneDTO implements Serializable {
 
-	private static final long serialVersionUID = -6082589107055198601L;
-
+	private static final long serialVersionUID = -7074977133533414017L;
+	
 	private BigInteger numero;
 	private boolean celular;
 	private String Ramal;
