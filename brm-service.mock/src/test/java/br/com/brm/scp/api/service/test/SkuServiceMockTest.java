@@ -3,6 +3,7 @@ package br.com.brm.scp.api.service.test;
 import static org.testng.AssertJUnit.assertNotNull;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -55,14 +56,13 @@ public class SkuServiceMockTest extends AbstractTestNGSpringContextTests {
 	private MockData mockDb;
 
 	@Autowired
-	private ItemService sItem;
-
-	@Autowired
 	private TagService sTag;
 
-	private static final boolean CREATION_SKU = true;
+	private static final boolean EM_DESENVOLVIMENTO = true;
+	
+	private static final boolean CREATION_SKU = false;
 
-	private static final boolean SELECAO_ORIGENS = true;
+	private static final boolean SELECAO_ORIGENS = false;
 
 	private static final boolean SKU_ANALITICA = false;
 
@@ -100,7 +100,7 @@ public class SkuServiceMockTest extends AbstractTestNGSpringContextTests {
 	 * @param tags
 	 * @throws SkuExistenteException
 	 */
-	@Test(enabled = CREATION_SKU, groups = "CRIACAO_SKU", priority = 1, dataProvider = "ITEM_TAGS_RANDOM")
+	@Test(enabled = CREATION_SKU || EM_DESENVOLVIMENTO, groups = "CRIACAO_SKU", priority = 1, dataProvider = "ITEM_TAGS_RANDOM")
 	public void criarSkuPart1(ItemResponseDTO item, Collection<TagResponseDTO> tags) throws SkuExistenteException {
 		// SELECAO DO ITEM
 		assertNotNull(item);
@@ -320,7 +320,7 @@ public class SkuServiceMockTest extends AbstractTestNGSpringContextTests {
 
 		notFound.setId(RandomHelper.UUID());
 
-		Collection<ItemResponseDTO> items = sItem.all();
+		Collection<ItemResponseDTO> items = ConverterHelper.convert(mockDb.getItemCollection().values(), ItemResponseDTO.class);
 		notFound.setItem(new ArrayList<ItemResponseDTO>(items).get(0));
 
 		Collection<TagResponseDTO> selecionadas = new ArrayList<TagResponseDTO>();
@@ -434,7 +434,7 @@ public class SkuServiceMockTest extends AbstractTestNGSpringContextTests {
 			TelefoneDocument telefone = new TelefoneDocument();
 			
 			telefone.setCelular(Boolean.FALSE);
-			telefone.setNumero(Integer.valueOf(String.format("1194455315%s",i)));
+			telefone.setNumero(new BigInteger(String.format("1194455315%s",i)));
 			telefone.setRamal("");
 			
 			telefones.add(telefone);

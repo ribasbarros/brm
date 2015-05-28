@@ -1,12 +1,8 @@
-package br.com.brm.scp.mock.api.service.document;
+package br.com.brm.scp.api.dto;
 
-import java.io.Serializable;
 import java.util.Collection;
 
-import br.com.brm.scp.api.dto.TelefoneDTO;
-import br.com.brm.scp.fw.annotations.ConvertFor;
-
-public class ContatoDocument implements Serializable {
+public class ContatoDTO {
 
 	private static final long serialVersionUID = -6433003551096069983L;
 
@@ -16,8 +12,7 @@ public class ContatoDocument implements Serializable {
 	private String cidade;
 	private String uf;
 	private String cep;
-	@ConvertFor(TelefoneDTO.class)
-	private Collection<TelefoneDocument> telefone;
+	private Collection<TelefoneDTO> telefone;
 
 	public Long getId() {
 		return id;
@@ -59,11 +54,11 @@ public class ContatoDocument implements Serializable {
 		this.cep = cep;
 	}
 
-	public Collection<TelefoneDocument> getTelefone() {
+	public Collection<TelefoneDTO> getTelefone() {
 		return telefone;
 	}
 
-	public void setTelefone(Collection<TelefoneDocument> telefone) {
+	public void setTelefone(Collection<TelefoneDTO> telefone) {
 		this.telefone = telefone;
 	}
 

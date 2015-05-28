@@ -3,6 +3,9 @@ package br.com.brm.scp.mock.api.service.document;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import br.com.brm.scp.api.dto.CategoriaDTO;
+import br.com.brm.scp.api.dto.response.FornecedorResponseDTO;
+import br.com.brm.scp.fw.annotations.ConvertFor;
 import br.com.brm.scp.mock.api.service.status.StatusProduto;
 
 public class ItemDocument implements Serializable {
@@ -12,9 +15,11 @@ public class ItemDocument implements Serializable {
 	private Long id;
 	private String nome;
 	private String nomeReduzido;
+	@ConvertFor(CategoriaDTO.class)
 	private CategoriaDocument categoria;
 	private StatusProduto status;
 	private BigDecimal valorUnitario;
+	@ConvertFor(FornecedorResponseDTO.class)
 	private FornecedorDocument fornecedor;
 
 	public Long getId() {
