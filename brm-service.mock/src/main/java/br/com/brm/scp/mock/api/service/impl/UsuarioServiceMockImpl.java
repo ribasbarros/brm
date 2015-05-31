@@ -84,7 +84,7 @@ public class UsuarioServiceMockImpl implements UsuarioService {
 		
 	}
 
-	private UsuarioDocument findById(Long id) throws UsuarioNotFoundException {
+	public UsuarioDocument findById(Long id) throws UsuarioNotFoundException {
 		UsuarioDocument usuarioDocument = dbMock.getUsuarioCollection().get(id);
 		
 		if(usuarioDocument == null){
