@@ -2,6 +2,7 @@ package br.com.brm.scp.mock.api.service.document;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 
 import br.com.brm.scp.api.dto.ContatoDTO;
 import br.com.brm.scp.fw.annotations.ConvertFor;
@@ -16,6 +17,7 @@ public class FornecedorDocument implements Serializable {
 	private String cnpj;
 	private String inscricaoEstadual;
 	private String descricao;
+	private Date dataExcluido;
 	
 	@ConvertFor(ContatoDTO.class)
 	private Collection<ContatoDocument> contato;
@@ -75,6 +77,13 @@ public class FornecedorDocument implements Serializable {
 	public void setContato(Collection<ContatoDocument> contato) {
 		this.contato = contato;
 	}
-	
+
+	public Date getDataExcluido() {
+		return dataExcluido;
+	}
+
+	public void setDataExcluido(Date dataExcluido) {
+		this.dataExcluido = dataExcluido;
+	}	
 	
 }
