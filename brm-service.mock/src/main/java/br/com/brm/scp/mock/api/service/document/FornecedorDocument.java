@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Collection;
 
 import br.com.brm.scp.api.dto.ContatoDTO;
-import br.com.brm.scp.fw.annotations.ConvertFor;
+import br.com.brm.scp.fw.annotations.BindingClass;
 
 public class FornecedorDocument implements Serializable {
 
@@ -17,7 +17,7 @@ public class FornecedorDocument implements Serializable {
 	private String inscricaoEstadual;
 	private String descricao;
 	
-	@ConvertFor(ContatoDTO.class)
+	@BindingClass(ContatoDTO.class)
 	private Collection<ContatoDocument> contato;
 
 	public Long getId() {

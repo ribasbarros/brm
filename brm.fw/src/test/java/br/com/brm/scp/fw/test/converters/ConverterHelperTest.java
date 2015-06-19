@@ -15,7 +15,7 @@ import org.apache.log4j.Logger;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
-import br.com.brm.scp.fw.annotations.ConvertFor;
+import br.com.brm.scp.fw.annotations.BindingClass;
 import br.com.brm.scp.fw.helper.converters.ConverterHelper;
 import br.com.brm.scp.fw.test.dto.ClassTestA;
 import br.com.brm.scp.fw.test.dto.ClassTestB;
@@ -131,11 +131,11 @@ public class ConverterHelperTest {
 							typeObjectDestine);
 					setterMethodTo.setAccessible(true);
 
-					Annotation annotation4Conversion = f.getAnnotation(ConvertFor.class);
+					Annotation annotation4Conversion = f.getAnnotation(BindingClass.class);
 
-					if (annotation4Conversion instanceof ConvertFor) {
+					if (annotation4Conversion instanceof BindingClass) {
 
-						ConvertFor convert2 = (ConvertFor) annotation4Conversion;
+						BindingClass convert2 = (BindingClass) annotation4Conversion;
 						Object invoke = getterMethodFrom.invoke(instanceFrom);
 
 						logger.info(String.format("ANOTACAO: Converter classe anotada para %s", invoke));
@@ -176,7 +176,7 @@ public class ConverterHelperTest {
 		return instanceDestine;
 	}
 
-	private Collection<Object> convert(ConvertFor convert2, Object invoke) {
+	private Collection<Object> convert(BindingClass convert2, Object invoke) {
 		Collection<Object> collectionConverted = new ArrayList<Object>();
 		for (Object elementFromCollection : (ArrayList) invoke) {
 			Object element = convert(elementFromCollection, convert2.value());

@@ -9,7 +9,7 @@ import java.util.Collection;
 
 import org.apache.log4j.Logger;
 
-import br.com.brm.scp.fw.annotations.ConvertFor;
+import br.com.brm.scp.fw.annotations.BindingClass;
 import br.com.brm.scp.fw.helper.objects.StringHelper;
 
 public class ConverterHelper {
@@ -52,11 +52,11 @@ public class ConverterHelper {
 							typeObjectDestine);
 					setterMethodTo.setAccessible(true);
 
-					Annotation annotation4Conversion = f.getAnnotation(ConvertFor.class);
+					Annotation annotation4Conversion = f.getAnnotation(BindingClass.class);
 
-					if (annotation4Conversion instanceof ConvertFor) {
+					if (annotation4Conversion instanceof BindingClass) {
 
-						ConvertFor convert2 = (ConvertFor) annotation4Conversion;
+						BindingClass convert2 = (BindingClass) annotation4Conversion;
 						Object invoke = getterMethodFrom.invoke(instanceFrom);
 
 						logger.info(String.format("ANOTACAO: Converter classe anotada para %s", invoke));
@@ -75,6 +75,8 @@ public class ConverterHelper {
 							Object element = convert(invoke, convert2.value());
 							setterMethodTo.invoke(instanceDestine, element);
 						}
+					//}else if(){
+						
 					} else {
 						setterMethodTo.invoke(instanceDestine, getterMethodFrom.invoke(instanceFrom));
 					}
@@ -97,7 +99,7 @@ public class ConverterHelper {
 		return instanceDestine;
 	}
 	
-	private static Collection<Object> convert(ConvertFor convert2, Object invoke) {
+	private static Collection<Object> convert(BindingClass convert2, Object invoke) {
 		Collection<Object> collectionConverted = new ArrayList<Object>();
 		for (Object elementFromCollection : (ArrayList) invoke) {
 			Object element = convert(elementFromCollection, convert2.value());

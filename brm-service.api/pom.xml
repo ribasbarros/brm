@@ -6,6 +6,7 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>brm-service.api</artifactId>
+
   <dependencies>
   	<dependency>
   		<groupId>br.com.scp.brm</groupId>
@@ -13,4 +14,5 @@
   		<version>0.0.1-SNAPSHOT</version>
   	</dependency>
   </dependencies>
+
 </project>

@@ -2,7 +2,7 @@ package br.com.brm.scp.fw.test.dto;
 
 import java.util.Collection;
 
-import br.com.brm.scp.fw.annotations.ConvertFor;
+import br.com.brm.scp.fw.annotations.BindingClass;
 
 public class ClassTestA {
 
@@ -10,10 +10,10 @@ public class ClassTestA {
 	private Integer b;
 	private Collection<Object> c;
 
-	@ConvertFor(ClassTestD.class)
+	@BindingClass(ClassTestD.class)
 	private Collection<ClassTestC> listC;
 
-	@ConvertFor(ClassTestD.class)
+	@BindingClass(ClassTestD.class)
 	private ClassTestC objectNoList;
 
 	public String getA() {

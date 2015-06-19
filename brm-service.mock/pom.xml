@@ -20,13 +20,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>br.com.scp.brm</groupId>
-			<artifactId>brm.fw</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
 			<version>${testng.version}</version>

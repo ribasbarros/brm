@@ -7,7 +7,7 @@ import java.util.Collection;
 
 import br.com.brm.scp.api.dto.response.PedidoResponseDTO;
 import br.com.brm.scp.api.dto.response.TagResponseDTO;
-import br.com.brm.scp.fw.annotations.ConvertFor;
+import br.com.brm.scp.fw.annotations.BindingClass;
 import br.com.brm.scp.mock.api.service.status.PlanejamentoSku;
 import br.com.brm.scp.mock.api.service.status.StatusReposicaoEnum;
 
@@ -17,7 +17,7 @@ public class SkuDocument implements Serializable {
 	
 	private Long id;
 	private ItemDocument item;
-	@ConvertFor(TagResponseDTO.class)
+	@BindingClass(TagResponseDTO.class)
 	private Collection<TagDocument> tags;
 	private Calendar dataMaturidade;
 	private Calendar dataDescontinuacao;
@@ -28,7 +28,7 @@ public class SkuDocument implements Serializable {
 	private Integer loteReposicaoHistorico;
 	private StatusReposicaoEnum status;
 	private String descricao;
-	@ConvertFor(PedidoResponseDTO.class)
+	@BindingClass(PedidoResponseDTO.class)
 	private Collection<PedidoDocument> pedidos;
 
 	private Integer estoqueMaximo;
