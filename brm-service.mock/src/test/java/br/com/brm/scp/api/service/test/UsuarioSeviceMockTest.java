@@ -65,6 +65,7 @@ public class UsuarioSeviceMockTest extends AbstractTestNGSpringContextTests {
 		UsuarioResponseDTO response01 = service.find(response.getId());
 		assertNotNull(response01);
 
+		
 		TestUtils.expectException(IllegalArgumentException.class, new TestCallback() {
 			@Override
 			public void doTest() throws Exception {
