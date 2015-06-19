@@ -9,6 +9,7 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.DataProvider;
 
 import br.com.brm.scp.api.dto.request.FornecedorRequestDTO;
+import br.com.brm.scp.api.exceptions.FornecedorExistenteException;
 import br.com.brm.scp.api.service.FornecedorService;
 import br.com.brm.scp.mock.api.mockdata.MockData;
 
@@ -22,7 +23,7 @@ public class FornecedorServiceMockTest extends AbstractTestNGSpringContextTests 
 	private FornecedorService service;
 
 	@org.testng.annotations.Test(enabled = TEST_CRUD, groups = "CRUD", priority = 1, dataProvider = "novoFornecedor")
-	public void create(FornecedorRequestDTO request) {
+	public void create(FornecedorRequestDTO request) throws FornecedorExistenteException {
 		assertNotNull(request);
 		service.create(request);
 	}
