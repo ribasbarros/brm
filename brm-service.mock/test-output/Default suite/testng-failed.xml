@@ -7,8 +7,8 @@
         <methods>
           <include name="springTestContextBeforeTestClass"/>
           <include name="tearDown"/>
+          <include name="skuExistenteException"/>
           <include name="setup"/>
-          <include name="criarSkuPart1" invocation-numbers="0"/>
           <include name="springTestContextPrepareTestInstance"/>
           <include name="springTestContextAfterTestClass"/>
           <include name="springTestContextBeforeTestMethod"/>
