@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Collection;
 
+import br.com.brm.scp.api.annotation.BindingClassMeta;
 import br.com.brm.scp.api.dto.response.ItemResponseDTO;
 import br.com.brm.scp.api.dto.response.PedidoResponseDTO;
 import br.com.brm.scp.api.dto.response.TagResponseDTO;
@@ -17,7 +18,9 @@ public class SkuRequestDTO implements Serializable {
 	private static final long serialVersionUID = 769046123352911205L;
 	
 	private Long id;
+	@BindingClassMeta("ITEM")
 	private ItemResponseDTO item;
+	@BindingClassMeta("TAGS")
 	private Collection<TagResponseDTO> tags;
 	private Calendar dataMaturidade;
 	private Calendar dataDescontinuacao;
@@ -28,6 +31,7 @@ public class SkuRequestDTO implements Serializable {
 	private Integer loteReposicaoHistorico;
 	private StatusReposicaoEnum status;
 	private String descricao;
+	@BindingClassMeta("PEDIDOS")
 	private Collection<PedidoResponseDTO> pedidos;
 
 	private Integer estoqueMaximo;
@@ -39,7 +43,9 @@ public class SkuRequestDTO implements Serializable {
 
 	private Calendar dataCriacao;
 	private Calendar dataAlteracao;
+	@BindingClassMeta("USUARIO")
 	private UsuarioResponseDTO usuarioCriacao;
+	@BindingClassMeta("USUARIO")
 	private UsuarioResponseDTO usuarioAlteracao;
 
 	public ItemResponseDTO getItem() {

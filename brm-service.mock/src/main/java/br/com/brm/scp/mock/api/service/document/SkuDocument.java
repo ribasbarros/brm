@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Collection;
 
+import br.com.brm.scp.api.dto.response.ItemResponseDTO;
 import br.com.brm.scp.api.dto.response.PedidoResponseDTO;
 import br.com.brm.scp.api.dto.response.TagResponseDTO;
 import br.com.brm.scp.fw.annotations.BindingClass;
@@ -16,6 +17,7 @@ public class SkuDocument implements Serializable {
 	private static final long serialVersionUID = 5204544337090545867L;
 	
 	private Long id;
+	@BindingClass(ItemResponseDTO.class)
 	private ItemDocument item;
 	@BindingClass(TagResponseDTO.class)
 	private Collection<TagDocument> tags;

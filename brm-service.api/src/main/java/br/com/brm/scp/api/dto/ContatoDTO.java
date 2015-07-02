@@ -1,17 +1,19 @@
 package br.com.brm.scp.api.dto;
 
+import java.io.Serializable;
 import java.util.Collection;
 
-public class ContatoDTO {
+public class ContatoDTO implements Serializable {
 
-	private static final long serialVersionUID = -6433003551096069983L;
-
+	private static final long serialVersionUID = -3695238646035667057L;
+	
 	private Long id;
 	private String nome;
 	private String endereco;
 	private String cidade;
 	private String uf;
 	private String cep;
+	
 	private Collection<TelefoneDTO> telefone;
 
 	public Long getId() {

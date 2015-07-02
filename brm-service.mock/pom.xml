@@ -18,6 +18,12 @@
 			<artifactId>brm-service.api</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>br.com.scp.brm</groupId>
+			<artifactId>brm.fw</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.testng</groupId>
@@ -38,11 +44,6 @@
 			<version>${spring-core.version}</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.neo4j</groupId>
-			<artifactId>neo4j-cypher-compiler-2.1</artifactId>
-			<version>2.1.5</version>
-		</dependency>
 	</dependencies>
 
 	<build>

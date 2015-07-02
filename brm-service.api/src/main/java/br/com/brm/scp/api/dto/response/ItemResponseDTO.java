@@ -3,6 +3,7 @@ package br.com.brm.scp.api.dto.response;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import br.com.brm.scp.api.annotation.BindingClassMeta;
 import br.com.brm.scp.api.dto.CategoriaDTO;
 import br.com.brm.scp.mock.api.service.status.StatusProduto;
 
@@ -13,9 +14,11 @@ public class ItemResponseDTO implements Serializable {
 	private Long id;
 	private String nome;
 	private String nomeReduzido;
+	@BindingClassMeta("CATEGORIA")
 	private CategoriaDTO categoria;
 	private StatusProduto status;
 	private BigDecimal valorUnitario;
+	@BindingClassMeta("FORNECEDOR")
 	private FornecedorResponseDTO fornecedor;
 
 	public Long getId() {

@@ -1,7 +1,6 @@
 package br.com.brm.scp.mock.api.service.impl;
 
 import java.util.Collection;
-import java.util.UUID;
 
 import org.apache.log4j.Logger;
 import org.springframework.util.Assert;
