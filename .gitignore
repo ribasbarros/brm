@@ -8,4 +8,4 @@
 # Temp-files folders#
 ###################
 *target*
-*test-output*
+test-output/
