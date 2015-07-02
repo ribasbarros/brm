@@ -3,9 +3,12 @@ package br.com.brm.scp.api.dto.request;
 import java.math.BigDecimal;
 import java.sql.Date;
 
+import br.com.brm.scp.api.annotation.BindingClassMeta;
+
 public class DfuRequestDTO {
 
 	public Long id;
+	@BindingClassMeta("ITEM")
 	public ItemRequestDTO item;
 	public String dim1;
 	public String dim2;

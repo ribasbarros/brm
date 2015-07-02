@@ -12,6 +12,7 @@ import br.com.brm.scp.api.dto.response.UsuarioResponseDTO;
 import br.com.brm.scp.api.exceptions.UsuarioExistentException;
 import br.com.brm.scp.api.exceptions.UsuarioNotFoundException;
 import br.com.brm.scp.api.service.UsuarioService;
+import br.com.brm.scp.fw.helper.converters.ConverterHelper;
 import br.com.brm.scp.fw.helper.objects.RandomHelper;
 import br.com.brm.scp.mock.api.mockdata.MockData;
 import br.com.brm.scp.mock.api.service.document.UsuarioDocument;
@@ -36,9 +37,9 @@ public class UsuarioServiceMockImpl implements UsuarioService {
 			throw new UsuarioExistentException("brm.usuario.existente");
 		}
 
-		UsuarioDocument usuarioDocument = convert2Document(request);
+		UsuarioDocument usuarioDocument = (UsuarioDocument) ConverterHelper.convert(request, UsuarioDocument.class);
 		insert(usuarioDocument);
-		UsuarioResponseDTO response = convert2Response(usuarioDocument);
+		UsuarioResponseDTO response = (UsuarioResponseDTO) ConverterHelper.convert(usuarioDocument, UsuarioResponseDTO.class);
 		return response;
 
 	}
@@ -46,26 +47,9 @@ public class UsuarioServiceMockImpl implements UsuarioService {
 	private UsuarioResponseDTO findByEmail(String email) {
 		for (UsuarioDocument document : dbMock.getUsuarioCollection().values())
 			if (email.equals(document.getEmail()))
-				return convert2Response(document);
+				return (UsuarioResponseDTO) ConverterHelper.convert(document, UsuarioResponseDTO.class);
 
 		return null;
-	}
-
-	private UsuarioResponseDTO convert2Response(UsuarioDocument usuarioDocument) {
-		UsuarioResponseDTO response = new UsuarioResponseDTO();
-		response.setId(usuarioDocument.getId());
-		response.setNome(usuarioDocument.getNome());
-		response.setCargo(usuarioDocument.getCargo());
-		response.setEmail(usuarioDocument.getEmail());
-		return response;
-	}
-
-	private UsuarioDocument convert2Document(UsuarioRequestDTO request) {
-		UsuarioDocument usuarioDocument = new UsuarioDocument();
-		usuarioDocument.setNome(request.getNome());
-		usuarioDocument.setCargo(request.getCargo());
-		usuarioDocument.setEmail(request.getEmail());
-		return usuarioDocument;
 	}
 
 	@Override
@@ -78,7 +62,7 @@ public class UsuarioServiceMockImpl implements UsuarioService {
 			throw new UsuarioNotFoundException("brm.usuario.notfound");
 		}
 
-		return convert2Response(usuarioDocument);
+		return (UsuarioResponseDTO) ConverterHelper.convert(usuarioDocument, UsuarioResponseDTO.class);
 
 	}
 
@@ -122,7 +106,7 @@ public class UsuarioServiceMockImpl implements UsuarioService {
 
 		UsuarioDocument reload = findById(request.getId());
 
-		return convert2Response(reload);
+		return (UsuarioResponseDTO) ConverterHelper.convert(document, UsuarioResponseDTO.class);
 	}
 
 	private void update(Long id, UsuarioDocument document) {
@@ -143,22 +127,11 @@ public class UsuarioServiceMockImpl implements UsuarioService {
 			throw new UsuarioNotFoundException("brm.usuario.listNotFound");
 		}
 
-		return convertListDocument2ListResponse(all);
+		return ConverterHelper.convert(all, UsuarioResponseDTO.class);
 	}
 
 	private Collection<UsuarioDocument> findAll() {
 		return dbMock.getUsuarioCollection().values();
-	}
-
-	private Collection<UsuarioResponseDTO> convertListDocument2ListResponse(
-			Collection<UsuarioDocument> all) {
-		Collection<UsuarioResponseDTO> result = new ArrayList<UsuarioResponseDTO>();
-
-		for (UsuarioDocument document : all) {
-			result.add(convert2Response(document));
-		}
-
-		return result;
 	}
 
 	/*
@@ -169,19 +142,7 @@ public class UsuarioServiceMockImpl implements UsuarioService {
 		Assert.notNull(id);
 		UsuarioResponseDTO usuario = find(id);
 		usuario.setDataDeletado(new Date());
-		update(convert2Request(usuario));
-	}
-
-	private UsuarioRequestDTO convert2Request(UsuarioResponseDTO usuarioResponse) {
-		UsuarioRequestDTO usuarioRequest = new UsuarioRequestDTO();
-		usuarioRequest.setId(usuarioResponse.getId());
-		usuarioRequest.setNome(usuarioResponse.getNome());
-		usuarioRequest.setEmail(usuarioResponse.getEmail());
-		usuarioRequest.setCargo(usuarioResponse.getCargo());
-		usuarioRequest.setGrupoPerfilResponse(usuarioResponse
-				.getGrupoPerfilResponse());
-		usuarioRequest.setDataDeletado(usuarioResponse.getDataDeletado());
-		return usuarioRequest;
+		update(id , (UsuarioDocument) ConverterHelper.convert(usuario, UsuarioDocument.class));
 	}
 
 }

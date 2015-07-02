@@ -3,12 +3,16 @@ package br.com.brm.scp.mock.api.service.document;
 import java.io.Serializable;
 import java.util.Collection;
 
+import br.com.brm.scp.api.dto.response.PerfilResponseDTO;
+import br.com.brm.scp.fw.annotations.BindingClass;
+
 public class GrupoDocument implements Serializable {
 
 	private static final long serialVersionUID = -2946370998935414082L;
 	
 	private Long id;
 	private String nome;
+	@BindingClass(PerfilResponseDTO.class)
 	private Collection<PerfilDocument> perfis;
 
 	public Long getId() {

@@ -3,6 +3,7 @@ package br.com.brm.scp.api.dto.response;
 import java.io.Serializable;
 import java.util.Collection;
 
+import br.com.brm.scp.api.annotation.BindingClassMeta;
 import br.com.brm.scp.api.dto.ContatoDTO;
 
 
@@ -17,6 +18,7 @@ public class FornecedorResponseDTO implements Serializable {
 	private String inscricaoEstadual;
 	private String descricao;
 	
+	@BindingClassMeta("CONTATO")
 	private Collection<ContatoDTO> contato;
 
 	public Long getId() {

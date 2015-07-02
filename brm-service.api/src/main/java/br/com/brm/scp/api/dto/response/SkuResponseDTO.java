@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Collection;
 
+import br.com.brm.scp.api.annotation.BindingClassMeta;
 import br.com.brm.scp.mock.api.service.status.PlanejamentoSku;
 import br.com.brm.scp.mock.api.service.status.StatusReposicaoEnum;
 
@@ -13,7 +14,9 @@ public class SkuResponseDTO implements Serializable {
 	private static final long serialVersionUID = 7347879265505042643L;
 	
 	private Long id;
+	@BindingClassMeta("ITEM")
 	private ItemResponseDTO item;
+	@BindingClassMeta("TAGS")
 	private Collection<TagResponseDTO> tags;
 	private Calendar dataMaturidade;
 	private Calendar dataDescontinuacao;
@@ -24,6 +27,7 @@ public class SkuResponseDTO implements Serializable {
 	private Integer loteReposicaoHistorico;
 	private StatusReposicaoEnum status;
 	private String descricao;
+	@BindingClassMeta("PEDIDOS")
 	private Collection<PedidoResponseDTO> pedidos;
 
 	private Integer estoqueMaximo;
@@ -35,6 +39,7 @@ public class SkuResponseDTO implements Serializable {
 
 	private Calendar dataCriacao;
 	private Calendar dataAlteracao;
+	@BindingClassMeta("USUARIO")
 	private UsuarioResponseDTO usuarioCriacao;
 	private UsuarioResponseDTO usuarioAlteracao;
 

@@ -3,7 +3,8 @@ package br.com.brm.scp.mock.api.service.document;
 import java.io.Serializable;
 import java.util.Collection;
 
-import br.com.brm.scp.api.dto.response.GrupoPerfilResponse;
+import br.com.brm.scp.api.dto.response.GrupoResponseDTO;
+import br.com.brm.scp.fw.annotations.BindingClass;
 
 public class UsuarioDocument implements Serializable {
 
@@ -13,7 +14,8 @@ public class UsuarioDocument implements Serializable {
 	private String nome;
 	private String cargo;
 	private String email;
-	private Collection<GrupoPerfilResponse> grupoPerfilResponse;
+	@BindingClass(GrupoResponseDTO.class)
+	private Collection<GrupoDocument> grupos;
 
 
 	public UsuarioDocument() {
@@ -52,12 +54,12 @@ public class UsuarioDocument implements Serializable {
 		this.cargo = cargo;
 	}
 
-	public Collection<GrupoPerfilResponse> getGrupoPerfilResponse() {
-		return grupoPerfilResponse;
+	public Collection<GrupoDocument> getGrupos() {
+		return grupos;
 	}
 
-	public void setGrupoPerfilResponse(Collection<GrupoPerfilResponse> grupoPerfilResponse) {
-		this.grupoPerfilResponse = grupoPerfilResponse;
+	public void setGrupos(Collection<GrupoDocument> grupos) {
+		this.grupos = grupos;
 	}
 
 	public String getEmail() {

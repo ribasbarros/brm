@@ -42,7 +42,7 @@ public class FornecedorServiceMockTest extends AbstractTestNGSpringContextTests 
 	
 	@DataProvider(name = "novoFornecedor")
 	public Object[][] criaFornecedorRequest() {
-		FornecedorRequestDTO request = new FornecedorRequestDTO(null, "Fornecedor", "Fornecedor", "90098343123", null, null);
+		FornecedorRequestDTO request = new FornecedorRequestDTO(null, "Fornecedor", "Fornecedor", "90098343123", null, null, null);
 		return new Object[][] { new Object[] { request } };
 	}
 	

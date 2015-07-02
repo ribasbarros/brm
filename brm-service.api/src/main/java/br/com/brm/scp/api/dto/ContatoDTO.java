@@ -3,6 +3,8 @@ package br.com.brm.scp.api.dto;
 import java.io.Serializable;
 import java.util.Collection;
 
+import br.com.brm.scp.api.annotation.BindingClassMeta;
+
 public class ContatoDTO implements Serializable {
 
 	private static final long serialVersionUID = -3695238646035667057L;
@@ -14,6 +16,7 @@ public class ContatoDTO implements Serializable {
 	private String uf;
 	private String cep;
 	
+	@BindingClassMeta("TELEFONE")
 	private Collection<TelefoneDTO> telefone;
 
 	public Long getId() {
