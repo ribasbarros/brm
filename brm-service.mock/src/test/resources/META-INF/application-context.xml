@@ -43,4 +43,8 @@
 		<constructor-arg ref="mockData" index="0" />
 	</bean>
 	
+	<bean id="ItemService" class="br.com.brm.scp.mock.api.service.impl.ItemServiceMockImpl">
+		<constructor-arg ref="mockData" index="0" />
+	</bean>
+	
 </beans>
