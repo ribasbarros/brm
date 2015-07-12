@@ -80,6 +80,18 @@ public class MongoDBTest extends AbstractTestNGSpringContextTests {
 		
 	}
 	
+	@org.testng.annotations.Test(enabled = RODAR, groups = "Test", priority = 3)
+	public void testCustom() {
+
+		TestDocument findOne = testRepository.findOne(uidSaved);
+		assertNotNull(findOne);
+		
+		List<TestDocument> findAll = testRepository.findTest(findOne.getTestString());
+		assertTrue(findAll.size() > 0);
+		
+		
+	}
+	
 	@org.testng.annotations.Test(enabled = RODAR && EXCLUIR_TESTES, groups = "Test", priority = 4)
 	public void testExcluir() {
 
