@@ -14,7 +14,12 @@ import br.com.brm.scp.mock.api.mockdata.MockData;
 public class ItemServiceMockImpl implements ItemService {
 
 	@Autowired
-	private MockData dbMock;
+	private MockData mockdb;
+	
+	public ItemServiceMockImpl(MockData mockdb) {
+		super();
+		this.mockdb = mockdb;
+	}
 	
 	@Override
 	public Collection<ItemResponseDTO> all() {
@@ -44,6 +49,18 @@ public class ItemServiceMockImpl implements ItemService {
 	private boolean existe(ItemRequestDTO request) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public void delete(ItemRequestDTO request) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(ItemRequestDTO request) {
+		// TODO Auto-generated method stub
+		
 	}
 
 
