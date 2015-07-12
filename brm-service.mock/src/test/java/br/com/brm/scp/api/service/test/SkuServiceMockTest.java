@@ -156,10 +156,6 @@ public class SkuServiceMockTest extends AbstractTestNGSpringContextTests {
 
 		assertNotNull(response);
 		
-		logger.info("******* STATUS DO BANCO *******");
-		logger.info(mockDb.getSkuCollection());
-		logger.info("******* ** *******");
-
 	}
 
 	/**
@@ -181,6 +177,13 @@ public class SkuServiceMockTest extends AbstractTestNGSpringContextTests {
 	 */
 	@Test(enabled = CREATION_SKU, expectedExceptions = SkuExistenteException.class, groups = "CRIACAO_SKU", priority = 4)
 	public void skuExistenteException() throws SkuExistenteException {
+		
+		
+		/*
+		 * TODO VALIDAR SE JA EXISTE A SKU, EH A MELOR VALIDACAO?
+		 * OU SE EXISTE A SKU PELO ITEM NO PERIODO DELA?
+		 */
+		
 		SkuResponseDTO response = service.create(skuRequestSuccess);
 		assertNotNull(response);
 
