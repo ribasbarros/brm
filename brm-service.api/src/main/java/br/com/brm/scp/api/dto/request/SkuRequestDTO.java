@@ -8,6 +8,7 @@ import java.util.Collection;
 import br.com.brm.scp.api.annotation.BindingClassMeta;
 import br.com.brm.scp.api.dto.response.ItemResponseDTO;
 import br.com.brm.scp.api.dto.response.PedidoResponseDTO;
+import br.com.brm.scp.api.dto.response.SkuResponseDTO;
 import br.com.brm.scp.api.dto.response.TagResponseDTO;
 import br.com.brm.scp.api.dto.response.UsuarioResponseDTO;
 import br.com.brm.scp.mock.api.service.status.PlanejamentoSku;
@@ -16,7 +17,7 @@ import br.com.brm.scp.mock.api.service.status.StatusReposicaoEnum;
 public class SkuRequestDTO implements Serializable {
 
 	private static final long serialVersionUID = 769046123352911205L;
-	
+
 	private Long id;
 	@BindingClassMeta("ITEM")
 	private ItemResponseDTO item;
@@ -47,6 +48,12 @@ public class SkuRequestDTO implements Serializable {
 	private UsuarioResponseDTO usuarioCriacao;
 	@BindingClassMeta("USUARIO")
 	private UsuarioResponseDTO usuarioAlteracao;
+
+	@BindingClassMeta("ORIGIN")
+	private Collection<SkuResponseDTO> origins;
+
+	@BindingClassMeta("ORIGIN")
+	private SkuResponseDTO originDefault;
 
 	public ItemResponseDTO getItem() {
 		return item;
@@ -222,6 +229,22 @@ public class SkuRequestDTO implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Collection<SkuResponseDTO> getOrigins() {
+		return origins;
+	}
+
+	public void setOrigins(Collection<SkuResponseDTO> origins) {
+		this.origins = origins;
+	}
+
+	public SkuResponseDTO getOriginDefault() {
+		return originDefault;
+	}
+
+	public void setOriginDefault(SkuResponseDTO originDefault) {
+		this.originDefault = originDefault;
 	}
 
 }

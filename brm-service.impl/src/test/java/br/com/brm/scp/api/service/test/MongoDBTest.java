@@ -80,7 +80,7 @@ public class MongoDBTest extends AbstractTestNGSpringContextTests {
 		
 	}
 	
-	@org.testng.annotations.Test(enabled = RODAR, groups = "Test", priority = 3)
+	@org.testng.annotations.Test(enabled = RODAR, groups = "Test", priority = 4)
 	public void testCustom() {
 
 		TestDocument findOne = testRepository.findOne(uidSaved);
@@ -92,7 +92,7 @@ public class MongoDBTest extends AbstractTestNGSpringContextTests {
 		
 	}
 	
-	@org.testng.annotations.Test(enabled = RODAR && EXCLUIR_TESTES, groups = "Test", priority = 4)
+	@org.testng.annotations.Test(enabled = RODAR && EXCLUIR_TESTES, groups = "Test", priority = 5)
 	public void testExcluir() {
 
 		testRepository.delete(uidSaved);
@@ -103,7 +103,7 @@ public class MongoDBTest extends AbstractTestNGSpringContextTests {
 		
 	}
 	
-	@org.testng.annotations.Test(enabled = RODAR && EXCLUIR_TESTES, groups = "Test", priority = 5)
+	@org.testng.annotations.Test(enabled = RODAR && EXCLUIR_TESTES, groups = "Test", priority = 6)
 	public void cleanDb() {
 
 		testRepository.deleteAll();

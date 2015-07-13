@@ -15,7 +15,7 @@ import br.com.brm.scp.mock.api.service.status.StatusReposicaoEnum;
 public class SkuDocument implements Serializable {
 
 	private static final long serialVersionUID = 5204544337090545867L;
-	
+
 	private Long id;
 	@BindingClass(ItemResponseDTO.class)
 	private ItemDocument item;
@@ -44,6 +44,12 @@ public class SkuDocument implements Serializable {
 	private Calendar dataAlteracao;
 	private UsuarioDocument usuarioCriacao;
 	private UsuarioDocument usuarioAlteracao;
+
+	@BindingClass(SkuDocument.class)
+	private Collection<SkuDocument> origins;
+
+	@BindingClass(SkuDocument.class)
+	private SkuDocument originDefault;
 
 	public ItemDocument getItem() {
 		return item;
@@ -219,6 +225,22 @@ public class SkuDocument implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Collection<SkuDocument> getOrigins() {
+		return origins;
+	}
+
+	public void setOrigins(Collection<SkuDocument> origins) {
+		this.origins = origins;
+	}
+
+	public SkuDocument getOriginDefault() {
+		return originDefault;
+	}
+
+	public void setOriginDefault(SkuDocument originDefault) {
+		this.originDefault = originDefault;
 	}
 
 }
