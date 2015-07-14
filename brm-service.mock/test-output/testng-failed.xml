@@ -3,18 +3,17 @@
 <suite name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
-      <class name="br.com.brm.scp.api.service.test.ItemSeviceMockTest">
+      <class name="br.com.brm.scp.api.service.test.CategoriaServiceMockTest">
         <methods>
           <include name="springTestContextBeforeTestClass"/>
-          <include name="setup"/>
-          <include name="testCreate"/>
+          <include name="delete" invocation-numbers="0"/>
           <include name="springTestContextPrepareTestInstance"/>
           <include name="springTestContextAfterTestClass"/>
           <include name="springTestContextBeforeTestMethod"/>
+          <include name="update" invocation-numbers="0"/>
           <include name="springTestContextAfterTestMethod"/>
-          <include name="tearDown"/>
         </methods>
-      </class> <!-- br.com.brm.scp.api.service.test.ItemSeviceMockTest -->
+      </class> <!-- br.com.brm.scp.api.service.test.CategoriaServiceMockTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

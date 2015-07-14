@@ -1,21 +1,17 @@
-package br.com.brm.scp.mock.api.service.document;
+package br.com.brm.scp.api.dto.response;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class CategoriaDocument implements Serializable {
-
-	private static final long serialVersionUID = 4818676017623732383L;
-	
+public class CategoriaResponseDTO {
 	private Long id;
 	private String nome;
 	private Date dataExcluido;
 
-	public CategoriaDocument() {
+	public CategoriaResponseDTO() {
 		super();
 	}
 
-	public CategoriaDocument(Long id, String nome) {
+	public CategoriaResponseDTO(Long id, String nome) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -37,7 +33,7 @@ public class CategoriaDocument implements Serializable {
 		this.nome = nome;
 	}
 	
-	
+
 	public Date getDataExcluido() {
 		return dataExcluido;
 	}
@@ -45,6 +41,5 @@ public class CategoriaDocument implements Serializable {
 	public void setDataExcluido(Date dataExcluido) {
 		this.dataExcluido = dataExcluido;
 	}
-
 
 }
