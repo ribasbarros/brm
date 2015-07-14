@@ -7,7 +7,9 @@ import java.util.Collection;
 
 import br.com.brm.scp.api.dto.response.ItemResponseDTO;
 import br.com.brm.scp.api.dto.response.PedidoResponseDTO;
+import br.com.brm.scp.api.dto.response.SkuResponseDTO;
 import br.com.brm.scp.api.dto.response.TagResponseDTO;
+import br.com.brm.scp.api.dto.response.UsuarioResponseDTO;
 import br.com.brm.scp.fw.annotations.BindingClass;
 import br.com.brm.scp.mock.api.service.status.PlanejamentoSku;
 import br.com.brm.scp.mock.api.service.status.StatusReposicaoEnum;
@@ -42,13 +44,16 @@ public class SkuDocument implements Serializable {
 
 	private Calendar dataCriacao;
 	private Calendar dataAlteracao;
+	
+	@BindingClass(UsuarioResponseDTO.class)
 	private UsuarioDocument usuarioCriacao;
+	@BindingClass(UsuarioResponseDTO.class)
 	private UsuarioDocument usuarioAlteracao;
 
-	@BindingClass(SkuDocument.class)
+	@BindingClass(SkuResponseDTO.class)
 	private Collection<SkuDocument> origins;
 
-	@BindingClass(SkuDocument.class)
+	@BindingClass(SkuResponseDTO.class)
 	private SkuDocument originDefault;
 
 	public ItemDocument getItem() {

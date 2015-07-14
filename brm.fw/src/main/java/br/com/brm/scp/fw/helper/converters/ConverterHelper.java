@@ -125,6 +125,7 @@ public class ConverterHelper {
 								
 								System.out.println(intanceMetaClass);
 							}else{
+								logger.info(String.format("CONVERTENDO NORMAL: %s = %s", methodGetterNameOrigem, getterMethodFrom.invoke(instanceFrom)));
 								setterMethodTo.invoke(instanceDestine, getterMethodFrom.invoke(instanceFrom));
 							}
 						}

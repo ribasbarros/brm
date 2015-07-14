@@ -97,7 +97,8 @@ public class SkuServiceMockTest extends SkuDadosFake {
 		assertNotNull(response);
 		assertTrue(idSaved != 0 && idSaved != null);
 		
-		skuRequestSuccess = (SkuRequestDTO) ConverterHelper.convert(service.find(idSaved), SkuRequestDTO.class);
+		skuRequestSuccess.setId(idSaved);
+		skuRequestSuccess.setStatus(response.getStatus());
 		
 	}
 
@@ -136,7 +137,8 @@ public class SkuServiceMockTest extends SkuDadosFake {
 		assertNotNull(response);
 		assertTrue(descricao.equals(mockDb.getSkuCollection().get(skuRequestSuccess.getId()).getDescricao()));
 		
-		skuRequestSuccess = (SkuRequestDTO) ConverterHelper.convert(service.find(response.getId()), SkuRequestDTO.class);
+		skuRequestSuccess.setId(response.getId());
+		skuRequestSuccess.setStatus(response.getStatus());
 		
 	}
 
@@ -202,7 +204,7 @@ public class SkuServiceMockTest extends SkuDadosFake {
 
 		children.setDataCriacao(Calendar.getInstance());
 		children.setUsuarioCriacao(usuarioService.find(USUARIO_LOGADO_FAKE));
-		selecaoSkus = service.findForOrigin(skuRequestSuccess.getId());
+		selecaoSkus = service.findForOrigin(children.getId());
 		children.setOrigins(selecaoSkus);
 		
 		// TODO SELECIONA UMA ORIGEM DEFAULT
@@ -223,8 +225,6 @@ public class SkuServiceMockTest extends SkuDadosFake {
 
 	@Test(enabled = SKU_ANALITICA, groups = "SKU_VALIDACAO", priority = 3)
 	public void validarSku() throws Exception {
-
-		// TODO FASE DE VIDA?
 
 		// TODO ESTOQUE MAXIMO?
 

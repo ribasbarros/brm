@@ -1,28 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" total="1" passed="1">
+<testng-results skipped="0" failed="0" total="0" passed="0">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="113" started-at="2015-05-15T00:12:51Z" finished-at="2015-05-15T00:12:51Z">
+  <suite name="Default suite" duration-ms="5" started-at="2015-07-14T02:30:15Z" finished-at="2015-07-14T02:30:15Z">
     <groups>
-      <group name="Utils">
-        <method signature="ConverterHelperTest.converterCollectionHelper()[pri:0, instance:br.com.brm.scp.fw.test.converters.ConverterHelperTest@20e8ac93]" name="converterCollectionHelper" class="br.com.brm.scp.fw.test.converters.ConverterHelperTest"/>
-      </group> <!-- Utils -->
     </groups>
-    <test name="Default test" duration-ms="113" started-at="2015-05-15T00:12:51Z" finished-at="2015-05-15T00:12:51Z">
-      <class name="br.com.brm.scp.fw.test.converters.ConverterHelperTest">
-        <test-method status="PASS" signature="setup()[pri:0, instance:br.com.brm.scp.fw.test.converters.ConverterHelperTest@20e8ac93]" name="setup" is-config="true" duration-ms="8" started-at="2015-05-14T21:12:51Z" finished-at="2015-05-14T21:12:51Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- setup -->
-        <test-method status="PASS" signature="converterCollectionHelper()[pri:0, instance:br.com.brm.scp.fw.test.converters.ConverterHelperTest@20e8ac93]" name="converterCollectionHelper" duration-ms="92" started-at="2015-05-14T21:12:51Z" finished-at="2015-05-14T21:12:51Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- converterCollectionHelper -->
-        <test-method status="PASS" signature="tearDown()[pri:0, instance:br.com.brm.scp.fw.test.converters.ConverterHelperTest@20e8ac93]" name="tearDown" is-config="true" duration-ms="0" started-at="2015-05-14T21:12:51Z" finished-at="2015-05-14T21:12:51Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- tearDown -->
-      </class> <!-- br.com.brm.scp.fw.test.converters.ConverterHelperTest -->
+    <test name="Default test" duration-ms="5" started-at="2015-07-14T02:30:15Z" finished-at="2015-07-14T02:30:15Z">
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>
