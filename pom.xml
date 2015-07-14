@@ -17,6 +17,8 @@
 		<spring-core.version>4.1.5.RELEASE</spring-core.version>
 		<spring-webmvc.version>4.1.5.RELEASE</spring-webmvc.version>
 		<spring-test.version>4.0.2.RELEASE</spring-test.version>
+		<spring-mongodb>1.7.1.RELEASE</spring-mongodb>
+		<spring-orm>4.1.7.RELEASE</spring-orm>
 	</properties>
 
 	<modules>
@@ -68,6 +70,18 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
 			<version>${spring-core.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-mongodb</artifactId>
+			<version>${spring-mongodb}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${spring-orm}</version>
 		</dependency>
 
 		<dependency>

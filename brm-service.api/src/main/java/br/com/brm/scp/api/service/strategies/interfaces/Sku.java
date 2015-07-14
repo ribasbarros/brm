@@ -1,8 +1,8 @@
-package br.com.brm.scp.mock.api.service.strategies;
+package br.com.brm.scp.api.service.strategies.interfaces;
 
 import br.com.brm.scp.api.dto.request.SkuRequestDTO;
 import br.com.brm.scp.api.dto.response.SkuResponseDTO;
-import br.com.brm.scp.mock.api.service.strategies.interfaces.SkuStrategy;
+import br.com.brm.scp.api.exceptions.SkuException;
 
 public class Sku implements SkuStrategy {
 
@@ -14,10 +14,8 @@ public class Sku implements SkuStrategy {
 	}
 
 	@Override
-	public SkuResponseDTO create(SkuRequestDTO request) {
-		return strategy.create(request);
+	public SkuResponseDTO save(SkuRequestDTO request) throws SkuException {
+		return strategy.save(request);
 	}
-	
-	
-	
+
 }

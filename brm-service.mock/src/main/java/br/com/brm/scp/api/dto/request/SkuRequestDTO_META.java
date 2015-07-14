@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import br.com.brm.scp.mock.api.service.document.ItemDocument;
 import br.com.brm.scp.mock.api.service.document.PedidoDocument;
+import br.com.brm.scp.mock.api.service.document.SkuDocument;
 import br.com.brm.scp.mock.api.service.document.TagDocument;
 import br.com.brm.scp.mock.api.service.document.UsuarioDocument;
 
@@ -15,5 +16,6 @@ public class SkuRequestDTO_META implements Serializable {
 	static final Class<?> TAGS = TagDocument.class;
 	static final Class<?> PEDIDOS = PedidoDocument.class;
 	static final Class<?> USUARIO = UsuarioDocument.class;
+	static final Class<?> ORIGIN = SkuDocument.class;
 
 }

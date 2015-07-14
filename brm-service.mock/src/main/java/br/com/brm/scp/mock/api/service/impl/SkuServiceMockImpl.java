@@ -1,133 +1,74 @@
 package br.com.brm.scp.mock.api.service.impl;
 
-import java.util.Calendar;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.apache.log4j.Logger;
-import org.springframework.util.Assert;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.brm.scp.api.dto.request.SkuRequestDTO;
-import br.com.brm.scp.api.dto.response.ItemResponseDTO;
 import br.com.brm.scp.api.dto.response.SkuResponseDTO;
-import br.com.brm.scp.api.dto.response.TagResponseDTO;
-import br.com.brm.scp.api.exceptions.SkuExistenteException;
+import br.com.brm.scp.api.exceptions.SkuException;
 import br.com.brm.scp.api.exceptions.SkuNotFoundException;
 import br.com.brm.scp.api.service.SkuService;
+import br.com.brm.scp.api.service.strategies.interfaces.Sku;
 import br.com.brm.scp.fw.helper.converters.ConverterHelper;
-import br.com.brm.scp.fw.helper.objects.RandomHelper;
-import br.com.brm.scp.mock.api.mockdata.MockData;
+import br.com.brm.scp.mock.api.service.db.SkuOperationDB;
 import br.com.brm.scp.mock.api.service.document.SkuDocument;
-import br.com.brm.scp.mock.api.service.document.TagDocument;
-import br.com.brm.scp.mock.api.service.status.StatusReposicaoEnum;
+import br.com.brm.scp.mock.api.service.strategies.SkuAlterarStrategyImpl;
+import br.com.brm.scp.mock.api.service.strategies.SkuAtivandoStrategyImpl;
+import br.com.brm.scp.mock.api.service.strategies.SkuCreateStrategyImpl;
 
 public class SkuServiceMockImpl implements SkuService {
 
+	@Autowired
+	private SkuOperationDB db;
+	
 	private Logger logger = Logger.getLogger(SkuServiceMockImpl.class);
 
-	private MockData dbMock;
-
-	public SkuServiceMockImpl(MockData dbMock) {
-		super();
-		this.dbMock = dbMock;
+	@Override
+	public SkuResponseDTO create(SkuRequestDTO request) throws SkuException {
+		logger.info(String.format("Criando SKU para o item %s", request.getItem().getNome()));
+		return new Sku(new SkuCreateStrategyImpl(db)).save(request);
 	}
 
 	@Override
-	public SkuResponseDTO create(SkuRequestDTO request) throws SkuExistenteException {
-
-		Assert.notNull(request.getItem(), "sku.itemnaopreenchido");
-		Assert.notEmpty(request.getTags(), "sku.tagnaopreenchida");
-
-		hasSku(request);
-
-		SkuDocument document = (SkuDocument) ConverterHelper.convert(request, SkuDocument.class);
-
-		document.setStatus(StatusReposicaoEnum.RASCUNHO);
-
-		document = insert(document);
-
-		return (SkuResponseDTO) ConverterHelper.convert(document, SkuResponseDTO.class);
-
+	public SkuResponseDTO ativar(SkuRequestDTO request) throws SkuException {
+		logger.info(String.format("Ativando SKU do item %s", request.getItem().getNome()));
+		return new Sku(new SkuAtivandoStrategyImpl(db)).save(request);
 	}
 
 	@Override
-	public SkuResponseDTO ativar(SkuRequestDTO request) throws SkuNotFoundException {
-
-		Assert.notNull(request.getId(), "sku.idinvalido");
-		Assert.notNull(request.getItem(), "sku.itemnaopreenchido");
-		Assert.notEmpty(request.getTags(), "sku.tagnaopreenchida");
-
-		try {
-			hasSku(request);
-		} catch (SkuExistenteException e) {
-			// TODO Auto-generated catch block
-		}
-
-		SkuDocument document = (SkuDocument) ConverterHelper.convert(request, SkuDocument.class);
-		document.setStatus(StatusReposicaoEnum.DESBLOQUEADA);
-		document.setDataAlteracao(Calendar.getInstance());
+	public Collection<SkuResponseDTO> findForOrigin(Long id) throws SkuNotFoundException {
 		
-		document = update(document);
+		SkuDocument findOne = db.findOne(id);
+		
+		Collection<SkuDocument> all = db.findByItem(findOne.getItem());
+		Collection<SkuDocument> remove = new ArrayList<SkuDocument>();
+		
+		for(SkuDocument doc : all){
+			if(doc.getId().equals(id)){
+				remove.add(doc);
+			}
+		}
+		
+		all.removeAll(remove);
+		
+		return ConverterHelper.convert(all, SkuResponseDTO.class);
+		
+	}
 
+	@Override
+	public SkuResponseDTO alterar(SkuRequestDTO request) throws SkuException {
+		logger.info(String.format("Alterando uma SKU para o item %s", request.getItem().getNome()));
+		return new Sku(new SkuAlterarStrategyImpl(db)).save(request);
+	}
+
+	@Override
+	public SkuResponseDTO find(Long id) throws SkuNotFoundException {
+		logger.info(String.format("Procurando SKU por id = %s", id));
+		SkuDocument document = db.findOne(id);
 		return (SkuResponseDTO) ConverterHelper.convert(document, SkuResponseDTO.class);
-
-	}
-
-	private SkuDocument update(SkuDocument document) {
-		dbMock.getSkuCollection().put(document.getId(), document);
-		return document;
-	}
-
-	private void hasSku(SkuRequestDTO request) throws SkuExistenteException {
-		try {
-
-			SkuDocument loaded = null;
-			if (request.getId() != null) {
-				loaded = find(request.getId(), request.getItem(), request.getTags());
-			} else {
-				loaded = find(request.getItem(), request.getTags());
-			}
-
-			if (loaded == null) {
-				logger.debug(String.format("Sku já cadastrada na base de id=%s", loaded.getId()));
-				throw new SkuExistenteException();
-			}
-		} catch (SkuNotFoundException e) {
-			logger.info("Sku não cadastrada, cadastro autorizado");
-		}
-	}
-
-	private SkuDocument insert(SkuDocument document) {
-
-		long uid = RandomHelper.UUID();
-		document.setId(uid);
-
-		dbMock.getSkuCollection().put(uid, document);
-
-		return document;
-
-	}
-
-	private SkuDocument find(Long id, ItemResponseDTO item, Collection<TagResponseDTO> tags)
-			throws SkuNotFoundException {
-
-		SkuDocument loaded = find(item, tags);
-
-		if (!loaded.getId().equals(id)) {
-			throw new SkuNotFoundException();
-		}
-
-		return loaded;
-
-	}
-
-	private SkuDocument find(ItemResponseDTO item, Collection<TagResponseDTO> tags) throws SkuNotFoundException {
-		for (SkuDocument document : dbMock.getSkuCollection().values()) {
-			Collection<TagDocument> collection = ConverterHelper.convert(tags, TagDocument.class);
-			if (document.getItem().getId().equals(item.getId()) && collection.equals(document.getTags())) {
-				return document;
-			}
-		}
-		throw new SkuNotFoundException();
 	}
 
 }

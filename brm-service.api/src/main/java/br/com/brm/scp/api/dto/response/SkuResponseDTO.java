@@ -10,9 +10,9 @@ import br.com.brm.scp.mock.api.service.status.PlanejamentoSku;
 import br.com.brm.scp.mock.api.service.status.StatusReposicaoEnum;
 
 public class SkuResponseDTO implements Serializable {
-	
+
 	private static final long serialVersionUID = 7347879265505042643L;
-	
+
 	private Long id;
 	@BindingClassMeta("ITEM")
 	private ItemResponseDTO item;
@@ -42,6 +42,12 @@ public class SkuResponseDTO implements Serializable {
 	@BindingClassMeta("USUARIO")
 	private UsuarioResponseDTO usuarioCriacao;
 	private UsuarioResponseDTO usuarioAlteracao;
+
+	@BindingClassMeta("ORIGIN")
+	private Collection<SkuResponseDTO> origins;
+
+	@BindingClassMeta("ORIGIN")
+	private SkuResponseDTO originDefault;
 
 	public ItemResponseDTO getItem() {
 		return item;
@@ -217,6 +223,22 @@ public class SkuResponseDTO implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Collection<SkuResponseDTO> getOrigins() {
+		return origins;
+	}
+
+	public void setOrigins(Collection<SkuResponseDTO> origins) {
+		this.origins = origins;
+	}
+
+	public SkuResponseDTO getOriginDefault() {
+		return originDefault;
+	}
+
+	public void setOriginDefault(SkuResponseDTO originDefault) {
+		this.originDefault = originDefault;
 	}
 
 }
