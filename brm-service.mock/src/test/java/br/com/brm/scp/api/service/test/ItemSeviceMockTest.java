@@ -2,19 +2,23 @@ package br.com.brm.scp.api.service.test;
 
 import static org.testng.AssertJUnit.assertNotNull;
 
+import java.math.BigDecimal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 
-import br.com.brm.scp.api.dto.request.FornecedorRequestDTO;
 import br.com.brm.scp.api.dto.request.ItemRequestDTO;
+import br.com.brm.scp.api.dto.response.CategoriaResponseDTO;
+import br.com.brm.scp.api.dto.response.FornecedorResponseDTO;
 import br.com.brm.scp.api.exceptions.FornecedorExistenteException;
-import br.com.brm.scp.api.exceptions.ItemNotFound;
+import br.com.brm.scp.api.exceptions.ItemExistenteException;
+import br.com.brm.scp.api.exceptions.ItemNotFoundException;
 import br.com.brm.scp.api.service.ItemService;
+import br.com.brm.scp.fw.helper.objects.RandomHelper;
 
 @ContextConfiguration(locations = { "classpath:META-INF/application-context.xml" })
 public class ItemSeviceMockTest extends AbstractTestNGSpringContextTests{
@@ -35,31 +39,55 @@ public class ItemSeviceMockTest extends AbstractTestNGSpringContextTests{
 	}
 	
 	@org.testng.annotations.Test(enabled = TEST_CRUD, groups = "CRUD", priority = 1, dataProvider = "novoItem")
-	public void create(ItemRequestDTO request) throws FornecedorExistenteException {
+	public void create(ItemRequestDTO request) throws FornecedorExistenteException, ItemExistenteException {
 		assertNotNull(request);
 		try {
 			service.create(request);
-		} catch (ItemNotFound e) {
+		} catch (ItemNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
 	@org.testng.annotations.Test(enabled = TEST_CRUD, groups = "CRUD", priority = 2, dataProvider = "novoItem")
-	public void delete(ItemRequestDTO request) {
-		assertNotNull(request);
-		service.delete(request);		
-	}
-	
-	@org.testng.annotations.Test(enabled = TEST_CRUD, groups = "CRUD", priority = 3, dataProvider = "novoItem")
-	public void update(ItemRequestDTO request){
+	public void update(ItemRequestDTO request) throws ItemNotFoundException{
 		assertNotNull(request);
 		service.update(request);
 	}
 	
+	@org.testng.annotations.Test(enabled = TEST_CRUD, groups = "CRUD", priority = 3, dataProvider = "novoItem")
+	public void delete(ItemRequestDTO request) throws ItemNotFoundException {
+		assertNotNull(request);
+		service.delete(request);		
+	}
+	
 	@DataProvider(name = "novoItem")
 	public Object[][] criaItemRequest() {
-		ItemRequestDTO request = null;
+		ItemRequestDTO request = doItem() ;
 		return new Object[][] { new Object[] { request } };
 	}
+	
+	public ItemRequestDTO doItem(){
+		ItemRequestDTO request = new ItemRequestDTO();
+		request.setId(RandomHelper.UUID());
+		request.setNome("Item1");
+		request.setNomeReduzido("I1");
+		request.setValorUnitario(BigDecimal.ONE);
+		request.setFornecedor(doFornecedor());
+		request.setCategoria(doCategoria());
+		return request;
+	}
+
+
+	private CategoriaResponseDTO doCategoria() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private FornecedorResponseDTO doFornecedor() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
 }

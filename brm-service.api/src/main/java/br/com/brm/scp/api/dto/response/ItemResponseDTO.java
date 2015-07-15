@@ -2,6 +2,7 @@ package br.com.brm.scp.api.dto.response;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 import br.com.brm.scp.api.annotation.BindingClassMeta;
 import br.com.brm.scp.api.dto.CategoriaDTO;
@@ -15,12 +16,13 @@ public class ItemResponseDTO implements Serializable {
 	private String nome;
 	private String nomeReduzido;
 	@BindingClassMeta("CATEGORIA")
-	private CategoriaDTO categoria;
+	private CategoriaResponseDTO categoria;
 	private StatusProduto status;
 	private BigDecimal valorUnitario;
 	@BindingClassMeta("FORNECEDOR")
 	private FornecedorResponseDTO fornecedor;
-
+	private Date dataExcluido;
+	
 	public Long getId() {
 		return id;
 	}
@@ -45,11 +47,11 @@ public class ItemResponseDTO implements Serializable {
 		this.nomeReduzido = nomeReduzido;
 	}
 
-	public CategoriaDTO getCategoria() {
+	public CategoriaResponseDTO getCategoria() {
 		return categoria;
 	}
 
-	public void setCategoria(CategoriaDTO categoria) {
+	public void setCategoria(CategoriaResponseDTO categoria) {
 		this.categoria = categoria;
 	}
 
@@ -75,6 +77,14 @@ public class ItemResponseDTO implements Serializable {
 
 	public void setFornecedor(FornecedorResponseDTO fornecedor) {
 		this.fornecedor = fornecedor;
+	}
+
+	public Date getDataExcluido() {
+		return dataExcluido;
+	}
+
+	public void setDataExcluido(Date dataExcluido) {
+		this.dataExcluido = dataExcluido;
 	}
 
 }

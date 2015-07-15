@@ -3,32 +3,18 @@
 <suite name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
-<<<<<<< HEAD
-      <class name="br.com.brm.scp.api.service.test.CategoriaServiceMockTest">
+      <class name="br.com.brm.scp.api.service.test.ItemSeviceMockTest">
         <methods>
           <include name="springTestContextBeforeTestClass"/>
-          <include name="delete" invocation-numbers="0"/>
-          <include name="springTestContextPrepareTestInstance"/>
-          <include name="springTestContextAfterTestClass"/>
-          <include name="springTestContextBeforeTestMethod"/>
-          <include name="update" invocation-numbers="0"/>
-          <include name="springTestContextAfterTestMethod"/>
-        </methods>
-      </class> <!-- br.com.brm.scp.api.service.test.CategoriaServiceMockTest -->
-=======
-      <class name="br.com.brm.scp.api.service.test.SkuServiceMockTest">
-        <methods>
-          <include name="springTestContextBeforeTestClass"/>
-          <include name="tearDown"/>
           <include name="setup"/>
+          <include name="create" invocation-numbers="0"/>
           <include name="springTestContextPrepareTestInstance"/>
           <include name="springTestContextAfterTestClass"/>
           <include name="springTestContextBeforeTestMethod"/>
-          <include name="selecionarOrigens" invocation-numbers="0"/>
           <include name="springTestContextAfterTestMethod"/>
+          <include name="tearDown"/>
         </methods>
-      </class> <!-- br.com.brm.scp.api.service.test.SkuServiceMockTest -->
->>>>>>> d9e0e904c11e80e2c616e8a4499f1515a2c22136
+      </class> <!-- br.com.brm.scp.api.service.test.ItemSeviceMockTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

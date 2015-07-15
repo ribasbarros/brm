@@ -4,16 +4,17 @@ import java.util.Collection;
 
 import br.com.brm.scp.api.dto.request.ItemRequestDTO;
 import br.com.brm.scp.api.dto.response.ItemResponseDTO;
-import br.com.brm.scp.api.exceptions.ItemNotFound;
+import br.com.brm.scp.api.exceptions.ItemExistenteException;
+import br.com.brm.scp.api.exceptions.ItemNotFoundException;
 
 public interface ItemService {
 
 	Collection<ItemResponseDTO> all();
 
-	void create(ItemRequestDTO request) throws ItemNotFound;
+	ItemResponseDTO create(ItemRequestDTO request) throws ItemNotFoundException, ItemExistenteException;
 
-	void delete(ItemRequestDTO request);
+	void delete(ItemRequestDTO request) throws ItemNotFoundException;
 
-	void update(ItemRequestDTO request);
+	void update(ItemRequestDTO request) throws ItemNotFoundException;
 
 }

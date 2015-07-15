@@ -2,8 +2,10 @@ package br.com.brm.scp.mock.api.service.document;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 import br.com.brm.scp.api.dto.CategoriaDTO;
+import br.com.brm.scp.api.dto.response.CategoriaResponseDTO;
 import br.com.brm.scp.api.dto.response.FornecedorResponseDTO;
 import br.com.brm.scp.fw.annotations.BindingClass;
 import br.com.brm.scp.mock.api.service.status.StatusProduto;
@@ -15,13 +17,14 @@ public class ItemDocument implements Serializable {
 	private Long id;
 	private String nome;
 	private String nomeReduzido;
-	@BindingClass(CategoriaDTO.class)
+	@BindingClass(CategoriaResponseDTO.class)
 	private CategoriaDocument categoria;
 	private StatusProduto status;
 	private BigDecimal valorUnitario;
 	@BindingClass(FornecedorResponseDTO.class)
 	private FornecedorDocument fornecedor;
-
+	private Date dataExcluido;
+	
 	public Long getId() {
 		return id;
 	}
@@ -78,4 +81,11 @@ public class ItemDocument implements Serializable {
 		this.fornecedor = fornecedor;
 	}
 
+	public Date getDataExcluido() {
+		return dataExcluido;
+	}
+
+	public void setDataExcluido(Date dataExcluido) {
+		this.dataExcluido = dataExcluido;
+	}
 }

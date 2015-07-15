@@ -35,7 +35,7 @@ public class CategoriaServiceMockImpl implements CategoriaService {
 
 	public void hasCategoria(CategoriaRequestDTO request) throws CategoriaExistenteException{
 		try{
-			if (findById(request.getId()) != null) {
+			if (findByName(request.getNome()) != null) {
 				logger.debug(String.format("Categoria já cadastrada na base de id=%s", request.getId()));
 				throw new CategoriaExistenteException();
 			}
@@ -44,9 +44,9 @@ public class CategoriaServiceMockImpl implements CategoriaService {
 		}
 	}
 	
-	private CategoriaResponseDTO findById(Long id) throws CategoriaNotFoundException{
+	private CategoriaResponseDTO findByName(String nome) throws CategoriaNotFoundException{
 		for (CategoriaDocument document : mockdb.getCategoriaCollection().values()) {
-			if (document.getId().equals(id)) {
+			if (document.getNome().equals(nome)) {
 				return (CategoriaResponseDTO) ConverterHelper.convert(document,CategoriaResponseDTO.class);
 			}
 		}
@@ -56,7 +56,7 @@ public class CategoriaServiceMockImpl implements CategoriaService {
 
 	@Override
 	public void delete(CategoriaRequestDTO request) throws CategoriaNotFoundException {
-		findById(request.getId());
+		findByName(request.getNome());
 		CategoriaDocument document = (CategoriaDocument) ConverterHelper.convert(request, CategoriaDocument.class);
 		document.setDataExcluido(new Date());
 		mockdb.getCategoriaCollection().put(document.getId(), document);
@@ -64,7 +64,7 @@ public class CategoriaServiceMockImpl implements CategoriaService {
 
 	@Override
 	public void update(CategoriaRequestDTO request) throws CategoriaNotFoundException {
-		findById(request.getId());
+		findByName(request.getNome());
 		CategoriaDocument document = (CategoriaDocument) ConverterHelper.convert(request, CategoriaDocument.class);
 		mockdb.getCategoriaCollection().put(document.getId(), document);
 	}
