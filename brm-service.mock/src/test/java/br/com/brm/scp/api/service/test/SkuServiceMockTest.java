@@ -130,7 +130,7 @@ public class SkuServiceMockTest extends SkuDadosFake {
 		skuRequestSuccess.setModelo(PlanejamentoSku.ESTOQUE);
 
 		skuRequestSuccess.setDataCriacao(Calendar.getInstance());
-		skuRequestSuccess.setUsuarioCriacao(usuarioService.find(USUARIO_LOGADO_FAKE));
+		skuRequestSuccess.setUsuarioCriacao(usuarioService.findById(USUARIO_LOGADO_FAKE));
 
 		SkuResponseDTO response = service.ativar(skuRequestSuccess);
 
@@ -203,7 +203,7 @@ public class SkuServiceMockTest extends SkuDadosFake {
 		children.setModelo(PlanejamentoSku.ESTOQUE);
 
 		children.setDataCriacao(Calendar.getInstance());
-		children.setUsuarioCriacao(usuarioService.find(USUARIO_LOGADO_FAKE));
+		children.setUsuarioCriacao(usuarioService.findById(USUARIO_LOGADO_FAKE));
 		selecaoSkus = service.findForOrigin(children.getId());
 		children.setOrigins(selecaoSkus);
 		
