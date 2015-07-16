@@ -2,6 +2,7 @@ package br.com.brm.scp.mock.api.service.document;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 
 import br.com.brm.scp.api.dto.response.GrupoResponseDTO;
 import br.com.brm.scp.fw.annotations.BindingClass;
@@ -16,6 +17,7 @@ public class UsuarioDocument implements Serializable {
 	private String email;
 	@BindingClass(GrupoResponseDTO.class)
 	private Collection<GrupoDocument> grupos;
+	private Date dataExcluido;
 
 
 	public UsuarioDocument() {
@@ -70,4 +72,11 @@ public class UsuarioDocument implements Serializable {
 		this.email = email;
 	}
 
+	public Date getDataExcluido() {
+		return dataExcluido;
+	}
+
+	public void setDataExcluido(Date dataExcluido) {
+		this.dataExcluido = dataExcluido;
+	}
 }

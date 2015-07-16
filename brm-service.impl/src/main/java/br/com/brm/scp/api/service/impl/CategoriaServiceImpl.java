@@ -1,5 +1,7 @@
 package br.com.brm.scp.api.service.impl;
 
+import java.util.Collection;
+
 import br.com.brm.scp.api.dto.request.CategoriaRequestDTO;
 import br.com.brm.scp.api.dto.response.CategoriaResponseDTO;
 import br.com.brm.scp.api.exceptions.CategoriaExistenteException;
@@ -27,6 +29,27 @@ public class CategoriaServiceImpl implements CategoriaService{
 			throws CategoriaNotFoundException {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public CategoriaResponseDTO findByName(String nome)
+			throws CategoriaNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Collection<CategoriaResponseDTO> All()
+			throws CategoriaNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public CategoriaResponseDTO findById(Long id)
+			throws CategoriaNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

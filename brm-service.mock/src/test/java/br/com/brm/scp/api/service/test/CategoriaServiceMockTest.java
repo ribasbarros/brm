@@ -8,17 +8,14 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.DataProvider;
 
 import br.com.brm.scp.api.dto.request.CategoriaRequestDTO;
-import br.com.brm.scp.api.dto.response.CategoriaResponseDTO;
 import br.com.brm.scp.api.exceptions.CategoriaExistenteException;
 import br.com.brm.scp.api.exceptions.CategoriaNotFoundException;
-import br.com.brm.scp.api.exceptions.FornecedorExistenteException;
 import br.com.brm.scp.api.service.CategoriaService;
-import br.com.brm.scp.fw.helper.objects.RandomHelper;
 
 @ContextConfiguration(locations = { "classpath:META-INF/application-context.xml" })
 public class CategoriaServiceMockTest extends AbstractTestNGSpringContextTests {
 	private static final boolean TEST_CRUD = true;
-	Long id = RandomHelper.UUID();
+	Long id = new Long("1");
 	@Autowired
 	private CategoriaService service;
 
@@ -35,7 +32,7 @@ public class CategoriaServiceMockTest extends AbstractTestNGSpringContextTests {
 		service.update(request);
 	}
 	
-	@org.testng.annotations.Test(enabled = TEST_CRUD, groups = "CRUD", priority = 3, dataProvider = "novaCategoria")
+	@org.testng.annotations.Test(enabled = TEST_CRUD, groups = "CRUD", priority = 3, dataProvider = "novaCategoriaAlterada")
 	public void delete(CategoriaRequestDTO request) throws CategoriaNotFoundException {
 		assertNotNull(request);
 		service.delete(request);		
@@ -43,7 +40,7 @@ public class CategoriaServiceMockTest extends AbstractTestNGSpringContextTests {
 			
 	@DataProvider(name = "novaCategoria")
 	public Object[][] criaFornecedorRequest() {
-		CategoriaRequestDTO request = new CategoriaRequestDTO(id,"Brinquedos");
+		CategoriaRequestDTO request = new CategoriaRequestDTO(null,"Brinquedos");
 		return new Object[][] { new Object[] { request } };
 	}
 	

@@ -7,5 +7,9 @@ public class UsuarioExistentException extends Exception {
 	public UsuarioExistentException(String arg0) {
 		super(arg0);
 	}
+
+	public UsuarioExistentException() {
+		// TODO Auto-generated constructor stub
+	}
 	
 }

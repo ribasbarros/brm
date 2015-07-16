@@ -8,14 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 
 import br.com.brm.scp.api.dto.request.ItemRequestDTO;
-import br.com.brm.scp.api.dto.response.CategoriaResponseDTO;
 import br.com.brm.scp.api.dto.response.ItemResponseDTO;
 import br.com.brm.scp.api.exceptions.ItemExistenteException;
 import br.com.brm.scp.api.exceptions.ItemNotFoundException;
 import br.com.brm.scp.api.service.ItemService;
 import br.com.brm.scp.fw.helper.converters.ConverterHelper;
 import br.com.brm.scp.mock.api.mockdata.MockData;
-import br.com.brm.scp.mock.api.service.document.CategoriaDocument;
 import br.com.brm.scp.mock.api.service.document.ItemDocument;
 
 public class ItemServiceMockImpl implements ItemService {
@@ -30,21 +28,19 @@ public class ItemServiceMockImpl implements ItemService {
 	}
 
 	@Override
-	public Collection<ItemResponseDTO> all() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public ItemResponseDTO create(ItemRequestDTO request) throws ItemNotFoundException, ItemExistenteException {
-		Assert.notNull(request.getNome(), "item.nomenaopreenchido");
-		Assert.notNull(request.getFornecedor(), "item.fornecedornaopreenchido");
-		Assert.notNull(request.getCategoria(), "item.categorianaopreenchida");
+		prepareSave(request);
 		hasItem(request);
+		return insert(request);
+	}
+	
+	public ItemResponseDTO insert(ItemRequestDTO request){
+		request.setId(new Long("1"));
 		ItemDocument document = (ItemDocument) ConverterHelper.convert(request, ItemDocument.class);
 		mockdb.getItemCollection().put(document.getId(), document);
-		return (ItemResponseDTO) ConverterHelper.convert(document,ItemResponseDTO.class);
+		return (ItemResponseDTO) ConverterHelper.convert(document, ItemResponseDTO.class);
 	}
+	
 
 	@Override
 	public void delete(ItemRequestDTO request) throws ItemNotFoundException {
@@ -52,12 +48,12 @@ public class ItemServiceMockImpl implements ItemService {
 		ItemDocument document = (ItemDocument) ConverterHelper.convert(request, ItemDocument.class);
 		document.setDataExcluido(new Date());
 		mockdb.getItemCollection().put(document.getId(), document);
-
 	}
 
 	@Override
 	public void update(ItemRequestDTO request) throws ItemNotFoundException {
-		findByName(request.getNome());
+		prepareSave(request);
+		findById(request.getId());
 		ItemDocument document = (ItemDocument) ConverterHelper.convert(request, ItemDocument.class);
 		mockdb.getItemCollection().put(document.getId(), document);
 	}
@@ -73,7 +69,8 @@ public class ItemServiceMockImpl implements ItemService {
 		}
 	}
 	
-	private ItemResponseDTO findByName(String nome) throws ItemNotFoundException{
+	@Override
+	public ItemResponseDTO findByName(String nome) throws ItemNotFoundException{
 		for (ItemDocument document : mockdb.getItemCollection().values()) {
 			if (document.getNome().equals(nome)) {
 				return (ItemResponseDTO) ConverterHelper.convert(document,ItemResponseDTO.class);
@@ -82,5 +79,30 @@ public class ItemServiceMockImpl implements ItemService {
 		logger.info("Item não encontrado");
 		throw new ItemNotFoundException();
 	}
+	
+	@Override
+	public ItemResponseDTO findById(Long id) throws ItemNotFoundException{
+		for (ItemDocument document : mockdb.getItemCollection().values()) {
+			if (document.getId().equals(id)) {
+				return (ItemResponseDTO) ConverterHelper.convert(document,ItemResponseDTO.class);
+			}
+		}
+		logger.info("Item não encontrado");
+		throw new ItemNotFoundException();
+	}
+	
+	public void prepareSave(ItemRequestDTO request){
+		Assert.notNull(request.getNome(), "item.nomenaopreenchido");
+		Assert.notNull(request.getFornecedor(), "item.fornecedornaopreenchido");
+		Assert.notNull(request.getCategoria(), "item.categorianaopreenchida");
+	}
 
+	@Override
+	public Collection<ItemResponseDTO> all() throws ItemNotFoundException {
+		Collection<ItemDocument> allItens = mockdb.getItemCollection().values();
+		if(allItens.isEmpty()){
+			throw new ItemNotFoundException("item.nenhum.registro.encontrado");
+		}
+		return ConverterHelper.convert(allItens, ItemResponseDTO.class);
+	}
 }

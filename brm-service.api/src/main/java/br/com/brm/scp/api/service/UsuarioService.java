@@ -11,14 +11,14 @@ public interface UsuarioService {
 
 	UsuarioResponseDTO create(UsuarioRequestDTO request) throws UsuarioExistentException;
 
-	UsuarioResponseDTO find(Long id) throws UsuarioNotFoundException;
+	void update(UsuarioRequestDTO request) throws UsuarioNotFoundException;
 
-	UsuarioResponseDTO update(UsuarioRequestDTO usuarioSuccess) throws UsuarioNotFoundException;
-
-	void deletar(Long id) throws UsuarioNotFoundException;
+	void delete(UsuarioRequestDTO request) throws UsuarioNotFoundException;
 	
-	void clearMemory();
-
 	Collection<UsuarioResponseDTO> all() throws UsuarioNotFoundException;
+
+	UsuarioResponseDTO findById(Long id) throws UsuarioNotFoundException;
+
+	UsuarioResponseDTO findByName(String nome) throws UsuarioNotFoundException;
 
 }

@@ -1,5 +1,6 @@
 package br.com.brm.scp.mock.api.service.impl;
 
+import java.util.Collection;
 import java.util.Date;
 
 import org.apache.log4j.Logger;
@@ -11,6 +12,7 @@ import br.com.brm.scp.api.exceptions.CategoriaExistenteException;
 import br.com.brm.scp.api.exceptions.CategoriaNotFoundException;
 import br.com.brm.scp.api.service.CategoriaService;
 import br.com.brm.scp.fw.helper.converters.ConverterHelper;
+import br.com.brm.scp.fw.helper.objects.RandomHelper;
 import br.com.brm.scp.mock.api.mockdata.MockData;
 import br.com.brm.scp.mock.api.service.document.CategoriaDocument;
 
@@ -26,11 +28,20 @@ public class CategoriaServiceMockImpl implements CategoriaService {
 
 	@Override
 	public CategoriaResponseDTO create(CategoriaRequestDTO request) throws CategoriaExistenteException {
-		Assert.notNull(request.getNome(), "categoria.nomenaopreenchido");
+		prepareSave(request);
 		hasCategoria(request);
+		return insert(request);
+	}
+	
+	public CategoriaResponseDTO insert(CategoriaRequestDTO request){
+		request.setId(new Long("1"));
 		CategoriaDocument document = (CategoriaDocument) ConverterHelper.convert(request, CategoriaDocument.class);
 		mockdb.getCategoriaCollection().put(document.getId(), document);
-		return (CategoriaResponseDTO) ConverterHelper.convert(document,CategoriaResponseDTO.class);
+		return (CategoriaResponseDTO) ConverterHelper.convert(document, CategoriaResponseDTO.class);
+	}
+	
+	public void prepareSave(CategoriaRequestDTO request){
+		Assert.notNull(request.getNome(), "categoria.nomenaopreenchido");		
 	}
 
 	public void hasCategoria(CategoriaRequestDTO request) throws CategoriaExistenteException{
@@ -44,7 +55,8 @@ public class CategoriaServiceMockImpl implements CategoriaService {
 		}
 	}
 	
-	private CategoriaResponseDTO findByName(String nome) throws CategoriaNotFoundException{
+	@Override
+	public CategoriaResponseDTO findByName(String nome) throws CategoriaNotFoundException{
 		for (CategoriaDocument document : mockdb.getCategoriaCollection().values()) {
 			if (document.getNome().equals(nome)) {
 				return (CategoriaResponseDTO) ConverterHelper.convert(document,CategoriaResponseDTO.class);
@@ -55,6 +67,18 @@ public class CategoriaServiceMockImpl implements CategoriaService {
 	}
 
 	@Override
+	public CategoriaResponseDTO findById(Long id) throws CategoriaNotFoundException{
+		for (CategoriaDocument document : mockdb.getCategoriaCollection().values()) {
+			if (document.getId().equals(id)) {
+				return (CategoriaResponseDTO) ConverterHelper.convert(document,CategoriaResponseDTO.class);
+			}
+		}
+		logger.info("Categoria não encontrada");
+		throw new CategoriaNotFoundException();
+	}
+
+	
+	@Override
 	public void delete(CategoriaRequestDTO request) throws CategoriaNotFoundException {
 		findByName(request.getNome());
 		CategoriaDocument document = (CategoriaDocument) ConverterHelper.convert(request, CategoriaDocument.class);
@@ -64,8 +88,18 @@ public class CategoriaServiceMockImpl implements CategoriaService {
 
 	@Override
 	public void update(CategoriaRequestDTO request) throws CategoriaNotFoundException {
-		findByName(request.getNome());
+		findById(request.getId());
+		prepareSave(request);
 		CategoriaDocument document = (CategoriaDocument) ConverterHelper.convert(request, CategoriaDocument.class);
 		mockdb.getCategoriaCollection().put(document.getId(), document);
+	}
+
+	@Override
+	public Collection<CategoriaResponseDTO> All() throws CategoriaNotFoundException {
+		Collection<CategoriaDocument> categorias = mockdb.getCategoriaCollection().values();
+		if(categorias.isEmpty()){
+			throw new CategoriaNotFoundException("nenhuma.categoria.encontrada");			
+		}		
+		return ConverterHelper.convert(categorias, CategoriaResponseDTO.class);
 	}
 }

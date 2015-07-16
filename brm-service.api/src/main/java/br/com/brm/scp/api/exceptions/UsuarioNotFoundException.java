@@ -7,5 +7,9 @@ public class UsuarioNotFoundException extends Exception {
 	public UsuarioNotFoundException(String arg0) {
 		super(arg0);
 	}
+
+	public UsuarioNotFoundException() {
+		// TODO Auto-generated constructor stub
+	}
 	
 }

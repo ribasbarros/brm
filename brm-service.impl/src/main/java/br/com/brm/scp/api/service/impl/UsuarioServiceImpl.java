@@ -11,26 +11,24 @@ import br.com.brm.scp.api.service.UsuarioService;
 public class UsuarioServiceImpl implements UsuarioService {
 
 	@Override
-	public UsuarioResponseDTO create(UsuarioRequestDTO request) throws UsuarioExistentException {
+	public UsuarioResponseDTO create(UsuarioRequestDTO request)
+			throws UsuarioExistentException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public UsuarioResponseDTO find(Long id) throws UsuarioNotFoundException {
+	public void update(UsuarioRequestDTO request)
+			throws UsuarioNotFoundException {
 		// TODO Auto-generated method stub
-		return null;
+		
 	}
 
 	@Override
-	public UsuarioResponseDTO update(UsuarioRequestDTO usuarioSuccess) {
+	public void delete(UsuarioRequestDTO request)
+			throws UsuarioNotFoundException {
 		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void clearMemory() {
-		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
@@ -40,7 +38,15 @@ public class UsuarioServiceImpl implements UsuarioService {
 	}
 
 	@Override
-	public void deletar(Long id) throws UsuarioNotFoundException {
+	public UsuarioResponseDTO findById(Long id) throws UsuarioNotFoundException {
 		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public UsuarioResponseDTO findByName(String nome)
+			throws UsuarioNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

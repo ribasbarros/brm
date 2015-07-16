@@ -14,7 +14,7 @@ public class UsuarioResponseDTO {
 	private String email;
 	@BindingClassMeta("GRUPOS")
 	private Collection<GrupoResponseDTO> grupos;
-	private Date dataDeletado;
+	private Date dataExcluido;
 
 	public Long getId() {
 		return id;
@@ -56,11 +56,11 @@ public class UsuarioResponseDTO {
 		this.grupos = grupos;
 	}
 
-	public Date getDataDeletado() {
-		return dataDeletado;
+	public Date getDataExcluido() {
+		return dataExcluido;
 	}
 
-	public void setDataDeletado(Date dataDeletado) {
-		this.dataDeletado = dataDeletado;
+	public void setDataExcluido(Date dataExcluido) {
+		this.dataExcluido = dataExcluido;
 	}
 }

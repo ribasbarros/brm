@@ -18,7 +18,6 @@ import br.com.brm.scp.api.exceptions.FornecedorExistenteException;
 import br.com.brm.scp.api.exceptions.ItemExistenteException;
 import br.com.brm.scp.api.exceptions.ItemNotFoundException;
 import br.com.brm.scp.api.service.ItemService;
-import br.com.brm.scp.fw.helper.objects.RandomHelper;
 
 @ContextConfiguration(locations = { "classpath:META-INF/application-context.xml" })
 public class ItemSeviceMockTest extends AbstractTestNGSpringContextTests{
@@ -69,7 +68,7 @@ public class ItemSeviceMockTest extends AbstractTestNGSpringContextTests{
 	
 	public ItemRequestDTO doItem(){
 		ItemRequestDTO request = new ItemRequestDTO();
-		request.setId(RandomHelper.UUID());
+		request.setId(Long.valueOf("1"));
 		request.setNome("Item1");
 		request.setNomeReduzido("I1");
 		request.setValorUnitario(BigDecimal.ONE);
@@ -81,12 +80,12 @@ public class ItemSeviceMockTest extends AbstractTestNGSpringContextTests{
 
 	private CategoriaResponseDTO doCategoria() {
 		// TODO Auto-generated method stub
-		return null;
+		return new CategoriaResponseDTO();
 	}
 
 	private FornecedorResponseDTO doFornecedor() {
 		// TODO Auto-generated method stub
-		return null;
+		return new FornecedorResponseDTO();
 	}
 	
 	
