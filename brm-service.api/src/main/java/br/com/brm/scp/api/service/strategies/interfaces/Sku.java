@@ -18,4 +18,9 @@ public class Sku implements SkuStrategy {
 		return strategy.save(request);
 	}
 
+	@Override
+	public SkuResponseDTO save(SkuRequestDTO request, Long... idUsuarioLogado) throws SkuException {
+		return strategy.save(request, idUsuarioLogado);
+	}
+
 }

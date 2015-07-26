@@ -4,7 +4,7 @@ import java.util.Collection;
 
 import br.com.brm.scp.api.dto.request.CategoriaRequestDTO;
 import br.com.brm.scp.api.dto.response.CategoriaResponseDTO;
-import br.com.brm.scp.api.exceptions.CategoriaExistenteException;
+import br.com.brm.scp.api.exceptions.CategoriaExistentException;
 import br.com.brm.scp.api.exceptions.CategoriaNotFoundException;
 import br.com.brm.scp.api.service.CategoriaService;
 
@@ -12,7 +12,7 @@ public class CategoriaServiceImpl implements CategoriaService{
 
 	@Override
 	public CategoriaResponseDTO create(CategoriaRequestDTO request)
-			throws CategoriaExistenteException, CategoriaNotFoundException {
+			throws CategoriaExistentException, CategoriaNotFoundException {
 		// TODO Auto-generated method stub
 		return null;
 	}

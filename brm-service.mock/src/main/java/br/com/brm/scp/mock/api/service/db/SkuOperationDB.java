@@ -14,6 +14,7 @@ import br.com.brm.scp.fw.helper.converters.ConverterHelper;
 import br.com.brm.scp.fw.helper.objects.RandomHelper;
 import br.com.brm.scp.mock.api.mockdata.MockData;
 import br.com.brm.scp.mock.api.service.document.ItemDocument;
+import br.com.brm.scp.mock.api.service.document.PedidoDocument;
 import br.com.brm.scp.mock.api.service.document.SkuDocument;
 import br.com.brm.scp.mock.api.service.document.TagDocument;
 import br.com.brm.scp.mock.api.service.status.StatusReposicaoEnum;
@@ -112,6 +113,17 @@ public class SkuOperationDB {
 			}
 		}
 		throw new SkuNotFoundException();
+	}
+
+	public void insertPedido(PedidoDocument pedido) {
+		Long uid;
+		if(pedido.getId() == null){
+			uid = RandomHelper.UUID();
+			pedido.setId(uid);
+		}else{
+			uid = pedido.getId();
+		}
+		dbMock.getPedidoCollection().put(uid, pedido);
 	}
 
 }

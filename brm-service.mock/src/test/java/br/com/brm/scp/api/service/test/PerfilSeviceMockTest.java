@@ -9,7 +9,7 @@ import org.testng.annotations.BeforeClass;
 import br.com.brm.scp.api.service.PerfilService;
 
 @ContextConfiguration(locations = { "classpath:META-INF/application-context.xml" })
-public class PerilSeviceMockTest extends AbstractTestNGSpringContextTests {
+public class PerfilSeviceMockTest extends AbstractTestNGSpringContextTests {
 
 	@Autowired
 	private PerfilService service;

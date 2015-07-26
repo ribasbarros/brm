@@ -72,7 +72,6 @@ public class SkuDadosFake extends AbstractTestNGSpringContextTests {
 		notFound.setFrequenciaAnalise(new Integer[] { Calendar.DAY_OF_WEEK });
 		notFound.setLoteReposicao(99);
 		notFound.setLoteReposicaoHistorico(0);
-		notFound.setPedidos(new ArrayList<PedidoResponseDTO>());
 		notFound.setModelo(PlanejamentoSku.ESTOQUE);
 
 		notFound.setDataCriacao(Calendar.getInstance());
@@ -119,6 +118,7 @@ public class SkuDadosFake extends AbstractTestNGSpringContextTests {
 			item.setNomeReduzido(String.format("TST_%s:%s", i, nomeProduto));
 			item.setStatus(StatusProduto.ATIVO);
 			item.setValorUnitario(new BigDecimal(Math.random() * 1000));
+			item.setQuantidadeLote(200);
 
 			mockDb.getItemCollection().put(uuid, item);
 

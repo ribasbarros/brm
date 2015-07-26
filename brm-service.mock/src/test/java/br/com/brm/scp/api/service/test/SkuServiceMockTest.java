@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.testng.annotations.AfterClass;
@@ -19,7 +18,6 @@ import org.testng.annotations.Test;
 
 import br.com.brm.scp.api.dto.request.SkuRequestDTO;
 import br.com.brm.scp.api.dto.response.ItemResponseDTO;
-import br.com.brm.scp.api.dto.response.PedidoResponseDTO;
 import br.com.brm.scp.api.dto.response.SkuResponseDTO;
 import br.com.brm.scp.api.dto.response.TagResponseDTO;
 import br.com.brm.scp.api.exceptions.SkuException;
@@ -28,12 +26,11 @@ import br.com.brm.scp.api.exceptions.SkuNotFoundException;
 import br.com.brm.scp.api.exceptions.UsuarioNotFoundException;
 import br.com.brm.scp.api.service.SkuService;
 import br.com.brm.scp.fw.helper.converters.ConverterHelper;
+import br.com.brm.scp.mock.api.service.document.PedidoDocument;
 import br.com.brm.scp.mock.api.service.status.PlanejamentoSku;
 
 @ContextConfiguration(locations = { "classpath:META-INF/application-context.xml" })
 public class SkuServiceMockTest extends SkuDadosFake {
-
-	private static Logger logger = Logger.getLogger(SkuServiceMockTest.class);
 
 	@Autowired
 	private SkuService service;
@@ -41,12 +38,8 @@ public class SkuServiceMockTest extends SkuDadosFake {
 	private static final boolean CREATION_SKU = true;
 
 	private static final boolean SELECAO_ORIGENS = true;
-
-	private static final boolean SKU_ANALITICA = false;
-
-	private static final boolean GERAR_PEDIDOS = false;
-
-	private static final boolean HISTORICO = false;
+	
+	private static final boolean REABASTECIMENTO = true;
 
 	private SkuRequestDTO skuRequestSuccess;
 
@@ -126,7 +119,6 @@ public class SkuServiceMockTest extends SkuDadosFake {
 		skuRequestSuccess.setFrequenciaAnalise(new Integer[] { Calendar.MONDAY, Calendar.WEDNESDAY });
 		skuRequestSuccess.setLoteReposicao(100);
 		skuRequestSuccess.setLoteReposicaoHistorico(0);
-		skuRequestSuccess.setPedidos(new ArrayList<PedidoResponseDTO>());
 		skuRequestSuccess.setModelo(PlanejamentoSku.ESTOQUE);
 
 		skuRequestSuccess.setDataCriacao(Calendar.getInstance());
@@ -199,7 +191,6 @@ public class SkuServiceMockTest extends SkuDadosFake {
 		children.setFrequenciaAnalise(new Integer[] { Calendar.SATURDAY, Calendar.WEDNESDAY });
 		children.setLoteReposicao(1220);
 		children.setLoteReposicaoHistorico(0);
-		children.setPedidos(new ArrayList<PedidoResponseDTO>());
 		children.setModelo(PlanejamentoSku.ESTOQUE);
 
 		children.setDataCriacao(Calendar.getInstance());
@@ -222,81 +213,17 @@ public class SkuServiceMockTest extends SkuDadosFake {
 		assertNull(mockDb.getSkuCollection().get(skuRequestSuccess.getId()).getOriginDefault());
 		
 	}
-
-	@Test(enabled = SKU_ANALITICA, groups = "SKU_VALIDACAO", priority = 3)
-	public void validarSku() throws Exception {
-
-		// TODO ESTOQUE MAXIMO?
-
-		// TODO ESTOQUE MINIMO?
-
-		// TODO ESTOQUE ATUAL?
-	}
-
-	@Test(enabled = SKU_ANALITICA, groups = "SKU_VALIDACAO", priority = 4)
-	public void validarDatas() throws Exception {
-
-		// TODO DESCONTINUADA?
-
-		// TODO "INFINITO"
-
-		// TODO TEMPO DE REANALISE?
-
-	}
-
-	@Test(enabled = GERAR_PEDIDOS, groups = "SKU_PEDIDOS", priority = 5)
-	public void createPedido() throws Exception {
-
-		// TODO CRIAR PEDIDO
-	}
-
-	@Test(enabled = GERAR_PEDIDOS, groups = "SKU_PEDIDOS", priority = 6)
-	public void listarPedidoPorSku() throws Exception {
-
-		// TODO LISTAR PEDIDO
-
-	}
-
-	@Test(enabled = GERAR_PEDIDOS, groups = "SKU_PEDIDOS", priority = 7)
-	public void aprovarPedido() throws Exception {
-
-		// TODO APROVAR PEDIDO
-
-	}
-
-	@Test(enabled = GERAR_PEDIDOS, groups = "SKU_PEDIDOS", priority = 8)
-	public void reprovarPedido() throws Exception {
-
-		// TODO REPROVAR PEDIDO
-
-	}
-
-	@Test(enabled = GERAR_PEDIDOS, groups = "SKU_PEDIDOS", priority = 9)
-	public void faturarPedido() throws Exception {
-
-		// TODO FATURADO PEDIDO
-
-	}
-
-	@Test(enabled = GERAR_PEDIDOS, groups = "SKU_PEDIDOS", priority = 10)
-	public void emTransitoPedido() throws Exception {
-
-		// TODO EM TRANSITO
-
-	}
-
-	@Test(enabled = GERAR_PEDIDOS, groups = "SKU_PEDIDOS", priority = 11)
-	public void recebidoPedido() throws Exception {
-
-		// TODO RECEBIDO
-
-	}
-
-	@Test(enabled = HISTORICO, groups = "SKU_RELATORIOS", priority = 12)
-	public void historico() throws Exception {
-
-		// TODO PARA GRAFICOS (BOLAR)
-
+	
+	@Test(enabled = REABASTECIMENTO, groups = "REABASTECIMENTO", priority = 6)
+	public void reabastecimento() throws Exception {
+		service.reabastecimento(skuRequestSuccess, usuarioService.findById(USUARIO_LOGADO_FAKE));
+		
+		assertTrue(mockDb.getPedidoCollection().values().size() > 0);
+		
+		for(PedidoDocument document : mockDb.getPedidoCollection().values()){
+			logger.info(String.format("Pedido encontrado para a SKU %s", document.getIdSku()));
+		}
+		
 	}
 
 	/**

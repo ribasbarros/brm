@@ -33,7 +33,6 @@ public class SkuDocument implements Serializable {
 	private StatusReposicaoEnum status;
 	private String descricao;
 	@BindingClass(PedidoResponseDTO.class)
-	private Collection<PedidoDocument> pedidos;
 
 	private Integer estoqueMaximo;
 	private Integer estoqueMinimo;
@@ -214,14 +213,6 @@ public class SkuDocument implements Serializable {
 
 	public void setUsuarioAlteracao(UsuarioDocument usuarioAlteracao) {
 		this.usuarioAlteracao = usuarioAlteracao;
-	}
-
-	public Collection<PedidoDocument> getPedidos() {
-		return pedidos;
-	}
-
-	public void setPedidos(Collection<PedidoDocument> pedidos) {
-		this.pedidos = pedidos;
 	}
 
 	public Long getId() {

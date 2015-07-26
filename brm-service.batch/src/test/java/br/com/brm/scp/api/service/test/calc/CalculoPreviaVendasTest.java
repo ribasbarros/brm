@@ -3,7 +3,7 @@ package br.com.brm.scp.api.service.test.calc;
 import org.testng.annotations.BeforeClass;
 
 //@ContextConfiguration(locations = { "classpath:META-INF/application-context.xml" })
-public class CalculoPreviaVendasMockTest {
+public class CalculoPreviaVendasTest {
 
 	private static final boolean TEST_ESTOQUE_SEGURANCA = true;
 	

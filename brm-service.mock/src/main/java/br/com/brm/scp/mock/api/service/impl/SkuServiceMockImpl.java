@@ -5,9 +5,11 @@ import java.util.Collection;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Assert;
 
 import br.com.brm.scp.api.dto.request.SkuRequestDTO;
 import br.com.brm.scp.api.dto.response.SkuResponseDTO;
+import br.com.brm.scp.api.dto.response.UsuarioResponseDTO;
 import br.com.brm.scp.api.exceptions.SkuException;
 import br.com.brm.scp.api.exceptions.SkuNotFoundException;
 import br.com.brm.scp.api.service.SkuService;
@@ -18,6 +20,7 @@ import br.com.brm.scp.mock.api.service.document.SkuDocument;
 import br.com.brm.scp.mock.api.service.strategies.SkuAlterarStrategyImpl;
 import br.com.brm.scp.mock.api.service.strategies.SkuAtivandoStrategyImpl;
 import br.com.brm.scp.mock.api.service.strategies.SkuCreateStrategyImpl;
+import br.com.brm.scp.mock.api.service.strategies.SkuReabastecimentoStrategyImpl;
 
 public class SkuServiceMockImpl implements SkuService {
 
@@ -69,6 +72,18 @@ public class SkuServiceMockImpl implements SkuService {
 		logger.info(String.format("Procurando SKU por id = %s", id));
 		SkuDocument document = db.findOne(id);
 		return (SkuResponseDTO) ConverterHelper.convert(document, SkuResponseDTO.class);
+	}
+
+	@Override
+	public void reabastecimento(SkuRequestDTO request, UsuarioResponseDTO usuarioLogado) throws SkuException {
+		
+		Assert.notNull(request, "brm.sku.notnull");
+		Assert.notNull(request.getId(), "brm.sku.id");
+		
+		logger.info(String.format("Reabastecimento manual de SKU %s", request.getId()));
+		
+		new Sku(new SkuReabastecimentoStrategyImpl(db)).save(request, usuarioLogado.getId());
+		
 	}
 
 }

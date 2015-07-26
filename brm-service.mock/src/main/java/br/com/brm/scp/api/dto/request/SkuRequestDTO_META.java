@@ -14,7 +14,6 @@ public class SkuRequestDTO_META implements Serializable {
 	
 	static final Class<?> ITEM = ItemDocument.class;
 	static final Class<?> TAGS = TagDocument.class;
-	static final Class<?> PEDIDOS = PedidoDocument.class;
 	static final Class<?> USUARIO = UsuarioDocument.class;
 	static final Class<?> ORIGIN = SkuDocument.class;
 

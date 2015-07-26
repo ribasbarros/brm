@@ -6,6 +6,7 @@ import org.springframework.util.Assert;
 
 import br.com.brm.scp.api.dto.request.SkuRequestDTO;
 import br.com.brm.scp.api.dto.response.SkuResponseDTO;
+import br.com.brm.scp.api.exceptions.SkuException;
 import br.com.brm.scp.api.exceptions.SkuExistenteException;
 import br.com.brm.scp.api.exceptions.SkuNotFoundException;
 import br.com.brm.scp.api.service.strategies.interfaces.SkuStrategy;
@@ -43,6 +44,11 @@ public class SkuAtivandoStrategyImpl implements SkuStrategy {
 		document = db.update(document);
 
 		return (SkuResponseDTO) ConverterHelper.convert(document, SkuResponseDTO.class);
+	}
+
+	@Override
+	public SkuResponseDTO save(SkuRequestDTO request, Long... idUsuarioLogado) throws SkuException {
+		throw new IllegalArgumentException("Metodo invalido para a estrategia");
 	}
 
 }

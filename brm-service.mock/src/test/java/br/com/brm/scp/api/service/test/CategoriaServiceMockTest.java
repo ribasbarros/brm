@@ -8,7 +8,7 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.DataProvider;
 
 import br.com.brm.scp.api.dto.request.CategoriaRequestDTO;
-import br.com.brm.scp.api.exceptions.CategoriaExistenteException;
+import br.com.brm.scp.api.exceptions.CategoriaExistentException;
 import br.com.brm.scp.api.exceptions.CategoriaNotFoundException;
 import br.com.brm.scp.api.service.CategoriaService;
 
@@ -21,7 +21,7 @@ public class CategoriaServiceMockTest extends AbstractTestNGSpringContextTests {
 
 	
 	@org.testng.annotations.Test(enabled = TEST_CRUD, groups = "CRUD", priority = 1, dataProvider = "novaCategoria")
-	public void create(CategoriaRequestDTO request) throws CategoriaExistenteException, CategoriaNotFoundException {
+	public void create(CategoriaRequestDTO request) throws CategoriaExistentException, CategoriaNotFoundException {
 		assertNotNull(request);
 		service.create(request);
 	}

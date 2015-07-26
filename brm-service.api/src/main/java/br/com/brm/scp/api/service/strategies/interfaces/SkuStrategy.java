@@ -7,5 +7,6 @@ import br.com.brm.scp.api.exceptions.SkuException;
 public interface SkuStrategy {
 
 	public SkuResponseDTO save(SkuRequestDTO request) throws SkuException;
+	public SkuResponseDTO save(SkuRequestDTO request, Long ... idUsuarioLogado) throws SkuException;
 	
 }

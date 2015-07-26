@@ -20,6 +20,7 @@ public class ItemDocument implements Serializable {
 	private CategoriaDocument categoria;
 	private StatusProduto status;
 	private BigDecimal valorUnitario;
+	private Integer quantidadeLote;
 	@BindingClass(FornecedorResponseDTO.class)
 	private FornecedorDocument fornecedor;
 	private Date dataExcluido;
@@ -87,4 +88,13 @@ public class ItemDocument implements Serializable {
 	public void setDataExcluido(Date dataExcluido) {
 		this.dataExcluido = dataExcluido;
 	}
+
+	public Integer getQuantidadeLote() {
+		return quantidadeLote;
+	}
+
+	public void setQuantidadeLote(Integer quantidadeLote) {
+		this.quantidadeLote = quantidadeLote;
+	}
+	
 }

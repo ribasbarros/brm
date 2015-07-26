@@ -6,6 +6,7 @@ import java.util.Map;
 import br.com.brm.scp.mock.api.service.document.CategoriaDocument;
 import br.com.brm.scp.mock.api.service.document.FornecedorDocument;
 import br.com.brm.scp.mock.api.service.document.ItemDocument;
+import br.com.brm.scp.mock.api.service.document.PedidoDocument;
 import br.com.brm.scp.mock.api.service.document.SkuDocument;
 import br.com.brm.scp.mock.api.service.document.TagDocument;
 import br.com.brm.scp.mock.api.service.document.UsuarioDocument;
@@ -23,6 +24,8 @@ public class MockData {
 	private static final Map<Long, ItemDocument> ITEM_COLLECTION = new HashMap<Long, ItemDocument>();
 
 	private static final Map<Long, CategoriaDocument> CATEGORIA_COLLECTION = new HashMap<Long, CategoriaDocument>();
+	
+	private static final Map<Long, PedidoDocument> PEDIDO_COLLECTION = new HashMap<Long, PedidoDocument>();
 	
 	public Map<Long, UsuarioDocument> getUsuarioCollection() {
 		return USUARIO_COLLECTION;
@@ -46,5 +49,9 @@ public class MockData {
 	
 	public Map<Long, CategoriaDocument> getCategoriaCollection() {
 		return CATEGORIA_COLLECTION;
+	}
+	
+	public Map<Long, PedidoDocument> getPedidoCollection() {
+		return PEDIDO_COLLECTION;
 	}
 }

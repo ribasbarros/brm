@@ -32,8 +32,6 @@ public class SkuRequestDTO implements Serializable {
 	private Integer loteReposicaoHistorico;
 	private StatusReposicaoEnum status;
 	private String descricao;
-	@BindingClassMeta("PEDIDOS")
-	private Collection<PedidoResponseDTO> pedidos;
 
 	private Integer estoqueMaximo;
 	private Integer estoqueMinimo;
@@ -213,14 +211,6 @@ public class SkuRequestDTO implements Serializable {
 
 	public void setUsuarioAlteracao(UsuarioResponseDTO usuarioAlteracao) {
 		this.usuarioAlteracao = usuarioAlteracao;
-	}
-
-	public Collection<PedidoResponseDTO> getPedidos() {
-		return pedidos;
-	}
-
-	public void setPedidos(Collection<PedidoResponseDTO> pedidos) {
-		this.pedidos = pedidos;
 	}
 
 	public Long getId() {

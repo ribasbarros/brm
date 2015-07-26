@@ -8,7 +8,7 @@ import org.springframework.util.Assert;
 
 import br.com.brm.scp.api.dto.request.CategoriaRequestDTO;
 import br.com.brm.scp.api.dto.response.CategoriaResponseDTO;
-import br.com.brm.scp.api.exceptions.CategoriaExistenteException;
+import br.com.brm.scp.api.exceptions.CategoriaExistentException;
 import br.com.brm.scp.api.exceptions.CategoriaNotFoundException;
 import br.com.brm.scp.api.service.CategoriaService;
 import br.com.brm.scp.fw.helper.converters.ConverterHelper;
@@ -27,7 +27,7 @@ public class CategoriaServiceMockImpl implements CategoriaService {
 	}
 
 	@Override
-	public CategoriaResponseDTO create(CategoriaRequestDTO request) throws CategoriaExistenteException {
+	public CategoriaResponseDTO create(CategoriaRequestDTO request) throws CategoriaExistentException {
 		prepareSave(request);
 		hasCategoria(request);
 		return insert(request);
@@ -44,11 +44,11 @@ public class CategoriaServiceMockImpl implements CategoriaService {
 		Assert.notNull(request.getNome(), "categoria.nomenaopreenchido");		
 	}
 
-	public void hasCategoria(CategoriaRequestDTO request) throws CategoriaExistenteException{
+	public void hasCategoria(CategoriaRequestDTO request) throws CategoriaExistentException{
 		try{
 			if (findByName(request.getNome()) != null) {
 				logger.debug(String.format("Categoria já cadastrada na base de id=%s", request.getId()));
-				throw new CategoriaExistenteException();
+				throw new CategoriaExistentException();
 			}
 		}catch(CategoriaNotFoundException exception){
 		

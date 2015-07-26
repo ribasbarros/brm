@@ -31,4 +31,9 @@ public class SkuAlterarStrategyImpl implements SkuStrategy {
 		return (SkuResponseDTO) ConverterHelper.convert(document, SkuResponseDTO.class);
 	}
 
+	@Override
+	public SkuResponseDTO save(SkuRequestDTO request, Long... idUsuarioLogado) throws SkuException {
+		throw new IllegalArgumentException("Metodo invalido para a estrategia");
+	}
+
 }

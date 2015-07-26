@@ -1,6 +1,6 @@
 package br.com.brm.scp.api.exceptions;
 
-public class CategoriaExistenteException extends Exception{
+public class CategoriaExistentException extends Exception{
 
 	/**
 	 * 
