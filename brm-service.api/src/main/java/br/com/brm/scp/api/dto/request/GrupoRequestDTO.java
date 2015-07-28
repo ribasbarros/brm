@@ -1,21 +1,28 @@
-package br.com.brm.scp.mock.api.service.document;
+package br.com.brm.scp.api.dto.request;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 
 import br.com.brm.scp.api.annotation.BindingClassMeta;
+import br.com.brm.scp.api.dto.response.PerfilResponseDTO;
 
-public class GrupoDocument implements Serializable {
-
-	private static final long serialVersionUID = -2946370998935414082L;
+public class GrupoRequestDTO {
+private static final long serialVersionUID = -2946370998935414082L;
 	
 	private Long id;
 	private String nome;
 	@BindingClassMeta("PERFIS")
-	private Collection<PerfilDocument> perfis;
+	private Collection<PerfilResponseDTO> perfis;
 	private Date dataExcluido;
 	
+	public GrupoRequestDTO(Long id, String nome,
+			Collection<PerfilResponseDTO> perfis) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.perfis = perfis;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -32,11 +39,11 @@ public class GrupoDocument implements Serializable {
 		this.nome = nome;
 	}
 
-	public Collection<PerfilDocument> getPerfis() {
+	public Collection<PerfilResponseDTO> getPerfis() {
 		return perfis;
 	}
 
-	public void setPerfis(Collection<PerfilDocument> perfis) {
+	public void setPerfis(Collection<PerfilResponseDTO> perfis) {
 		this.perfis = perfis;
 	}
 
@@ -47,5 +54,4 @@ public class GrupoDocument implements Serializable {
 	public void setDataExcluido(Date dataExcluido) {
 		this.dataExcluido = dataExcluido;
 	}
-		
 }

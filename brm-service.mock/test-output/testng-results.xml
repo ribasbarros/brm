@@ -1,309 +1,129 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" total="6" passed="6">
+<testng-results skipped="0" failed="0" total="3" passed="3">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="2806" started-at="2015-07-26T22:21:49Z" finished-at="2015-07-26T22:21:51Z">
+  <suite name="Default suite" duration-ms="1215" started-at="2015-07-28T01:40:01Z" finished-at="2015-07-28T01:40:02Z">
     <groups>
-      <group name="CRIACAO_SKU">
-        <method signature="SkuServiceMockTest.criarSkuPart1(br.com.brm.scp.api.dto.response.ItemResponseDTO, java.util.Collection)[pri:0, instance:br.com.brm.scp.api.service.test.SkuServiceMockTest@4973813a]" name="criarSkuPart1" class="br.com.brm.scp.api.service.test.SkuServiceMockTest"/>
-        <method signature="SkuServiceMockTest.criarSkuPart2()[pri:0, instance:br.com.brm.scp.api.service.test.SkuServiceMockTest@4973813a]" name="criarSkuPart2" class="br.com.brm.scp.api.service.test.SkuServiceMockTest"/>
-        <method signature="SkuServiceMockTest.skuAtivarSkuNotFoundException(br.com.brm.scp.api.dto.request.SkuRequestDTO)[pri:0, instance:br.com.brm.scp.api.service.test.SkuServiceMockTest@4973813a]" name="skuAtivarSkuNotFoundException" class="br.com.brm.scp.api.service.test.SkuServiceMockTest"/>
-        <method signature="SkuServiceMockTest.skuExistenteException()[pri:0, instance:br.com.brm.scp.api.service.test.SkuServiceMockTest@4973813a]" name="skuExistenteException" class="br.com.brm.scp.api.service.test.SkuServiceMockTest"/>
-      </group> <!-- CRIACAO_SKU -->
-      <group name="SELECIONAR_ORIGENS">
-        <method signature="SkuServiceMockTest.selecionarOrigens(java.util.Collection)[pri:0, instance:br.com.brm.scp.api.service.test.SkuServiceMockTest@4973813a]" name="selecionarOrigens" class="br.com.brm.scp.api.service.test.SkuServiceMockTest"/>
-      </group> <!-- SELECIONAR_ORIGENS -->
-      <group name="REABASTECIMENTO">
-        <method signature="SkuServiceMockTest.reabastecimento()[pri:0, instance:br.com.brm.scp.api.service.test.SkuServiceMockTest@4973813a]" name="reabastecimento" class="br.com.brm.scp.api.service.test.SkuServiceMockTest"/>
-      </group> <!-- REABASTECIMENTO -->
+      <group name="CRUD">
+        <method signature="GrupoSeviceMockTest.create(br.com.brm.scp.api.dto.request.GrupoRequestDTO)[pri:0, instance:br.com.brm.scp.api.service.test.GrupoSeviceMockTest@1dfe2924]" name="create" class="br.com.brm.scp.api.service.test.GrupoSeviceMockTest"/>
+        <method signature="GrupoSeviceMockTest.delete(br.com.brm.scp.api.dto.request.GrupoRequestDTO)[pri:0, instance:br.com.brm.scp.api.service.test.GrupoSeviceMockTest@1dfe2924]" name="delete" class="br.com.brm.scp.api.service.test.GrupoSeviceMockTest"/>
+        <method signature="GrupoSeviceMockTest.update(br.com.brm.scp.api.dto.request.GrupoRequestDTO)[pri:0, instance:br.com.brm.scp.api.service.test.GrupoSeviceMockTest@1dfe2924]" name="update" class="br.com.brm.scp.api.service.test.GrupoSeviceMockTest"/>
+      </group> <!-- CRUD -->
     </groups>
-    <test name="Default test" duration-ms="2806" started-at="2015-07-26T22:21:49Z" finished-at="2015-07-26T22:21:51Z">
-      <class name="br.com.brm.scp.api.service.test.SkuServiceMockTest">
-        <test-method status="PASS" signature="springTestContextBeforeTestClass()[pri:0, instance:br.com.brm.scp.api.service.test.SkuServiceMockTest@4973813a]" name="springTestContextBeforeTestClass" is-config="true" duration-ms="8" started-at="2015-07-26T19:21:49Z" finished-at="2015-07-26T19:21:49Z">
+    <test name="Default test" duration-ms="1215" started-at="2015-07-28T01:40:01Z" finished-at="2015-07-28T01:40:02Z">
+      <class name="br.com.brm.scp.api.service.test.GrupoSeviceMockTest">
+        <test-method status="PASS" signature="springTestContextBeforeTestClass()[pri:0, instance:br.com.brm.scp.api.service.test.GrupoSeviceMockTest@1dfe2924]" name="springTestContextBeforeTestClass" is-config="true" duration-ms="9" started-at="2015-07-27T22:40:01Z" finished-at="2015-07-27T22:40:01Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextBeforeTestClass -->
-        <test-method status="PASS" signature="springTestContextPrepareTestInstance()[pri:0, instance:br.com.brm.scp.api.service.test.SkuServiceMockTest@4973813a]" name="springTestContextPrepareTestInstance" is-config="true" duration-ms="431" started-at="2015-07-26T19:21:49Z" depends-on-methods="org.springframework.test.context.testng.AbstractTestNGSpringContextTests.springTestContextBeforeTestClass" finished-at="2015-07-26T19:21:49Z">
+        <test-method status="PASS" signature="springTestContextPrepareTestInstance()[pri:0, instance:br.com.brm.scp.api.service.test.GrupoSeviceMockTest@1dfe2924]" name="springTestContextPrepareTestInstance" is-config="true" duration-ms="1081" started-at="2015-07-27T22:40:01Z" depends-on-methods="org.springframework.test.context.testng.AbstractTestNGSpringContextTests.springTestContextBeforeTestClass" finished-at="2015-07-27T22:40:02Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextPrepareTestInstance -->
-        <test-method status="PASS" signature="setup()[pri:0, instance:br.com.brm.scp.api.service.test.SkuServiceMockTest@4973813a]" name="setup" is-config="true" duration-ms="17" started-at="2015-07-26T19:21:49Z" finished-at="2015-07-26T19:21:49Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- setup -->
-        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:br.com.brm.scp.api.service.test.SkuServiceMockTest@4973813a]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2015-07-26T19:21:50Z" finished-at="2015-07-26T19:21:50Z">
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:br.com.brm.scp.api.service.test.GrupoSeviceMockTest@1dfe2924]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="1" started-at="2015-07-27T22:40:02Z" finished-at="2015-07-27T22:40:02Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void br.com.brm.scp.api.service.test.SkuServiceMockTest.criarSkuPart1(br.com.brm.scp.api.dto.response.ItemResponseDTO,java.util.Collection) throws br.com.brm.scp.api.exceptions.SkuException]]>
+                <![CDATA[public void br.com.brm.scp.api.service.test.GrupoSeviceMockTest.create(br.com.brm.scp.api.dto.request.GrupoRequestDTO) throws br.com.brm.scp.api.exceptions.GrupoExistenteException,br.com.brm.scp.api.exceptions.GrupoNotFoundException]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextBeforeTestMethod -->
-        <test-method status="PASS" signature="criarSkuPart1(br.com.brm.scp.api.dto.response.ItemResponseDTO, java.util.Collection)[pri:0, instance:br.com.brm.scp.api.service.test.SkuServiceMockTest@4973813a]" name="criarSkuPart1" duration-ms="42" started-at="2015-07-26T19:21:50Z" data-provider="ITEM_TAGS_RANDOM" finished-at="2015-07-26T19:21:50Z">
+        <test-method status="PASS" signature="create(br.com.brm.scp.api.dto.request.GrupoRequestDTO)[pri:0, instance:br.com.brm.scp.api.service.test.GrupoSeviceMockTest@1dfe2924]" name="create" duration-ms="44" started-at="2015-07-27T22:40:02Z" data-provider="novoGrupo" finished-at="2015-07-27T22:40:02Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[br.com.brm.scp.api.dto.response.ItemResponseDTO@7817fd62]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[[br.com.brm.scp.api.dto.response.TagResponseDTO@8297b3a, br.com.brm.scp.api.dto.response.TagResponseDTO@2362f559, br.com.brm.scp.api.dto.response.TagResponseDTO@b2c9a9c]]]>
+                <![CDATA[br.com.brm.scp.api.dto.request.GrupoRequestDTO@4c371370]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- criarSkuPart1 -->
-        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:br.com.brm.scp.api.service.test.SkuServiceMockTest@4973813a]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="4" started-at="2015-07-26T19:21:50Z" finished-at="2015-07-26T19:21:50Z">
+        </test-method> <!-- create -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:br.com.brm.scp.api.service.test.GrupoSeviceMockTest@1dfe2924]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="4" started-at="2015-07-27T22:40:02Z" finished-at="2015-07-27T22:40:02Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void br.com.brm.scp.api.service.test.SkuServiceMockTest.criarSkuPart1(br.com.brm.scp.api.dto.response.ItemResponseDTO,java.util.Collection) throws br.com.brm.scp.api.exceptions.SkuException]]>
+                <![CDATA[public void br.com.brm.scp.api.service.test.GrupoSeviceMockTest.create(br.com.brm.scp.api.dto.request.GrupoRequestDTO) throws br.com.brm.scp.api.exceptions.GrupoExistenteException,br.com.brm.scp.api.exceptions.GrupoNotFoundException]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextAfterTestMethod -->
-        <test-method status="PASS" signature="criarSkuPart2()[pri:0, instance:br.com.brm.scp.api.service.test.SkuServiceMockTest@4973813a]" name="criarSkuPart2" duration-ms="48" started-at="2015-07-26T19:21:50Z" finished-at="2015-07-26T19:21:50Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- criarSkuPart2 -->
-        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:br.com.brm.scp.api.service.test.SkuServiceMockTest@4973813a]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2015-07-26T19:21:50Z" finished-at="2015-07-26T19:21:50Z">
+        <test-method status="PASS" signature="update(br.com.brm.scp.api.dto.request.GrupoRequestDTO)[pri:0, instance:br.com.brm.scp.api.service.test.GrupoSeviceMockTest@1dfe2924]" name="update" duration-ms="21" started-at="2015-07-27T22:40:02Z" data-provider="novoGrupoAlterado" finished-at="2015-07-27T22:40:02Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void br.com.brm.scp.api.service.test.SkuServiceMockTest.criarSkuPart2() throws br.com.brm.scp.api.exceptions.SkuException,br.com.brm.scp.api.exceptions.UsuarioNotFoundException]]>
+                <![CDATA[br.com.brm.scp.api.dto.request.GrupoRequestDTO@33d512c1]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- update -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:br.com.brm.scp.api.service.test.GrupoSeviceMockTest@1dfe2924]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2015-07-27T22:40:02Z" finished-at="2015-07-27T22:40:02Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void br.com.brm.scp.api.service.test.GrupoSeviceMockTest.update(br.com.brm.scp.api.dto.request.GrupoRequestDTO) throws br.com.brm.scp.api.exceptions.GrupoNotFoundException]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextBeforeTestMethod -->
-        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:br.com.brm.scp.api.service.test.SkuServiceMockTest@4973813a]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="1" started-at="2015-07-26T19:21:50Z" finished-at="2015-07-26T19:21:50Z">
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:br.com.brm.scp.api.service.test.GrupoSeviceMockTest@1dfe2924]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="1" started-at="2015-07-27T22:40:02Z" finished-at="2015-07-27T22:40:02Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void br.com.brm.scp.api.service.test.SkuServiceMockTest.criarSkuPart2() throws br.com.brm.scp.api.exceptions.SkuException,br.com.brm.scp.api.exceptions.UsuarioNotFoundException]]>
+                <![CDATA[public void br.com.brm.scp.api.service.test.GrupoSeviceMockTest.update(br.com.brm.scp.api.dto.request.GrupoRequestDTO) throws br.com.brm.scp.api.exceptions.GrupoNotFoundException]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextAfterTestMethod -->
-        <test-method status="PASS" signature="skuAtivarSkuNotFoundException(br.com.brm.scp.api.dto.request.SkuRequestDTO)[pri:0, instance:br.com.brm.scp.api.service.test.SkuServiceMockTest@4973813a]" name="skuAtivarSkuNotFoundException" duration-ms="3" started-at="2015-07-26T19:21:51Z" data-provider="skuNotFound" finished-at="2015-07-26T19:21:51Z">
+        <test-method status="PASS" signature="delete(br.com.brm.scp.api.dto.request.GrupoRequestDTO)[pri:0, instance:br.com.brm.scp.api.service.test.GrupoSeviceMockTest@1dfe2924]" name="delete" duration-ms="17" started-at="2015-07-27T22:40:02Z" data-provider="novoGrupoAlterado" finished-at="2015-07-27T22:40:02Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[br.com.brm.scp.api.dto.request.SkuRequestDTO@10d68fcd]]>
+                <![CDATA[br.com.brm.scp.api.dto.request.GrupoRequestDTO@411f53a0]]>
               </value>
             </param>
           </params>
-          <exception class="br.com.brm.scp.api.exceptions.SkuNotFoundException">
-            <full-stacktrace>
-              <![CDATA[br.com.brm.scp.api.exceptions.SkuNotFoundException
-	at br.com.brm.scp.mock.api.service.strategies.SkuAtivandoStrategyImpl.save(SkuAtivandoStrategyImpl.java:37)
-	at br.com.brm.scp.api.service.strategies.interfaces.Sku.save(Sku.java:18)
-	at br.com.brm.scp.mock.api.service.impl.SkuServiceMockImpl.ativar(SkuServiceMockImpl.java:41)
-	at br.com.brm.scp.api.service.test.SkuServiceMockTest.skuAtivarSkuNotFoundException(SkuServiceMockTest.java:145)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
-	at java.lang.reflect.Method.invoke(Unknown Source)
-	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:84)
-	at org.testng.internal.MethodInvocationHelper$1.runTestMethod(MethodInvocationHelper.java:200)
-	at org.springframework.test.context.testng.AbstractTestNGSpringContextTests.run(AbstractTestNGSpringContextTests.java:172)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
-	at java.lang.reflect.Method.invoke(Unknown Source)
-	at org.testng.internal.MethodInvocationHelper.invokeHookable(MethodInvocationHelper.java:212)
-	at org.testng.internal.Invoker.invokeMethod(Invoker.java:707)
-	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
-	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
-	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
-	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
-	at org.testng.TestRunner.privateRun(TestRunner.java:767)
-	at org.testng.TestRunner.run(TestRunner.java:617)
-	at org.testng.SuiteRunner.runTest(SuiteRunner.java:348)
-	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:343)
-	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:305)
-	at org.testng.SuiteRunner.run(SuiteRunner.java:254)
-	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
-	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
-	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1224)
-	at org.testng.TestNG.runSuitesLocally(TestNG.java:1149)
-	at org.testng.TestNG.run(TestNG.java:1057)
-	at org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:111)
-	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:204)
-	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:175)
-]]>
-            </full-stacktrace>
-          </exception> <!-- br.com.brm.scp.api.exceptions.SkuNotFoundException -->
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- skuAtivarSkuNotFoundException -->
-        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:br.com.brm.scp.api.service.test.SkuServiceMockTest@4973813a]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2015-07-26T19:21:51Z" finished-at="2015-07-26T19:21:51Z">
+        </test-method> <!-- delete -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:br.com.brm.scp.api.service.test.GrupoSeviceMockTest@1dfe2924]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2015-07-27T22:40:02Z" finished-at="2015-07-27T22:40:02Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void br.com.brm.scp.api.service.test.SkuServiceMockTest.skuAtivarSkuNotFoundException(br.com.brm.scp.api.dto.request.SkuRequestDTO) throws br.com.brm.scp.api.exceptions.SkuException]]>
+                <![CDATA[public void br.com.brm.scp.api.service.test.GrupoSeviceMockTest.delete(br.com.brm.scp.api.dto.request.GrupoRequestDTO) throws br.com.brm.scp.api.exceptions.GrupoNotFoundException]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextBeforeTestMethod -->
-        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:br.com.brm.scp.api.service.test.SkuServiceMockTest@4973813a]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2015-07-26T19:21:51Z" finished-at="2015-07-26T19:21:51Z">
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:br.com.brm.scp.api.service.test.GrupoSeviceMockTest@1dfe2924]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="3" started-at="2015-07-27T22:40:02Z" finished-at="2015-07-27T22:40:02Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void br.com.brm.scp.api.service.test.SkuServiceMockTest.skuAtivarSkuNotFoundException(br.com.brm.scp.api.dto.request.SkuRequestDTO) throws br.com.brm.scp.api.exceptions.SkuException]]>
+                <![CDATA[public void br.com.brm.scp.api.service.test.GrupoSeviceMockTest.delete(br.com.brm.scp.api.dto.request.GrupoRequestDTO) throws br.com.brm.scp.api.exceptions.GrupoNotFoundException]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextAfterTestMethod -->
-        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:br.com.brm.scp.api.service.test.SkuServiceMockTest@4973813a]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2015-07-26T19:21:51Z" finished-at="2015-07-26T19:21:51Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[public void br.com.brm.scp.api.service.test.SkuServiceMockTest.skuExistenteException() throws br.com.brm.scp.api.exceptions.SkuException]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- springTestContextBeforeTestMethod -->
-        <test-method status="PASS" signature="skuExistenteException()[pri:0, instance:br.com.brm.scp.api.service.test.SkuServiceMockTest@4973813a]" name="skuExistenteException" duration-ms="4" started-at="2015-07-26T19:21:51Z" finished-at="2015-07-26T19:21:51Z">
-          <exception class="br.com.brm.scp.api.exceptions.SkuExistenteException">
-            <full-stacktrace>
-              <![CDATA[br.com.brm.scp.api.exceptions.SkuExistenteException
-	at br.com.brm.scp.mock.api.service.strategies.SkuCreateStrategyImpl.save(SkuCreateStrategyImpl.java:34)
-	at br.com.brm.scp.api.service.strategies.interfaces.Sku.save(Sku.java:18)
-	at br.com.brm.scp.mock.api.service.impl.SkuServiceMockImpl.create(SkuServiceMockImpl.java:35)
-	at br.com.brm.scp.api.service.test.SkuServiceMockTest.skuExistenteException(SkuServiceMockTest.java:154)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
-	at java.lang.reflect.Method.invoke(Unknown Source)
-	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:84)
-	at org.testng.internal.MethodInvocationHelper$1.runTestMethod(MethodInvocationHelper.java:200)
-	at org.springframework.test.context.testng.AbstractTestNGSpringContextTests.run(AbstractTestNGSpringContextTests.java:172)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
-	at java.lang.reflect.Method.invoke(Unknown Source)
-	at org.testng.internal.MethodInvocationHelper.invokeHookable(MethodInvocationHelper.java:212)
-	at org.testng.internal.Invoker.invokeMethod(Invoker.java:707)
-	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
-	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
-	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
-	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
-	at org.testng.TestRunner.privateRun(TestRunner.java:767)
-	at org.testng.TestRunner.run(TestRunner.java:617)
-	at org.testng.SuiteRunner.runTest(SuiteRunner.java:348)
-	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:343)
-	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:305)
-	at org.testng.SuiteRunner.run(SuiteRunner.java:254)
-	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
-	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
-	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1224)
-	at org.testng.TestNG.runSuitesLocally(TestNG.java:1149)
-	at org.testng.TestNG.run(TestNG.java:1057)
-	at org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:111)
-	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:204)
-	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:175)
-]]>
-            </full-stacktrace>
-          </exception> <!-- br.com.brm.scp.api.exceptions.SkuExistenteException -->
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- skuExistenteException -->
-        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:br.com.brm.scp.api.service.test.SkuServiceMockTest@4973813a]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="1" started-at="2015-07-26T19:21:51Z" finished-at="2015-07-26T19:21:51Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[public void br.com.brm.scp.api.service.test.SkuServiceMockTest.skuExistenteException() throws br.com.brm.scp.api.exceptions.SkuException]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- springTestContextAfterTestMethod -->
-        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:br.com.brm.scp.api.service.test.SkuServiceMockTest@4973813a]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2015-07-26T19:21:51Z" finished-at="2015-07-26T19:21:51Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[public void br.com.brm.scp.api.service.test.SkuServiceMockTest.selecionarOrigens(java.util.Collection) throws java.lang.Exception]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- springTestContextBeforeTestMethod -->
-        <test-method status="PASS" signature="selecionarOrigens(java.util.Collection)[pri:0, instance:br.com.brm.scp.api.service.test.SkuServiceMockTest@4973813a]" name="selecionarOrigens" duration-ms="170" started-at="2015-07-26T19:21:51Z" data-provider="TAGS_RANDOM" finished-at="2015-07-26T19:21:51Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[[br.com.brm.scp.api.dto.response.TagResponseDTO@5609159b, br.com.brm.scp.api.dto.response.TagResponseDTO@2118cddf, br.com.brm.scp.api.dto.response.TagResponseDTO@17a7f733]]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- selecionarOrigens -->
-        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:br.com.brm.scp.api.service.test.SkuServiceMockTest@4973813a]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="1" started-at="2015-07-26T19:21:51Z" finished-at="2015-07-26T19:21:51Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[public void br.com.brm.scp.api.service.test.SkuServiceMockTest.selecionarOrigens(java.util.Collection) throws java.lang.Exception]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- springTestContextAfterTestMethod -->
-        <test-method status="PASS" signature="reabastecimento()[pri:0, instance:br.com.brm.scp.api.service.test.SkuServiceMockTest@4973813a]" name="reabastecimento" duration-ms="22" started-at="2015-07-26T19:21:51Z" finished-at="2015-07-26T19:21:51Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- reabastecimento -->
-        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:br.com.brm.scp.api.service.test.SkuServiceMockTest@4973813a]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2015-07-26T19:21:51Z" finished-at="2015-07-26T19:21:51Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[public void br.com.brm.scp.api.service.test.SkuServiceMockTest.reabastecimento() throws java.lang.Exception]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- springTestContextBeforeTestMethod -->
-        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:br.com.brm.scp.api.service.test.SkuServiceMockTest@4973813a]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="1" started-at="2015-07-26T19:21:51Z" finished-at="2015-07-26T19:21:51Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[public void br.com.brm.scp.api.service.test.SkuServiceMockTest.reabastecimento() throws java.lang.Exception]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- springTestContextAfterTestMethod -->
-        <test-method status="PASS" signature="springTestContextAfterTestClass()[pri:0, instance:br.com.brm.scp.api.service.test.SkuServiceMockTest@4973813a]" name="springTestContextAfterTestClass" is-config="true" duration-ms="0" started-at="2015-07-26T19:21:51Z" finished-at="2015-07-26T19:21:51Z">
+        <test-method status="PASS" signature="springTestContextAfterTestClass()[pri:0, instance:br.com.brm.scp.api.service.test.GrupoSeviceMockTest@1dfe2924]" name="springTestContextAfterTestClass" is-config="true" duration-ms="2" started-at="2015-07-27T22:40:02Z" finished-at="2015-07-27T22:40:02Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextAfterTestClass -->
-        <test-method status="PASS" signature="tearDown()[pri:0, instance:br.com.brm.scp.api.service.test.SkuServiceMockTest@4973813a]" name="tearDown" is-config="true" duration-ms="0" started-at="2015-07-26T19:21:51Z" finished-at="2015-07-26T19:21:51Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- tearDown -->
-      </class> <!-- br.com.brm.scp.api.service.test.SkuServiceMockTest -->
+      </class> <!-- br.com.brm.scp.api.service.test.GrupoSeviceMockTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

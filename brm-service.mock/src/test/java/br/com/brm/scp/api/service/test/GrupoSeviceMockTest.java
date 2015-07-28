@@ -1,34 +1,54 @@
 package br.com.brm.scp.api.service.test;
 
+import static org.testng.AssertJUnit.assertNotNull;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.DataProvider;
 
+import br.com.brm.scp.api.dto.request.CategoriaRequestDTO;
+import br.com.brm.scp.api.dto.request.GrupoRequestDTO;
+import br.com.brm.scp.api.exceptions.GrupoExistenteException;
+import br.com.brm.scp.api.exceptions.GrupoNotFoundException;
 import br.com.brm.scp.api.service.GrupoService;
 
 @ContextConfiguration(locations = { "classpath:META-INF/application-context.xml" })
 public class GrupoSeviceMockTest extends AbstractTestNGSpringContextTests {
 
 	@Autowired
-	private GrupoService service;
+	GrupoService service;
 
 	private static final boolean TEST_CRUD = true;
-
-	@BeforeClass
-	public void setup() throws Exception {
-		
+	
+	@org.testng.annotations.Test(enabled = TEST_CRUD, groups = "CRUD", priority = 1, dataProvider = "novoGrupo")
+	public void create(GrupoRequestDTO request) throws GrupoExistenteException, GrupoNotFoundException {
+		assertNotNull(request);
+		service.create(request);
 	}
-
-	@AfterClass
-	public void tearDown() throws Exception {
-		// rollback da massa de dados do teste
+	
+	@org.testng.annotations.Test(enabled = TEST_CRUD, groups = "CRUD", priority = 2, dataProvider = "novoGrupoAlterado")
+	public void update(GrupoRequestDTO request) throws GrupoNotFoundException{
+		assertNotNull(request);
+		service.update(request);
 	}
-
-	@org.testng.annotations.Test(enabled = TEST_CRUD, groups = "CRUD", priority = 1)
-	public void create() throws Exception {
-		
+	
+	@org.testng.annotations.Test(enabled = TEST_CRUD, groups = "CRUD", priority = 3, dataProvider = "novoGrupoAlterado")
+	public void delete(GrupoRequestDTO request) throws GrupoNotFoundException {
+		assertNotNull(request);
+		service.delete(request);		
+	}
+			
+	@DataProvider(name = "novoGrupo")
+	public Object[][] criaFornecedorRequest() {
+		GrupoRequestDTO request = new GrupoRequestDTO(null,"ADM",null);
+		return new Object[][] { new Object[] { request } };
+	}
+	
+	@DataProvider(name = "novoGrupoAlterado")
+	public Object[][] criaFornecedorRequest2() {
+		GrupoRequestDTO request = new GrupoRequestDTO(1L,"Outros",null);
+		return new Object[][] { new Object[] { request } };
 	}
 	
 }
