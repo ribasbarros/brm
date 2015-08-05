@@ -2,128 +2,136 @@
 <testng-results skipped="0" failed="0" total="3" passed="3">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="1215" started-at="2015-07-28T01:40:01Z" finished-at="2015-07-28T01:40:02Z">
+  <suite name="Default suite" duration-ms="766" started-at="2015-08-04T23:29:06Z" finished-at="2015-08-04T23:29:07Z">
     <groups>
       <group name="CRUD">
-        <method signature="GrupoSeviceMockTest.create(br.com.brm.scp.api.dto.request.GrupoRequestDTO)[pri:0, instance:br.com.brm.scp.api.service.test.GrupoSeviceMockTest@1dfe2924]" name="create" class="br.com.brm.scp.api.service.test.GrupoSeviceMockTest"/>
-        <method signature="GrupoSeviceMockTest.delete(br.com.brm.scp.api.dto.request.GrupoRequestDTO)[pri:0, instance:br.com.brm.scp.api.service.test.GrupoSeviceMockTest@1dfe2924]" name="delete" class="br.com.brm.scp.api.service.test.GrupoSeviceMockTest"/>
-        <method signature="GrupoSeviceMockTest.update(br.com.brm.scp.api.dto.request.GrupoRequestDTO)[pri:0, instance:br.com.brm.scp.api.service.test.GrupoSeviceMockTest@1dfe2924]" name="update" class="br.com.brm.scp.api.service.test.GrupoSeviceMockTest"/>
+        <method signature="PerfilSeviceMockTest.create(br.com.brm.scp.api.dto.request.PerfilRequestDTO)[pri:0, instance:br.com.brm.scp.api.service.test.PerfilSeviceMockTest@1dfe2924]" name="create" class="br.com.brm.scp.api.service.test.PerfilSeviceMockTest"/>
+        <method signature="PerfilSeviceMockTest.delete(br.com.brm.scp.api.dto.request.PerfilRequestDTO)[pri:0, instance:br.com.brm.scp.api.service.test.PerfilSeviceMockTest@1dfe2924]" name="delete" class="br.com.brm.scp.api.service.test.PerfilSeviceMockTest"/>
+        <method signature="PerfilSeviceMockTest.update(br.com.brm.scp.api.dto.request.PerfilRequestDTO)[pri:0, instance:br.com.brm.scp.api.service.test.PerfilSeviceMockTest@1dfe2924]" name="update" class="br.com.brm.scp.api.service.test.PerfilSeviceMockTest"/>
       </group> <!-- CRUD -->
     </groups>
-    <test name="Default test" duration-ms="1215" started-at="2015-07-28T01:40:01Z" finished-at="2015-07-28T01:40:02Z">
-      <class name="br.com.brm.scp.api.service.test.GrupoSeviceMockTest">
-        <test-method status="PASS" signature="springTestContextBeforeTestClass()[pri:0, instance:br.com.brm.scp.api.service.test.GrupoSeviceMockTest@1dfe2924]" name="springTestContextBeforeTestClass" is-config="true" duration-ms="9" started-at="2015-07-27T22:40:01Z" finished-at="2015-07-27T22:40:01Z">
+    <test name="Default test" duration-ms="766" started-at="2015-08-04T23:29:06Z" finished-at="2015-08-04T23:29:07Z">
+      <class name="br.com.brm.scp.api.service.test.PerfilSeviceMockTest">
+        <test-method status="PASS" signature="springTestContextBeforeTestClass()[pri:0, instance:br.com.brm.scp.api.service.test.PerfilSeviceMockTest@1dfe2924]" name="springTestContextBeforeTestClass" is-config="true" duration-ms="16" started-at="2015-08-04T20:29:06Z" finished-at="2015-08-04T20:29:06Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextBeforeTestClass -->
-        <test-method status="PASS" signature="springTestContextPrepareTestInstance()[pri:0, instance:br.com.brm.scp.api.service.test.GrupoSeviceMockTest@1dfe2924]" name="springTestContextPrepareTestInstance" is-config="true" duration-ms="1081" started-at="2015-07-27T22:40:01Z" depends-on-methods="org.springframework.test.context.testng.AbstractTestNGSpringContextTests.springTestContextBeforeTestClass" finished-at="2015-07-27T22:40:02Z">
+        <test-method status="PASS" signature="springTestContextPrepareTestInstance()[pri:0, instance:br.com.brm.scp.api.service.test.PerfilSeviceMockTest@1dfe2924]" name="springTestContextPrepareTestInstance" is-config="true" duration-ms="688" started-at="2015-08-04T20:29:06Z" depends-on-methods="org.springframework.test.context.testng.AbstractTestNGSpringContextTests.springTestContextBeforeTestClass" finished-at="2015-08-04T20:29:07Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextPrepareTestInstance -->
-        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:br.com.brm.scp.api.service.test.GrupoSeviceMockTest@1dfe2924]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="1" started-at="2015-07-27T22:40:02Z" finished-at="2015-07-27T22:40:02Z">
+        <test-method status="PASS" signature="setup()[pri:0, instance:br.com.brm.scp.api.service.test.PerfilSeviceMockTest@1dfe2924]" name="setup" is-config="true" duration-ms="0" started-at="2015-08-04T20:29:07Z" finished-at="2015-08-04T20:29:07Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:br.com.brm.scp.api.service.test.PerfilSeviceMockTest@1dfe2924]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2015-08-04T20:29:07Z" finished-at="2015-08-04T20:29:07Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void br.com.brm.scp.api.service.test.GrupoSeviceMockTest.create(br.com.brm.scp.api.dto.request.GrupoRequestDTO) throws br.com.brm.scp.api.exceptions.GrupoExistenteException,br.com.brm.scp.api.exceptions.GrupoNotFoundException]]>
+                <![CDATA[public void br.com.brm.scp.api.service.test.PerfilSeviceMockTest.create(br.com.brm.scp.api.dto.request.PerfilRequestDTO) throws br.com.brm.scp.api.exceptions.PerfilExistenteException,br.com.brm.scp.api.exceptions.PerfilNotFoundException]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextBeforeTestMethod -->
-        <test-method status="PASS" signature="create(br.com.brm.scp.api.dto.request.GrupoRequestDTO)[pri:0, instance:br.com.brm.scp.api.service.test.GrupoSeviceMockTest@1dfe2924]" name="create" duration-ms="44" started-at="2015-07-27T22:40:02Z" data-provider="novoGrupo" finished-at="2015-07-27T22:40:02Z">
+        <test-method status="PASS" signature="create(br.com.brm.scp.api.dto.request.PerfilRequestDTO)[pri:0, instance:br.com.brm.scp.api.service.test.PerfilSeviceMockTest@1dfe2924]" name="create" duration-ms="15" started-at="2015-08-04T20:29:07Z" data-provider="novoPerfil" finished-at="2015-08-04T20:29:07Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[br.com.brm.scp.api.dto.request.GrupoRequestDTO@4c371370]]>
+                <![CDATA[br.com.brm.scp.api.dto.request.PerfilRequestDTO@4135c3b]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- create -->
-        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:br.com.brm.scp.api.service.test.GrupoSeviceMockTest@1dfe2924]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="4" started-at="2015-07-27T22:40:02Z" finished-at="2015-07-27T22:40:02Z">
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:br.com.brm.scp.api.service.test.PerfilSeviceMockTest@1dfe2924]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2015-08-04T20:29:07Z" finished-at="2015-08-04T20:29:07Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void br.com.brm.scp.api.service.test.GrupoSeviceMockTest.create(br.com.brm.scp.api.dto.request.GrupoRequestDTO) throws br.com.brm.scp.api.exceptions.GrupoExistenteException,br.com.brm.scp.api.exceptions.GrupoNotFoundException]]>
+                <![CDATA[public void br.com.brm.scp.api.service.test.PerfilSeviceMockTest.create(br.com.brm.scp.api.dto.request.PerfilRequestDTO) throws br.com.brm.scp.api.exceptions.PerfilExistenteException,br.com.brm.scp.api.exceptions.PerfilNotFoundException]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextAfterTestMethod -->
-        <test-method status="PASS" signature="update(br.com.brm.scp.api.dto.request.GrupoRequestDTO)[pri:0, instance:br.com.brm.scp.api.service.test.GrupoSeviceMockTest@1dfe2924]" name="update" duration-ms="21" started-at="2015-07-27T22:40:02Z" data-provider="novoGrupoAlterado" finished-at="2015-07-27T22:40:02Z">
+        <test-method status="PASS" signature="delete(br.com.brm.scp.api.dto.request.PerfilRequestDTO)[pri:0, instance:br.com.brm.scp.api.service.test.PerfilSeviceMockTest@1dfe2924]" name="delete" duration-ms="15" started-at="2015-08-04T20:29:07Z" data-provider="novoPerfilAlterado" finished-at="2015-08-04T20:29:07Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[br.com.brm.scp.api.dto.request.GrupoRequestDTO@33d512c1]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- update -->
-        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:br.com.brm.scp.api.service.test.GrupoSeviceMockTest@1dfe2924]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2015-07-27T22:40:02Z" finished-at="2015-07-27T22:40:02Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[public void br.com.brm.scp.api.service.test.GrupoSeviceMockTest.update(br.com.brm.scp.api.dto.request.GrupoRequestDTO) throws br.com.brm.scp.api.exceptions.GrupoNotFoundException]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- springTestContextBeforeTestMethod -->
-        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:br.com.brm.scp.api.service.test.GrupoSeviceMockTest@1dfe2924]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="1" started-at="2015-07-27T22:40:02Z" finished-at="2015-07-27T22:40:02Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[public void br.com.brm.scp.api.service.test.GrupoSeviceMockTest.update(br.com.brm.scp.api.dto.request.GrupoRequestDTO) throws br.com.brm.scp.api.exceptions.GrupoNotFoundException]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- springTestContextAfterTestMethod -->
-        <test-method status="PASS" signature="delete(br.com.brm.scp.api.dto.request.GrupoRequestDTO)[pri:0, instance:br.com.brm.scp.api.service.test.GrupoSeviceMockTest@1dfe2924]" name="delete" duration-ms="17" started-at="2015-07-27T22:40:02Z" data-provider="novoGrupoAlterado" finished-at="2015-07-27T22:40:02Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[br.com.brm.scp.api.dto.request.GrupoRequestDTO@411f53a0]]>
+                <![CDATA[br.com.brm.scp.api.dto.request.PerfilRequestDTO@2d3379b4]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- delete -->
-        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:br.com.brm.scp.api.service.test.GrupoSeviceMockTest@1dfe2924]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2015-07-27T22:40:02Z" finished-at="2015-07-27T22:40:02Z">
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:br.com.brm.scp.api.service.test.PerfilSeviceMockTest@1dfe2924]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2015-08-04T20:29:07Z" finished-at="2015-08-04T20:29:07Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void br.com.brm.scp.api.service.test.GrupoSeviceMockTest.delete(br.com.brm.scp.api.dto.request.GrupoRequestDTO) throws br.com.brm.scp.api.exceptions.GrupoNotFoundException]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- springTestContextBeforeTestMethod -->
-        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:br.com.brm.scp.api.service.test.GrupoSeviceMockTest@1dfe2924]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="3" started-at="2015-07-27T22:40:02Z" finished-at="2015-07-27T22:40:02Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[public void br.com.brm.scp.api.service.test.GrupoSeviceMockTest.delete(br.com.brm.scp.api.dto.request.GrupoRequestDTO) throws br.com.brm.scp.api.exceptions.GrupoNotFoundException]]>
+                <![CDATA[public void br.com.brm.scp.api.service.test.PerfilSeviceMockTest.update(br.com.brm.scp.api.dto.request.PerfilRequestDTO) throws br.com.brm.scp.api.exceptions.PerfilNotFoundException]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextAfterTestMethod -->
-        <test-method status="PASS" signature="springTestContextAfterTestClass()[pri:0, instance:br.com.brm.scp.api.service.test.GrupoSeviceMockTest@1dfe2924]" name="springTestContextAfterTestClass" is-config="true" duration-ms="2" started-at="2015-07-27T22:40:02Z" finished-at="2015-07-27T22:40:02Z">
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:br.com.brm.scp.api.service.test.PerfilSeviceMockTest@1dfe2924]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2015-08-04T20:29:07Z" finished-at="2015-08-04T20:29:07Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void br.com.brm.scp.api.service.test.PerfilSeviceMockTest.delete(br.com.brm.scp.api.dto.request.PerfilRequestDTO) throws br.com.brm.scp.api.exceptions.PerfilNotFoundException]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="update(br.com.brm.scp.api.dto.request.PerfilRequestDTO)[pri:0, instance:br.com.brm.scp.api.service.test.PerfilSeviceMockTest@1dfe2924]" name="update" duration-ms="0" started-at="2015-08-04T20:29:07Z" data-provider="novoPerfilAlterado" finished-at="2015-08-04T20:29:07Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[br.com.brm.scp.api.dto.request.PerfilRequestDTO@1bb5a082]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- update -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:br.com.brm.scp.api.service.test.PerfilSeviceMockTest@1dfe2924]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2015-08-04T20:29:07Z" finished-at="2015-08-04T20:29:07Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void br.com.brm.scp.api.service.test.PerfilSeviceMockTest.update(br.com.brm.scp.api.dto.request.PerfilRequestDTO) throws br.com.brm.scp.api.exceptions.PerfilNotFoundException]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:br.com.brm.scp.api.service.test.PerfilSeviceMockTest@1dfe2924]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2015-08-04T20:29:07Z" finished-at="2015-08-04T20:29:07Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void br.com.brm.scp.api.service.test.PerfilSeviceMockTest.delete(br.com.brm.scp.api.dto.request.PerfilRequestDTO) throws br.com.brm.scp.api.exceptions.PerfilNotFoundException]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextAfterTestClass()[pri:0, instance:br.com.brm.scp.api.service.test.PerfilSeviceMockTest@1dfe2924]" name="springTestContextAfterTestClass" is-config="true" duration-ms="0" started-at="2015-08-04T20:29:07Z" finished-at="2015-08-04T20:29:07Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextAfterTestClass -->
-      </class> <!-- br.com.brm.scp.api.service.test.GrupoSeviceMockTest -->
+        <test-method status="PASS" signature="tearDown()[pri:0, instance:br.com.brm.scp.api.service.test.PerfilSeviceMockTest@1dfe2924]" name="tearDown" is-config="true" duration-ms="0" started-at="2015-08-04T20:29:07Z" finished-at="2015-08-04T20:29:07Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- br.com.brm.scp.api.service.test.PerfilSeviceMockTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

@@ -2,14 +2,17 @@ package br.com.brm.scp.mock.api.service.impl;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 
 import org.apache.log4j.Logger;
 import org.springframework.util.Assert;
 
 import br.com.brm.scp.api.dto.request.GrupoRequestDTO;
 import br.com.brm.scp.api.dto.response.GrupoResponseDTO;
+import br.com.brm.scp.api.dto.response.PerfilResponseDTO;
 import br.com.brm.scp.api.exceptions.GrupoExistenteException;
 import br.com.brm.scp.api.exceptions.GrupoNotFoundException;
+import br.com.brm.scp.api.exceptions.PerfilRepetidoException;
 import br.com.brm.scp.api.service.GrupoService;
 import br.com.brm.scp.fw.helper.converters.ConverterHelper;
 import br.com.brm.scp.mock.api.mockdata.MockData;
@@ -28,7 +31,7 @@ public class GrupoServiceMockImpl implements GrupoService {
 
 	@Override
 	public GrupoResponseDTO create(GrupoRequestDTO request)
-			throws GrupoExistenteException, GrupoNotFoundException {
+			throws GrupoExistenteException, GrupoNotFoundException, PerfilRepetidoException {
 		prepareSave(request);
 		hasGrupo(request);
 		return insert(request);
@@ -52,8 +55,14 @@ public class GrupoServiceMockImpl implements GrupoService {
 		}
 	}
 
-	private void prepareSave(GrupoRequestDTO request) {
+	private void prepareSave(GrupoRequestDTO request) throws PerfilRepetidoException {
 		Assert.notNull(request.getNome(), "grupo.nomenaopreenchido");
+		Assert.notEmpty(request.getPerfis(), "grupo.perfilnaopreenchido");
+		
+		HashSet<PerfilResponseDTO> hashSet = new HashSet<PerfilResponseDTO>(request.getPerfis());
+		if(hashSet.size() != request.getPerfis().size()){
+			throw new PerfilRepetidoException();
+		}	
 	}
 
 	@Override
@@ -66,7 +75,7 @@ public class GrupoServiceMockImpl implements GrupoService {
 	}
 
 	@Override
-	public void update(GrupoRequestDTO request) throws GrupoNotFoundException {
+	public void update(GrupoRequestDTO request) throws GrupoNotFoundException, PerfilRepetidoException {
 		findById(request.getId());
 		prepareSave(request);
 		GrupoDocument document = (GrupoDocument) ConverterHelper.convert(request, GrupoDocument.class);

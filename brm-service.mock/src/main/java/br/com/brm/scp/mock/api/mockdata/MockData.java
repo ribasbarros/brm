@@ -8,6 +8,7 @@ import br.com.brm.scp.mock.api.service.document.FornecedorDocument;
 import br.com.brm.scp.mock.api.service.document.GrupoDocument;
 import br.com.brm.scp.mock.api.service.document.ItemDocument;
 import br.com.brm.scp.mock.api.service.document.PedidoDocument;
+import br.com.brm.scp.mock.api.service.document.PerfilDocument;
 import br.com.brm.scp.mock.api.service.document.SkuDocument;
 import br.com.brm.scp.mock.api.service.document.TagDocument;
 import br.com.brm.scp.mock.api.service.document.UsuarioDocument;
@@ -30,6 +31,8 @@ public class MockData {
 	
 	private static final Map<Long, GrupoDocument> GRUPO_COLLECTION = new HashMap<Long, GrupoDocument>();
 
+	private static final Map<Long, PerfilDocument> PERFIL_COLLECTION = new HashMap<Long, PerfilDocument>();
+	
 	public Map<Long, UsuarioDocument> getUsuarioCollection() {
 		return USUARIO_COLLECTION;
 	}
@@ -60,5 +63,9 @@ public class MockData {
 
 	public static Map<Long, GrupoDocument> getGrupoCollection() {
 		return GRUPO_COLLECTION;
+	}
+
+	public static Map<Long, PerfilDocument> getPerfilCollection() {
+		return PERFIL_COLLECTION;
 	}
 }

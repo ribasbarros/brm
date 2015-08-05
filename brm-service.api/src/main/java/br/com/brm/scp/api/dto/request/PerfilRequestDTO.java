@@ -1,6 +1,7 @@
 package br.com.brm.scp.api.dto.request;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class PerfilRequestDTO implements Serializable {
 
@@ -8,6 +9,15 @@ public class PerfilRequestDTO implements Serializable {
 	
 	public Long id;
 	private String nome;
+	private Date dataExcluido;
+
+		
+	public PerfilRequestDTO(Long id, String nome, Date dataExcluido) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.dataExcluido = dataExcluido;
+	}
 
 	public Long getId() {
 		return id;
@@ -23,6 +33,14 @@ public class PerfilRequestDTO implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public Date getDataExcluido() {
+		return dataExcluido;
+	}
+
+	public void setDataExcluido(Date dataExcluido) {
+		this.dataExcluido = dataExcluido;
 	}
 
 }
