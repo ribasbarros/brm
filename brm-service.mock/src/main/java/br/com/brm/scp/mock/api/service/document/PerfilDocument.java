@@ -1,6 +1,7 @@
 package br.com.brm.scp.mock.api.service.document;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class PerfilDocument implements Serializable {
 
@@ -8,6 +9,8 @@ public class PerfilDocument implements Serializable {
 	
 	public Long id;
 	private String nome;
+	private Date dataExcluido;
+
 
 	public Long getId() {
 		return id;
@@ -25,4 +28,12 @@ public class PerfilDocument implements Serializable {
 		this.nome = nome;
 	}
 
+	public Date getDataExcluido() {
+		return dataExcluido;
+	}
+
+	public void setDataExcluido(Date dataExcluido) {
+		this.dataExcluido = dataExcluido;
+	}
+	
 }
