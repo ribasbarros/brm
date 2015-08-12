@@ -25,6 +25,7 @@ import br.com.brm.scp.api.exceptions.SkuExistenteException;
 import br.com.brm.scp.api.exceptions.SkuNotFoundException;
 import br.com.brm.scp.api.exceptions.UsuarioNotFoundException;
 import br.com.brm.scp.api.service.SkuService;
+import br.com.brm.scp.api.service.test.data.SkuDadosFake;
 import br.com.brm.scp.fw.helper.converters.ConverterHelper;
 import br.com.brm.scp.mock.api.service.document.PedidoDocument;
 import br.com.brm.scp.mock.api.service.status.PlanejamentoSku;

@@ -6,6 +6,7 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
+import br.com.brm.scp.api.dto.request.DfuRequestDTO;
 import br.com.brm.scp.api.service.DfuService;
 import br.com.brm.scp.mock.api.mockdata.MockData;
 
@@ -19,14 +20,13 @@ public class DfuServiceMockTest extends AbstractTestNGSpringContextTests {
 	
 	@Autowired
 	private MockData mockDb;
+	
+	private DfuRequestDTO requestSuccess;
+	
+	private DfuRequestDTO requestFail;
 
 	@BeforeClass
 	public void setup() throws Exception {
-		clearMemory();
-	}
-
-	private void clearMemory() {
-	
 	}
 
 	@AfterClass

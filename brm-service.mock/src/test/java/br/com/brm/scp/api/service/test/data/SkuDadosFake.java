@@ -1,4 +1,4 @@
-package br.com.brm.scp.api.service.test;
+package br.com.brm.scp.api.service.test.data;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -11,7 +11,6 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 
 import br.com.brm.scp.api.dto.request.SkuRequestDTO;
 import br.com.brm.scp.api.dto.response.ItemResponseDTO;
-import br.com.brm.scp.api.dto.response.PedidoResponseDTO;
 import br.com.brm.scp.api.dto.response.TagResponseDTO;
 import br.com.brm.scp.api.exceptions.UsuarioNotFoundException;
 import br.com.brm.scp.api.service.UsuarioService;

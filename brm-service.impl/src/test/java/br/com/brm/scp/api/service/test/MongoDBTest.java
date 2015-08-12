@@ -18,7 +18,7 @@ import br.com.brm.scp.api.service.repositories.test.TestRepository;
 @ContextConfiguration(locations = { "classpath:META-INF/application-context.xml" })
 public class MongoDBTest extends AbstractTestNGSpringContextTests {
 
-	private static final boolean RODAR = true;
+	private static final boolean RODAR = false;
 
 	private static final boolean EXCLUIR_TESTES = false;
 
@@ -31,7 +31,7 @@ public class MongoDBTest extends AbstractTestNGSpringContextTests {
 	public void setup() throws Exception {
 	}
 
-	@org.testng.annotations.Test(enabled = RODAR, groups = "Test", priority = 1)
+	@org.testng.annotations.Test(enabled = RODAR, groups = "Test", priority = 1, invocationCount=1000000)
 	public void testCriar() {
 		TestDocument document = new TestDocument();
 		document.setTestDouble(100.02D);
@@ -66,7 +66,7 @@ public class MongoDBTest extends AbstractTestNGSpringContextTests {
 		
 	}
 	
-	@org.testng.annotations.Test(enabled = RODAR, groups = "Test", priority = 3)
+	@org.testng.annotations.Test(enabled = RODAR|| true, groups = "Test", priority = 3)
 	public void testFind() {
 
 		

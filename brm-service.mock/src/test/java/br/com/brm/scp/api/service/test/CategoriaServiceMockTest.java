@@ -26,13 +26,18 @@ public class CategoriaServiceMockTest extends AbstractTestNGSpringContextTests {
 		service.create(request);
 	}
 	
-	@org.testng.annotations.Test(enabled = TEST_CRUD, groups = "CRUD", priority = 2, dataProvider = "novaCategoriaAlterada")
+	@org.testng.annotations.Test(enabled = TEST_CRUD, expectedExceptions=CategoriaExistenteException.class , groups = "CRUD", priority = 2, dataProvider = "novaCategoriaAlterada")
+	public void exceptionExistente(CategoriaRequestDTO request) throws Exception {
+		service.create(request);
+	}
+	
+	@org.testng.annotations.Test(enabled = TEST_CRUD, groups = "CRUD", priority = 3, dataProvider = "novaCategoriaAlterada")
 	public void update(CategoriaRequestDTO request) throws CategoriaNotFoundException{
 		assertNotNull(request);
 		service.update(request);
 	}
 	
-	@org.testng.annotations.Test(enabled = TEST_CRUD, groups = "CRUD", priority = 3, dataProvider = "novaCategoriaAlterada")
+	@org.testng.annotations.Test(enabled = TEST_CRUD, groups = "CRUD", priority = 4, dataProvider = "novaCategoriaAlterada")
 	public void delete(CategoriaRequestDTO request) throws CategoriaNotFoundException {
 		assertNotNull(request);
 		service.delete(request);		
