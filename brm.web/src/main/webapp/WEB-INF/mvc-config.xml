@@ -9,11 +9,11 @@
 
 	<!-- Uncomment and your base-package here: <context:component-scan base-package="org.springframework.samples.web"/> -->
 
-<mvc:resources mapping="/css/**" location="/css/" />
+	<mvc:resources mapping="/css/**" location="/css/" />
 	<mvc:resources mapping="/views/**" location="/WEB-INF/view/" />
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 
-	<!--  <context:component-scan base-package="br.com.brm.controllers" /> -->
+	<context:component-scan base-package="br.com.scp.brm.controller" />
 	
 	<mvc:annotation-driven />
 	<mvc:default-servlet-handler />
