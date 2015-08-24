@@ -1,25 +1,25 @@
 package br.com.scp.brm.controller;
 
+import java.security.Principal;
+
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping(value = "/user")
 public class UserController {
 
+	@RequestMapping(value="/user", method=RequestMethod.GET)
 	@ResponseBody
-	@RequestMapping(method=RequestMethod.POST)
-    public void send(@RequestBody Object contact) {
-		
-    }
-	
-	@ResponseBody
-	@RequestMapping(method=RequestMethod.GET)
-	public String get(){
-		return "TESTE";
+	public Principal user(Principal user) {
+		return user;
 	}
 	
+	@RequestMapping(value="/test", method=RequestMethod.GET)
+	@ResponseBody
+	public String user() {
+		return "BLA BLA BLA";
+	}
+
 }

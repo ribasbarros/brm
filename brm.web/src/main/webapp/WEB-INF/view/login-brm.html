@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>BRazil Mulambo</title>
 <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css" />
-<style type="text/css">
-@CHARSET "UTF-8";
 
+<style type="text/css">
 @CHARSET "UTF-8";
 
 * {
@@ -90,20 +90,21 @@ form[role=login]>div a {
 	color: #007fff;
 }
 </style>
+
 </head>
 <body>
-
+ 
 	<section class="container">
 		<section class="login-form">
-			<form method="post" action="" role="login">
+			<form id="loginform" method="post" role="login" ng-controller="CsrfCtrl" ng-submit="login()">
 				<div>
 					<img src="resources/images/logo.jpg" style="width: 10%" alt="" />
 					<h4>Login to your private dashboard</h4>
 				</div>
-				<input type="email" name="email" placeholder="Email Address"
-					required class="form-control input-lg" /> <input type="password"
-					name="password" placeholder="Password" required	
-					class="form-control input-lg" />
+				<input ng-model="credentials.username" type="text" id="username" name="username" 
+					placeholder="username" required class="form-control input-lg" /> 
+				<input ng-model="credentials.password" type="password" id="password" name="password" 
+					placeholder="Password" required class="form-control input-lg" />
 				<button type="submit" name="go"
 					class="btn btn-lg btn-block btn-info">Sign in</button>
 			</form>
@@ -124,6 +125,7 @@ form[role=login]>div a {
 	<script src="resources/angular/angular-animate.js"></script>
 	<script src="resources/angular/angular-aria.js"></script>
 	<script src="resources/angular/angular-route.js"></script>
+	<script src="resources/angular/angular-cookies.js"></script>
 	<script src="resources/angular/i18n/angular-locale_pt-br.js"></script>
 
 	<!-- AngularJS App Code ==================================================== -->
@@ -132,5 +134,7 @@ form[role=login]>div a {
 	<script src="resources/js/services.js"></script>
 	<!-- <script src="resources/js/filters.js"></script>
 	<script src="resources/js/directives.js"></script> -->
+
+
 </body>
 </html>

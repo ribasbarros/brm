@@ -53,8 +53,7 @@
 }
 </style>
 </head>
-<body>
-
+<body ng-controller="DummyCtrl">
 	<div style="background-color: #6B8E23">
 		<!-- HEADER -->
 		<div class="container" style="height: 100px;">
@@ -96,12 +95,13 @@
 									<li><a href="#">Fornecedor</a></li>
 									<li><a href="#">Categoria</a></li>
 									<li><a href="#">Item</a></li>
+									<li role="separator" class="divider"></li>
+									<li><a href="#">SKU</a></li>
 								</ul></li>
 							<li class="dropdown"><a href="" class="dropdown-toggle"
 								data-toggle="dropdown">GERENCIAMENTO <span class="caret"></span></a>
 								<ul class="dropdown-menu" role="menu">
 									<li><a href="#">DFU</a></li>
-									<li><a href="#">SKU</a></li>
 									<li role="separator" class="divider"></li>
 									<li><a href="#">Tag</a></li>
 								</ul></li>
@@ -110,7 +110,7 @@
 								<ul class="dropdown-menu" role="menu">
 									<li><a href="#">DFU</a></li>
 									<li><a href="#">SKU</a></li>
-									<li><a href="#">Entradas</a></li>
+									<li><a href="#">Integrações</a></li>
 								</ul></li>
 							<li class="dropdown"><a href="" class="dropdown-toggle"
 								data-toggle="dropdown">ADMINISTRAÇÃO <span class="caret"></span></a>
@@ -125,6 +125,16 @@
 											<li><a href="#">Formato</a></li>
 											<li><a href="#">Integração</a></li>
 										</ul></li>
+								</ul></li>
+								<li class="dropdown"><a href="" class="dropdown-toggle"
+								data-toggle="dropdown">SOBRE <span class="caret"></span></a>
+								<ul class="dropdown-menu" role="menu">
+									<li><a href="#/company">BRM</a></li>
+								</ul></li>
+								<li class="dropdown"><a href="" class="dropdown-toggle"
+								data-toggle="dropdown">EU <span class="caret"></span></a>
+								<ul class="dropdown-menu" role="menu">
+									<li><a href="" ng-click="logout()">Logout</a></li>
 								</ul></li>
 						</ul>
 					</div>
@@ -144,7 +154,7 @@
 	<div id="footer" style="background-color: #6B8E23;">
 		<div class="container"
 			style="color: #fff !important; margin-top: 20px">
-			<div class="row">FOOTER</div>
+			footer
 		</div>
 	</div>
 
@@ -162,6 +172,7 @@
 	<script src="resources/angular/angular-animate.js"></script>
 	<script src="resources/angular/angular-aria.js"></script>
 	<script src="resources/angular/angular-route.js"></script>
+	<script src="resources/angular/angular-cookies.js"></script>
 	<script src="resources/angular/i18n/angular-locale_pt-br.js"></script>
 
 	<!-- AngularJS App Code ==================================================== -->

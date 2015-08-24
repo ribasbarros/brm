@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('brm', [ 'ngRoute' , 'brm.controllers' ]);
+var app = angular.module('brm', [ 'ngRoute', 'ngCookies', 'brm.controllers' ]);
 
 app.config(function($routeProvider) {
 	$routeProvider.when('/dummy', {
@@ -10,4 +10,17 @@ app.config(function($routeProvider) {
 	}).otherwise({
 		redirectTo : '/dummy'
 	});
-})
+	
+});
+
+
+app.run(['$http', '$cookies', function ($http, $cookies) {
+    $http.defaults.transformResponse.unshift(function (data, headers) {
+        var csrfToken = $cookies.get('XSRF-TOKEN');
+        if (!!csrfToken) {
+            $http.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken;
+        }
+
+        return data;
+    });
+}]);

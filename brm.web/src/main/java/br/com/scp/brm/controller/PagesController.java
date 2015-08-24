@@ -21,9 +21,9 @@ public class PagesController {
 		return "company";
 	}
 	
-	@RequestMapping(value = "/login")
+	@RequestMapping(value = "/login-brm")
 	public String login() {
-		return "login";
+		return "login-brm";
 	}
 	
 }
