@@ -15,7 +15,7 @@ public class PagesController {
     public String dummy() {
         return "dummy";
     }
-    
+     
 	@RequestMapping(value = "/company")
 	public String company() {
 		return "company";
