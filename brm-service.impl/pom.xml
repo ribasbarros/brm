@@ -9,7 +9,6 @@
 	<artifactId>brm-service.impl</artifactId>
 
 	<dependencies>
-		<!-- brm.api - AI -->
 		<dependency>
 			<groupId>br.com.scp.brm</groupId>
 			<artifactId>brm-service.api</artifactId>
@@ -17,28 +16,42 @@
 		</dependency>
 
 		<dependency>
+			<groupId>br.com.scp.brm</groupId>
+			<artifactId>brm.fw</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
 			<version>${testng.version}</version>
+			<scope>test</scope>
 		</dependency>
-		
+
+		<!-- Spring -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>commons-logging</artifactId>
+					<groupId>commons-logging</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-mongodb</artifactId>
 			<version>${spring-mongodb}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
 			<version>${spring-orm}</version>
 		</dependency>
-		
-		<dependency>
-			<groupId>br.com.scp.brm</groupId>
-			<artifactId>brm.fw</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		
 	</dependencies>
+
 </project>
