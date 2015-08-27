@@ -1,26 +1,28 @@
 package br.com.brm.scp.api.service.test;
 
+import static org.testng.AssertJUnit.assertNotNull;
 import static org.testng.AssertJUnit.assertNull;
 import static org.testng.AssertJUnit.assertTrue;
 
 import java.util.List;
 
-import static org.testng.AssertJUnit.assertNotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.BeforeClass;
 
 import br.com.brm.scp.api.service.document.test.TestDocument;
 import br.com.brm.scp.api.service.repositories.test.TestRepository;
+import br.com.brm.scp.security.config.AppConfigurationTest;
 
 
-@ContextConfiguration(locations = { "classpath:META-INF/application-context.xml" })
+@ContextConfiguration(loader = AnnotationConfigContextLoader.class, classes = AppConfigurationTest.class)
 public class MongoDBTest extends AbstractTestNGSpringContextTests {
 
 	private static final boolean RODAR = true;
 
-	private static final boolean EXCLUIR_TESTES = false;
+	private static final boolean EXCLUIR_TESTES = true;
 
 	@Autowired
 	private TestRepository testRepository;
