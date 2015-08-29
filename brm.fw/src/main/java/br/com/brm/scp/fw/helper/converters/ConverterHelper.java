@@ -166,9 +166,13 @@ public class ConverterHelper {
 
 	private static Collection<Object> convert(Class<?> convert2, Object invoke) {
 		Collection<Object> collectionConverted = new ArrayList<Object>();
-		for (Object elementFromCollection : (ArrayList) invoke) {
-			Object element = convert(elementFromCollection, convert2);
-			collectionConverted.add(element);
+		try{
+			for (Object elementFromCollection : (ArrayList) invoke) {
+				Object element = convert(elementFromCollection, convert2);
+				collectionConverted.add(element);
+			}
+		}catch(ClassCastException ex){
+			logger.info("Ao converter a lista ouve um ClassCast, provavelmente porque esta lista estava sendo instanciada vazaia");
 		}
 		return collectionConverted;
 	}

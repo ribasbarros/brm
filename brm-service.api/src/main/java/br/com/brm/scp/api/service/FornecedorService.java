@@ -1,16 +1,22 @@
 package br.com.brm.scp.api.service;
 
+import br.com.brm.scp.api.dto.FornecedorCentroDTO;
 import br.com.brm.scp.api.dto.request.FornecedorRequestDTO;
 import br.com.brm.scp.api.dto.response.FornecedorResponseDTO;
+import br.com.brm.scp.api.exceptions.FornecedorCentroExistenteException;
 import br.com.brm.scp.api.exceptions.FornecedorExistenteException;
+import br.com.brm.scp.api.exceptions.FornecedorNotFoundException;
+import br.com.brm.scp.mock.api.service.status.FornecedorFiltroEnum;
 
 public interface FornecedorService {
 
 	FornecedorResponseDTO create(FornecedorRequestDTO request) throws FornecedorExistenteException;
 	
-	FornecedorResponseDTO findByCnpj(String cnpj);
+	void delete(String id) throws FornecedorNotFoundException;
 	
-	void delete(FornecedorRequestDTO request);
-	
-	FornecedorResponseDTO update(FornecedorRequestDTO request);
+	FornecedorResponseDTO update(FornecedorRequestDTO request) throws FornecedorNotFoundException;
+
+	FornecedorResponseDTO find(FornecedorFiltroEnum filtro, Object value) throws FornecedorNotFoundException;
+
+	void addCentro(String id, FornecedorCentroDTO request) throws FornecedorNotFoundException, FornecedorCentroExistenteException;
 }

@@ -1,31 +1,34 @@
 package br.com.brm.scp.api.dto.response;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import br.com.brm.scp.api.annotation.BindingClassMeta;
 import br.com.brm.scp.api.dto.ContatoDTO;
-
+import br.com.brm.scp.api.dto.FornecedorCentroDTO;
 
 public class FornecedorResponseDTO implements Serializable {
 
-	private static final long serialVersionUID = 6367545127710302291L;
-	
-	private Long id;
+	private static final long serialVersionUID = -9082309408255141102L;
+
+	private String id;
 	private String razaoSocial;
 	private String nomeFantasia;
-	private String cnpj;
-	private String inscricaoEstadual;
 	private String descricao;
-	
-	@BindingClassMeta("CONTATO")
-	private Collection<ContatoDTO> contato;
+	private String cnpj;
 
-	public Long getId() {
+	@BindingClassMeta("CONTATO")
+	private Collection<ContatoDTO> contatos = new ArrayList<>();
+
+	@BindingClassMeta("CENTRO")
+	private Collection<FornecedorCentroDTO> centros = new ArrayList<>();
+
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -45,22 +48,6 @@ public class FornecedorResponseDTO implements Serializable {
 		this.nomeFantasia = nomeFantasia;
 	}
 
-	public String getCnpj() {
-		return cnpj;
-	}
-
-	public void setCnpj(String cnpj) {
-		this.cnpj = cnpj;
-	}
-
-	public String getInscricaoEstadual() {
-		return inscricaoEstadual;
-	}
-
-	public void setInscricaoEstadual(String inscricaoEstadual) {
-		this.inscricaoEstadual = inscricaoEstadual;
-	}
-
 	public String getDescricao() {
 		return descricao;
 	}
@@ -69,13 +56,28 @@ public class FornecedorResponseDTO implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public Collection<ContatoDTO> getContato() {
-		return contato;
+	public String getCnpj() {
+		return cnpj;
 	}
 
-	public void setContato(Collection<ContatoDTO> contato) {
-		this.contato = contato;
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
 	}
-	
-	
+
+	public Collection<ContatoDTO> getContatos() {
+		return contatos;
+	}
+
+	public void setContatos(Collection<ContatoDTO> contatos) {
+		this.contatos = contatos;
+	}
+
+	public Collection<FornecedorCentroDTO> getCentros() {
+		return centros;
+	}
+
+	public void setCentros(Collection<FornecedorCentroDTO> centros) {
+		this.centros = centros;
+	}
+
 }

@@ -61,4 +61,10 @@ public class FornecedorServiceMockImpl implements FornecedorService{
 		return null;
 	}
 
+	@Override
+	public FornecedorResponseDTO findById(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

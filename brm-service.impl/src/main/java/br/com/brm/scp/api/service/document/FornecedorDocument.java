@@ -1,30 +1,39 @@
 package br.com.brm.scp.api.service.document;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import br.com.brm.scp.api.dto.ContatoDTO;
+import br.com.brm.scp.api.dto.FornecedorCentroDTO;
 import br.com.brm.scp.fw.annotations.BindingClass;
 
+@Document
 public class FornecedorDocument implements Serializable {
 
 	private static final long serialVersionUID = -9082309408255141102L;
-	
-	private Long id;
+
+	@Id
+	private String id;
 	private String razaoSocial;
 	private String nomeFantasia;
-	private String cnpj;
-	private String inscricaoEstadual;
 	private String descricao;
-	
-	@BindingClass(ContatoDTO.class)
-	private Collection<ContatoDocument> contato;
+	private String cnpj;
 
-	public Long getId() {
+	@BindingClass(ContatoDTO.class)
+	private Collection<ContatoDocument> contatos = new ArrayList<>();
+
+	@BindingClass(FornecedorCentroDTO.class)
+	private Collection<FornecedorCentroDocument> centros = new ArrayList<>();
+
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -44,22 +53,6 @@ public class FornecedorDocument implements Serializable {
 		this.nomeFantasia = nomeFantasia;
 	}
 
-	public String getCnpj() {
-		return cnpj;
-	}
-
-	public void setCnpj(String cnpj) {
-		this.cnpj = cnpj;
-	}
-
-	public String getInscricaoEstadual() {
-		return inscricaoEstadual;
-	}
-
-	public void setInscricaoEstadual(String inscricaoEstadual) {
-		this.inscricaoEstadual = inscricaoEstadual;
-	}
-
 	public String getDescricao() {
 		return descricao;
 	}
@@ -68,12 +61,28 @@ public class FornecedorDocument implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public Collection<ContatoDocument> getContato() {
-		return contato;
+	public Collection<FornecedorCentroDocument> getCentros() {
+		return centros;
 	}
 
-	public void setContato(Collection<ContatoDocument> contato) {
-		this.contato = contato;
+	public void setCentros(Collection<FornecedorCentroDocument> centros) {
+		this.centros = centros;
+	}
+
+	public String getCnpj() {
+		return cnpj;
+	}
+
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
+	}
+
+	public Collection<ContatoDocument> getContatos() {
+		return contatos;
+	}
+
+	public void setContatos(Collection<ContatoDocument> contatos) {
+		this.contatos = contatos;
 	}
 
 }
