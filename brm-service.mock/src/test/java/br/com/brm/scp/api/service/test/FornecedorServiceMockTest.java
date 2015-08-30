@@ -10,6 +10,7 @@ import org.testng.annotations.DataProvider;
 
 import br.com.brm.scp.api.dto.request.FornecedorRequestDTO;
 import br.com.brm.scp.api.exceptions.FornecedorExistenteException;
+import br.com.brm.scp.api.exceptions.FornecedorNotFoundException;
 import br.com.brm.scp.api.service.FornecedorService;
 import br.com.brm.scp.mock.api.mockdata.MockData;
 
@@ -29,20 +30,25 @@ public class FornecedorServiceMockTest extends AbstractTestNGSpringContextTests 
 	}
 	
 	@org.testng.annotations.Test(enabled = TEST_CRUD, groups = "CRUD", priority = 2, dataProvider = "novoFornecedor")
-	public void delete(FornecedorRequestDTO request) {
+	public void delete(FornecedorRequestDTO request) throws FornecedorNotFoundException {
 		assertNotNull(request);
-		service.delete(request);		
+		service.delete(request.getId());		
 	}
 	
 	@org.testng.annotations.Test(enabled = TEST_CRUD, groups = "CRUD", priority = 3, dataProvider = "novoFornecedor")
-	public void update(FornecedorRequestDTO request){
+	public void update(FornecedorRequestDTO request) throws FornecedorNotFoundException{
 		assertNotNull(request);
 		service.update(request);
 	}
 	
 	@DataProvider(name = "novoFornecedor")
 	public Object[][] criaFornecedorRequest() {
-		FornecedorRequestDTO request = new FornecedorRequestDTO(null, "Fornecedor", "Fornecedor", "90098343123", null, null, null);
+		FornecedorRequestDTO request = new FornecedorRequestDTO();
+		request.setCnpj("90098343123");
+		request.setDescricao("Google");
+		request.setNomeFantasia("Google");
+		request.setRazaoSocial("Google Brasil Internet Ltda");
+		
 		return new Object[][] { new Object[] { request } };
 	}
 	
