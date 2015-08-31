@@ -9,6 +9,7 @@ import org.springframework.util.Assert;
 
 import br.com.brm.scp.api.dto.request.ItemRequestDTO;
 import br.com.brm.scp.api.dto.response.ItemResponseDTO;
+import br.com.brm.scp.api.exceptions.ItemCategoriaNotFoundException;
 import br.com.brm.scp.api.exceptions.ItemExistenteException;
 import br.com.brm.scp.api.exceptions.ItemNotFoundException;
 import br.com.brm.scp.api.service.ItemService;
@@ -28,6 +29,20 @@ public class ItemServiceMockImpl implements ItemService {
 	}
 
 	@Override
+	public ItemResponseDTO create(ItemRequestDTO request)
+			throws ItemExistenteException, ItemCategoriaNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ItemResponseDTO update(ItemRequestDTO request)
+			throws ItemExistenteException, ItemCategoriaNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/*@Override
 	public ItemResponseDTO create(ItemRequestDTO request) throws ItemNotFoundException, ItemExistenteException {
 		prepareSave(request);
 		hasItem(request);
@@ -104,5 +119,5 @@ public class ItemServiceMockImpl implements ItemService {
 			throw new ItemNotFoundException("item.nenhum.registro.encontrado");
 		}
 		return ConverterHelper.convert(allItens, ItemResponseDTO.class);
-	}
+	}*/
 }

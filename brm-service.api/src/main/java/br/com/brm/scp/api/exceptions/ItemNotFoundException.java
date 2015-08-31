@@ -1,14 +1,11 @@
 package br.com.brm.scp.api.exceptions;
 
-public class ItemNotFoundException extends Exception {
+public class ItemNotFoundException extends ItemException {
 
-	private static final long serialVersionUID = 8862319156295467264L;
+	private static final long serialVersionUID = -1068474613578647257L;
 	
-	public ItemNotFoundException() {
-		super();
+	public ItemNotFoundException(String message) {
+		super(message);
 	}
 	
-	public ItemNotFoundException(String arg0) {
-		super(arg0);
-	}
 }

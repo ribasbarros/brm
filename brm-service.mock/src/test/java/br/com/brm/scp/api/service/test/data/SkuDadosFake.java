@@ -25,7 +25,7 @@ import br.com.brm.scp.mock.api.service.document.TagDocument;
 import br.com.brm.scp.mock.api.service.document.TelefoneDocument;
 import br.com.brm.scp.mock.api.service.document.UsuarioDocument;
 import br.com.brm.scp.mock.api.service.status.PlanejamentoSku;
-import br.com.brm.scp.mock.api.service.status.StatusProduto;
+import br.com.brm.scp.mock.api.service.status.ItemStatus;
 
 public class SkuDadosFake extends AbstractTestNGSpringContextTests {
 
@@ -115,7 +115,7 @@ public class SkuDadosFake extends AbstractTestNGSpringContextTests {
 
 			item.setNome(String.format("TST_NOME_PRODUTO_%s:%s", i, nomeProduto));
 			item.setNomeReduzido(String.format("TST_%s:%s", i, nomeProduto));
-			item.setStatus(StatusProduto.ATIVO);
+			item.setStatus(ItemStatus.ATIVO);
 			item.setValorUnitario(new BigDecimal(Math.random() * 1000));
 			item.setQuantidadeLote(200);
 

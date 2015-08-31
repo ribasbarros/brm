@@ -7,7 +7,7 @@ import java.util.Date;
 import br.com.brm.scp.api.dto.response.CategoriaResponseDTO;
 import br.com.brm.scp.api.dto.response.FornecedorResponseDTO;
 import br.com.brm.scp.fw.annotations.BindingClass;
-import br.com.brm.scp.mock.api.service.status.StatusProduto;
+import br.com.brm.scp.mock.api.service.status.ItemStatus;
 
 public class ItemDocument implements Serializable {
 
@@ -18,7 +18,7 @@ public class ItemDocument implements Serializable {
 	private String nomeReduzido;
 	@BindingClass(CategoriaResponseDTO.class)
 	private CategoriaDocument categoria;
-	private StatusProduto status;
+	private ItemStatus status;
 	private BigDecimal valorUnitario;
 	private Integer quantidadeLote;
 	@BindingClass(FornecedorResponseDTO.class)
@@ -57,11 +57,11 @@ public class ItemDocument implements Serializable {
 		this.categoria = categoria;
 	}
 
-	public StatusProduto getStatus() {
+	public ItemStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(StatusProduto status) {
+	public void setStatus(ItemStatus status) {
 		this.status = status;
 	}
 

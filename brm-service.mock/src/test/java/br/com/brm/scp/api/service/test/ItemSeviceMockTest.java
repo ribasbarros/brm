@@ -37,7 +37,7 @@ public class ItemSeviceMockTest extends AbstractTestNGSpringContextTests{
 		//rollback da massa de dados do teste
 	}
 	
-	@org.testng.annotations.Test(enabled = TEST_CRUD, groups = "CRUD", priority = 1, dataProvider = "novoItem")
+	/*@org.testng.annotations.Test(enabled = TEST_CRUD, groups = "CRUD", priority = 1, dataProvider = "novoItem")
 	public void create(ItemRequestDTO request) throws FornecedorExistenteException, ItemExistenteException {
 		assertNotNull(request);
 		try {
@@ -86,7 +86,7 @@ public class ItemSeviceMockTest extends AbstractTestNGSpringContextTests{
 	private FornecedorResponseDTO doFornecedor() {
 		// TODO Auto-generated method stub
 		return new FornecedorResponseDTO();
-	}
+	}*/
 	
 	
 }

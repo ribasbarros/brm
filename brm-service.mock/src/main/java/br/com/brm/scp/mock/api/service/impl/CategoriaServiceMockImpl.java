@@ -33,7 +33,7 @@ public class CategoriaServiceMockImpl implements CategoriaService {
 	}
 	
 	public CategoriaResponseDTO insert(CategoriaRequestDTO request){
-		request.setId(new Long("1"));
+		request.setId("1");
 		CategoriaDocument document = (CategoriaDocument) ConverterHelper.convert(request, CategoriaDocument.class);
 		mockdb.getCategoriaCollection().put(document.getId(), document);
 		return (CategoriaResponseDTO) ConverterHelper.convert(document, CategoriaResponseDTO.class);
@@ -87,7 +87,7 @@ public class CategoriaServiceMockImpl implements CategoriaService {
 
 	@Override
 	public void update(CategoriaRequestDTO request) throws CategoriaNotFoundException {
-		findById(request.getId());
+		//findById(request.getId());
 		prepareSave(request);
 		CategoriaDocument document = (CategoriaDocument) ConverterHelper.convert(request, CategoriaDocument.class);
 		mockdb.getCategoriaCollection().put(document.getId(), document);

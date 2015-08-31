@@ -1,27 +1,19 @@
 package br.com.brm.scp.api.dto.response;
 
-import java.util.Date;
+import java.io.Serializable;
 
-public class CategoriaResponseDTO {
-	private Long id;
+public class CategoriaResponseDTO implements Serializable{
+
+	private static final long serialVersionUID = 6915785791468490870L;
+	
+	private String id;
 	private String nome;
-	private Date dataExcluido;
 
-	public CategoriaResponseDTO() {
-		super();
-	}
-
-	public CategoriaResponseDTO(Long id, String nome) {
-		super();
-		this.id = id;
-		this.nome = nome;
-	}
-
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -31,15 +23,6 @@ public class CategoriaResponseDTO {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-	
-
-	public Date getDataExcluido() {
-		return dataExcluido;
-	}
-
-	public void setDataExcluido(Date dataExcluido) {
-		this.dataExcluido = dataExcluido;
 	}
 
 }

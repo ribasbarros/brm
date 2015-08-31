@@ -45,13 +45,13 @@ public class CategoriaServiceMockTest extends AbstractTestNGSpringContextTests {
 			
 	@DataProvider(name = "novaCategoria")
 	public Object[][] criaFornecedorRequest() {
-		CategoriaRequestDTO request = new CategoriaRequestDTO(null,"Brinquedos");
+		CategoriaRequestDTO request = new CategoriaRequestDTO();//null,"Brinquedos");
 		return new Object[][] { new Object[] { request } };
 	}
 	
 	@DataProvider(name = "novaCategoriaAlterada")
 	public Object[][] criaFornecedorRequest2() {
-		CategoriaRequestDTO request = new CategoriaRequestDTO(id,"Outros");
+		CategoriaRequestDTO request = new CategoriaRequestDTO();//id,"Outros");
 		return new Object[][] { new Object[] { request } };
 	}
 	

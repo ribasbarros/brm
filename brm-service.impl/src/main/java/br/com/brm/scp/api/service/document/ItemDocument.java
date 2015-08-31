@@ -1,14 +1,14 @@
-package br.com.brm.scp.api.dto.response;
+package br.com.brm.scp.api.service.document;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 
 import br.com.brm.scp.mock.api.service.status.ItemStatus;
 
-public class ItemResponseDTO implements Serializable {
-	
-	private static final long serialVersionUID = 6097898786758989461L;
-	
+public class ItemDocument implements Serializable {
+
+	private static final long serialVersionUID = -852183949869132845L;
+
 	private String id;
 	private String nome;
 	private String nomeReduzido;

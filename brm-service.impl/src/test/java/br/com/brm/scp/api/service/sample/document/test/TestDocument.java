@@ -1,4 +1,4 @@
-package br.com.brm.scp.api.service.document.test;
+package br.com.brm.scp.api.service.sample.document.test;
 
 import java.io.Serializable;
 

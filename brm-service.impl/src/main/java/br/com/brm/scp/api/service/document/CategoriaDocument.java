@@ -1,11 +1,14 @@
-package br.com.brm.scp.api.dto.request;
+package br.com.brm.scp.api.service.document;
 
 import java.io.Serializable;
 
-public class CategoriaRequestDTO implements Serializable {
+import org.springframework.data.mongodb.core.mapping.Document;
 
-	private static final long serialVersionUID = -4794728247225374251L;
-	
+@Document
+public class CategoriaDocument implements Serializable {
+
+	private static final long serialVersionUID = 4818676017623732383L;
+
 	private String id;
 	private String nome;
 

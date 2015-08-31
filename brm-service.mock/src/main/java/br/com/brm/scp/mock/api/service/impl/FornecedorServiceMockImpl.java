@@ -3,14 +3,18 @@ package br.com.brm.scp.mock.api.service.impl;
 import java.util.Date;
 import java.util.Map.Entry;
 
+import br.com.brm.scp.api.dto.FornecedorCentroDTO;
 import br.com.brm.scp.api.dto.request.FornecedorRequestDTO;
 import br.com.brm.scp.api.dto.response.FornecedorResponseDTO;
+import br.com.brm.scp.api.exceptions.FornecedorCentroExistenteException;
 import br.com.brm.scp.api.exceptions.FornecedorExistenteException;
+import br.com.brm.scp.api.exceptions.FornecedorNotFoundException;
 import br.com.brm.scp.api.service.FornecedorService;
 import br.com.brm.scp.fw.helper.converters.ConverterHelper;
 import br.com.brm.scp.fw.helper.objects.RandomHelper;
 import br.com.brm.scp.mock.api.mockdata.MockData;
 import br.com.brm.scp.mock.api.service.document.FornecedorDocument;
+import br.com.brm.scp.mock.api.service.status.FornecedorFiltroEnum;
 
 public class FornecedorServiceMockImpl implements FornecedorService{
 
@@ -23,9 +27,9 @@ public class FornecedorServiceMockImpl implements FornecedorService{
 
 	@Override
 	public FornecedorResponseDTO create(FornecedorRequestDTO request) throws FornecedorExistenteException {
-		if(findByCnpj(request.getCnpj()) != null){
+		/*if(findByCnpj(request.getCnpj()) != null){
 			throw new FornecedorExistenteException("brm.fornecedor.existente");
-		}
+		}*/
 		FornecedorDocument document = (FornecedorDocument) ConverterHelper.convert(request, FornecedorDocument.class);
 		document.setId(RandomHelper.UUID());
 		mockdb.getFornecedorCollection().put(document.getId(), document);
@@ -33,7 +37,7 @@ public class FornecedorServiceMockImpl implements FornecedorService{
 	}
 	
 	
-	@Override
+	/*@Override
 	public FornecedorResponseDTO findByCnpj(String cnpj) {
 		for(FornecedorDocument fornecedor : mockdb.getFornecedorCollection().values()){
 			if(fornecedor.getCnpj().equals(cnpj)){
@@ -41,14 +45,14 @@ public class FornecedorServiceMockImpl implements FornecedorService{
 			}
 		}
 		return null;
-	}
+	}*/
 
-	@Override
+	/*@Override
 	public void delete(FornecedorRequestDTO request) {
 		FornecedorResponseDTO response = findByCnpj(request.getCnpj());
 		FornecedorDocument document = (FornecedorDocument) ConverterHelper.convert(response, FornecedorDocument.class);
 		document.setDataExcluido(new Date());
-	}
+	}*/
 
 	@Override
 	public FornecedorResponseDTO update(FornecedorRequestDTO request) {
@@ -62,9 +66,22 @@ public class FornecedorServiceMockImpl implements FornecedorService{
 	}
 
 	@Override
-	public FornecedorResponseDTO findById(Long id) {
+	public void delete(String id) throws FornecedorNotFoundException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public FornecedorResponseDTO find(FornecedorFiltroEnum filtro, Object value) throws FornecedorNotFoundException {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void addCentro(String id, FornecedorCentroDTO request)
+			throws FornecedorNotFoundException, FornecedorCentroExistenteException {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

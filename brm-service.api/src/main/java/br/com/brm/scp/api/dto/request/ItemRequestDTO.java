@@ -2,52 +2,27 @@ package br.com.brm.scp.api.dto.request;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
 
-import br.com.brm.scp.api.annotation.BindingClassMeta;
-import br.com.brm.scp.api.dto.response.CategoriaResponseDTO;
-import br.com.brm.scp.api.dto.response.FornecedorResponseDTO;
-import br.com.brm.scp.mock.api.service.status.StatusProduto;
+import br.com.brm.scp.mock.api.service.status.ItemStatus;
 
 public class ItemRequestDTO implements Serializable {
 
-	private static final long serialVersionUID = 8250148239549962283L;
-
-	private Long id;
+	private static final long serialVersionUID = -7145945974196773757L;
+	
+	private String id;
 	private String nome;
 	private String nomeReduzido;
-	@BindingClassMeta("CATEGORIA")
-	private CategoriaResponseDTO categoria;
-	private StatusProduto status;
+	private ItemStatus status;
 	private BigDecimal valorUnitario;
-	private Integer quantidadeLote;
-	@BindingClassMeta("FORNECEDOR")
-	private FornecedorResponseDTO fornecedor;
-	private Date dataExcluido;
+	private Integer unitizacao; // Quantidade que vem fechado
 
-	public ItemRequestDTO() {
-	}
+	private String idCategoria;
 
-	public ItemRequestDTO(Long id, String nome, String nomeReduzido,
-			CategoriaResponseDTO categoria, StatusProduto status,
-			BigDecimal valorUnitario, FornecedorResponseDTO fornecedor,
-			Date dataExcluido) {
-		super();
-		this.id = id;
-		this.nome = nome;
-		this.nomeReduzido = nomeReduzido;
-		this.categoria = categoria;
-		this.status = status;
-		this.valorUnitario = valorUnitario;
-		this.fornecedor = fornecedor;
-		this.dataExcluido = dataExcluido;
-	}
-
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -67,19 +42,11 @@ public class ItemRequestDTO implements Serializable {
 		this.nomeReduzido = nomeReduzido;
 	}
 
-	public CategoriaResponseDTO getCategoria() {
-		return categoria;
-	}
-
-	public void setCategoria(CategoriaResponseDTO categoria) {
-		this.categoria = categoria;
-	}
-
-	public StatusProduto getStatus() {
+	public ItemStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(StatusProduto status) {
+	public void setStatus(ItemStatus status) {
 		this.status = status;
 	}
 
@@ -91,28 +58,20 @@ public class ItemRequestDTO implements Serializable {
 		this.valorUnitario = valorUnitario;
 	}
 
-	public FornecedorResponseDTO getFornecedor() {
-		return fornecedor;
+	public Integer getUnitizacao() {
+		return unitizacao;
 	}
 
-	public void setFornecedor(FornecedorResponseDTO fornecedor) {
-		this.fornecedor = fornecedor;
+	public void setUnitizacao(Integer unitizacao) {
+		this.unitizacao = unitizacao;
 	}
 
-	public Date getDataExcluido() {
-		return dataExcluido;
+	public String getIdCategoria() {
+		return idCategoria;
 	}
 
-	public void setDataExcluido(Date dataExcluido) {
-		this.dataExcluido = dataExcluido;
+	public void setIdCategoria(String idCategoria) {
+		this.idCategoria = idCategoria;
 	}
 
-	public Integer getQuantidadeLote() {
-		return quantidadeLote;
-	}
-
-	public void setQuantidadeLote(Integer quantidadeLote) {
-		this.quantidadeLote = quantidadeLote;
-	}
-	
 }
