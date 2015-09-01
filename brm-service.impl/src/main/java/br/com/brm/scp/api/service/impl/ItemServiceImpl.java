@@ -7,6 +7,7 @@ import org.springframework.util.Assert;
 
 import br.com.brm.scp.api.dto.request.ItemRequestDTO;
 import br.com.brm.scp.api.dto.response.ItemResponseDTO;
+import br.com.brm.scp.api.exceptions.FornecedorNotFoundException;
 import br.com.brm.scp.api.exceptions.ItemCategoriaNotFoundException;
 import br.com.brm.scp.api.exceptions.ItemExistenteException;
 import br.com.brm.scp.api.exceptions.ItemNotFoundException;
@@ -37,6 +38,7 @@ public class ItemServiceImpl implements ItemService {
 	private static final String ITEM_FILTRO = "item.filtronotnull";
 	private static final String ITEM_NOTFOUND = "item.notfound";
 	private static final String ITEM_CATEGORIA_NOTFOUND = "item.categorianotfound";
+	private static final String ITEM_ID = "item.idinvalido";
 
 	@Autowired
 	private ItemRepository repository;
@@ -122,8 +124,10 @@ public class ItemServiceImpl implements ItemService {
 		ItemDocument document = null;
 		if (ItemFiltroEnum.NOME.equals(filtro)) {
 			document = repository.findByNome((String) value);
-		} else if (ItemFiltroEnum.NOME.equals(filtro)) {
+		} else if (ItemFiltroEnum.NOME_REDUZIDO.equals(filtro)) {
 			document = repository.findByNomeReduzido((String) value);
+		} else if (ItemFiltroEnum.ID.equals(filtro)) {
+			document = repository.findOne((String) value);
 		}
 
 		if (document == null)
@@ -133,11 +137,54 @@ public class ItemServiceImpl implements ItemService {
 
 	}
 
+	/* Nao se altera os nomes
+	 * @see br.com.brm.scp.api.service.ItemService#update(br.com.brm.scp.api.dto.request.ItemRequestDTO)
+	 */
 	@Override
-	public ItemResponseDTO update(ItemRequestDTO request)
-			throws ItemExistenteException, ItemCategoriaNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+	public ItemResponseDTO update(ItemRequestDTO request) throws ItemNotFoundException, ItemCategoriaNotFoundException {
+		
+		Assert.notNull(request, ITEM_NOTNULL);
+		Assert.notNull(request.getId(), ITEM_ID);
+		Assert.notNull(request.getIdCategoria(), ITEM_CATEGORIA);
+		Assert.notNull(request.getNome(), ITEM_NOME);
+		Assert.notNull(request.getNomeReduzido(), ITEM_NOMEREDUZIDO);
+		Assert.notNull(request.getStatus(), ITEM_STATUS);
+		Assert.notNull(request.getUnitizacao(), ITEM_UNITIZACAO);
+		Assert.notNull(request.getValorUnitario(), ITEM_VALOR);
+		
+		try {
+			hasRegister(request);
+		} catch (ItemExistenteException e) {
+			logger.debug(String.format("Item %s encontrado, pronto para ser alterado!", request.getNome()));
+		}
+		
+		hasCategoria(request.getIdCategoria());
+		
+		ItemDocument document = (ItemDocument) ConverterHelper.convert(request, ItemDocument.class);
+		
+		document = repository.save(document);
+		
+		ItemResponseDTO response = invokeResponse(document);
+		
+		return response;
+	}
+
+	@Override
+	public ItemResponseDTO find(ItemFiltroEnum filtro, Object value) throws ItemNotFoundException {
+		ItemDocument document = findByFiltro(filtro, value);
+		return invokeResponse(document);
+	}
+
+	@Override
+	public void delete(String id) throws ItemNotFoundException {
+		
+		Assert.notNull(id, ITEM_ID);
+		
+		if( findByFiltro(ItemFiltroEnum.ID, id) == null ){
+			throw new ItemNotFoundException(ITEM_ID);
+		}
+		
+		repository.delete(id);
 	}
 
 }

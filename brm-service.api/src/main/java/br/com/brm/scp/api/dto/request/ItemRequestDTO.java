@@ -8,14 +8,14 @@ import br.com.brm.scp.mock.api.service.status.ItemStatus;
 public class ItemRequestDTO implements Serializable {
 
 	private static final long serialVersionUID = -7145945974196773757L;
-	
+
 	private String id;
 	private String nome;
 	private String nomeReduzido;
 	private ItemStatus status;
 	private BigDecimal valorUnitario;
 	private Integer unitizacao; // Quantidade que vem fechado
-
+	private String descricao;
 	private String idCategoria;
 
 	public String getId() {
@@ -72,6 +72,14 @@ public class ItemRequestDTO implements Serializable {
 
 	public void setIdCategoria(String idCategoria) {
 		this.idCategoria = idCategoria;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 }
