@@ -33,7 +33,7 @@ import br.com.brm.scp.mock.api.service.status.PlanejamentoSku;
 @ContextConfiguration(locations = { "classpath:META-INF/application-context.xml" })
 public class SkuServiceMockTest extends SkuDadosFake {
 
-	@Autowired
+/*	@Autowired
 	private SkuService service;
 
 	private static final boolean CREATION_SKU = true;
@@ -44,11 +44,11 @@ public class SkuServiceMockTest extends SkuDadosFake {
 
 	private SkuRequestDTO skuRequestSuccess;
 
-	/**
+	*//**
 	 * Startup inicial do teste, carregamento da massa de teste
 	 * 
 	 * @throws Exception
-	 */
+	 *//*
 	@BeforeClass
 	public void setup() throws Exception {
 		skuRequestSuccess = new SkuRequestDTO();
@@ -58,23 +58,23 @@ public class SkuServiceMockTest extends SkuDadosFake {
 		doCreateItems4MassTest();
 	}
 
-	/**
+	*//**
 	 * Excecucao do final do teste
 	 * 
 	 * @throws Exception
-	 */
+	 *//*
 	@AfterClass
 	public void tearDown() throws Exception {
 		// rollback da massa de dados do teste
 	}
 
-	/**
+	*//**
 	 * Criacao inicial da SKU
 	 * 
 	 * @param item
 	 * @param tags
 	 * @throws SkuExistenteException
-	 */
+	 *//*
 	@Test(enabled = CREATION_SKU, groups = "CRIACAO_SKU", priority = 1, dataProvider = "ITEM_TAGS_RANDOM")
 	public void criarSkuPart1(ItemResponseDTO item, Collection<TagResponseDTO> tags) throws SkuException {
 		// SELECAO DO ITEM
@@ -96,13 +96,13 @@ public class SkuServiceMockTest extends SkuDadosFake {
 		
 	}
 
-	/**
+	*//**
 	 * Apos a criacao da sku os campos tornam desabilitados para o preenchimento
 	 * 
 	 * @throws SkuNotFoundException
 	 * @throws UsuarioNotFoundException
 	 * @throws SkuExistenteException 
-	 */
+	 *//*
 	@Test(enabled = CREATION_SKU, groups = "CRIACAO_SKU", priority = 2)
 	public void criarSkuPart2() throws SkuException, UsuarioNotFoundException {
 		// PREENCHE OS CAMPOS
@@ -135,21 +135,21 @@ public class SkuServiceMockTest extends SkuDadosFake {
 		
 	}
 
-	/**
+	*//**
 	 * Teste para a excecao SkuNotFoundException
 	 * 
 	 * @param notFound
 	 * @throws SkuException 
-	 */
+	 *//*
 	@Test(enabled = CREATION_SKU, expectedExceptions = SkuNotFoundException.class, groups = "CRIACAO_SKU", priority = 3, dataProvider = "skuNotFound")
 	public void skuAtivarSkuNotFoundException(SkuRequestDTO notFound) throws SkuException {
 		service.ativar(notFound);
 	}
 
-	/**n
+	*//**n
 	 * Teste para a excecao SkuExistenteException
 	 * @throws SkuException 
-	 */
+	 *//*
 	@Test(enabled = CREATION_SKU, expectedExceptions = SkuExistenteException.class, groups = "CRIACAO_SKU", priority = 4)
 	public void skuExistenteException() throws SkuException {
 		SkuResponseDTO response = service.create(skuRequestSuccess);
@@ -227,12 +227,12 @@ public class SkuServiceMockTest extends SkuDadosFake {
 		
 	}
 
-	/**
+	*//**
 	 * Seleccao de Item e Tag automatizado
 	 * 
 	 * @return
 	 * @throws UsuarioNotFoundException
-	 */
+	 *//*
 	@DataProvider(name = "ITEM_TAGS_RANDOM")
 	public Object[][] criaItemTagsRandom() throws UsuarioNotFoundException {
 
@@ -251,12 +251,12 @@ public class SkuServiceMockTest extends SkuDadosFake {
 				new Object[] { new ArrayList<ItemResponseDTO>(items).get(selecionarRandomicamente), selecionadas } };
 	}
 	
-	/**
+	*//**
 	 * Seleccao de Item e Tag automatizado
 	 * 
 	 * @return
 	 * @throws UsuarioNotFoundException
-	 */
+	 *//*
 	@DataProvider(name = "TAGS_RANDOM")
 	public Object[][] criaTagsRandom(){
 
@@ -270,16 +270,16 @@ public class SkuServiceMockTest extends SkuDadosFake {
 				new Object[] { selecionadas } };
 	}
 
-	/**
+	*//**
 	 * Dados para teste de sku not found
 	 * 
 	 * @return
 	 * @throws UsuarioNotFoundException
-	 */
+	 *//*
 	@DataProvider(name = "skuNotFound")
 	public Object[][] criaUsuarioRequest() throws UsuarioNotFoundException {
 		SkuRequestDTO notFound = doSkuNotFound();
 		return new Object[][] { new Object[] { notFound } };
 	}
-
+*/
 }

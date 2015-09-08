@@ -17,6 +17,7 @@ import br.com.brm.scp.api.service.GrupoService;
 import br.com.brm.scp.fw.helper.converters.ConverterHelper;
 import br.com.brm.scp.mock.api.mockdata.MockData;
 import br.com.brm.scp.mock.api.service.document.GrupoDocument;
+import br.com.brm.scp.mock.api.service.status.GrupoFiltroEnum;
 
 public class GrupoServiceMockImpl implements GrupoService {
 
@@ -31,14 +32,17 @@ public class GrupoServiceMockImpl implements GrupoService {
 
 	@Override
 	public GrupoResponseDTO create(GrupoRequestDTO request)
-			throws GrupoExistenteException, GrupoNotFoundException, PerfilRepetidoException {
-		prepareSave(request);
+			throws GrupoExistenteException {
+		try {
+			prepareSave(request);
+		} catch (PerfilRepetidoException e) {
+		}
 		hasGrupo(request);
 		return insert(request);
 	}
 
 	private GrupoResponseDTO insert(GrupoRequestDTO request) {
-		request.setId(new Long("1"));
+		request.setId("1");
 		GrupoDocument document = (GrupoDocument) ConverterHelper.convert(request, GrupoDocument.class);
 		dbMock.getGrupoCollection().put(document.getId(), document);
 		return (GrupoResponseDTO) ConverterHelper.convert(document, GrupoResponseDTO.class);
@@ -65,24 +69,26 @@ public class GrupoServiceMockImpl implements GrupoService {
 		}	
 	}
 
-	@Override
+	/*@Override
 	public void delete(GrupoRequestDTO request) throws GrupoNotFoundException {
 		findByName(request.getNome());
 		GrupoDocument document = (GrupoDocument) ConverterHelper.convert(request, GrupoDocument.class);
 		document.setDataExcluido(new Date());
 		dbMock.getGrupoCollection().put(document.getId(), document);
 		
-	}
+	}*/
 
 	@Override
-	public void update(GrupoRequestDTO request) throws GrupoNotFoundException, PerfilRepetidoException {
-		findById(request.getId());
-		prepareSave(request);
+	public void update(GrupoRequestDTO request) throws GrupoNotFoundException {
+		/*findById(request.getId());
+		*/try {
+			prepareSave(request);
+		} catch (PerfilRepetidoException e) {
+		}
 		GrupoDocument document = (GrupoDocument) ConverterHelper.convert(request, GrupoDocument.class);
 		dbMock.getGrupoCollection().put(document.getId(), document);
 	}
 
-	@Override
 	public GrupoResponseDTO findByName(String nome)
 			throws GrupoNotFoundException {
 		for (GrupoDocument document : dbMock.getGrupoCollection().values()) {
@@ -94,7 +100,6 @@ public class GrupoServiceMockImpl implements GrupoService {
 		throw new GrupoNotFoundException();
 	}
 
-	@Override
 	public GrupoResponseDTO findById(Long id) throws GrupoNotFoundException {
 		for (GrupoDocument document : dbMock.getGrupoCollection().values()) {
 			if (document.getId().equals(id)) {
@@ -105,12 +110,24 @@ public class GrupoServiceMockImpl implements GrupoService {
 		throw new GrupoNotFoundException();
 	}
 
-	@Override
 	public Collection<GrupoResponseDTO> All() throws GrupoNotFoundException {
 		Collection<GrupoDocument> grupos = dbMock.getGrupoCollection().values();
 		if(grupos.isEmpty()){
 			throw new GrupoNotFoundException("nenhum.grupo.encontrado");			
 		}		
 		return ConverterHelper.convert(grupos, GrupoResponseDTO.class);
+	}
+
+	@Override
+	public void delete(String id) throws GrupoNotFoundException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public GrupoResponseDTO find(GrupoFiltroEnum filtro, Object value)
+			throws GrupoNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -46,7 +46,7 @@ public class UsuarioSeviceMockTest extends AbstractTestNGSpringContextTests {
 	@org.testng.annotations.Test(enabled = TEST_CRUD, groups = "CRUD", priority = 3, dataProvider = "novoAlterado")
 	public void delete(UsuarioRequestDTO request) throws UsuarioNotFoundException {
 		assertNotNull(request);
-		service.delete(request);		
+		service.delete(request.getId());		
 	}	
 
 	@DataProvider(name = "novoUsuario")
@@ -63,7 +63,7 @@ public class UsuarioSeviceMockTest extends AbstractTestNGSpringContextTests {
 	
 	private UsuarioRequestDTO doUsuarioAlterado() {
 		UsuarioRequestDTO request = new UsuarioRequestDTO();
-		request.setId(Long.valueOf("1"));
+		request.setId("1");
 		request.setCargo("Juninho");
 		request.setNome("Leon da Silva - ");
 		request.setEmail("leon@brm.com.br");

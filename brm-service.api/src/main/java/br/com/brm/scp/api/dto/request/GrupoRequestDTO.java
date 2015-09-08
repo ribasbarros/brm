@@ -1,33 +1,27 @@
 package br.com.brm.scp.api.dto.request;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
 import br.com.brm.scp.api.annotation.BindingClassMeta;
 import br.com.brm.scp.api.dto.response.PerfilResponseDTO;
 
-public class GrupoRequestDTO {
-private static final long serialVersionUID = -2946370998935414082L;
-	
-	private Long id;
-	private String nome;
-	@BindingClassMeta("PERFIS")
-	private Collection<PerfilResponseDTO> perfis;
-	private Date dataExcluido;
-	
-	public GrupoRequestDTO(Long id, String nome,
-			Collection<PerfilResponseDTO> perfis) {
-		super();
-		this.id = id;
-		this.nome = nome;
-		this.perfis = perfis;
-	}
+public class GrupoRequestDTO implements Serializable {
+	private static final long serialVersionUID = -2946370998935414082L;
 
-	public Long getId() {
+	private String id;
+	private String nome;
+
+	@BindingClassMeta("PERFIS")
+	private Collection<PerfilResponseDTO> perfis = new ArrayList<>();
+		
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -47,11 +41,4 @@ private static final long serialVersionUID = -2946370998935414082L;
 		this.perfis = perfis;
 	}
 
-	public Date getDataExcluido() {
-		return dataExcluido;
-	}
-
-	public void setDataExcluido(Date dataExcluido) {
-		this.dataExcluido = dataExcluido;
-	}
 }

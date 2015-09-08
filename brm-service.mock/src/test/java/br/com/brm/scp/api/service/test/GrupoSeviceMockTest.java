@@ -40,18 +40,21 @@ public class GrupoSeviceMockTest extends AbstractTestNGSpringContextTests {
 	@org.testng.annotations.Test(enabled = TEST_CRUD, groups = "CRUD", priority = 3, dataProvider = "novoGrupoAlterado")
 	public void delete(GrupoRequestDTO request) throws GrupoNotFoundException {
 		assertNotNull(request);
-		service.delete(request);		
+		service.delete(request.getId());		
 	}
 			
 	@DataProvider(name = "novoGrupo")
 	public Object[][] criaFornecedorRequest() {
-		GrupoRequestDTO request = new GrupoRequestDTO(null,"ADM",null);
+		GrupoRequestDTO request = new GrupoRequestDTO();
+		request.setNome("grupo");
 		return new Object[][] { new Object[] { request } };
 	}
 	
 	@DataProvider(name = "novoGrupoAlterado")
 	public Object[][] criaFornecedorRequest2() {
-		GrupoRequestDTO request = new GrupoRequestDTO(1L,"Outros",null);
+		GrupoRequestDTO request = new GrupoRequestDTO();
+		request.setId("1");
+		request.setNome("grupo2");
 		return new Object[][] { new Object[] { request } };
 	}
 	

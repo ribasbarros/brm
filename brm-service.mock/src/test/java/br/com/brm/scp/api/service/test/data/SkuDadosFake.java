@@ -74,7 +74,7 @@ public class SkuDadosFake extends AbstractTestNGSpringContextTests {
 		notFound.setModelo(PlanejamentoSku.ESTOQUE);
 
 		notFound.setDataCriacao(Calendar.getInstance());
-		notFound.setUsuarioCriacao(usuarioService.findById(USUARIO_LOGADO_FAKE));
+		//notFound.setUsuarioCriacao(usuarioService.findById(USUARIO_LOGADO_FAKE));
 
 		return notFound;
 

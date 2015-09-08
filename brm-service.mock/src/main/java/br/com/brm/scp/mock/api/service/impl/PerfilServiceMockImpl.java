@@ -18,6 +18,7 @@ import br.com.brm.scp.api.service.PerfilService;
 import br.com.brm.scp.fw.helper.converters.ConverterHelper;
 import br.com.brm.scp.mock.api.mockdata.MockData;
 import br.com.brm.scp.mock.api.service.document.PerfilDocument;
+import br.com.brm.scp.mock.api.service.status.PerfilFiltroEnum;
 
 public class PerfilServiceMockImpl implements PerfilService {
 	private Logger logger = Logger.getLogger(PerfilServiceMockImpl.class);
@@ -37,7 +38,7 @@ public class PerfilServiceMockImpl implements PerfilService {
 	}
 	
 	public PerfilResponseDTO insert(PerfilRequestDTO request){
-		request.setId(new Long("1"));
+		request.setId("1");
 		PerfilDocument document = (PerfilDocument) ConverterHelper.convert(request, PerfilDocument.class);
 		mockdb.getPerfilCollection().put(document.getId(), document);
 		return (PerfilResponseDTO) ConverterHelper.convert(document, PerfilResponseDTO.class);
@@ -58,7 +59,6 @@ public class PerfilServiceMockImpl implements PerfilService {
 		}
 	}
 	
-	@Override
 	public PerfilResponseDTO findByName(String nome) throws PerfilNotFoundException{
 		for (PerfilDocument document : mockdb.getPerfilCollection().values()) {
 			if (document.getNome().equals(nome)) {
@@ -69,7 +69,6 @@ public class PerfilServiceMockImpl implements PerfilService {
 		throw new PerfilNotFoundException();
 	}
 
-	@Override
 	public PerfilResponseDTO findById(Long id) throws PerfilNotFoundException{
 		for (PerfilDocument document : mockdb.getPerfilCollection().values()) {
 			if (document.getId().equals(id)) {
@@ -81,14 +80,13 @@ public class PerfilServiceMockImpl implements PerfilService {
 	}
 
 	
-	@Override
+	/*@Override
 	public void delete(PerfilRequestDTO request) throws PerfilNotFoundException {
 		findByName(request.getNome());
 		PerfilDocument document = (PerfilDocument) ConverterHelper.convert(request, PerfilDocument.class);
 		document.setDataExcluido(new Date());
 		mockdb.getPerfilCollection().put(document.getId(), document);
 	}
-
 	@Override
 	public void update(PerfilRequestDTO request) throws PerfilNotFoundException {
 		findById(request.getId());
@@ -96,13 +94,25 @@ public class PerfilServiceMockImpl implements PerfilService {
 		PerfilDocument document = (PerfilDocument) ConverterHelper.convert(request, PerfilDocument.class);
 		mockdb.getPerfilCollection().put(document.getId(), document);
 	}
+*/
+
+	
+	@Override
+	public void delete(String id) throws PerfilNotFoundException {
+		// TODO Auto-generated method stub
+		
+	}
 
 	@Override
-	public Collection<PerfilResponseDTO> All() throws PerfilNotFoundException {
-		Collection<PerfilDocument> Perfils = mockdb.getPerfilCollection().values();
-		if(Perfils.isEmpty()){
-			throw new PerfilNotFoundException("nenhuma.Perfil.encontrada");			
-		}		
-		return ConverterHelper.convert(Perfils, PerfilResponseDTO.class);
+	public PerfilResponseDTO find(PerfilFiltroEnum filtro, Object value)
+			throws PerfilNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void update(PerfilRequestDTO request) throws PerfilNotFoundException {
+		// TODO Auto-generated method stub
+		
 	}
 }

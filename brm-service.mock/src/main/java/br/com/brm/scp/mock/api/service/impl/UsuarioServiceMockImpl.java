@@ -14,9 +14,10 @@ import br.com.brm.scp.api.service.UsuarioService;
 import br.com.brm.scp.fw.helper.converters.ConverterHelper;
 import br.com.brm.scp.mock.api.mockdata.MockData;
 import br.com.brm.scp.mock.api.service.document.UsuarioDocument;
+import br.com.brm.scp.mock.api.service.status.UsuarioFiltroEnum;
 
 public class UsuarioServiceMockImpl implements UsuarioService {
-	private Logger logger = Logger.getLogger(CategoriaServiceMockImpl.class);
+	private Logger logger = Logger.getLogger(UsuarioServiceMockImpl.class);
 
 	private MockData mockdb;
 
@@ -50,13 +51,13 @@ public class UsuarioServiceMockImpl implements UsuarioService {
 
 
 	public UsuarioResponseDTO insert(UsuarioRequestDTO request) {
-		request.setId(new Long("1"));
+		request.setId("1");
 		UsuarioDocument document = (UsuarioDocument) ConverterHelper.convert(request, UsuarioDocument.class);
 		mockdb.getUsuarioCollection().put(document.getId(), document);
 		return (UsuarioResponseDTO) ConverterHelper.convert(document,UsuarioResponseDTO.class);
 	}
 
-	private UsuarioResponseDTO findByEmail(String email) throws UsuarioNotFoundException {
+	public UsuarioResponseDTO findByEmail(String email) throws UsuarioNotFoundException {
 		for (UsuarioDocument document : mockdb.getUsuarioCollection().values()){
 			if (email.equals(document.getEmail())) {
 				return (UsuarioResponseDTO) ConverterHelper.convert(document, UsuarioResponseDTO.class);
@@ -65,8 +66,8 @@ public class UsuarioServiceMockImpl implements UsuarioService {
 		throw new UsuarioNotFoundException();
 	}
 
-	@Override
-	public UsuarioResponseDTO findById(Long id) throws UsuarioNotFoundException {
+	
+	public UsuarioResponseDTO findById(String id) throws UsuarioNotFoundException {
 		for (UsuarioDocument document : mockdb.getUsuarioCollection().values()){
 			if (id.equals(document.getId())) {
 				return (UsuarioResponseDTO) ConverterHelper.convert(document, UsuarioResponseDTO.class);
@@ -83,7 +84,6 @@ public class UsuarioServiceMockImpl implements UsuarioService {
 		mockdb.getUsuarioCollection().put(document.getId(), document);
 	}
 
-	@Override
 	public void delete(UsuarioRequestDTO request) throws UsuarioNotFoundException {
 		findById(request.getId());
 		UsuarioDocument document = (UsuarioDocument) ConverterHelper.convert(request, UsuarioDocument.class);
@@ -92,7 +92,6 @@ public class UsuarioServiceMockImpl implements UsuarioService {
 
 	}
 
-	@Override
 	public Collection<UsuarioResponseDTO> all() throws UsuarioNotFoundException {
 		Collection<UsuarioDocument> usuarios = mockdb.getUsuarioCollection().values();
 		if(usuarios.isEmpty()){
@@ -102,7 +101,6 @@ public class UsuarioServiceMockImpl implements UsuarioService {
 	}
 	
 
-	@Override
 	public UsuarioResponseDTO findByName(String nome) throws UsuarioNotFoundException{
 		for (UsuarioDocument document : mockdb.getUsuarioCollection().values()){
 			if (nome.equals(document.getNome())) {
@@ -110,5 +108,18 @@ public class UsuarioServiceMockImpl implements UsuarioService {
 			}	
 		}
 		throw new UsuarioNotFoundException();
+	}
+
+	@Override
+	public void delete(String id) throws UsuarioNotFoundException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public UsuarioResponseDTO find(UsuarioFiltroEnum filtro, Object value)
+			throws UsuarioNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

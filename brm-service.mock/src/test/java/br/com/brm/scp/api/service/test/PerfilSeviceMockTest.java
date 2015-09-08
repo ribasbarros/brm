@@ -47,18 +47,18 @@ public class PerfilSeviceMockTest extends AbstractTestNGSpringContextTests {
 	@org.testng.annotations.Test(enabled = TEST_CRUD, groups = "CRUD", priority = 3, dataProvider = "novoPerfilAlterado")
 	public void delete(PerfilRequestDTO request) throws PerfilNotFoundException {
 		assertNotNull(request);
-		service.delete(request);		
+		service.delete(request.getId());		
 	}
 			
 	@DataProvider(name = "novoPerfil")
 	public Object[][] criaFornecedorRequest() {
-		PerfilRequestDTO request = new PerfilRequestDTO(null,"Admin",null);
+		PerfilRequestDTO request = new PerfilRequestDTO(null,"Admin");
 		return new Object[][] { new Object[] { request } };
 	}
 	
 	@DataProvider(name = "novoPerfilAlterado")
 	public Object[][] criaFornecedorRequest2() {
-		PerfilRequestDTO request = new PerfilRequestDTO(1L,"Perfil2",null);
+		PerfilRequestDTO request = new PerfilRequestDTO("1","Perfil2");
 		return new Object[][] { new Object[] { request } };
 	}
 	

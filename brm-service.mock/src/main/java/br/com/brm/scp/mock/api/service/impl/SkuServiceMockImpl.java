@@ -82,7 +82,7 @@ public class SkuServiceMockImpl implements SkuService {
 		
 		logger.info(String.format("Reabastecimento manual de SKU %s", request.getId()));
 		
-		new Sku(new SkuReabastecimentoStrategyImpl(db)).save(request, usuarioLogado.getId());
+		//new Sku(new SkuReabastecimentoStrategyImpl(db)).save(request, usuarioLogado.getId());
 		
 	}
 
