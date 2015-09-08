@@ -53,6 +53,7 @@
 			<version>${spring-orm}</version>
 		</dependency>
 		<dependency>
+<<<<<<< HEAD
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>
 				spring-boot-starter-data-elasticsearch
@@ -60,6 +61,8 @@
 			<version>1.2.2.RELEASE</version>
 		</dependency>
 		<dependency>
+=======
+>>>>>>> 68f089751061b90f319a65ad893e91f5759fee08
 			<groupId>org.neo4j</groupId>
 			<artifactId>neo4j-cypher-compiler-2.1</artifactId>
 			<version>2.1.5</version>

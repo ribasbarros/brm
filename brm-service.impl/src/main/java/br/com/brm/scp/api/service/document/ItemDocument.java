@@ -15,7 +15,7 @@ public class ItemDocument implements Serializable {
 	private ItemStatus status;
 	private BigDecimal valorUnitario;
 	private Integer unitizacao; // Quantidade que vem fechado
-
+	private String descricao;
 	private String idCategoria;
 
 	public String getId() {
@@ -74,4 +74,12 @@ public class ItemDocument implements Serializable {
 		this.idCategoria = idCategoria;
 	}
 
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+	
 }

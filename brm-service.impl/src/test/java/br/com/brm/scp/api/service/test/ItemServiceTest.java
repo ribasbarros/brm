@@ -22,12 +22,14 @@ import br.com.brm.scp.api.dto.response.FornecedorResponseDTO;
 import br.com.brm.scp.api.dto.response.ItemResponseDTO;
 import br.com.brm.scp.api.exceptions.ItemCategoriaNotFoundException;
 import br.com.brm.scp.api.exceptions.ItemExistenteException;
+import br.com.brm.scp.api.exceptions.ItemNotFoundException;
 import br.com.brm.scp.api.service.ItemService;
 import br.com.brm.scp.api.service.document.CategoriaDocument;
 import br.com.brm.scp.api.service.document.ItemDocument;
 import br.com.brm.scp.api.service.repositories.CategoriaRepository;
 import br.com.brm.scp.api.service.repositories.ItemRepository;
 import br.com.brm.scp.fw.helper.converters.ConverterHelper;
+import br.com.brm.scp.mock.api.service.status.ItemFiltroEnum;
 import br.com.brm.scp.mock.api.service.status.ItemStatus;
 import br.com.brm.scp.security.config.AppConfigurationTest;
 
@@ -46,6 +48,8 @@ public class ItemServiceTest extends AbstractTestNGSpringContextTests {
 	private static final boolean TEST_CRUD = true;
 
 	private static final String ID_CATEGORIA_NOTFOUND = "NOTFOUND";
+
+	private static final String ID_ITEM_NOTFOUND = "ID_NOT_FOUND";
 
 	private CategoriaResponseDTO categoria4Test;
 
@@ -95,28 +99,81 @@ public class ItemServiceTest extends AbstractTestNGSpringContextTests {
 	}
 	
 	@Test(enabled = TEST_CRUD, groups = "CRUD", priority = 4, dataProvider = "ItemRequestSuccess")
-	public void testUpdate(ItemRequestDTO request) throws ItemExistenteException, ItemCategoriaNotFoundException {
+	public void testUpdate(ItemRequestDTO request) throws ItemNotFoundException, ItemCategoriaNotFoundException {
 		
-		String oldValue = request.getNome();
+		String oldValue = request.getDescricao();
 		String newValue = String.format("%s-Update!-%s", oldValue, new Date());
 		
-		request.setNome(newValue);
+		request.setDescricao(newValue);
 		
 		assertFalse(oldValue.equals(newValue));
 		
 		ItemResponseDTO response = service.update(request);
 		
 		assertNotNull(response);
-		assertTrue(newValue.equals(response.getNome()));
+		assertTrue(newValue.equals(response.getDescricao()));
+	}
+	
+	@Test(enabled = TEST_CRUD, groups = "CRUD", priority = 5, dataProvider = "ItemRequestNotFound", expectedExceptions=ItemNotFoundException.class)
+	public void testUpdateItemNotFoundException(ItemRequestDTO request) throws ItemNotFoundException, ItemCategoriaNotFoundException {
+		service.update(request);
+	}
+	
+	@Test(enabled = TEST_CRUD, groups = "CRUD", priority = 6, dataProvider = "ItemRequestSuccess", expectedExceptions=ItemCategoriaNotFoundException.class)
+	public void testUpdateItemCategoriaNotFoundException(ItemRequestDTO request) throws ItemNotFoundException, ItemCategoriaNotFoundException {
+		request.setIdCategoria(ID_CATEGORIA_NOTFOUND);
+		service.update(request);
+	}
+	
+	@Test(enabled = TEST_CRUD, groups = "CRUD", priority = 7, dataProvider = "ItemRequestSuccess")
+	public void testFind(ItemRequestDTO request) throws ItemNotFoundException, ItemCategoriaNotFoundException {
+		
+		ItemResponseDTO response01 = service.find(ItemFiltroEnum.ID, request.getId());
+		
+		assertNotNull(response01);
+		
+		ItemResponseDTO response02 = service.find(ItemFiltroEnum.NOME, request.getNome());
+		
+		assertNotNull(response02);
+		
+		ItemResponseDTO response03 = service.find(ItemFiltroEnum.NOME_REDUZIDO, request.getNomeReduzido());
+		
+		assertNotNull(response03);
+		
+	}
+	
+	@Test(enabled = TEST_CRUD, groups = "CRUD", priority = 8, dataProvider = "ItemRequestNotFound", expectedExceptions=ItemNotFoundException.class)
+	public void testFindIDItemNotFoundException(ItemRequestDTO request) throws ItemNotFoundException, ItemCategoriaNotFoundException {
+		service.find(ItemFiltroEnum.ID, request.getId());
+	}
+	
+	@Test(enabled = TEST_CRUD, groups = "CRUD", priority = 9, dataProvider = "ItemRequestNotFound", expectedExceptions=ItemNotFoundException.class)
+	public void testFindNOMEItemNotFoundException(ItemRequestDTO request) throws ItemNotFoundException, ItemCategoriaNotFoundException {
+		service.find(ItemFiltroEnum.NOME, request.getNome());
+	}
+	
+	@Test(enabled = TEST_CRUD, groups = "CRUD", priority = 10, dataProvider = "ItemRequestNotFound", expectedExceptions=ItemNotFoundException.class)
+	public void testFindNOMEREDUZIDOItemNotFoundException(ItemRequestDTO request) throws ItemNotFoundException, ItemCategoriaNotFoundException {
+		service.find(ItemFiltroEnum.NOME_REDUZIDO, request.getNomeReduzido());
+	}
+	
+	@Test(enabled = TEST_CRUD, groups = "CRUD", priority = 11, dataProvider = "ItemRequestSuccess")
+	public void testDeleleItem(ItemRequestDTO request) throws ItemNotFoundException, ItemCategoriaNotFoundException {
+		service.delete(request.getId());
+	}
+	
+	@Test(enabled = TEST_CRUD, groups = "CRUD", priority = 12, dataProvider = "ItemRequestNotFound", expectedExceptions=ItemNotFoundException.class)
+	public void testDeleleItemNotFoundException(ItemRequestDTO request) throws ItemNotFoundException {
+		service.delete(request.getId());
 	}
 	
 	@DataProvider(name = "ItemRequestNotCategoria")
 	public Object[][] providerItemRequestNotCategoria() {
 		ItemRequestDTO request = new ItemRequestDTO();
-		request.setId(null);
 		request.setIdCategoria(ID_CATEGORIA_NOTFOUND);
 		request.setNome("Item0002");
 		request.setNomeReduzido("Item02");
+		request.setDescricao("Item 02 descricao teste");
 		request.setStatus(ItemStatus.ATIVO);
 		request.setUnitizacao(6);
 		request.setValorUnitario(new BigDecimal(0.20));
@@ -130,6 +187,21 @@ public class ItemServiceTest extends AbstractTestNGSpringContextTests {
 		
 		return new Object[][] { new Object[] { request } };
 	}
+	
+	@DataProvider(name = "ItemRequestNotFound")
+	public Object[][] providerItemRequestNotFound() {
+		ItemRequestDTO request = new ItemRequestDTO();
+		request.setId(ID_ITEM_NOTFOUND);
+		request.setIdCategoria(getCategoria4Test().getId());
+		request.setNome("NOTFOUND");
+		request.setNomeReduzido("NOTFOUND");
+		request.setDescricao("NOTFOUND descricao.");
+		request.setStatus(ItemStatus.ATIVO);
+		request.setUnitizacao(5);
+		request.setValorUnitario(new BigDecimal(18.89));
+		
+		return new Object[][] { new Object[] { request } };
+	}
 
 	private ItemRequestDTO doItem() {
 		ItemRequestDTO request = new ItemRequestDTO();
@@ -137,6 +209,7 @@ public class ItemServiceTest extends AbstractTestNGSpringContextTests {
 		request.setIdCategoria(getCategoria4Test().getId());
 		request.setNome("Item0001");
 		request.setNomeReduzido("Item01");
+		request.setDescricao("Item descricao teste.");
 		request.setStatus(ItemStatus.ATIVO);
 		request.setUnitizacao(10);
 		request.setValorUnitario(new BigDecimal(1.90));

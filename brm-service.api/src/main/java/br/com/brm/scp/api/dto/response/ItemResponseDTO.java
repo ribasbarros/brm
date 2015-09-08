@@ -6,16 +6,16 @@ import java.math.BigDecimal;
 import br.com.brm.scp.mock.api.service.status.ItemStatus;
 
 public class ItemResponseDTO implements Serializable {
-	
+
 	private static final long serialVersionUID = 6097898786758989461L;
-	
+
 	private String id;
 	private String nome;
 	private String nomeReduzido;
 	private ItemStatus status;
 	private BigDecimal valorUnitario;
 	private Integer unitizacao; // Quantidade que vem fechado
-
+	private String descricao;
 	private String idCategoria;
 
 	public String getId() {
@@ -72,6 +72,14 @@ public class ItemResponseDTO implements Serializable {
 
 	public void setIdCategoria(String idCategoria) {
 		this.idCategoria = idCategoria;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 }
