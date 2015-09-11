@@ -47,7 +47,7 @@ public class SkuDadosFake extends AbstractTestNGSpringContextTests {
 
 		SkuRequestDTO notFound = new SkuRequestDTO();
 
-		notFound.setId(RandomHelper.UUID());
+		//notFound.setId(RandomHelper.UUID());
 
 		Collection<ItemResponseDTO> items = ConverterHelper.convert(mockDb.getItemCollection().values(),
 				ItemResponseDTO.class);
@@ -61,20 +61,20 @@ public class SkuDadosFake extends AbstractTestNGSpringContextTests {
 
 		notFound.setAutomatica(Boolean.TRUE);
 		notFound.setCustoUnitario(BigDecimal.ZERO);
-		notFound.setDataDescontinuacao(Calendar.getInstance());
-		notFound.setDataMaturidade(Calendar.getInstance());
+		//notFound.setDataDescontinuacao(Calendar.getInstance());
+		//notFound.setDataMaturidade(Calendar.getInstance());
 		notFound.setDescricao("NOT FOUND");
 		notFound.setEstoqueAtual(99);
 		notFound.setEstoqueIdeal(99);
 		notFound.setEstoqueMaximo(99);
 		notFound.setEstoqueMinimo(99);
 		notFound.setFrequenciaAnalise(new Integer[] { Calendar.DAY_OF_WEEK });
-		notFound.setLoteReposicao(99);
-		notFound.setLoteReposicaoHistorico(0);
+		//notFound.setLoteReposicao(99);
+		//notFound.setLoteReposicaoHistorico(0);
 		notFound.setModelo(PlanejamentoSku.ESTOQUE);
 
-		notFound.setDataCriacao(Calendar.getInstance());
-		notFound.setUsuarioCriacao(usuarioService.findById(USUARIO_LOGADO_FAKE));
+		//notFound.setDataCriacao(Calendar.getInstance());
+		//notFound.setUsuarioCriacao(usuarioService.findById(USUARIO_LOGADO_FAKE));
 
 		return notFound;
 

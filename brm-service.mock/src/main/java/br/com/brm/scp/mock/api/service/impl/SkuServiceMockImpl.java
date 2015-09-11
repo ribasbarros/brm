@@ -11,6 +11,7 @@ import br.com.brm.scp.api.dto.request.SkuRequestDTO;
 import br.com.brm.scp.api.dto.response.SkuResponseDTO;
 import br.com.brm.scp.api.dto.response.UsuarioResponseDTO;
 import br.com.brm.scp.api.exceptions.SkuException;
+import br.com.brm.scp.api.exceptions.SkuExistenteException;
 import br.com.brm.scp.api.exceptions.SkuNotFoundException;
 import br.com.brm.scp.api.service.SkuService;
 import br.com.brm.scp.api.service.strategies.interfaces.Sku;
@@ -24,7 +25,43 @@ import br.com.brm.scp.mock.api.service.strategies.SkuReabastecimentoStrategyImpl
 
 public class SkuServiceMockImpl implements SkuService {
 
-	@Autowired
+	@Override
+	public SkuResponseDTO create(SkuRequestDTO request) throws SkuExistenteException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public SkuResponseDTO ativar(SkuRequestDTO request) throws SkuException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Collection<SkuResponseDTO> findForOrigin(Long id) throws SkuNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public SkuResponseDTO alterar(SkuRequestDTO request) throws SkuException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public SkuResponseDTO find(Long id) throws SkuNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void reabastecimento(SkuRequestDTO request, UsuarioResponseDTO usuarioLogado) throws SkuException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/*@Autowired
 	private SkuOperationDB db;
 	
 	private Logger logger = Logger.getLogger(SkuServiceMockImpl.class);
@@ -84,6 +121,6 @@ public class SkuServiceMockImpl implements SkuService {
 		
 		new Sku(new SkuReabastecimentoStrategyImpl(db)).save(request, usuarioLogado.getId());
 		
-	}
+	}*/
 
 }

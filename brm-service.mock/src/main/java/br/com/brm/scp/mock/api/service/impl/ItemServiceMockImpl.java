@@ -16,6 +16,7 @@ import br.com.brm.scp.api.service.ItemService;
 import br.com.brm.scp.fw.helper.converters.ConverterHelper;
 import br.com.brm.scp.mock.api.mockdata.MockData;
 import br.com.brm.scp.mock.api.service.document.ItemDocument;
+import br.com.brm.scp.mock.api.service.status.ItemFiltroEnum;
 
 public class ItemServiceMockImpl implements ItemService {
 	private Logger logger = Logger.getLogger(ItemServiceMockImpl.class);
@@ -36,8 +37,19 @@ public class ItemServiceMockImpl implements ItemService {
 	}
 
 	@Override
-	public ItemResponseDTO update(ItemRequestDTO request)
-			throws ItemExistenteException, ItemCategoriaNotFoundException {
+	public ItemResponseDTO find(ItemFiltroEnum filtro, Object value) throws ItemNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void delete(String id) throws ItemNotFoundException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public ItemResponseDTO update(ItemRequestDTO request) throws ItemNotFoundException, ItemCategoriaNotFoundException {
 		// TODO Auto-generated method stub
 		return null;
 	}

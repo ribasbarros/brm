@@ -40,7 +40,7 @@ public class SkuOperationDB {
 
 			SkuDocument loaded = null;
 			if (request.getId() != null) {
-				loaded = find(request.getId(), request.getItem(), request.getTags());
+				//loaded = find(request.getId(), request.getItem(), request.getTags());
 			} else {
 				loaded = find(request.getItem(), request.getTags());
 			}

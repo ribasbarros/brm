@@ -2,34 +2,39 @@ package br.com.brm.scp.api.dto.request;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
+
+import org.bson.types.ObjectId;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import br.com.brm.scp.api.annotation.BindingClassMeta;
 import br.com.brm.scp.api.dto.response.ItemResponseDTO;
-import br.com.brm.scp.api.dto.response.PedidoResponseDTO;
-import br.com.brm.scp.api.dto.response.SkuResponseDTO;
 import br.com.brm.scp.api.dto.response.TagResponseDTO;
-import br.com.brm.scp.api.dto.response.UsuarioResponseDTO;
 import br.com.brm.scp.mock.api.service.status.PlanejamentoSku;
 import br.com.brm.scp.mock.api.service.status.StatusReposicaoEnum;
 
 public class SkuRequestDTO implements Serializable {
 
-	private static final long serialVersionUID = 769046123352911205L;
+	private static final long serialVersionUID = 5177237361996096611L;
 
-	private Long id;
+	private String id;
+
 	@BindingClassMeta("ITEM")
 	private ItemResponseDTO item;
+
 	@BindingClassMeta("TAGS")
 	private Collection<TagResponseDTO> tags;
-	private Calendar dataMaturidade;
-	private Calendar dataDescontinuacao;
+
+	@DateTimeFormat(iso = ISO.DATE_TIME)
+	private Date dataMaturidade;
+	@DateTimeFormat(iso = ISO.DATE_TIME)
+	private Date dataDescontinuacao;
 	private PlanejamentoSku modelo;
+
 	private Integer[] frequenciaAnalise;
 	private boolean automatica;
-	private Integer loteReposicao;
-	private Integer loteReposicaoHistorico;
 	private StatusReposicaoEnum status;
 	private String descricao;
 
@@ -40,18 +45,22 @@ public class SkuRequestDTO implements Serializable {
 
 	private BigDecimal custoUnitario;
 
-	private Calendar dataCriacao;
-	private Calendar dataAlteracao;
-	@BindingClassMeta("USUARIO")
-	private UsuarioResponseDTO usuarioCriacao;
-	@BindingClassMeta("USUARIO")
-	private UsuarioResponseDTO usuarioAlteracao;
+	@DateTimeFormat(iso = ISO.DATE_TIME)
+	private Date dataCriacao;
 
-	@BindingClassMeta("ORIGIN")
-	private Collection<SkuResponseDTO> origins;
+	@DateTimeFormat(iso = ISO.DATE_TIME)
+	private Date dataAlteracao;
 
-	@BindingClassMeta("ORIGIN")
-	private SkuResponseDTO originDefault;
+	@BindingClassMeta("ORIGEM")
+	private Collection<OrigemSkuResponseDTO> origens;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public ItemResponseDTO getItem() {
 		return item;
@@ -69,19 +78,19 @@ public class SkuRequestDTO implements Serializable {
 		this.tags = tags;
 	}
 
-	public Calendar getDataMaturidade() {
+	public Date getDataMaturidade() {
 		return dataMaturidade;
 	}
 
-	public void setDataMaturidade(Calendar dataMaturidade) {
+	public void setDataMaturidade(Date dataMaturidade) {
 		this.dataMaturidade = dataMaturidade;
 	}
 
-	public Calendar getDataDescontinuacao() {
+	public Date getDataDescontinuacao() {
 		return dataDescontinuacao;
 	}
 
-	public void setDataDescontinuacao(Calendar dataDescontinuacao) {
+	public void setDataDescontinuacao(Date dataDescontinuacao) {
 		this.dataDescontinuacao = dataDescontinuacao;
 	}
 
@@ -107,22 +116,6 @@ public class SkuRequestDTO implements Serializable {
 
 	public void setAutomatica(boolean automatica) {
 		this.automatica = automatica;
-	}
-
-	public Integer getLoteReposicao() {
-		return loteReposicao;
-	}
-
-	public void setLoteReposicao(Integer loteReposicao) {
-		this.loteReposicao = loteReposicao;
-	}
-
-	public Integer getLoteReposicaoHistorico() {
-		return loteReposicaoHistorico;
-	}
-
-	public void setLoteReposicaoHistorico(Integer loteReposicaoHistorico) {
-		this.loteReposicaoHistorico = loteReposicaoHistorico;
 	}
 
 	public StatusReposicaoEnum getStatus() {
@@ -181,60 +174,37 @@ public class SkuRequestDTO implements Serializable {
 		this.custoUnitario = custoUnitario;
 	}
 
-	public Calendar getDataCriacao() {
+	public Date getDataCriacao() {
 		return dataCriacao;
 	}
 
-	public void setDataCriacao(Calendar dataCriacao) {
+	public void setDataCriacao(Date dataCriacao) {
 		this.dataCriacao = dataCriacao;
 	}
 
-	public Calendar getDataAlteracao() {
+	public Date getDataAlteracao() {
 		return dataAlteracao;
 	}
 
-	public void setDataAlteracao(Calendar dataAlteracao) {
+	public void setDataAlteracao(Date dataAlteracao) {
 		this.dataAlteracao = dataAlteracao;
 	}
 
-	public UsuarioResponseDTO getUsuarioCriacao() {
-		return usuarioCriacao;
+	public Collection<OrigemSkuResponseDTO> getOrigens() {
+		return origens;
 	}
 
-	public void setUsuarioCriacao(UsuarioResponseDTO usuarioCriacao) {
-		this.usuarioCriacao = usuarioCriacao;
+	public void setOrigens(Collection<OrigemSkuResponseDTO> origens) {
+		this.origens = origens;
 	}
 
-	public UsuarioResponseDTO getUsuarioAlteracao() {
-		return usuarioAlteracao;
-	}
-
-	public void setUsuarioAlteracao(UsuarioResponseDTO usuarioAlteracao) {
-		this.usuarioAlteracao = usuarioAlteracao;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Collection<SkuResponseDTO> getOrigins() {
-		return origins;
-	}
-
-	public void setOrigins(Collection<SkuResponseDTO> origins) {
-		this.origins = origins;
-	}
-
-	public SkuResponseDTO getOriginDefault() {
-		return originDefault;
-	}
-
-	public void setOriginDefault(SkuResponseDTO originDefault) {
-		this.originDefault = originDefault;
+	public ObjectId[] toTagArray() {
+		ObjectId[] tags = new ObjectId[getTags().size()];
+		int cont=0;
+		for(TagResponseDTO dto : getTags())
+			tags[cont++] = new ObjectId(dto.getId());
+		
+		return tags;
 	}
 
 }

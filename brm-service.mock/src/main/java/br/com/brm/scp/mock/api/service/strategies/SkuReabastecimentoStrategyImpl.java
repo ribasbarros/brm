@@ -24,7 +24,7 @@ public class SkuReabastecimentoStrategyImpl implements SkuStrategy {
 
 	@Override
 	public SkuResponseDTO save(SkuRequestDTO request, Long ... idUsuarioLogado) throws SkuException {
-		SkuDocument document = db.findOne(request.getId());
+		SkuDocument document = db.findOne(1L);
 
 		Integer quantidadeLote = document.getItem().getQuantidadeLote();
 		Integer estoqueIdeal = document.getEstoqueIdeal();
@@ -34,7 +34,7 @@ public class SkuReabastecimentoStrategyImpl implements SkuStrategy {
 		PedidoDocument pedido = new PedidoDocument();
 		pedido.setDataCriacao(Calendar.getInstance());
 		pedido.setDescricao("Criação de pedido pelo metodo 'reabastecimento'");
-		pedido.setIdSku(request.getId());
+		//pedido.setIdSku(request.getId());
 		pedido.setQuantidade(quantidadePedido);
 		pedido.setStatus(StatusPedido.AGUARDANDO);
 		
