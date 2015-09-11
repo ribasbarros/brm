@@ -1,14 +1,16 @@
 package br.com.brm.scp.api.dto.response;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import br.com.brm.scp.api.annotation.BindingClassMeta;
 
 import java.util.Collection;
 
-public class UsuarioResponseDTO {
+public class UsuarioResponseDTO implements Serializable{
 
-	private Long id;
+	private static final long serialVersionUID = -6583154136515769341L;
+	private String id;
 	private String nome;
 	private String cargo;
 	private String email;
@@ -16,11 +18,13 @@ public class UsuarioResponseDTO {
 	private Collection<GrupoResponseDTO> grupos;
 	private Date dataExcluido;
 
-	public Long getId() {
+	
+
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

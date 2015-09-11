@@ -1,23 +1,18 @@
 package br.com.brm.scp.api.service;
 
-import java.util.Collection;
-
 import br.com.brm.scp.api.dto.request.PerfilRequestDTO;
 import br.com.brm.scp.api.dto.response.PerfilResponseDTO;
 import br.com.brm.scp.api.exceptions.PerfilExistenteException;
 import br.com.brm.scp.api.exceptions.PerfilNotFoundException;
+import br.com.brm.scp.mock.api.service.status.PerfilFiltroEnum;
 
 public interface PerfilService {
-
+	
 	PerfilResponseDTO create(PerfilRequestDTO request) throws PerfilExistenteException, PerfilNotFoundException;
 
-	void delete(PerfilRequestDTO request) throws PerfilNotFoundException;
+	void delete(String id) throws PerfilNotFoundException;
 
 	void update(PerfilRequestDTO request) throws PerfilNotFoundException;
-	
-	PerfilResponseDTO findByName(String nome) throws PerfilNotFoundException;
 
-	PerfilResponseDTO findById(Long id) throws PerfilNotFoundException;
-	
-	Collection<PerfilResponseDTO> All() throws PerfilNotFoundException;
+	PerfilResponseDTO find(PerfilFiltroEnum filtro, Object value) throws PerfilNotFoundException;
 }

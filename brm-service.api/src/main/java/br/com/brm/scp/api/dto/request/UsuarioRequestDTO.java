@@ -11,7 +11,7 @@ public class UsuarioRequestDTO implements Serializable {
 
 	private static final long serialVersionUID = -494285582579032286L;
 	
-	private Long id;
+	private String id;
 	private String nome;
 	private String cargo;
 	private String email;
@@ -19,11 +19,13 @@ public class UsuarioRequestDTO implements Serializable {
 	private Collection<GrupoResponseDTO> grupos;
 	private Date dataExcluido;
 
-	public Long getId() {
+	
+
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
