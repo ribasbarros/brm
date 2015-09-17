@@ -1,29 +1,38 @@
-package br.com.brm.scp.api.dto.response;
+package br.com.brm.scp.api.service.document;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
-import br.com.brm.scp.api.annotation.BindingClassMeta;
 import br.com.brm.scp.api.dto.request.OrigemSkuResponseDTO;
+import br.com.brm.scp.api.dto.response.ItemResponseDTO;
+import br.com.brm.scp.api.dto.response.TagResponseDTO;
+import br.com.brm.scp.fw.annotations.BindingClass;
 import br.com.brm.scp.mock.api.service.status.PlanejamentoSku;
 import br.com.brm.scp.mock.api.service.status.StatusReposicaoEnum;
 
-public class SkuResponseDTO implements Serializable {
+@Document
+public class SkuDocument implements Serializable {
 
-	private static final long serialVersionUID = 8549468897805592125L;
+	private static final long serialVersionUID = 5204544337090545867L;
 
+	@Id
 	private String id;
 
-	@BindingClassMeta("ITEM")
-	private ItemResponseDTO item;
+	@DBRef
+	@BindingClass(ItemResponseDTO.class)
+	private ItemDocument item;
 
-	@BindingClassMeta("TAGS")
-	private Collection<TagResponseDTO> tags;
+	@DBRef
+	@BindingClass(TagResponseDTO.class)
+	private Collection<TagDocument> tags;
 
 	@DateTimeFormat(iso = ISO.DATE_TIME)
 	private Date dataMaturidade;
@@ -49,8 +58,8 @@ public class SkuResponseDTO implements Serializable {
 	@DateTimeFormat(iso = ISO.DATE_TIME)
 	private Date dataAlteracao;
 
-	@BindingClassMeta("ORIGEM")
-	private Collection<OrigemSkuResponseDTO> origens;
+	@BindingClass(OrigemSkuResponseDTO.class)
+	private Collection<OrigemSkuDocument> origens;
 
 	public String getId() {
 		return id;
@@ -60,19 +69,19 @@ public class SkuResponseDTO implements Serializable {
 		this.id = id;
 	}
 
-	public ItemResponseDTO getItem() {
+	public ItemDocument getItem() {
 		return item;
 	}
 
-	public void setItem(ItemResponseDTO item) {
+	public void setItem(ItemDocument item) {
 		this.item = item;
 	}
 
-	public Collection<TagResponseDTO> getTags() {
+	public Collection<TagDocument> getTags() {
 		return tags;
 	}
 
-	public void setTags(Collection<TagResponseDTO> tags) {
+	public void setTags(Collection<TagDocument> tags) {
 		this.tags = tags;
 	}
 
@@ -188,15 +197,12 @@ public class SkuResponseDTO implements Serializable {
 		this.dataAlteracao = dataAlteracao;
 	}
 
-	public Collection<OrigemSkuResponseDTO> getOrigens() {
+	public Collection<OrigemSkuDocument> getOrigens() {
 		return origens;
 	}
 
-	public void setOrigens(Collection<OrigemSkuResponseDTO> origens) {
+	public void setOrigens(Collection<OrigemSkuDocument> origens) {
 		this.origens = origens;
 	}
-
-
-	
 
 }

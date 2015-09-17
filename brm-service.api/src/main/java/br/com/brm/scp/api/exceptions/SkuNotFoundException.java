@@ -4,4 +4,7 @@ public class SkuNotFoundException extends SkuException {
 
 	private static final long serialVersionUID = -8757912153902425714L;
 
+	public SkuNotFoundException(String arg0) {
+		super(arg0);
+	}
 }
