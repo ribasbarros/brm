@@ -14,6 +14,7 @@ import br.com.brm.scp.api.service.CategoriaService;
 import br.com.brm.scp.fw.helper.converters.ConverterHelper;
 import br.com.brm.scp.mock.api.mockdata.MockData;
 import br.com.brm.scp.mock.api.service.document.CategoriaDocument;
+import br.com.brm.scp.mock.api.service.status.CategoriaFiltroEnum;
 
 public class CategoriaServiceMockImpl implements CategoriaService {
 	private Logger logger = Logger.getLogger(CategoriaServiceMockImpl.class);
@@ -54,7 +55,7 @@ public class CategoriaServiceMockImpl implements CategoriaService {
 		}
 	}
 	
-	@Override
+	
 	public CategoriaResponseDTO findByName(String nome) throws CategoriaNotFoundException{
 		for (CategoriaDocument document : mockdb.getCategoriaCollection().values()) {
 			if (document.getNome().equals(nome)) {
@@ -65,7 +66,7 @@ public class CategoriaServiceMockImpl implements CategoriaService {
 		throw new CategoriaNotFoundException();
 	}
 
-	@Override
+	
 	public CategoriaResponseDTO findById(Long id) throws CategoriaNotFoundException{
 		for (CategoriaDocument document : mockdb.getCategoriaCollection().values()) {
 			if (document.getId().equals(id)) {
@@ -77,7 +78,7 @@ public class CategoriaServiceMockImpl implements CategoriaService {
 	}
 
 	
-	@Override
+	
 	public void delete(CategoriaRequestDTO request) throws CategoriaNotFoundException {
 		findByName(request.getNome());
 		CategoriaDocument document = (CategoriaDocument) ConverterHelper.convert(request, CategoriaDocument.class);
@@ -93,12 +94,25 @@ public class CategoriaServiceMockImpl implements CategoriaService {
 		mockdb.getCategoriaCollection().put(document.getId(), document);
 	}
 
-	@Override
+	
 	public Collection<CategoriaResponseDTO> All() throws CategoriaNotFoundException {
 		Collection<CategoriaDocument> categorias = mockdb.getCategoriaCollection().values();
 		if(categorias.isEmpty()){
 			throw new CategoriaNotFoundException("nenhuma.categoria.encontrada");			
 		}		
 		return ConverterHelper.convert(categorias, CategoriaResponseDTO.class);
+	}
+
+	@Override
+	public CategoriaResponseDTO find(CategoriaFiltroEnum filtro, Object value)
+			throws CategoriaNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void delete(String id) throws CategoriaNotFoundException {
+		// TODO Auto-generated method stub
+		
 	}
 }

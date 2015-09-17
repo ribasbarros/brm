@@ -40,7 +40,7 @@ public class CategoriaServiceMockTest extends AbstractTestNGSpringContextTests {
 	@org.testng.annotations.Test(enabled = TEST_CRUD, groups = "CRUD", priority = 4, dataProvider = "novaCategoriaAlterada")
 	public void delete(CategoriaRequestDTO request) throws CategoriaNotFoundException {
 		assertNotNull(request);
-		service.delete(request);		
+		service.delete(request.getId());		
 	}
 			
 	@DataProvider(name = "novaCategoria")

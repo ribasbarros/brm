@@ -4,10 +4,10 @@ import java.io.Serializable;
 import java.util.Collection;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import br.com.brm.scp.api.annotation.BindingClassMeta;
-import br.com.brm.scp.api.dto.response.GrupoResponseDTO;
+import br.com.brm.scp.api.dto.response.PerfilResponseDTO;
 import br.com.brm.scp.fw.annotations.BindingClass;
 
 @Document
@@ -16,8 +16,9 @@ public class GrupoDocument implements Serializable {
 	private static final long serialVersionUID = -2946370998935414082L;
 	@Id
 	private String id;
-	private String nome;	
-	@BindingClass(GrupoResponseDTO.class)
+	private String nome;
+	@DBRef
+	@BindingClass(PerfilResponseDTO.class)
 	private Collection<PerfilDocument> perfis;
 
 	public String getId() {

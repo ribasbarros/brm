@@ -1,25 +1,16 @@
 package br.com.brm.scp.api.service.impl;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import org.apache.log4j.Logger;
-import org.neo4j.cypher.internal.compiler.v2_1.perty.docbuilders.docStructureDocBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import br.com.brm.scp.api.dto.request.GrupoRequestDTO;
 import br.com.brm.scp.api.dto.response.GrupoResponseDTO;
-import br.com.brm.scp.api.dto.response.PerfilResponseDTO;
 import br.com.brm.scp.api.exceptions.GrupoExistenteException;
 import br.com.brm.scp.api.exceptions.GrupoNotFoundException;
-import br.com.brm.scp.api.exceptions.PerfilNotFoundException;
-import br.com.brm.scp.api.exceptions.PerfilRepetidoException;
 import br.com.brm.scp.api.service.GrupoService;
 import br.com.brm.scp.api.service.document.GrupoDocument;
-import br.com.brm.scp.api.service.document.PerfilDocument;
 import br.com.brm.scp.api.service.repositories.GrupoRepository;
 import br.com.brm.scp.fw.helper.converters.ConverterHelper;
 import br.com.brm.scp.mock.api.service.status.GrupoFiltroEnum;

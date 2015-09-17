@@ -65,20 +65,20 @@ public class GrupoServiceTest extends AbstractTestNGSpringContextTests{
 		service.update(request);
 	}
 	
-	@Test(enabled = TEST_CRUD, groups = "CRUD", expectedExceptions=GrupoNotFoundException.class, priority = 2, dataProvider="novoGrupoAlterado")
+	@Test(enabled = TEST_CRUD, groups = "CRUD", expectedExceptions=GrupoNotFoundException.class, priority = 4, dataProvider="novoGrupoAlterado")
 	public void testUpdateGrupoNotFoundException(GrupoRequestDTO request) throws GrupoNotFoundException    {	
 		Assert.assertNotNull(request);
 		request.setId(ID_INVALIDO);
 		service.update(request);
 	}
 	
-	@Test(enabled = TEST_CRUD, groups = "CRUD", priority = 3, dataProvider="novoGrupoAlterado")
+	@Test(enabled = TEST_CRUD, groups = "CRUD", priority = 5, dataProvider="novoGrupoAlterado")
 	public void testDelete(GrupoRequestDTO request) throws GrupoNotFoundException    {	
 		Assert.assertNotNull(request);
 		service.delete(request.getId());
 	}
 	
-	@Test(enabled = TEST_CRUD, groups = "CRUD", expectedExceptions=GrupoNotFoundException.class,priority = 3, dataProvider="novoGrupoAlterado")
+	@Test(enabled = TEST_CRUD, groups = "CRUD", expectedExceptions=GrupoNotFoundException.class,priority = 6, dataProvider="novoGrupoAlterado")
 	public void testDeleteGrupoNotFoundException(GrupoRequestDTO request) throws GrupoNotFoundException    {	
 		Assert.assertNotNull(request);
 		request.setId(ID_INVALIDO);
@@ -109,7 +109,8 @@ public class GrupoServiceTest extends AbstractTestNGSpringContextTests{
 	private GrupoRequestDTO doGrupoAlterado() {
 		GrupoRequestDTO dto = new GrupoRequestDTO();
 		dto.setId(ULTIMO_ID);
-		dto.setNome("alterado");
+		dto.setNome("ALTERADO");
+		dto.setPerfis(null);
 		return dto;
 	}
 }
