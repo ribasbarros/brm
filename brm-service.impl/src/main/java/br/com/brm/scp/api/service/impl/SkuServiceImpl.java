@@ -9,18 +9,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import br.com.brm.scp.api.dto.request.SkuRequestDTO;
-import br.com.brm.scp.api.dto.response.ItemResponseDTO;
 import br.com.brm.scp.api.dto.response.SkuResponseDTO;
-import br.com.brm.scp.api.dto.response.TagResponseDTO;
-import br.com.brm.scp.api.dto.response.UsuarioResponseDTO;
-import br.com.brm.scp.api.exceptions.SkuException;
 import br.com.brm.scp.api.exceptions.SkuExistenteException;
 import br.com.brm.scp.api.exceptions.SkuNotFoundException;
 import br.com.brm.scp.api.service.SkuService;
 import br.com.brm.scp.api.service.document.SkuDocument;
 import br.com.brm.scp.api.service.repositories.SkuRepository;
 import br.com.brm.scp.fw.helper.converters.ConverterHelper;
-import br.com.brm.scp.mock.api.service.status.SkuFiltroEnum;
 
 /**
  * @author Ribas
@@ -83,33 +78,21 @@ public class SkuServiceImpl implements SkuService {
 	}
 
 	@Override
-	public SkuResponseDTO ativar(SkuRequestDTO request) throws SkuException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Collection<SkuResponseDTO> findForOrigin(Long id) throws SkuNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public SkuResponseDTO alterar(SkuRequestDTO request) throws SkuException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public SkuResponseDTO find(Long id) throws SkuNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void reabastecimento(SkuRequestDTO request, UsuarioResponseDTO usuarioLogado) throws SkuException {
-		// TODO Auto-generated method stub
+	public Collection<SkuResponseDTO> search(Object value) throws SkuNotFoundException {
 		
+		logger.info(String.format("Buscando %s na base", value));
+		
+		Collection<SkuDocument> document = repository.search(value);
+		
+		if(document == null)
+			throw new SkuNotFoundException(SKU_NOTNULL);
+		
+		return invokeResponse(document);
+		
+	}
+
+	private Collection<SkuResponseDTO> invokeResponse(Collection<SkuDocument> collection) {
+		return ConverterHelper.convert(collection, SkuResponseDTO.class);
 	}
 
 }

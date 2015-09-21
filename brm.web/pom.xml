@@ -8,5 +8,13 @@
 	</parent>
 	<artifactId>brm.web</artifactId>
 	<packaging>war</packaging>
+	
+	<dependencies>
+		<dependency>
+			<groupId>br.com.scp.brm</groupId>
+			<artifactId>brm-service.api</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
 
 </project>

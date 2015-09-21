@@ -1,11 +1,13 @@
 package br.com.brm.scp.api.service.test;
 
 import static org.testng.AssertJUnit.assertNotNull;
+import static org.testng.AssertJUnit.assertTrue;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,7 @@ import br.com.brm.scp.api.dto.response.ItemResponseDTO;
 import br.com.brm.scp.api.dto.response.SkuResponseDTO;
 import br.com.brm.scp.api.dto.response.TagResponseDTO;
 import br.com.brm.scp.api.exceptions.SkuExistenteException;
+import br.com.brm.scp.api.exceptions.SkuNotFoundException;
 import br.com.brm.scp.api.service.SkuService;
 import br.com.brm.scp.api.service.document.SkuDocument;
 import br.com.brm.scp.api.service.repositories.SkuRepository;
@@ -59,44 +62,7 @@ public class SkuServiceTest extends CargaTestSku {
 
 	@AfterClass
 	public void tearDown() {
-
-		try {
-			itemRepository.delete(item.getId());
-		} catch (Exception ex) {
-		}
-		try {
-			categoriaRepository.delete(item.getIdCategoria());
-		} catch (Exception ex) {
-		}
-		try {
-			tagRepository.delete(tag1);
-		} catch (Exception ex) {
-		}
-		try {
-			tagRepository.delete(tag2);
-		} catch (Exception ex) {
-		}
-		try {
-			tagRepository.delete(tag3);
-		} catch (Exception ex) {
-		}
-		try {
-			fornecedorRepository.delete(fornecedor.getId());
-		} catch (Exception ex) {
-		}
-		try {
-			skuRepository.delete(idSkuSuccess1);
-		} catch (Exception ex) {
-		}
-		try {
-			skuRepository.delete(idSkuSuccess2);
-		} catch (Exception ex) {
-		}
-		try {
-			skuRepository.delete(idSkuSuccess3);
-		} catch (Exception ex) {
-		}
-
+		deleteAllMassTests();
 	}
 
 	@Test(enabled = TEST_CRUD, groups = "CRUD", priority = 1, dataProvider = "Sku1RequestSuccess")
@@ -136,6 +102,21 @@ public class SkuServiceTest extends CargaTestSku {
 		SkuDocument document = skuRepository.findOne(idSkuSuccess3);
 
 		assertNotNull(document);
+	}
+
+	// TODO Desenvolver
+	@Test(enabled = TEST_CRUD && false, groups = "CRUD", priority = 4)
+	public void testFindPaginado() throws SkuNotFoundException {
+
+	}
+
+	@Test(enabled = TEST_CRUD, groups = "CRUD", priority = 5)
+	public void testFind() throws SkuNotFoundException {
+
+		Collection<SkuResponseDTO> search = service.search(item.getNome());
+		
+		assertTrue(!search.isEmpty());
+
 	}
 
 	@DataProvider(name = "Sku1RequestSuccess")
@@ -239,6 +220,45 @@ public class SkuServiceTest extends CargaTestSku {
 		origem.setId(id);
 		origem.setIsDefault(Boolean.TRUE);
 		return origem;
+	}
+
+	private void deleteAllMassTests() {
+		try {
+			itemRepository.delete(item.getId());
+		} catch (Exception ex) {
+		}
+		try {
+			categoriaRepository.delete(item.getIdCategoria());
+		} catch (Exception ex) {
+		}
+		try {
+			tagRepository.delete(tag1);
+		} catch (Exception ex) {
+		}
+		try {
+			tagRepository.delete(tag2);
+		} catch (Exception ex) {
+		}
+		try {
+			tagRepository.delete(tag3);
+		} catch (Exception ex) {
+		}
+		try {
+			fornecedorRepository.delete(fornecedor.getId());
+		} catch (Exception ex) {
+		}
+		try {
+			skuRepository.delete(idSkuSuccess1);
+		} catch (Exception ex) {
+		}
+		try {
+			skuRepository.delete(idSkuSuccess2);
+		} catch (Exception ex) {
+		}
+		try {
+			skuRepository.delete(idSkuSuccess3);
+		} catch (Exception ex) {
+		}
 	}
 
 }

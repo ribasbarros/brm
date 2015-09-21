@@ -8,7 +8,6 @@
 	<packaging>pom</packaging>
 
 	<name>brm</name>
-	<url>http://maven.apache.org</url>
 
 	<modules>
 		<module>brm.fw</module>
