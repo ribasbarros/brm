@@ -4,15 +4,12 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import br.com.brm.scp.api.service.document.TagDocument;
+import br.com.brm.scp.api.service.document.DfuDocument;
 
 @Repository
-public interface TagRepository extends MongoRepository<TagDocument, String> {
-	
+public interface DfuRepository extends MongoRepository<DfuDocument, String>{
+
 	@Query("{ '_id' : ?0 }")
-	TagDocument findById(String value);
-	
-	@Query("{ 'nome' : ?0 }")
-	TagDocument findByNome(String value);
-	
+	DfuDocument findById(String id);
+
 }

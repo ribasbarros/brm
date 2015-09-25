@@ -17,6 +17,8 @@ public class UsuarioResponseDTO implements Serializable{
 	@BindingClassMeta("GRUPOS")
 	private Collection<GrupoResponseDTO> grupos;
 	private Date dataExcluido;
+	@BindingClassMeta("USUARIO")
+	private UsuarioResponseDTO usuarioCriacao;
 
 	
 
@@ -67,4 +69,14 @@ public class UsuarioResponseDTO implements Serializable{
 	public void setDataExcluido(Date dataExcluido) {
 		this.dataExcluido = dataExcluido;
 	}
+	
+	public UsuarioResponseDTO getUsuarioCriacao() {
+		return usuarioCriacao;
+	}
+
+	public void setUsuarioCriacao(UsuarioResponseDTO usuarioCriacao) {
+		this.usuarioCriacao = usuarioCriacao;
+	}
+	
+	
 }

@@ -7,6 +7,7 @@ import java.util.Date;
 
 import br.com.brm.scp.api.annotation.BindingClassMeta;
 import br.com.brm.scp.api.dto.response.PerfilResponseDTO;
+import br.com.brm.scp.api.dto.response.UsuarioResponseDTO;
 
 public class GrupoRequestDTO implements Serializable {
 	private static final long serialVersionUID = -2946370998935414082L;
@@ -16,7 +17,10 @@ public class GrupoRequestDTO implements Serializable {
 
 	@BindingClassMeta("PERFIS")
 	private Collection<PerfilResponseDTO> perfis = new ArrayList<>();
-		
+	
+	@BindingClassMeta("USUARIO")
+	private UsuarioResponseDTO usuarioCriacao;
+	
 	public String getId() {
 		return id;
 	}
@@ -40,5 +44,13 @@ public class GrupoRequestDTO implements Serializable {
 	public void setPerfis(Collection<PerfilResponseDTO> perfis) {
 		this.perfis = perfis;
 	}
+	public UsuarioResponseDTO getUsuarioCriacao() {
+		return usuarioCriacao;
+	}
 
+	public void setUsuarioCriacao(UsuarioResponseDTO usuarioCriacao) {
+		this.usuarioCriacao = usuarioCriacao;
+	}
+	
+	
 }

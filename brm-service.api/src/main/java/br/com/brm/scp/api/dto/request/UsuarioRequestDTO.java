@@ -6,6 +6,7 @@ import java.util.Collection;
 
 import br.com.brm.scp.api.annotation.BindingClassMeta;
 import br.com.brm.scp.api.dto.response.GrupoResponseDTO;
+import br.com.brm.scp.api.dto.response.UsuarioResponseDTO;
 
 public class UsuarioRequestDTO implements Serializable {
 
@@ -18,6 +19,8 @@ public class UsuarioRequestDTO implements Serializable {
 	@BindingClassMeta("GRUPOS")
 	private Collection<GrupoResponseDTO> grupos;
 	private Date dataExcluido;
+	@BindingClassMeta("USUARIO")
+	private UsuarioResponseDTO usuarioCriacao;
 
 	
 
@@ -68,5 +71,13 @@ public class UsuarioRequestDTO implements Serializable {
 	public void setDataExcluido(Date dataExcluido) {
 		this.dataExcluido = dataExcluido;
 	}
+	public UsuarioResponseDTO getUsuarioCriacao() {
+		return usuarioCriacao;
+	}
+
+	public void setUsuarioCriacao(UsuarioResponseDTO usuarioCriacao) {
+		this.usuarioCriacao = usuarioCriacao;
+	}
 	
+		
 }

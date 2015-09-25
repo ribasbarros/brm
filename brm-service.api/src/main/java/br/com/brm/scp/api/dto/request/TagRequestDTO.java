@@ -1,13 +1,14 @@
-package br.com.brm.scp.api.dto.response;
+package br.com.brm.scp.api.dto.request;
 
 import java.io.Serializable;
 
 import br.com.brm.scp.api.annotation.BindingClassMeta;
+import br.com.brm.scp.api.dto.response.UsuarioResponseDTO;
 
-public class TagResponseDTO implements Serializable {
+public class TagRequestDTO implements Serializable {
 
-	private static final long serialVersionUID = 4657331861203713237L;
 	
+	private static final long serialVersionUID = 5917529930795039062L;
 	private String id;
 	private String nome;
 	private Integer nivel;
@@ -37,7 +38,6 @@ public class TagResponseDTO implements Serializable {
 	public void setNivel(Integer nivel) {
 		this.nivel = nivel;
 	}
-
 	public UsuarioResponseDTO getUsuarioCriacao() {
 		return usuarioCriacao;
 	}
@@ -47,5 +47,4 @@ public class TagResponseDTO implements Serializable {
 	}
 	
 	
-
 }

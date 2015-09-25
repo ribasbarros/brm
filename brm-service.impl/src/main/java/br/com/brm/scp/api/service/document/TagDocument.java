@@ -3,7 +3,11 @@ package br.com.brm.scp.api.service.document;
 import java.io.Serializable;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import br.com.brm.scp.api.dto.response.UsuarioResponseDTO;
+import br.com.brm.scp.fw.annotations.BindingClass;
 
 @Document
 public class TagDocument implements Serializable {
@@ -14,7 +18,10 @@ public class TagDocument implements Serializable {
 	private String id;
 	private String nome;
 	private Integer nivel;
-	
+	@DBRef
+	@BindingClass(UsuarioResponseDTO.class)
+	private UsuarioDocument usuarioCriacao;
+		
 	public TagDocument() {
 		super();
 	}
@@ -49,6 +56,8 @@ public class TagDocument implements Serializable {
 		this.nivel = nivel;
 	}
 
+	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -57,6 +66,14 @@ public class TagDocument implements Serializable {
 		result = prime * result + ((nivel == null) ? 0 : nivel.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		return result;
+	}
+
+	public UsuarioDocument getUsuarioCriacao() {
+		return usuarioCriacao;
+	}
+
+	public void setUsuarioCriacao(UsuarioDocument usuarioCriacao) {
+		this.usuarioCriacao = usuarioCriacao;
 	}
 
 	@Override

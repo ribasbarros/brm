@@ -15,7 +15,9 @@ public class GrupoResponseDTO implements Serializable {
 
 	@BindingClassMeta("PERFIS")
 	private Collection<PerfilResponseDTO> perfis = new ArrayList<>();
-		
+	@BindingClassMeta("USUARIO")
+	private UsuarioResponseDTO usuarioCriacao;
+	
 	public String getId() {
 		return id;
 	}
@@ -39,6 +41,15 @@ public class GrupoResponseDTO implements Serializable {
 	public void setPerfis(Collection<PerfilResponseDTO> perfis) {
 		this.perfis = perfis;
 	}
+	
+	public UsuarioResponseDTO getUsuarioCriacao() {
+		return usuarioCriacao;
+	}
+
+	public void setUsuarioCriacao(UsuarioResponseDTO usuarioCriacao) {
+		this.usuarioCriacao = usuarioCriacao;
+	}
+	
 	
 
 }

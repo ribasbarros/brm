@@ -1,7 +1,9 @@
 package br.com.brm.scp.api.dto.request;
 
 import java.io.Serializable;
-import java.util.Date;
+
+import br.com.brm.scp.api.annotation.BindingClassMeta;
+import br.com.brm.scp.api.dto.response.UsuarioResponseDTO;
 
 public class PerfilRequestDTO implements Serializable {
 
@@ -9,6 +11,8 @@ public class PerfilRequestDTO implements Serializable {
 	
 	public String id;
 	private String nome;
+	@BindingClassMeta("USUARIO")
+	private UsuarioResponseDTO usuarioCriacao;
 
 		
 	public PerfilRequestDTO(String id, String nome) {
@@ -31,4 +35,13 @@ public class PerfilRequestDTO implements Serializable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	public UsuarioResponseDTO getUsuarioCriacao() {
+		return usuarioCriacao;
+	}
+
+	public void setUsuarioCriacao(UsuarioResponseDTO usuarioCriacao) {
+		this.usuarioCriacao = usuarioCriacao;
+	}
+	
+	
 }

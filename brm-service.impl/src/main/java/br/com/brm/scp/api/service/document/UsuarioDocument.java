@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import br.com.brm.scp.api.dto.response.GrupoResponseDTO;
+import br.com.brm.scp.api.dto.response.UsuarioResponseDTO;
 import br.com.brm.scp.fw.annotations.BindingClass;
 
 @Document
@@ -25,7 +26,9 @@ public class UsuarioDocument implements Serializable {
 	@BindingClass(GrupoResponseDTO.class)
 	private Collection<GrupoDocument> grupos;
 	private Date dataExcluido;
-
+	@DBRef
+	@BindingClass(UsuarioResponseDTO.class)
+	private UsuarioDocument usuarioCriacao;
 
 	public UsuarioDocument() {
 		super();
@@ -86,4 +89,13 @@ public class UsuarioDocument implements Serializable {
 	public void setDataExcluido(Date dataExcluido) {
 		this.dataExcluido = dataExcluido;
 	}
+	
+	public UsuarioDocument getUsuarioCriacao() {
+		return usuarioCriacao;
+	}
+
+	public void setUsuarioCriacao(UsuarioDocument usuarioCriacao) {
+		this.usuarioCriacao = usuarioCriacao;
+	}
+
 }

@@ -2,12 +2,16 @@ package br.com.brm.scp.api.dto.response;
 
 import java.io.Serializable;
 
+import br.com.brm.scp.api.annotation.BindingClassMeta;
+
 public class PerfilResponseDTO implements Serializable {
 
 	private static final long serialVersionUID = -551282430682709369L;
 	
 	public String id;
 	private String nome;
+	@BindingClassMeta("USUARIO")
+	private UsuarioResponseDTO usuarioCriacao;
 
 	public PerfilResponseDTO() {
 	}
@@ -33,5 +37,13 @@ public class PerfilResponseDTO implements Serializable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	public UsuarioResponseDTO getUsuarioCriacao() {
+		return usuarioCriacao;
+	}
+
+	public void setUsuarioCriacao(UsuarioResponseDTO usuarioCriacao) {
+		this.usuarioCriacao = usuarioCriacao;
+	}
 	
+		
 }

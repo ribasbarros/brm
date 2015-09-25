@@ -1,30 +1,46 @@
-package br.com.brm.scp.api.dto.request;
+package br.com.brm.scp.api.service.document;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Date;
 import java.util.Collection;
+import java.util.Date;
 
-import br.com.brm.scp.api.annotation.BindingClassMeta;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+
 import br.com.brm.scp.api.dto.MatrizSkuDTO;
 import br.com.brm.scp.api.dto.response.ItemResponseDTO;
 import br.com.brm.scp.api.dto.response.PacotePlanoDTO;
 import br.com.brm.scp.api.dto.response.TagResponseDTO;
 import br.com.brm.scp.api.dto.response.UsuarioResponseDTO;
+import br.com.brm.scp.fw.annotations.BindingClass;
 import br.com.brm.scp.mock.api.service.status.PlanejamentoDfu;
 
-public class DfuRequestDTO {
-
+@Document
+public class DfuDocument implements Serializable {
+	private static final long serialVersionUID = -474555671538384916L;
+	@Id
 	private String id;
-	@BindingClassMeta("ITEM")
-	private ItemResponseDTO produto;
-	@BindingClassMeta("TAGS")
-	private Collection<TagResponseDTO> tags;
+	@DBRef
+	@BindingClass(ItemResponseDTO.class)
+	private ItemDocument produto;
+	@DBRef
+	@BindingClass(TagResponseDTO.class)
+	private Collection<TagDocument> tags;
+	@DateTimeFormat(iso = ISO.DATE_TIME)
 	private Date dataMaturidade;
+	@DateTimeFormat(iso = ISO.DATE_TIME)
 	private Date dataLancamento;
+	@DateTimeFormat(iso = ISO.DATE_TIME)
 	private Date dataDescontinuacao;
-	@BindingClassMeta("TAGS")
-	private PacotePlanoDTO pacotePlano;
+	@DBRef
+	@BindingClass(PacotePlanoDTO.class)
+	private PacotePlanoDocument pacotePlano;
 	private PlanejamentoDfu modelo;
+	@DateTimeFormat(iso = ISO.DATE_TIME)
 	private Date validadeModelo;
 	private BigDecimal precoUnitarioMedio;
 	private BigDecimal margemUnitMedio;
@@ -35,30 +51,37 @@ public class DfuRequestDTO {
 	private Double minAjuste;
 	private Double representatividade;
 	private Integer diaVenda;
-	@BindingClassMeta("MATRIZES")
-	private Collection<MatrizSkuDTO> matriz;
+	@DBRef
+	@BindingClass(MatrizSkuDTO.class)
+	private Collection<MatrizSkuDocument> matriz;
+	@DateTimeFormat(iso = ISO.DATE_TIME)
 	private Date dataCriacao;
+	@DateTimeFormat(iso = ISO.DATE_TIME)
 	private Date dataAlteracao;
-	@BindingClassMeta("USUARIO")
-	private UsuarioResponseDTO usuarioCriacao;
-	@BindingClassMeta("USUARIO")
-	private UsuarioResponseDTO usuarioAlteracao;
+	@DBRef
+	@BindingClass(UsuarioResponseDTO.class)
+	private UsuarioDocument usuarioCriacao;
+	@DBRef
+	@BindingClass(UsuarioResponseDTO.class)
+	private UsuarioDocument usuarioAlteracao;
+	
+	
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
 	}
-	public ItemResponseDTO getProduto() {
+	public ItemDocument getProduto() {
 		return produto;
 	}
-	public void setProduto(ItemResponseDTO produto) {
+	public void setProduto(ItemDocument produto) {
 		this.produto = produto;
 	}
-	public Collection<TagResponseDTO> getTags() {
+	public Collection<TagDocument> getTags() {
 		return tags;
 	}
-	public void setTags(Collection<TagResponseDTO> tags) {
+	public void setTags(Collection<TagDocument> tags) {
 		this.tags = tags;
 	}
 	public Date getDataMaturidade() {
@@ -79,10 +102,10 @@ public class DfuRequestDTO {
 	public void setDataDescontinuacao(Date dataDescontinuacao) {
 		this.dataDescontinuacao = dataDescontinuacao;
 	}
-	public PacotePlanoDTO getPacotePlano() {
+	public PacotePlanoDocument getPacotePlano() {
 		return pacotePlano;
 	}
-	public void setPacotePlano(PacotePlanoDTO pacotePlano) {
+	public void setPacotePlano(PacotePlanoDocument pacotePlano) {
 		this.pacotePlano = pacotePlano;
 	}
 	public PlanejamentoDfu getModelo() {
@@ -151,10 +174,10 @@ public class DfuRequestDTO {
 	public void setDiaVenda(Integer diaVenda) {
 		this.diaVenda = diaVenda;
 	}
-	public Collection<MatrizSkuDTO> getMatriz() {
+	public Collection<MatrizSkuDocument> getMatriz() {
 		return matriz;
 	}
-	public void setMatriz(Collection<MatrizSkuDTO> matriz) {
+	public void setMatriz(Collection<MatrizSkuDocument> matriz) {
 		this.matriz = matriz;
 	}
 	public Date getDataCriacao() {
@@ -169,17 +192,16 @@ public class DfuRequestDTO {
 	public void setDataAlteracao(Date dataAlteracao) {
 		this.dataAlteracao = dataAlteracao;
 	}
-	public UsuarioResponseDTO getUsuarioCriacao() {
+	public UsuarioDocument getUsuarioCriacao() {
 		return usuarioCriacao;
 	}
-	public void setUsuarioCriacao(UsuarioResponseDTO usuarioCriacao) {
+	public void setUsuarioCriacao(UsuarioDocument usuarioCriacao) {
 		this.usuarioCriacao = usuarioCriacao;
 	}
-	public UsuarioResponseDTO getUsuarioAlteracao() {
+	public UsuarioDocument getUsuarioAlteracao() {
 		return usuarioAlteracao;
 	}
-	public void setUsuarioAlteracao(UsuarioResponseDTO usuarioAlteracao) {
+	public void setUsuarioAlteracao(UsuarioDocument usuarioAlteracao) {
 		this.usuarioAlteracao = usuarioAlteracao;
-	}
-	
+	}	
 }

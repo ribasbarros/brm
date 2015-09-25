@@ -37,8 +37,7 @@ public class PerfilServiceTest extends AbstractTestNGSpringContextTests{
 	}
 
 	@AfterClass
-	public void tearDown() throws Exception {
-		
+	public void tearDown() throws Exception {	
 	}
 	
 	@Test(enabled = TEST_CRUD, groups = "CRUD", priority = 1, dataProvider="novoPerfil")

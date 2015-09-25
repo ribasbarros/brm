@@ -55,7 +55,6 @@ public class PerfilServiceImpl implements PerfilService {
 			throws PerfilExistenteException, PerfilNotFoundException {
 		if (find(PerfilFiltroEnum.NOME,request.getNome()) != null)
 			throw new PerfilExistenteException(PERFIL_EXISTENTE);
-
 		return false;
 	}
 
