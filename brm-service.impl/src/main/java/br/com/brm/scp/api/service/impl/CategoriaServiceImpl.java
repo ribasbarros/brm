@@ -17,8 +17,9 @@ import br.com.brm.scp.mock.api.service.status.CategoriaFiltroEnum;
 
 @Service
 public class CategoriaServiceImpl implements CategoriaService{
+	
 	@Autowired
-	CategoriaRepository repository;
+	private CategoriaRepository repository;
 	
 	private static Logger logger = Logger.getLogger(CategoriaServiceImpl.class);
 	private static final String CATEGORIA_NOME = "categoria.nome";

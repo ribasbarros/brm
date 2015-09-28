@@ -11,7 +11,7 @@ import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
 
 @Configuration
-@EnableMongoRepositories(basePackages = {"br.com.brm.scp.api.service.*", "br.com.brm.scp.api.service.repositories"})
+@EnableMongoRepositories(basePackages = {"br.com.brm.scp.api.service.repositories"})
 public class RepositoryConfigurationTest {
 
 	/*
