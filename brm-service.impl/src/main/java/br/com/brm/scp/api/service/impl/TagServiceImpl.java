@@ -61,7 +61,7 @@ public class TagServiceImpl implements TagService{
 	
 	private boolean hasRegister(TagRequestDTO request)
 			throws TagExistenteException, TagNotFoundException {
-		if (find(TagFiltroEnum.ID,request.getNome()) != null)
+		if (find(TagFiltroEnum.NOME,request.getNome()) != null)
 			throw new TagExistenteException(TAG_EXISTENTE);
 		return false;
 	}
@@ -127,6 +127,6 @@ public class TagServiceImpl implements TagService{
 	}
 
 	private TagDocument invokeDocument(TagRequestDTO request){
-		return (TagDocument) ConverterHelper.convert(request, TagRequestDTO.class);
+		return (TagDocument) ConverterHelper.convert(request, TagDocument.class);
 	}
 }

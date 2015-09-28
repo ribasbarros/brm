@@ -9,6 +9,7 @@ public class TagRequestDTO implements Serializable {
 
 	
 	private static final long serialVersionUID = 5917529930795039062L;
+	
 	private String id;
 	private String nome;
 	private Integer nivel;
