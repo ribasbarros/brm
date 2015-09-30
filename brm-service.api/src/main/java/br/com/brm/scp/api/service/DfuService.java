@@ -8,7 +8,7 @@ import br.com.brm.scp.mock.api.service.status.DfuFiltroEnum;
 
 
 public interface DfuService {
-	DfuResponseDTO create(DfuRequestDTO request) throws DfuExistenteException, DfuNotFoundException;
+	DfuResponseDTO create(DfuRequestDTO request) throws DfuExistenteException;
 
 	void delete(String id) throws DfuNotFoundException;
 

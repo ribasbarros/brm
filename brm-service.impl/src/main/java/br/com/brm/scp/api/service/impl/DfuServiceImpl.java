@@ -29,7 +29,7 @@ public class DfuServiceImpl implements DfuService {
 
 	@Override
 	public DfuResponseDTO create(DfuRequestDTO request)
-			throws DfuExistenteException, DfuNotFoundException {
+			throws DfuExistenteException {
 		Assert.notNull(request, DFU_NULL);
 		//Ajuste feito enquanto não classificamos os campos para determinar quando uma dfu é considerada existente
 		/*Assert.isNull(request.getId(), DFU_ID);*/

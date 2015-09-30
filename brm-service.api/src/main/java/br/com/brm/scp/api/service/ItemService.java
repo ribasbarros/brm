@@ -9,7 +9,7 @@ import br.com.brm.scp.mock.api.service.status.ItemFiltroEnum;
 
 public interface ItemService {
 
-	ItemResponseDTO create(ItemRequestDTO request) throws ItemExistenteException, ItemCategoriaNotFoundException;
+	ItemResponseDTO create(ItemRequestDTO request) throws ItemExistenteException,ItemCategoriaNotFoundException;
 
 	ItemResponseDTO update(ItemRequestDTO request) throws ItemNotFoundException, ItemCategoriaNotFoundException;
 
