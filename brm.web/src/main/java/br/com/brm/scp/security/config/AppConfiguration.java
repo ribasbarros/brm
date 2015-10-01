@@ -5,8 +5,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@ComponentScan({ "br.com.brm.scp.*"})
-@Import({ MvcConfiguration.class, SecurityConfiguration.class })
+@ComponentScan({ "br.com.brm.scp.controller", "br.com.brm.scp.security.*", "br.com.brm.scp.api.service.impl"})
+@Import({ MvcConfiguration.class, SecurityConfiguration.class, RepositoryConfiguration.class  })
 public class AppConfiguration {
 	
 }
