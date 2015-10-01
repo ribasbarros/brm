@@ -8,7 +8,7 @@ import br.com.brm.scp.mock.api.service.status.PerfilFiltroEnum;
 
 public interface PerfilService {
 	
-	PerfilResponseDTO create(PerfilRequestDTO request) throws PerfilExistenteException, PerfilNotFoundException;
+	PerfilResponseDTO create(PerfilRequestDTO request) throws PerfilExistenteException;
 
 	void delete(String id) throws PerfilNotFoundException;
 

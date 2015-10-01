@@ -2,8 +2,6 @@ package br.com.brm.scp.api.dto.response;
 
 import java.io.Serializable;
 
-import br.com.brm.scp.api.service.document.ContatoDocument;
-import br.com.brm.scp.api.service.document.FornecedorCentroDocument;
 import br.com.brm.scp.api.service.document.ItemDocument;
 import br.com.brm.scp.api.service.document.MatrizSkuDocument;
 import br.com.brm.scp.api.service.document.TagDocument;

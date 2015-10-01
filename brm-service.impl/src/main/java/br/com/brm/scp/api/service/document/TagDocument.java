@@ -11,9 +11,8 @@ import br.com.brm.scp.fw.annotations.BindingClass;
 
 @Document
 public class TagDocument implements Serializable {
-
+	
 	private static final long serialVersionUID = -4079619566512672873L;
-
 	@Id
 	private String id;
 	private String nome;

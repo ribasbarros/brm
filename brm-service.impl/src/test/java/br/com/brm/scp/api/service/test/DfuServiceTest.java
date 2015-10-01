@@ -49,6 +49,7 @@ public class DfuServiceTest extends AbstractTestNGSpringContextTests{
 	@Test(enabled = TEST_CRUD, groups = "CRUD", expectedExceptions=DfuExistenteException.class ,priority = 2, dataProvider="novaDfu")
 	public void testCreateDfuExistenteException(DfuRequestDTO request) throws DfuExistenteException, DfuNotFoundException  {	
 		Assert.assertNotNull(request);
+		request.setId(ULTIMO_ID);
 		service.create(request);
 	}
 		

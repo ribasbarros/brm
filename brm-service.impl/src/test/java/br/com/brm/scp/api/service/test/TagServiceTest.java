@@ -24,9 +24,9 @@ import br.com.brm.scp.security.config.AppConfigurationTest;
 
 public class TagServiceTest extends AbstractTestNGSpringContextTests {
 	@Autowired
-	TagRepository repository;
+	private TagRepository repository;
 	@Autowired
-	TagService service;
+	private TagService service;
 
 	private static final boolean TEST_CRUD = true;
 	private static String ULTIMO_ID = "";
@@ -95,6 +95,7 @@ public class TagServiceTest extends AbstractTestNGSpringContextTests {
 	@DataProvider(name = "novoTagAlterado")
 	public Object[][] providerTagAlterado() {
 		TagRequestDTO request = new TagRequestDTO();
+		request.setId(ULTIMO_ID);
 		request.setNivel(2);
 		request.setNome("segundaTag");
 		

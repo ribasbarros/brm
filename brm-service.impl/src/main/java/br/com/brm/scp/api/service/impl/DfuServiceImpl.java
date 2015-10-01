@@ -29,9 +29,10 @@ public class DfuServiceImpl implements DfuService {
 
 	@Override
 	public DfuResponseDTO create(DfuRequestDTO request)
-			throws DfuExistenteException, DfuNotFoundException {
+			throws DfuExistenteException {
 		Assert.notNull(request, DFU_NULL);
-		Assert.isNull(request.getId(), DFU_ID);
+		//Ajuste feito enquanto não classificamos os campos para determinar quando uma dfu é considerada existente
+		/*Assert.isNull(request.getId(), DFU_ID);*/
 
 		try {
 			hasRegister(request);
@@ -99,6 +100,10 @@ public class DfuServiceImpl implements DfuService {
 		return document;
 	}
 
+	/*
+	 * Adicionar os parametros para saber se é uma DFU que já existe no sistema
+	 * não foi adicionado pois ainda não foi decidido!
+	 */
 	private boolean hasRegister(DfuRequestDTO request)
 			throws DfuNotFoundException, DfuExistenteException {
 

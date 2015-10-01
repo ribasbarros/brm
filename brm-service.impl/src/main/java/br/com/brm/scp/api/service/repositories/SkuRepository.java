@@ -21,10 +21,10 @@ public interface SkuRepository extends MongoRepository<SkuDocument, String> {
 			+ " '$where' : 'this.tags.length = ?2' }")
 	SkuDocument findSku(String id, ObjectId[] tags, int size);
 	
-	@Query("{'$or':["
+	/*@Query("{'$or':["
 			+ "{'email':{'$regex':searchString, '$options':'i'}}, "
 			+ "{'first_name':{'$regex':searchString, '$options':'i'}}, "
 			+ "{'last_name':{'$regex':searchString, '$options':'i'}}]}")
-	Collection<SkuDocument> search(Object value);
+	Collection<SkuDocument> search(Object value);*/
 	
 }
