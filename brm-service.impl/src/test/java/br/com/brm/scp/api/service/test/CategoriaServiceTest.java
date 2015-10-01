@@ -20,10 +20,11 @@ import br.com.brm.scp.api.service.repositories.CategoriaRepository;
 import br.com.brm.scp.security.config.AppConfigurationTest;
 
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class, classes = AppConfigurationTest.class)
-
 public class CategoriaServiceTest extends AbstractTestNGSpringContextTests{
+	
 	@Autowired
 	CategoriaService service;
+	
 	@Autowired
 	CategoriaRepository repository;
 	

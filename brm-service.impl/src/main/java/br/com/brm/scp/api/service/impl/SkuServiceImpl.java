@@ -82,14 +82,6 @@ public class SkuServiceImpl implements SkuService {
 		
 		logger.info(String.format("Buscando %s na base", value));
 		
-		/*Collection<SkuDocument> document = repository.search(value);
-		
-		if(document == null)
-			throw new SkuNotFoundException(SKU_NOTNULL);
-		
-		return invokeResponse(document);
-		*/
-		
 		return null;
 	}
 

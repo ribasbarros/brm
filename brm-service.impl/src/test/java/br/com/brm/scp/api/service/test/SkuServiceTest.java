@@ -110,6 +110,7 @@ public class SkuServiceTest extends CargaTestSku {
 
 	}
 
+	//TODO Desenvolver
 	@Test(enabled = TEST_CRUD, groups = "CRUD", priority = 5)
 	public void testFind() throws SkuNotFoundException {
 

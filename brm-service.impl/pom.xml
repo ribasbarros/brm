@@ -8,7 +8,7 @@
 	</parent>
 	<artifactId>brm-service.impl</artifactId>
 
-		<dependencies>
+	<dependencies>
 		<dependency>
 			<groupId>br.com.scp.brm</groupId>
 			<artifactId>brm-service.api</artifactId>
@@ -51,7 +51,7 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
 			<version>${spring-orm}</version>
-		</dependency>		
+		</dependency>
 	</dependencies>
 
 </project>
