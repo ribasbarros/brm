@@ -7,7 +7,6 @@ import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 
-import br.com.brm.scp.api.dto.request.OrigemSkuResponseDTO;
 import br.com.brm.scp.api.service.document.CategoriaDocument;
 import br.com.brm.scp.api.service.document.FornecedorCentroDocument;
 import br.com.brm.scp.api.service.document.FornecedorDocument;
@@ -19,7 +18,6 @@ import br.com.brm.scp.api.service.repositories.ItemRepository;
 import br.com.brm.scp.api.service.repositories.TagRepository;
 import br.com.brm.scp.api.service.test.helper.GeraCpfCnpj;
 import br.com.brm.scp.mock.api.service.status.ItemStatus;
-import br.com.brm.scp.mock.api.service.status.OrigemTipoEnum;
 
 public class CargaTestSku extends AbstractTestNGSpringContextTests {
 

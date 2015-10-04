@@ -102,7 +102,7 @@ app.directive('validDecimal', function() {
 					event.preventDefault();
 				}
 			});
-			
+
 		}
 	};
 });
@@ -110,7 +110,7 @@ app.directive('validDecimal', function() {
 app.directive('validCpf', function() {
 
 	var messageError = {};
-	
+
 	var messageFail = function() {
 		messageError = {
 			type : 'danger',
@@ -193,18 +193,9 @@ app.directive('validCpf', function() {
 	};
 });
 
-app.directive('fileUpload', function () {
-    return {
-        scope: true,        //create a new scope
-        link: function (scope, el, attrs) {
-            el.bind('change', function (event) {
-                var files = event.target.files;
-                //iterate files since 'multiple' may be specified on the element
-                for (var i = 0;i<files.length;i++) {
-                    //emit event upward
-                    scope.$emit("fileSelected", { file: files[i] });
-                }                                       
-            });
-        }
-    };
+app.directive('myCustomer', function() {
+	console.log("debug 1");
+	return {
+		templateUrl : 'my-customer.html'
+	};
 });

@@ -29,6 +29,7 @@ import br.com.brm.scp.api.service.SkuService;
 import br.com.brm.scp.api.service.document.SkuDocument;
 import br.com.brm.scp.api.service.repositories.SkuRepository;
 import br.com.brm.scp.fw.helper.converters.ConverterHelper;
+import br.com.brm.scp.mock.api.service.status.ClasseEnum;
 import br.com.brm.scp.mock.api.service.status.OrigemTipoEnum;
 import br.com.brm.scp.mock.api.service.status.PlanejamentoSku;
 import br.com.brm.scp.mock.api.service.status.StatusReposicaoEnum;
@@ -40,6 +41,8 @@ public class SkuServiceTest extends CargaTestSku {
 	private static final double PRECO_UNITARIO = 9.6;
 
 	private static final boolean TEST_CRUD = true;
+	
+	private static final boolean EXCLUIR_TESTS = true;
 
 	private static final Date DATE_TEST = new Date();
 
@@ -62,7 +65,8 @@ public class SkuServiceTest extends CargaTestSku {
 
 	@AfterClass
 	public void tearDown() {
-		deleteAllMassTests();
+		if(EXCLUIR_TESTS)
+			deleteAllMassTests();
 	}
 
 	@Test(enabled = TEST_CRUD, groups = "CRUD", priority = 1, dataProvider = "Sku1RequestSuccess")
@@ -140,7 +144,8 @@ public class SkuServiceTest extends CargaTestSku {
 		request.setEstoqueIdeal(0);
 		request.setEstoqueAtual(0);
 		request.setCustoUnitario(new BigDecimal(PRECO_UNITARIO));
-
+		request.setClasse(ClasseEnum.A);
+		
 		request.setDataCriacao(DATE_TEST);
 		request.setDataAlteracao(DATE_TEST);
 
@@ -172,7 +177,8 @@ public class SkuServiceTest extends CargaTestSku {
 		request.setEstoqueIdeal(0);
 		request.setEstoqueAtual(0);
 		request.setCustoUnitario(new BigDecimal(PRECO_UNITARIO));
-
+		request.setClasse(ClasseEnum.A);
+		
 		request.setDataCriacao(DATE_TEST);
 		request.setDataAlteracao(DATE_TEST);
 
@@ -204,6 +210,7 @@ public class SkuServiceTest extends CargaTestSku {
 		request.setEstoqueIdeal(0);
 		request.setEstoqueAtual(0);
 		request.setCustoUnitario(new BigDecimal(PRECO_UNITARIO));
+		request.setClasse(ClasseEnum.A);
 
 		request.setDataCriacao(DATE_TEST);
 		request.setDataAlteracao(DATE_TEST);

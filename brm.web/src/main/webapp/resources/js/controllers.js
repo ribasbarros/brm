@@ -3,8 +3,13 @@
 /* Controllers */
 var app = angular.module('brm.controllers', [ 'ngCookies' ]);
 
-app.controller('DummyCtrl', [ '$rootScope', '$scope', '$http', '$window',
+app.controller('DummyController', [ '$rootScope', '$scope', '$http', '$window',
 		function($rootScope, $scope, $http, $window) {
+
+			$scope.customer = {
+				name : 'Naomi',
+				address : '1600 Amphitheatre'
+			};
 
 			$scope.logout = function() {
 				$http.post('auth/logout', {}).success(function() {
@@ -24,7 +29,10 @@ app.controller('CompanyCtrl',
 app.controller('CsrfCtrl', [ '$rootScope', '$scope', '$http', '$cookies',
 		'$window', function($rootScope, $scope, $http, $cookies, $window) {
 
-			$scope.credentials = {username : 'user', password : 'user'};
+			$scope.credentials = {
+				username : 'user',
+				password : 'user'
+			};
 
 			$scope.login = function() {
 
