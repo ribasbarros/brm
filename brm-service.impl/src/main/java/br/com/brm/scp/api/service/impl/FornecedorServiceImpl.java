@@ -31,10 +31,10 @@ import br.com.brm.scp.mock.api.service.status.FornecedorFiltroEnum;
  *
  */
 @Service
-public class FornecedorServiceImpl implements FornecedorService{
-	
+public class FornecedorServiceImpl implements FornecedorService {
+
 	private static Logger logger = Logger.getLogger(FornecedorServiceImpl.class);
-	
+
 	private static final String FORNECEDOR_FILTRO = "fornecedor.filtro";
 
 	private static final String FORNECEDOR_RAZAOSOCIAL = "fornecedor.razaosocial";
@@ -64,12 +64,16 @@ public class FornecedorServiceImpl implements FornecedorService{
 	@Autowired
 	private FornecedorRepository repository;
 
-	/* (non-Javadoc)
-	 * @see br.com.brm.scp.api.service.FornecedorService#create(br.com.brm.scp.api.dto.request.FornecedorRequestDTO)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * br.com.brm.scp.api.service.FornecedorService#create(br.com.brm.scp.api.
+	 * dto.request.FornecedorRequestDTO)
 	 */
 	@Override
 	public FornecedorResponseDTO create(FornecedorRequestDTO request) throws FornecedorExistenteException {
-		
+
 		Assert.notNull(request, FORNECEDOR_NOTNULL);
 		Assert.notNull(request.getCnpj(), FORNECEDOR_CPNJ);
 		Assert.notNull(request.getDescricao(), FORNECEDOR_DESCRICAO);
@@ -77,36 +81,37 @@ public class FornecedorServiceImpl implements FornecedorService{
 		Assert.notNull(request.getRazaoSocial(), FORNECEDOR_RAZAOSOCIAL);
 		Assert.isTrue(NumberHelper.isNumber(request.getCnpj()), FORNECEDOR_CNPJINVALIDO);
 		Assert.isTrue(CNPJValidator.isCNPJ(request.getCnpj()), FORNECEDOR_CNPJINVALIDO);
-		
+
 		try {
 			hasRegister(request);
 		} catch (FornecedorNotFoundException e) {
 			logger.debug(String.format("Fornecedor %s nao encontrado, pronto para cadastro!", request.getCnpj()));
 		}
-		
+
 		FornecedorDocument document = (FornecedorDocument) ConverterHelper.convert(request, FornecedorDocument.class);
-		
+
 		document = repository.save(document);
-		
+
 		FornecedorResponseDTO response = invokeResponse(document);
-		
+
 		return response;
 	}
 
 	/**
 	 * @param request
 	 * @throws FornecedorExistenteException
-	 * @throws FornecedorNotFoundException 
+	 * @throws FornecedorNotFoundException
 	 */
-	private void hasRegister(FornecedorRequestDTO request) throws FornecedorExistenteException, FornecedorNotFoundException {
-		try{
-			if(findByFiltro(FornecedorFiltroEnum.CNPJ ,request.getCnpj()) != null )
+	private void hasRegister(FornecedorRequestDTO request)
+			throws FornecedorExistenteException, FornecedorNotFoundException {
+		try {
+			if (findByFiltro(FornecedorFiltroEnum.CNPJ, request.getCnpj()) != null)
 				throw new FornecedorExistenteException(FORNECEDOR_EXISTENTE);
-			
-			if(findByFiltro(FornecedorFiltroEnum.RAZAO_SOCIAL, request.getRazaoSocial()) != null )
+
+			if (findByFiltro(FornecedorFiltroEnum.RAZAO_SOCIAL, request.getRazaoSocial()) != null)
 				throw new FornecedorExistenteException(FORNECEDOR_EXISTENTE);
-			
-		}catch(FornecedorNotFoundException ex){
+
+		} catch (FornecedorNotFoundException ex) {
 			logger.debug(String.format("Fornecedor %s nao encontrado", request));
 			throw new FornecedorNotFoundException(FORNECEDOR_NOTFOUND);
 		}
@@ -118,49 +123,57 @@ public class FornecedorServiceImpl implements FornecedorService{
 	 * @return
 	 * @throws FornecedorNotFoundException
 	 */
-	private FornecedorDocument findByFiltro(FornecedorFiltroEnum filtro, Object value) throws FornecedorNotFoundException {
-		
+	private FornecedorDocument findByFiltro(FornecedorFiltroEnum filtro, Object value)
+			throws FornecedorNotFoundException {
+
 		Assert.notNull(filtro, FORNECEDOR_FILTRO);
-		
+
 		FornecedorDocument document = null;
-		if(FornecedorFiltroEnum.RAZAO_SOCIAL.equals(filtro)){
+		if (FornecedorFiltroEnum.RAZAO_SOCIAL.equals(filtro)) {
 			document = repository.findByRazaoSocial((String) value);
-			
-		}else if(FornecedorFiltroEnum.CNPJ.equals(filtro)){
+
+		} else if (FornecedorFiltroEnum.CNPJ.equals(filtro)) {
 			document = repository.findByCnpj((String) value);
-			
-		}else if(FornecedorFiltroEnum.ID.equals(filtro)){
+
+		} else if (FornecedorFiltroEnum.ID.equals(filtro)) {
 			document = repository.findOne((String) value);
 		}
-		
-		if(document == null)
+
+		if (document == null)
 			throw new FornecedorNotFoundException(FORNECEDOR_NOTFOUND);
-		
+
 		return document;
 	}
-	
-	/* (non-Javadoc)
-	 * @see br.com.brm.scp.api.service.FornecedorService#delete(java.lang.String)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * br.com.brm.scp.api.service.FornecedorService#delete(java.lang.String)
 	 */
 	@Override
 	public void delete(String id) throws FornecedorNotFoundException {
-		
+
 		Assert.notNull(id, FORNECEDOR_ID);
-		
-		if( findByFiltro(FornecedorFiltroEnum.ID, id) == null ){
+
+		if (findByFiltro(FornecedorFiltroEnum.ID, id) == null) {
 			throw new FornecedorNotFoundException(FORNECEDOR_ID);
 		}
-		
+
 		repository.delete(id);
-		
+
 	}
 
-	/* (non-Javadoc)
-	 * @see br.com.brm.scp.api.service.FornecedorService#update(br.com.brm.scp.api.dto.request.FornecedorRequestDTO)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * br.com.brm.scp.api.service.FornecedorService#update(br.com.brm.scp.api.
+	 * dto.request.FornecedorRequestDTO)
 	 */
 	@Override
 	public FornecedorResponseDTO update(FornecedorRequestDTO request) throws FornecedorNotFoundException {
-		
+
 		Assert.notNull(request, FORNECEDOR_NOTNULL);
 		Assert.notNull(request.getId(), FORNECEDOR_ID);
 		Assert.notNull(request.getCnpj(), FORNECEDOR_CPNJ);
@@ -169,21 +182,21 @@ public class FornecedorServiceImpl implements FornecedorService{
 		Assert.notNull(request.getRazaoSocial(), FORNECEDOR_RAZAOSOCIAL);
 		Assert.isTrue(NumberHelper.isNumber(request.getCnpj()), FORNECEDOR_CNPJINVALIDO);
 		Assert.isTrue(CNPJValidator.isCNPJ(request.getCnpj()), FORNECEDOR_CNPJINVALIDO);
-		
+
 		try {
 			hasRegister(request);
 		} catch (FornecedorExistenteException e) {
 			logger.debug(String.format("Fornecedor %s encontrado, pronto para ser alterado!", request.getCnpj()));
 		}
-		
+
 		FornecedorDocument document = (FornecedorDocument) ConverterHelper.convert(request, FornecedorDocument.class);
-		
+
 		document = repository.save(document);
-		
+
 		FornecedorResponseDTO response = invokeResponse(document);
-		
+
 		return response;
-		
+
 	}
 
 	/**
@@ -194,36 +207,46 @@ public class FornecedorServiceImpl implements FornecedorService{
 		return (FornecedorResponseDTO) ConverterHelper.convert(document, FornecedorResponseDTO.class);
 	}
 
-	/* (non-Javadoc)
-	 * @see br.com.brm.scp.api.service.FornecedorService#addCentro(java.lang.String, br.com.brm.scp.api.dto.FornecedorCentroDTO)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * br.com.brm.scp.api.service.FornecedorService#addCentro(java.lang.String,
+	 * br.com.brm.scp.api.dto.FornecedorCentroDTO)
 	 */
 	@Override
-	public void addCentro(String id, FornecedorCentroDTO request) throws FornecedorNotFoundException, FornecedorCentroExistenteException {
-		
+	public void addCentro(String id, FornecedorCentroDTO request)
+			throws FornecedorNotFoundException, FornecedorCentroExistenteException {
+
 		Assert.notNull(id, FORNECEDOR_ID);
 		Assert.notNull(request, FORNECEDOR_ID);
 		Assert.notNull(request.getCep(), FORNECEDOR_CENTROCEP);
 		Assert.notNull(request.getCentro(), FORNECEDOR_CENTRONRO);
 		Assert.isTrue(NumberHelper.isNumber(request.getCnpj()), FORNECEDOR_CNPJINVALIDO);
 		Assert.isTrue(CNPJValidator.isCNPJ(request.getCnpj()), FORNECEDOR_CNPJINVALIDO);
-		
+
 		FornecedorDocument document = findByFiltro(FornecedorFiltroEnum.ID, id);
-		if( document == null )
+		if (document == null)
 			throw new FornecedorNotFoundException(FORNECEDOR_ID);
-		
-		if( repository.findByIdAndCentro(id, request.getCentro()) != null )
+
+		if (repository.findByIdAndCentro(id, request.getCentro()) != null)
 			throw new FornecedorCentroExistenteException(FORNECEDOR_CENTROEXISTENTE);
-		
-		FornecedorCentroDocument centroDocument = (FornecedorCentroDocument) ConverterHelper.convert(request, FornecedorCentroDocument.class);
-		
+
+		FornecedorCentroDocument centroDocument = (FornecedorCentroDocument) ConverterHelper.convert(request,
+				FornecedorCentroDocument.class);
+
 		document.getCentros().add(centroDocument);
-		
+
 		document = repository.save(document);
-		
+
 	}
 
-	/* (non-Javadoc)
-	 * @see br.com.brm.scp.api.service.FornecedorService#find(br.com.brm.scp.mock.api.service.status.FornecedorFiltroEnum, java.lang.Object)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * br.com.brm.scp.api.service.FornecedorService#find(br.com.brm.scp.mock.api
+	 * .service.status.FornecedorFiltroEnum, java.lang.Object)
 	 */
 	@Override
 	public FornecedorResponseDTO find(FornecedorFiltroEnum filtro, Object value) throws FornecedorNotFoundException {
@@ -231,24 +254,30 @@ public class FornecedorServiceImpl implements FornecedorService{
 		return invokeResponse(document);
 	}
 
-	/* (non-Javadoc)
-	 * @see br.com.brm.scp.api.service.FornecedorService#search(java.lang.String, int)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * br.com.brm.scp.api.service.FornecedorService#search(java.lang.String,
+	 * int)
 	 */
 	@Override
-	public Collection<FornecedorResponseDTO> search(String searchTerm, int pageIndex, int numberOfFornecedorPorPagina) {
-	
-        Page<FornecedorDocument> requestedPage = repository.findByRazaoSocialOrNomeFantasiaOrDescricaoOrCpnj(searchTerm, constructPageSpecification(pageIndex, numberOfFornecedorPorPagina));
- 
-        Collection<FornecedorDocument> result = requestedPage.getContent();
-        
-        int numberOfElements = requestedPage.getNumberOfElements();
-        int totalPages = requestedPage.getTotalPages();
-        
-        System.out.println(numberOfElements);
-        System.out.println(totalPages);
-        
-        return invokeResponse(result);
-		
+	public br.com.brm.scp.api.pages.Pageable<FornecedorResponseDTO> search(String searchTerm, int pageIndex,
+			int numberOfFornecedorPorPagina) {
+
+		Page<FornecedorDocument> requestedPage = repository.findByRazaoSocialOrNomeFantasiaOrDescricaoOrCpnj(searchTerm,
+				constructPageSpecification(pageIndex, numberOfFornecedorPorPagina));
+
+		Collection<FornecedorDocument> result = requestedPage.getContent();
+
+		int numberOfElements = requestedPage.getNumberOfElements();
+		int totalPages = requestedPage.getTotalPages();
+
+		Collection<FornecedorResponseDTO> response = invokeResponse(result);
+
+		return new br.com.brm.scp.api.pages.Pageable<FornecedorResponseDTO>(response, numberOfElements, totalPages,
+				pageIndex);
+
 	}
 
 	/**
@@ -261,13 +290,33 @@ public class FornecedorServiceImpl implements FornecedorService{
 
 	private Pageable constructPageSpecification(int pageIndex, int numberOfFornecedorPorPagina) {
 		Pageable pageSpecification = new PageRequest(pageIndex, numberOfFornecedorPorPagina, sortByLastNameAsc());
-        return pageSpecification;
+		return pageSpecification;
 	}
 
 	private Sort sortByLastNameAsc() {
 		return new Sort(Sort.Direction.ASC, "id");
 	}
 
-	
+	@Override
+	public br.com.brm.scp.api.pages.Pageable<FornecedorResponseDTO> all(int pageIndex,
+			int numberOfFornecedorPorPagina) throws FornecedorNotFoundException {
+
+		Page<FornecedorDocument> requestedPage = repository
+				.findAll(constructPageSpecification(pageIndex, numberOfFornecedorPorPagina));
+
+		Collection<FornecedorDocument> result = requestedPage.getContent();
+		
+		if(result.isEmpty())
+			throw new FornecedorNotFoundException(FORNECEDOR_NOTFOUND);
+
+		int numberOfElements = requestedPage.getNumberOfElements();
+		int totalPages = requestedPage.getTotalPages();
+
+		Collection<FornecedorResponseDTO> response = invokeResponse(result);
+
+		return new br.com.brm.scp.api.pages.Pageable<FornecedorResponseDTO>(response, numberOfElements, totalPages,
+				pageIndex);
+
+	}
 
 }

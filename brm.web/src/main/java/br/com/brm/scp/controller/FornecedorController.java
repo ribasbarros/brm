@@ -15,6 +15,7 @@ import br.com.brm.scp.api.dto.request.FornecedorRequestDTO;
 import br.com.brm.scp.api.dto.response.FornecedorResponseDTO;
 import br.com.brm.scp.api.exceptions.FornecedorExistenteException;
 import br.com.brm.scp.api.exceptions.FornecedorNotFoundException;
+import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.service.FornecedorService;
 import br.com.brm.scp.controller.exception.FornecedorExistenteWebException;
 import br.com.brm.scp.controller.exception.FornecedorNotFoundWebException;
@@ -63,6 +64,19 @@ public class FornecedorController implements Serializable {
 		} catch (FornecedorNotFoundException e) {
 			throw new FornecedorNotFoundWebException();
 		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+	Pageable<FornecedorResponseDTO> all(int pageIndex, int numberOfFornecedorPorPagina){
+		Pageable<FornecedorResponseDTO> result = null;
+		try {
+			result = service.all(pageIndex, numberOfFornecedorPorPagina);
+		} catch (FornecedorNotFoundException e) {
+			throw new FornecedorNotFoundWebException();
+		}
+		return result;
 	}
 	
 	@ResponseBody

@@ -21,10 +21,10 @@ app.controller('CompanyCtrl',
 
 		} ]);
 
-app.controller('FornecedorController',
-		[ function($scope, $http, $location, FornecedorFactory) {
+app.controller('FornecedorController', [ function($scope, $http, $location,
+		FornecedorFactory) {
 
-		} ]);
+} ]);
 
 app.controller('CsrfCtrl', [ '$rootScope', '$scope', '$http', '$cookies',
 		'$window', function($rootScope, $scope, $http, $cookies, $window) {

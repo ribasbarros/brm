@@ -26,6 +26,7 @@ import br.com.brm.scp.api.exceptions.FornecedorCentroExistenteException;
 import br.com.brm.scp.api.exceptions.FornecedorException;
 import br.com.brm.scp.api.exceptions.FornecedorExistenteException;
 import br.com.brm.scp.api.exceptions.FornecedorNotFoundException;
+import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.service.FornecedorService;
 import br.com.brm.scp.api.service.document.FornecedorCentroDocument;
 import br.com.brm.scp.api.service.document.FornecedorDocument;
@@ -43,13 +44,15 @@ public class FornecedorServiceTest extends AbstractTestNGSpringContextTests {
 	private static final boolean DISABLED = true;
 	private static final String ID_INVALIDO = "89898989_INVALIDO_888888";
 
+	private static final boolean DELETED_TEST = true;
+
 	private static final String CNPJ_4CENTRO = GeraCpfCnpj.cnpj().replaceAll(REGEX_NOCHAR_CNPJ, "");
 	private static final String CNPJ_4NOTFOUND = GeraCpfCnpj.cnpj().replaceAll(REGEX_NOCHAR_CNPJ, "");
 	private static final String CNPJ_4DELETING = GeraCpfCnpj.cnpj().replaceAll(REGEX_NOCHAR_CNPJ, "");
 	private static final String CNPJ_4SUCCESS = GeraCpfCnpj.cnpj().replaceAll(REGEX_NOCHAR_CNPJ, "");
 
 	private Collection<FornecedorDocument> fornecedor4Deleted = new ArrayList<>();
-	
+
 	private String idTesting;
 	private String idDeleting;
 
@@ -65,9 +68,11 @@ public class FornecedorServiceTest extends AbstractTestNGSpringContextTests {
 
 	@AfterClass
 	public void tearDown() throws Exception {
-		fRepo.delete(idTesting);
-		fRepo.delete(idDeleting);
-		fRepo.delete(fornecedor4Deleted);
+		if (DELETED_TEST) {
+			fRepo.delete(idTesting);
+			fRepo.delete(idDeleting);
+			fRepo.delete(fornecedor4Deleted);
+		}
 	}
 
 	@Test(enabled = TEST_CRUD, groups = "CRUD", priority = 1, dataProvider = "RequestSuccess")
@@ -201,24 +206,26 @@ public class FornecedorServiceTest extends AbstractTestNGSpringContextTests {
 	@Test(enabled = TEST_CRUD, groups = "CRUD", priority = 14)
 	public void testSearchPageable() {
 
-		Collection<FornecedorResponseDTO> result01 = service.search("Brasil", 0, 10);
-		assertTrue(result01.size() > 0);
+		Pageable<FornecedorResponseDTO> result01 = service.search("Brasil", 0, 10);
+		assertTrue(result01.getNumberOfElements() > 0);
 
 		createPages(1, 9);
-		Collection<FornecedorResponseDTO> result02 = service.search("fornecedor", 0, 10);
-		assertTrue(result02.size() == 8);
-		
+		Pageable<FornecedorResponseDTO> result02 = service.search("fornecedor", 0, 10);
+		assertTrue(result02.getNumberOfElements() > 0);
+
 		createPages(9, 100);
-		Collection<FornecedorResponseDTO> result03 = service.search("fornecedor", 0, 10);
-		assertTrue(result03.size() == 10);
-		
-		Collection<FornecedorResponseDTO> result04 = service.search("fornecedor", 1, 10);
-		assertTrue(result04.size() == 10);
-		
-		
+		Pageable<FornecedorResponseDTO> result03 = service.search("fornecedor", 0, 10);
+		assertTrue(result03.getNumberOfElements() > 0);
+
+		Pageable<FornecedorResponseDTO> result04 = service.search("fornecedor", 1, 10);
+		assertTrue(result04.getNumberOfElements() > 0);
+
+		Pageable<FornecedorResponseDTO> result05 = service.search("fornecedor", 1, 5);
+		assertTrue(result05.getNumberOfElements() > 0);
+
 	}
 
-	private void createPages(int inicio , int quantidade) {
+	private void createPages(int inicio, int quantidade) {
 
 		for (int i = inicio; i < quantidade; i++) {
 			FornecedorDocument document = new FornecedorDocument();
@@ -227,16 +234,16 @@ public class FornecedorServiceTest extends AbstractTestNGSpringContextTests {
 			document.setDescricao(String.format("Teste Fornecedor%s (DESCRICAO)", i));
 			document.setNomeFantasia(String.format("Fornecedor%s (NOME FANTASIA)", i));
 			document.setRazaoSocial(String.format("Razao Social Fornecedor%s (NOME FANTASIA)", i));
-			
+
 			FornecedorCentroDocument centro = new FornecedorCentroDocument();
 			centro.setCentro(1000);
 			centro.setCep("99999-999");
 			centro.setCnpj(GeraCpfCnpj.cnpj().replaceAll(REGEX_NOCHAR_CNPJ, ""));
-			
+
 			document.setCentros(new ArrayList<>(Arrays.asList(centro)));
-			
+
 			fRepo.save(document);
-			
+
 			fornecedor4Deleted.add(document);
 		}
 

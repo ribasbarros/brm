@@ -14,6 +14,8 @@ services.factory('CompanyFactory', function($resource) {
 });
 
 services.factory('FornecedorFactory', function($resource) {
-	
+	return $resource('forncedor', {'pageIndex' : '0' , 'numberOfFornecedorPorPagina' : '10'}, {
+        'query': { method: 'GET', isArray: false }
+    });
 });
 
