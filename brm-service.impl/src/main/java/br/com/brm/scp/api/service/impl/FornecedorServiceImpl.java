@@ -1,7 +1,13 @@
 package br.com.brm.scp.api.service.impl;
 
+import java.util.Collection;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -54,7 +60,7 @@ public class FornecedorServiceImpl implements FornecedorService{
 	private static final String FORNECEDOR_CENTRONRO = "fornecedor.centro.nro";
 
 	private static final String FORNECEDOR_CENTROEXISTENTE = "fornecedor.centroexistente";
-	
+
 	@Autowired
 	private FornecedorRepository repository;
 
@@ -154,6 +160,7 @@ public class FornecedorServiceImpl implements FornecedorService{
 	 */
 	@Override
 	public FornecedorResponseDTO update(FornecedorRequestDTO request) throws FornecedorNotFoundException {
+		
 		Assert.notNull(request, FORNECEDOR_NOTNULL);
 		Assert.notNull(request.getId(), FORNECEDOR_ID);
 		Assert.notNull(request.getCnpj(), FORNECEDOR_CPNJ);
@@ -222,6 +229,43 @@ public class FornecedorServiceImpl implements FornecedorService{
 	public FornecedorResponseDTO find(FornecedorFiltroEnum filtro, Object value) throws FornecedorNotFoundException {
 		FornecedorDocument document = findByFiltro(filtro, value);
 		return invokeResponse(document);
+	}
+
+	/* (non-Javadoc)
+	 * @see br.com.brm.scp.api.service.FornecedorService#search(java.lang.String, int)
+	 */
+	@Override
+	public Collection<FornecedorResponseDTO> search(String searchTerm, int pageIndex, int numberOfFornecedorPorPagina) {
+	
+        Page<FornecedorDocument> requestedPage = repository.findByRazaoSocialOrNomeFantasiaOrDescricaoOrCpnj(searchTerm, constructPageSpecification(pageIndex, numberOfFornecedorPorPagina));
+ 
+        Collection<FornecedorDocument> result = requestedPage.getContent();
+        
+        int numberOfElements = requestedPage.getNumberOfElements();
+        int totalPages = requestedPage.getTotalPages();
+        
+        System.out.println(numberOfElements);
+        System.out.println(totalPages);
+        
+        return invokeResponse(result);
+		
+	}
+
+	/**
+	 * @param result
+	 * @return
+	 */
+	private Collection<FornecedorResponseDTO> invokeResponse(Collection<FornecedorDocument> result) {
+		return ConverterHelper.convert(result, FornecedorResponseDTO.class);
+	}
+
+	private Pageable constructPageSpecification(int pageIndex, int numberOfFornecedorPorPagina) {
+		Pageable pageSpecification = new PageRequest(pageIndex, numberOfFornecedorPorPagina, sortByLastNameAsc());
+        return pageSpecification;
+	}
+
+	private Sort sortByLastNameAsc() {
+		return new Sort(Sort.Direction.ASC, "id");
 	}
 
 	

@@ -4,9 +4,12 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BRazil Mulambo</title>
+<title>BRM - Principal</title>
 <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.css" />
 <link rel="stylesheet" href="resources/css/app.css" />
+<script>
+	document.write('<base href="' + document.location + '" />');
+</script>
 <style type="text/css">
 .dropdown-submenu {
 	position: relative;
@@ -53,7 +56,7 @@
 }
 </style>
 </head>
-<body ng-controller="DummyCtrl">
+<body ng-controller="DummyController">
 	<div style="background-color: #6B8E23">
 		<!-- HEADER -->
 		<div class="container" style="height: 100px;">
@@ -92,7 +95,7 @@
 							<li class="dropdown"><a href="" class="dropdown-toggle"
 								data-toggle="dropdown">PRODUTOS <span class="caret"></span></a>
 								<ul class="dropdown-menu" role="menu">
-									<li><a href="#">Fornecedor</a></li>
+									<li><a href="#/private/fornecedor/fornecedor-view">Fornecedor</a></li>
 									<li><a href="#">Categoria</a></li>
 									<li><a href="#">Item</a></li>
 									<li role="separator" class="divider"></li>
@@ -126,17 +129,21 @@
 											<li><a href="#">Integração</a></li>
 										</ul></li>
 								</ul></li>
-								<li class="dropdown"><a href="" class="dropdown-toggle"
-								data-toggle="dropdown">SOBRE <span class="caret"></span></a>
-								<ul class="dropdown-menu" role="menu">
-									<li><a href="#/company">BRM</a></li>
-								</ul></li>
-								<li class="dropdown"><a href="" class="dropdown-toggle"
-								data-toggle="dropdown">EU <span class="caret"></span></a>
-								<ul class="dropdown-menu" role="menu">
+						</ul>
+
+						<ul class="nav navbar-nav navbar-right">
+							<li id="fat-menu" class="dropdown"><a id="drop3" href="#"
+								class="dropdown-toggle" data-toggle="dropdown" role="button"
+								aria-haspopup="true" aria-expanded="false"> MINHAS
+									CONFIGURAÇÕES <span class="caret"></span>
+							</a>
+								<ul class="dropdown-menu" aria-labelledby="drop3">
+									<li><a href="#">Minha Configurações</a></li>
+									<li role="separator" class="divider"></li>
 									<li><a href="" ng-click="logout()">Logout</a></li>
 								</ul></li>
 						</ul>
+
 					</div>
 					<!-- /.navbar-collapse -->
 				</div>
@@ -146,16 +153,14 @@
 		</div>
 	</div>
 
-	<div class="container" style="width: 95%">
+	<div class="container" style="width: 95%; margin-top: 10px;">
 		<div ng-view></div>
 	</div>
 
 	<!-- FOOTER -->
 	<div id="footer" style="background-color: #6B8E23;">
 		<div class="container"
-			style="color: #fff !important; margin-top: 20px">
-			footer
-		</div>
+			style="color: #fff !important; margin-top: 20px">footer</div>
 	</div>
 
 	<!-- JQuery ================================================================ -->
@@ -179,8 +184,9 @@
 	<script src="resources/js/app.js"></script>
 	<script src="resources/js/controllers.js"></script>
 	<script src="resources/js/services.js"></script>
+	<script src="resources/js/directives.js"></script>
 	<!-- <script src="resources/js/filters.js"></script>
-	<script src="resources/js/directives.js"></script> -->
+	 -->
 
 	<script type="text/javascript">
 		$('ul.dropdown-menu [data-toggle=dropdown]')

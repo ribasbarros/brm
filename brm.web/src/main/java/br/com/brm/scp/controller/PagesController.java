@@ -26,4 +26,14 @@ public class PagesController {
 		return "login-brm";
 	}
 	
+	@RequestMapping(value = "/private/fornecedor/fornecedor-view")
+	public String fornecedorView() {
+		return "private/fornecedor/fornecedor-view";
+	}
+	
+	@RequestMapping(value = "/template")
+	public String templateTest() {
+		return "template";
+	}
+	
 }

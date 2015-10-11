@@ -12,6 +12,7 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 import br.com.brm.scp.api.annotation.BindingClassMeta;
 import br.com.brm.scp.api.dto.response.ItemResponseDTO;
 import br.com.brm.scp.api.dto.response.TagResponseDTO;
+import br.com.brm.scp.mock.api.service.status.ClasseEnum;
 import br.com.brm.scp.mock.api.service.status.PlanejamentoSku;
 import br.com.brm.scp.mock.api.service.status.StatusReposicaoEnum;
 
@@ -20,6 +21,8 @@ public class SkuRequestDTO implements Serializable {
 	private static final long serialVersionUID = 5177237361996096611L;
 
 	private String id;
+
+	private ClasseEnum classe;
 
 	@BindingClassMeta("ITEM")
 	private ItemResponseDTO item;
@@ -198,12 +201,20 @@ public class SkuRequestDTO implements Serializable {
 		this.origens = origens;
 	}
 
+	public ClasseEnum getClasse() {
+		return classe;
+	}
+
+	public void setClasse(ClasseEnum classe) {
+		this.classe = classe;
+	}
+
 	public ObjectId[] toTagArray() {
 		ObjectId[] tags = new ObjectId[getTags().size()];
-		int cont=0;
-		for(TagResponseDTO dto : getTags())
+		int cont = 0;
+		for (TagResponseDTO dto : getTags())
 			tags[cont++] = new ObjectId(dto.getId());
-		
+
 		return tags;
 	}
 

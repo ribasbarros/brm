@@ -1,0 +1,73 @@
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<div ng-controller="FornecedorController">
+	<div class="panel panel-default">
+		<!-- Default panel contents -->
+		<div class="panel-body">
+
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="input-group">
+						<button type="button" class="btn btn-default btn-xs">
+							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+							Novo
+						</button>
+					</div>
+					<!-- /input-group -->
+				</div>
+				<!-- /.col-lg-6 -->
+				<div class="col-lg-6">
+					<div class="input-group">
+						<input type="text" class="form-control"
+							placeholder="Pesquisar por palavra-chave"> <span
+							class="input-group-btn">
+							<button class="btn btn-default" type="button">
+								<span class="glyphicon glyphicon-search"></span>
+							</button>
+						</span>
+					</div>
+					<!-- /input-group -->
+				</div>
+				<!-- /.col-lg-6 -->
+			</div>
+			<!-- /.row -->
+		</div>
+
+		<!-- Table -->
+		<table class="table  table-hover data-table">
+			<thead>
+				<tr>
+					<th>Código</th>
+					<th>Nome Fantasia</th>
+					<th>CNPJ</th>
+					<th>Contato</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th scope="row">1</th>
+					<td>Mark</td>
+					<td>Otto</td>
+					<td>Otto</td>
+				</tr>
+			</tbody>
+		</table>
+		<nav>
+			<ul class="pagination">
+				<li><a href="#" aria-label="Previous"> <span
+						aria-hidden="true">&laquo;</span>
+				</a></li>
+				<li class="active"><a href="#">1</a></li>
+				<li><a href="#">2</a></li>
+				<li><a href="#">3</a></li>
+				<li><a href="#">4</a></li>
+				<li><a href="#">5</a></li>
+				<li><a href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+				</a></li>
+			</ul>
+		</nav>
+
+	</div>
+</div>

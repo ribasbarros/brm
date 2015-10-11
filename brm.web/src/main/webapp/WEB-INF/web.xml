@@ -8,7 +8,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	<display-name>brm.web</display-name>
 
 	<session-config>
-		<session-timeout>1</session-timeout>
+		<session-timeout>30000</session-timeout>
 	</session-config>
 
 	<servlet-mapping>

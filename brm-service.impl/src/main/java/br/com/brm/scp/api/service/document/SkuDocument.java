@@ -15,6 +15,7 @@ import br.com.brm.scp.api.dto.request.OrigemSkuResponseDTO;
 import br.com.brm.scp.api.dto.response.ItemResponseDTO;
 import br.com.brm.scp.api.dto.response.TagResponseDTO;
 import br.com.brm.scp.fw.annotations.BindingClass;
+import br.com.brm.scp.mock.api.service.status.ClasseEnum;
 import br.com.brm.scp.mock.api.service.status.PlanejamentoSku;
 import br.com.brm.scp.mock.api.service.status.StatusReposicaoEnum;
 
@@ -25,6 +26,8 @@ public class SkuDocument implements Serializable {
 
 	@Id
 	private String id;
+
+	private ClasseEnum classe;
 
 	@DBRef
 	@BindingClass(ItemResponseDTO.class)
@@ -54,7 +57,7 @@ public class SkuDocument implements Serializable {
 
 	@DateTimeFormat(iso = ISO.DATE_TIME)
 	private Date dataCriacao;
-	
+
 	@DateTimeFormat(iso = ISO.DATE_TIME)
 	private Date dataAlteracao;
 
@@ -203,6 +206,14 @@ public class SkuDocument implements Serializable {
 
 	public void setOrigens(Collection<OrigemSkuDocument> origens) {
 		this.origens = origens;
+	}
+
+	public ClasseEnum getClasse() {
+		return classe;
+	}
+
+	public void setClasse(ClasseEnum classe) {
+		this.classe = classe;
 	}
 
 }

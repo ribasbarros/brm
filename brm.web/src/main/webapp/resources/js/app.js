@@ -1,12 +1,14 @@
 'use strict';
 
-var app = angular.module('brm', [ 'ngRoute', 'ngCookies', 'brm.controllers' ]);
+var app = angular.module('brm', [ 'ngRoute', 'ngCookies', 'brm.controllers', 'brm.directives', 'brm.services' ]);
 
 app.config(function($routeProvider) {
 	$routeProvider.when('/dummy', {
 		templateUrl : 'dummy.html'
 	}).when('/company', {
 		templateUrl : 'company.html'
+	}).when('/private/fornecedor/fornecedor-view', {
+		templateUrl : 'private/fornecedor/fornecedor-view.html'
 	}).otherwise({
 		redirectTo : '/dummy'
 	});
