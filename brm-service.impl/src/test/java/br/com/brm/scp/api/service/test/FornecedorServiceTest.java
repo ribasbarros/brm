@@ -1,12 +1,13 @@
 package br.com.brm.scp.api.service.test;
 
-
 import static org.testng.AssertJUnit.assertFalse;
 import static org.testng.AssertJUnit.assertNotNull;
 import static org.testng.AssertJUnit.assertNull;
 import static org.testng.AssertJUnit.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,26 +37,28 @@ import br.com.brm.scp.security.config.AppConfigurationTest;
 
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class, classes = AppConfigurationTest.class)
 public class FornecedorServiceTest extends AbstractTestNGSpringContextTests {
-	
+
 	private static final String REGEX_NOCHAR_CNPJ = "[-.//]";
 	private static final boolean TEST_CRUD = true;
 	private static final boolean DISABLED = true;
 	private static final String ID_INVALIDO = "89898989_INVALIDO_888888";
-	
-	private static final String CNPJ_4CENTRO 	= GeraCpfCnpj.cnpj().replaceAll(REGEX_NOCHAR_CNPJ,"");
-	private static final String CNPJ_4NOTFOUND 	= GeraCpfCnpj.cnpj().replaceAll(REGEX_NOCHAR_CNPJ,"");
-	private static final String CNPJ_4DELETING 	= GeraCpfCnpj.cnpj().replaceAll(REGEX_NOCHAR_CNPJ,"");
-	private static final String CNPJ_4SUCCESS 	= GeraCpfCnpj.cnpj().replaceAll(REGEX_NOCHAR_CNPJ,"");
+
+	private static final String CNPJ_4CENTRO = GeraCpfCnpj.cnpj().replaceAll(REGEX_NOCHAR_CNPJ, "");
+	private static final String CNPJ_4NOTFOUND = GeraCpfCnpj.cnpj().replaceAll(REGEX_NOCHAR_CNPJ, "");
+	private static final String CNPJ_4DELETING = GeraCpfCnpj.cnpj().replaceAll(REGEX_NOCHAR_CNPJ, "");
+	private static final String CNPJ_4SUCCESS = GeraCpfCnpj.cnpj().replaceAll(REGEX_NOCHAR_CNPJ, "");
+
+	private Collection<FornecedorDocument> fornecedor4Deleted = new ArrayList<>();
 	
 	private String idTesting;
 	private String idDeleting;
-	
+
 	@Autowired
 	private FornecedorService service;
-	
+
 	@Autowired
 	private FornecedorRepository fRepo;
-	
+
 	@BeforeClass
 	public void setup() throws Exception {
 	}
@@ -64,140 +67,187 @@ public class FornecedorServiceTest extends AbstractTestNGSpringContextTests {
 	public void tearDown() throws Exception {
 		fRepo.delete(idTesting);
 		fRepo.delete(idDeleting);
+		fRepo.delete(fornecedor4Deleted);
 	}
-	
-	@Test(enabled = TEST_CRUD, groups = "CRUD", priority = 1, dataProvider="RequestSuccess")
+
+	@Test(enabled = TEST_CRUD, groups = "CRUD", priority = 1, dataProvider = "RequestSuccess")
 	public void testCreate(FornecedorRequestDTO request) throws FornecedorExistenteException {
 		FornecedorResponseDTO response = service.create(request);
-		
+
 		idTesting = response.getId();
-		
+
 		assertNotNull(response);
 		assertNotNull(idTesting);
-		
-		
+
 		FornecedorDocument document = fRepo.findOne(response.getId());
-		
+
 		assertNotNull(document);
-		
+
 	}
-	
-	@Test(enabled = TEST_CRUD, groups = "CRUD", priority = 2, expectedExceptions=FornecedorExistenteException.class, dataProvider="RequestSuccess")
+
+	@Test(enabled = TEST_CRUD, groups = "CRUD", priority = 2, expectedExceptions = FornecedorExistenteException.class, dataProvider = "RequestSuccess")
 	public void testCreateFornecedorExistente(FornecedorRequestDTO request) throws FornecedorExistenteException {
 		service.create(request);
 	}
-	
-	@Test(enabled = TEST_CRUD, groups = "CRUD", priority = 3, dataProvider="RequestSuccess")
+
+	@Test(enabled = TEST_CRUD, groups = "CRUD", priority = 3, dataProvider = "RequestSuccess")
 	public void testUpdate(FornecedorRequestDTO request) throws FornecedorNotFoundException {
-		
+
 		String oldValue = request.getDescricao();
 		String newValue = String.format("%s-Update!-%s", oldValue, new Date());
-		
+
 		request.setDescricao(newValue);
-		
+
 		assertFalse(oldValue.equals(newValue));
-		
+
 		FornecedorResponseDTO response = service.update(request);
-		
+
 		assertNotNull(response);
 		assertTrue(newValue.equals(response.getDescricao()));
-		
+
 	}
-	
-	@Test(enabled = TEST_CRUD, groups = "CRUD", priority = 4, expectedExceptions=FornecedorNotFoundException.class, dataProvider="RequestNotFound")
+
+	@Test(enabled = TEST_CRUD, groups = "CRUD", priority = 4, expectedExceptions = FornecedorNotFoundException.class, dataProvider = "RequestNotFound")
 	public void testUpdateFornecedorNotFoundException(FornecedorRequestDTO request) throws FornecedorNotFoundException {
 		service.update(request);
 	}
-	
-	@Test(enabled = TEST_CRUD, groups = "CRUD", priority = 5, dataProvider="RequestSuccess")
+
+	@Test(enabled = TEST_CRUD, groups = "CRUD", priority = 5, dataProvider = "RequestSuccess")
 	public void testFind(FornecedorRequestDTO request) throws FornecedorNotFoundException {
-		
+
 		FornecedorResponseDTO response01 = service.find(FornecedorFiltroEnum.CNPJ, request.getCnpj());
-		
+
 		assertNotNull(response01);
-		
+
 		FornecedorResponseDTO response02 = service.find(FornecedorFiltroEnum.RAZAO_SOCIAL, request.getRazaoSocial());
-		
+
 		assertNotNull(response02);
-		
+
 		FornecedorResponseDTO response03 = service.find(FornecedorFiltroEnum.ID, request.getId());
-		
+
 		assertNotNull(response03);
-		
+
 	}
-	
-	@Test(enabled = TEST_CRUD, groups = "CRUD", priority = 6, dataProvider="RequestNotFound", expectedExceptions=FornecedorNotFoundException.class)
-	public void testFindCNPJFornecedorNotFoundException(FornecedorRequestDTO request) throws FornecedorNotFoundException {
+
+	@Test(enabled = TEST_CRUD, groups = "CRUD", priority = 6, dataProvider = "RequestNotFound", expectedExceptions = FornecedorNotFoundException.class)
+	public void testFindCNPJFornecedorNotFoundException(FornecedorRequestDTO request)
+			throws FornecedorNotFoundException {
 		FornecedorResponseDTO response01 = service.find(FornecedorFiltroEnum.CNPJ, request.getCnpj());
 		assertNotNull(response01);
 	}
-	
-	@Test(enabled = TEST_CRUD, groups = "CRUD", priority = 7, dataProvider="RequestNotFound", expectedExceptions=FornecedorNotFoundException.class)
+
+	@Test(enabled = TEST_CRUD, groups = "CRUD", priority = 7, dataProvider = "RequestNotFound", expectedExceptions = FornecedorNotFoundException.class)
 	public void testFindRSFornecedorNotFoundException(FornecedorRequestDTO request) throws FornecedorNotFoundException {
 		FornecedorResponseDTO response02 = service.find(FornecedorFiltroEnum.RAZAO_SOCIAL, request.getRazaoSocial());
 		assertNotNull(response02);
 	}
-	
-	@Test(enabled = TEST_CRUD, groups = "CRUD", priority = 8, dataProvider="RequestNotFound", expectedExceptions=FornecedorNotFoundException.class)
+
+	@Test(enabled = TEST_CRUD, groups = "CRUD", priority = 8, dataProvider = "RequestNotFound", expectedExceptions = FornecedorNotFoundException.class)
 	public void testFindIDFornecedorNotFoundException(FornecedorRequestDTO request) throws FornecedorNotFoundException {
 		FornecedorResponseDTO response03 = service.find(FornecedorFiltroEnum.ID, request.getId());
 		assertNotNull(response03);
 	}
-	
-	
-	@Test(enabled = TEST_CRUD, groups = "CRUD", priority = 9, dataProvider="RequestSuccess4Delete")
+
+	@Test(enabled = TEST_CRUD, groups = "CRUD", priority = 9, dataProvider = "RequestSuccess4Delete")
 	public void testDelete(FornecedorRequestDTO request) throws FornecedorNotFoundException {
-		
-		FornecedorDocument document = fRepo.save((FornecedorDocument) ConverterHelper.convert(request, FornecedorDocument.class));
+
+		FornecedorDocument document = fRepo
+				.save((FornecedorDocument) ConverterHelper.convert(request, FornecedorDocument.class));
 		idDeleting = document.getId();
-		
+
 		service.delete(idDeleting);
-		
+
 		FornecedorDocument document01 = fRepo.findOne(idDeleting);
-		
+
 		assertNull(document01);
-		
+
 	}
-	
-	@Test(enabled = TEST_CRUD, groups = "CRUD", priority = 10, dataProvider="RequestSuccess4Delete", expectedExceptions=FornecedorNotFoundException.class)
+
+	@Test(enabled = TEST_CRUD, groups = "CRUD", priority = 10, dataProvider = "RequestSuccess4Delete", expectedExceptions = FornecedorNotFoundException.class)
 	public void testDeleteFornecedorNotFoundException(FornecedorRequestDTO request) throws FornecedorNotFoundException {
 		service.delete(request.getId());
 	}
-	
-	@Test(enabled = TEST_CRUD, groups = "CRUD", priority = 11, dataProvider="FornecedorCentroSuccess" )
+
+	@Test(enabled = TEST_CRUD, groups = "CRUD", priority = 11, dataProvider = "FornecedorCentroSuccess")
 	public void testAddCentro(FornecedorRequestDTO request, FornecedorCentroDTO centro) throws FornecedorException {
-		
+
 		service.addCentro(request.getId(), centro);
 
 		FornecedorDocument document = fRepo.findOne(idTesting);
 		assertNotNull(document);
 		assertNotNull(document.getCentros());
 		assertFalse(document.getCentros().isEmpty());
-		
+
 		FornecedorCentroDocument result = new ArrayList<>(document.getCentros()).get(0);
-		
+
 		assertTrue(result.getCep().equals(centro.getCep()));
 		assertTrue(result.getCentro().equals(centro.getCentro()));
 		assertTrue(result.getCnpj().equals(centro.getCnpj()));
+
+	}
+
+	@Test(enabled = TEST_CRUD, groups = "CRUD", priority = 12, dataProvider = "FornecedorCentroSuccess", expectedExceptions = FornecedorCentroExistenteException.class)
+	public void testAddCentroFornecedorCentroExistenteException(FornecedorRequestDTO request,
+			FornecedorCentroDTO centro) throws FornecedorException {
+		service.addCentro(request.getId(), centro);
+	}
+
+	@Test(enabled = TEST_CRUD, groups = "CRUD", priority = 13, dataProvider = "FornecedorNotFoundCentroSuccess", expectedExceptions = FornecedorNotFoundException.class)
+	public void testAddCentroFornecedorNotFoundException(FornecedorRequestDTO request, FornecedorCentroDTO centro)
+			throws FornecedorNotFoundException, FornecedorCentroExistenteException {
+		service.addCentro(request.getId(), centro);
+	}
+
+	@Test(enabled = TEST_CRUD, groups = "CRUD", priority = 14)
+	public void testSearchPageable() {
+
+		Collection<FornecedorResponseDTO> result01 = service.search("Brasil", 0, 10);
+		assertTrue(result01.size() > 0);
+
+		createPages(1, 9);
+		Collection<FornecedorResponseDTO> result02 = service.search("fornecedor", 0, 10);
+		assertTrue(result02.size() == 8);
+		
+		createPages(9, 100);
+		Collection<FornecedorResponseDTO> result03 = service.search("fornecedor", 0, 10);
+		assertTrue(result03.size() == 10);
+		
+		Collection<FornecedorResponseDTO> result04 = service.search("fornecedor", 1, 10);
+		assertTrue(result04.size() == 10);
+		
 		
 	}
-	
-	@Test(enabled = TEST_CRUD, groups = "CRUD", priority = 12, dataProvider="FornecedorCentroSuccess", expectedExceptions=FornecedorCentroExistenteException.class )
-	public void testAddCentroFornecedorCentroExistenteException(FornecedorRequestDTO request, FornecedorCentroDTO centro) throws FornecedorException {
-		service.addCentro(request.getId(), centro);
+
+	private void createPages(int inicio , int quantidade) {
+
+		for (int i = inicio; i < quantidade; i++) {
+			FornecedorDocument document = new FornecedorDocument();
+
+			document.setCnpj(GeraCpfCnpj.cnpj().replaceAll(REGEX_NOCHAR_CNPJ, ""));
+			document.setDescricao(String.format("Teste Fornecedor%s (DESCRICAO)", i));
+			document.setNomeFantasia(String.format("Fornecedor%s (NOME FANTASIA)", i));
+			document.setRazaoSocial(String.format("Razao Social Fornecedor%s (NOME FANTASIA)", i));
+			
+			FornecedorCentroDocument centro = new FornecedorCentroDocument();
+			centro.setCentro(1000);
+			centro.setCep("99999-999");
+			centro.setCnpj(GeraCpfCnpj.cnpj().replaceAll(REGEX_NOCHAR_CNPJ, ""));
+			
+			document.setCentros(new ArrayList<>(Arrays.asList(centro)));
+			
+			fRepo.save(document);
+			
+			fornecedor4Deleted.add(document);
+		}
+
 	}
-	
-	@Test(enabled = TEST_CRUD, groups = "CRUD", priority = 13, dataProvider="FornecedorNotFoundCentroSuccess", expectedExceptions=FornecedorNotFoundException.class)
-	public void testAddCentroFornecedorNotFoundException(FornecedorRequestDTO request, FornecedorCentroDTO centro) throws FornecedorNotFoundException, FornecedorCentroExistenteException {
-		service.addCentro(request.getId(), centro);
-	}
-	
+
 	@DataProvider(name = "FornecedorNotFoundCentroSuccess")
 	public Object[][] providerFFailFornecedorCentroSuccess() {
 		FornecedorRequestDTO requestNotFound = doFornecedorNotFound();
-		
+
 		FornecedorCentroDTO centro = doFCentro();
-		
+
 		return new Object[][] { new Object[] { requestNotFound, centro } };
 	}
 
@@ -208,26 +258,26 @@ public class FornecedorServiceTest extends AbstractTestNGSpringContextTests {
 		centro.setCnpj(CNPJ_4CENTRO);
 		return centro;
 	}
-	
+
 	@DataProvider(name = "FornecedorCentroSuccess")
 	public Object[][] providerFFornecedorCentroSuccess() {
 		FornecedorRequestDTO request = doFornecedor();
-		
+
 		FornecedorCentroDTO centro = doFCentro();
-		
+
 		return new Object[][] { new Object[] { request, centro } };
 	}
-	
+
 	@DataProvider(name = "RequestSuccess")
 	public Object[][] providerFornecedor() {
 		FornecedorRequestDTO request = doFornecedor();
-		
+
 		return new Object[][] { new Object[] { request } };
 	}
 
 	private FornecedorRequestDTO doFornecedor() {
 		FornecedorRequestDTO request = new FornecedorRequestDTO();
-		
+
 		request.setId(idTesting);
 		request.setCnpj(CNPJ_4SUCCESS);
 		request.setDescricao("Google");
@@ -235,30 +285,30 @@ public class FornecedorServiceTest extends AbstractTestNGSpringContextTests {
 		request.setRazaoSocial("Google Brasil Internet Ltda");
 		return request;
 	}
-	
+
 	@DataProvider(name = "RequestSuccess4Delete")
 	public Object[][] providerFornecedor4Delete() {
 		FornecedorRequestDTO request = new FornecedorRequestDTO();
-		
+
 		request.setId(idDeleting);
 		request.setCnpj(CNPJ_4DELETING);
 		request.setDescricao("Microsoft Informatica Ltda");
 		request.setNomeFantasia("Microsoft");
 		request.setRazaoSocial("Microsoft Informatica Ltda de Sao Paulo");
-		
+
 		return new Object[][] { new Object[] { request } };
 	}
-	
+
 	@DataProvider(name = "RequestNotFound")
 	public Object[][] providerFornecedorRequestNotFound() {
 		FornecedorRequestDTO request = doFornecedorNotFound();
-		
+
 		return new Object[][] { new Object[] { request } };
 	}
 
 	private FornecedorRequestDTO doFornecedorNotFound() {
 		FornecedorRequestDTO request = new FornecedorRequestDTO();
-		
+
 		request.setId(ID_INVALIDO);
 		request.setCnpj(CNPJ_4NOTFOUND);
 		request.setDescricao("NOTFOUND");
@@ -282,6 +332,5 @@ public class FornecedorServiceTest extends AbstractTestNGSpringContextTests {
 	public void setIdDeleting(String idDeleting) {
 		this.idDeleting = idDeleting;
 	}
-	
-	
+
 }

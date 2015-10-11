@@ -6,11 +6,6 @@ var app = angular.module('brm.controllers', [ 'ngCookies' ]);
 app.controller('DummyController', [ '$rootScope', '$scope', '$http', '$window',
 		function($rootScope, $scope, $http, $window) {
 
-			$scope.customer = {
-				name : 'Naomi',
-				address : '1600 Amphitheatre'
-			};
-
 			$scope.logout = function() {
 				$http.post('auth/logout', {}).success(function() {
 					$window.location.href = "/brm.web/";
@@ -23,6 +18,11 @@ app.controller('DummyController', [ '$rootScope', '$scope', '$http', '$window',
 
 app.controller('CompanyCtrl',
 		[ function($scope, $http, $location, DummyFactory) {
+
+		} ]);
+
+app.controller('FornecedorController',
+		[ function($scope, $http, $location, FornecedorFactory) {
 
 		} ]);
 

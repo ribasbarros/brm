@@ -194,8 +194,8 @@ app.directive('validCpf', function() {
 });
 
 app.directive('myCustomer', function() {
-	console.log("debug 1");
 	return {
-		templateUrl : 'my-customer.html'
+		restrict: 'E',
+		templateUrl : 'template'
 	};
 });

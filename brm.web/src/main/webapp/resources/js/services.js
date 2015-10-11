@@ -12,3 +12,8 @@ services.factory('DummyFactory', function($resource) {
 services.factory('CompanyFactory', function($resource) {
 	
 });
+
+services.factory('FornecedorFactory', function($resource) {
+	
+});
+

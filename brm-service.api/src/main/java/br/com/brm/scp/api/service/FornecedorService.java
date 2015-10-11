@@ -1,5 +1,7 @@
 package br.com.brm.scp.api.service;
 
+import java.util.Collection;
+
 import br.com.brm.scp.api.dto.FornecedorCentroDTO;
 import br.com.brm.scp.api.dto.request.FornecedorRequestDTO;
 import br.com.brm.scp.api.dto.response.FornecedorResponseDTO;
@@ -19,4 +21,6 @@ public interface FornecedorService {
 	FornecedorResponseDTO find(FornecedorFiltroEnum filtro, Object value) throws FornecedorNotFoundException;
 
 	void addCentro(String id, FornecedorCentroDTO request) throws FornecedorNotFoundException, FornecedorCentroExistenteException;
+
+	Collection<FornecedorResponseDTO> search(String searchTerm, int pageIndex, int numberOfFornecedorPorPagina);
 }
