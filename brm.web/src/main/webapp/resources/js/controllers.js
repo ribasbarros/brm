@@ -24,9 +24,21 @@ app.controller('CompanyCtrl',
 app.controller('FornecedorController', [ '$scope', 'FornecedorFactory',
 		function($scope, FornecedorFactory) {
 
-			$scope.entries = {};
+			$scope.totalPerPage = {
+			    availableOptions: [
+			      {id: '10', name: '10'},
+			      {id: '20', name: '20'},
+			      {id: '50', name: '50'},
+			      {id: '100', name: '100'},
+			      {id: '500', name: '500'},
+			      {id: '1000', name: '1000'}
+			    ],
+			    selectedOption: {id: '10', name: '10'} //This sets the default value of the select in the ui
+		    };
+	
+			$scope.entries = [];
 			$scope.index = 0;
-			$scope.totalPerPage = 10;
+			//$scope.totalPerPage = 10;
 			$scope.totalPages = 1;
 
 			$scope.range = function(n) {
@@ -35,19 +47,21 @@ app.controller('FornecedorController', [ '$scope', 'FornecedorFactory',
 
 			$scope.page = function(index) {
 				
-				console.log(index);
-				
 				$scope.index = index;
 				
 				var pageable = FornecedorFactory.all({
 					pageIndex : index,
-					numberOfFornecedorPorPagina : $scope.totalPerPage
+					numberOfFornecedorPorPagina : $scope.totalPerPage.selectedOption.name
 				});
 
 				pageable.$promise.then(function(data) {
+					
 					$scope.entries = data.result;
+					$scope.totalPerPage.selectedOption.id=data.numberOfElements
+					$scope.totalPerPage.selectedOption.name=data.numberOfElements
 					$scope.totalPages = data.totalPages;
-					$scope.totalPerPage = data.numberOfElements;
+					
+					//$scope.totalPerPage = data.numberOfElements;
 				});
 			};
 

@@ -55,29 +55,33 @@
 				</tr>
 			</tbody>
 		</table>
-		
-		<label for="repeatSelect"> linhas por página: </label> <select
-			name="numberOfElements" id="numberOfElements"  ng-model="totalPerPage"
-			ng-change="page(0)">
-			<option value="10">10</option>
-			<option value="50">50</option>
-			<option value="100">100</option>
-			<option value="200">200</option>
-			<option value="500">500</option>
-			<option value="1000">1000</option>
-		</select>
-		<nav>
-			<ul class="pagination">
-				<li><a href="" aria-label="Voltar" ng-click="previous()">
-						<span aria-hidden="true">&laquo;</span>
-				</a></li>
-				<!-- <li class="active"><a href="#">1</a></li> -->
-				<li ng-class="{ 'active' : $index == index }" ng-repeat="a in range(totalPages) track by $index"><a
-					href="" ng-click="page($index)">{{$index + 1}}</a></li>
-				<li><a href="" aria-label="Próximo" ng-click="next()">
-						<span aria-hidden="true">&raquo;</span>
-				</a></li>
-			</ul>
-		</nav>
+		<div class="panel panel-default">
+			<!-- Default panel contents -->
+			<div class="panel-body">
+
+				<div class="row" style="text-align: right">
+					<form name="myForm">
+						<select name="numberOfElements" id="numberOfElements"
+							ng-change="page(0)"
+							ng-options="option.name for option in totalPerPage.availableOptions track by option.id"
+							ng-model="totalPerPage.selectedOption"></select>
+					</form>
+				</div>
+				<div class="row" style="text-align: center">
+					<ul class="pagination">
+						<li><a href="" aria-label="Voltar" ng-click="previous()">
+								<span aria-hidden="true">&laquo;</span>
+						</a></li>
+						<!-- <li class="active"><a href="#">1</a></li> -->
+						<li ng-class="{ 'active' : $index == index }"
+							ng-repeat="a in range(totalPages) track by $index"><a
+							href="" ng-click="page($index)">{{$index + 1}}</a></li>
+						<li><a href="" aria-label="Próximo" ng-click="next()"> <span
+								aria-hidden="true">&raquo;</span>
+						</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
