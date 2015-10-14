@@ -21,10 +21,53 @@ app.controller('CompanyCtrl',
 
 		} ]);
 
-app.controller('FornecedorController', [ function($scope, $http, $location,
-		FornecedorFactory) {
+app.controller('FornecedorController', [ '$scope', 'FornecedorFactory',
+		function($scope, FornecedorFactory) {
 
-} ]);
+			$scope.entries = {};
+			$scope.index = 0;
+			$scope.totalPerPage = 10;
+			$scope.totalPages = 1;
+
+			$scope.range = function(n) {
+				return new Array(n);
+			};
+
+			$scope.page = function(index) {
+				
+				console.log(index);
+				
+				$scope.index = index;
+				
+				var pageable = FornecedorFactory.all({
+					pageIndex : index,
+					numberOfFornecedorPorPagina : $scope.totalPerPage
+				});
+
+				pageable.$promise.then(function(data) {
+					$scope.entries = data.result;
+					$scope.totalPages = data.totalPages;
+					$scope.totalPerPage = data.numberOfElements;
+				});
+			};
+
+			$scope.previous = function() {
+				if($scope.index > 0){
+					$scope.index--;
+					$scope.page($scope.index);
+				}
+			};
+
+			$scope.next = function() {
+				if($scope.index < $scope.totalPages-1){
+					$scope.index++;
+					$scope.page($scope.index);
+				}
+			};
+
+			$scope.page($scope.index);
+
+		} ]);
 
 app.controller('CsrfCtrl', [ '$rootScope', '$scope', '$http', '$cookies',
 		'$window', function($rootScope, $scope, $http, $cookies, $window) {

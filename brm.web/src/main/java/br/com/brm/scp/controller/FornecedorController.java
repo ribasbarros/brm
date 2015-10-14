@@ -67,9 +67,9 @@ public class FornecedorController implements Serializable {
 	}
 	
 	@ResponseBody
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value= "{pageIndex}/{numberOfFornecedorPorPagina}", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
-	Pageable<FornecedorResponseDTO> all(int pageIndex, int numberOfFornecedorPorPagina){
+	Pageable<FornecedorResponseDTO> all(@PathVariable("pageIndex") int pageIndex, @PathVariable("numberOfFornecedorPorPagina") int numberOfFornecedorPorPagina){
 		Pageable<FornecedorResponseDTO> result = null;
 		try {
 			result = service.all(pageIndex, numberOfFornecedorPorPagina);
@@ -79,7 +79,7 @@ public class FornecedorController implements Serializable {
 		return result;
 	}
 	
-	@ResponseBody
+	/*@ResponseBody
 	@RequestMapping(value= "{filtro}/{value}", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
 	FornecedorResponseDTO find(@PathVariable("filtro") String filtro, @PathVariable("value") String value) {
@@ -90,7 +90,7 @@ public class FornecedorController implements Serializable {
 			throw new FornecedorNotFoundWebException();
 		}
 		return response;
-	}
+	}*/
 
 	
 }

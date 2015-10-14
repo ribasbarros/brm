@@ -3,6 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <div ng-controller="FornecedorController">
+
 	<div class="panel panel-default">
 		<!-- Default panel contents -->
 		<div class="panel-body">
@@ -10,7 +11,7 @@
 			<div class="row">
 				<div class="col-lg-6">
 					<div class="input-group">
-						<button type="button" class="btn btn-default btn-xs">
+						<button type="button" class="btn btn-primary">
 							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
 							Novo
 						</button>
@@ -46,28 +47,37 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<th scope="row">1</th>
-					<td>Mark</td>
-					<td>Otto</td>
-					<td>Otto</td>
+				<tr ng-repeat="fornecedor in entries">
+					<th scope="row">{{fornecedor.id}}</th>
+					<td>{{fornecedor.nomeFantasia}}</td>
+					<td>{{fornecedor.cnpj}}</td>
+					<td>{{fornecedor.contatos}}</td>
 				</tr>
 			</tbody>
 		</table>
+		
+		<label for="repeatSelect"> linhas por página: </label> <select
+			name="numberOfElements" id="numberOfElements"  ng-model="totalPerPage"
+			ng-change="page(0)">
+			<option value="10">10</option>
+			<option value="50">50</option>
+			<option value="100">100</option>
+			<option value="200">200</option>
+			<option value="500">500</option>
+			<option value="1000">1000</option>
+		</select>
 		<nav>
 			<ul class="pagination">
-				<li><a href="#" aria-label="Previous"> <span
-						aria-hidden="true">&laquo;</span>
+				<li><a href="" aria-label="Voltar" ng-click="previous()">
+						<span aria-hidden="true">&laquo;</span>
 				</a></li>
-				<li class="active"><a href="#">1</a></li>
-				<li><a href="#">2</a></li>
-				<li><a href="#">3</a></li>
-				<li><a href="#">4</a></li>
-				<li><a href="#">5</a></li>
-				<li><a href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+				<!-- <li class="active"><a href="#">1</a></li> -->
+				<li ng-class="{ 'active' : $index == index }" ng-repeat="a in range(totalPages) track by $index"><a
+					href="" ng-click="page($index)">{{$index + 1}}</a></li>
+				<li><a href="" aria-label="Próximo" ng-click="next()">
+						<span aria-hidden="true">&raquo;</span>
 				</a></li>
 			</ul>
 		</nav>
-
 	</div>
 </div>

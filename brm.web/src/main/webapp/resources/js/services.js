@@ -1,21 +1,28 @@
 'use strict';
 
 /* Services */
-var services = angular.module('brm.services', []);
+var services = angular.module('brm.services', [ 'ngResource' ]);
 
 services.factory('DummyFactory', function($resource) {
-	/* return $resource('dummy/featured', {}, {
-        'query': { method: 'GET', isArray: true }
-    }) */
+	/*
+	 * return $resource('dummy/featured', {}, { 'query': { method: 'GET',
+	 * isArray: true } })
+	 */
 });
 
 services.factory('CompanyFactory', function($resource) {
-	
+
 });
 
-services.factory('FornecedorFactory', function($resource) {
-	return $resource('forncedor', {'pageIndex' : '0' , 'numberOfFornecedorPorPagina' : '10'}, {
-        'query': { method: 'GET', isArray: false }
-    });
-});
-
+services.factory('FornecedorFactory', [ '$resource', function($resource) {
+	return $resource('fornecedor/:pageIndex/:numberOfFornecedorPorPagina', {}, {
+		'all' : {
+			method : 'GET',
+			params : {
+				pageIndex : '@pageIndex',
+				numberOfFornecedorPorPagina : '@numberOfFornecedorPorPagina'
+			},
+			isArray : false
+		}
+	});
+} ]);
