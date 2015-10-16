@@ -52,7 +52,7 @@ public class FornecedorController implements Serializable {
 		try {
 			service.update(request);
 		} catch (FornecedorNotFoundException e) {
-			throw new FornecedorNotFoundWebException();
+			throw new FornecedorNotFoundWebException(e.getMessage());
 		}
 	}
 
@@ -63,7 +63,7 @@ public class FornecedorController implements Serializable {
 		try {
 			service.delete(id);
 		} catch (FornecedorNotFoundException e) {
-			throw new FornecedorNotFoundWebException();
+			throw new FornecedorNotFoundWebException(e.getMessage());
 		}
 	}
 
@@ -76,7 +76,7 @@ public class FornecedorController implements Serializable {
 		try {
 			result = service.all(pageIndex, size);
 		} catch (FornecedorNotFoundException e) {
-			throw new FornecedorNotFoundWebException();
+			throw new FornecedorNotFoundWebException(e.getMessage());
 		}
 		return result;
 	}
@@ -97,7 +97,7 @@ public class FornecedorController implements Serializable {
 						searchPageable.getSize());
 			}
 		} catch (FornecedorNotFoundException e) {
-			throw new FornecedorNotFoundWebException();
+			throw new FornecedorNotFoundWebException(e.getMessage());
 		}
 		return result;
 	}

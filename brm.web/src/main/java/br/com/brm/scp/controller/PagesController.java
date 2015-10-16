@@ -31,6 +31,11 @@ public class PagesController {
 		return "private/fornecedor/fornecedor-view";
 	}
 	
+	@RequestMapping(value = "/private/fornecedor/fornecedor-form")
+	public String fornecedorForm() {
+		return "private/fornecedor/fornecedor-form";
+	}
+	
 	@RequestMapping(value = "/template")
 	public String templateTest() {
 		return "template";

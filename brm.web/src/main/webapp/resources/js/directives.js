@@ -193,9 +193,14 @@ app.directive('validCpf', function() {
 	};
 });
 
-app.directive('myCustomer', function() {
+app.directive('brmDataTable', function() {
 	return {
-		restrict: 'E',
+		restrict : 'E',
+		scope : {
+			column : '=column',
+			restEntries : '=restEntries',
+			urlForm : '=urlForm'
+		},
 		templateUrl : 'template'
 	};
 });

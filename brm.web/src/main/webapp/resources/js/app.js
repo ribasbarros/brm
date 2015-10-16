@@ -9,6 +9,8 @@ app.config(function($routeProvider) {
 		templateUrl : 'company.html'
 	}).when('/private/fornecedor/fornecedor-view', {
 		templateUrl : 'private/fornecedor/fornecedor-view.html'
+	}).when('/private/fornecedor/fornecedor-form', {
+		templateUrl : 'private/fornecedor/fornecedor-form.html'
 	}).otherwise({
 		redirectTo : '/dummy'
 	});
