@@ -14,21 +14,6 @@ app.controller('DummyController', [ '$rootScope', '$scope', '$http', '$window',
 				});
 			}
 
-			$scope.colunas = [ {
-				'title' : 'Nome Fantasia',
-				'field' : 'nomeFantasia'
-			}, {
-				'title' : 'CNPJ',
-				'field' : 'cnpj'
-			}, {
-				'title' : 'Contato',
-				'field' : 'contatos'
-			} ];
-
-			$scope.rest01 = 'fornecedor/search';
-			
-			$scope.url = 'private/fornecedor/fornecedor-form';
-
 		} ]);
 
 app.controller('DataTableController', [ '$scope', '$http', '$location',
@@ -64,6 +49,8 @@ app.controller('DataTableController', [ '$scope', '$http', '$location',
 			};
 
 			$scope.page = function(index) {
+				
+				$scope.view.index = index;
 
 				var List = $resource($scope.restEntries, {}, {
 					'query' : {
@@ -131,89 +118,20 @@ app.controller('CompanyCtrl',
 app.controller('FornecedorController', [ '$scope', '$location',
 		'FornecedorFactory', function($scope, $location, FornecedorFactory) {
 
-			$scope.view = {
-				'searchTerm' : '',
-				'totalPerPage' : {
-					'availableOptions' : [ {
-						'id' : '10',
-						'name' : '10'
-					}, {
-						'id' : '50',
-						'name' : '50'
-					}, {
-						'id' : '100',
-						'name' : '100'
-					}, {
-						'id' : '500',
-						'name' : '500'
-					}, {
-						'id' : '1000',
-						'name' : '1000'
-					} ],
-					'selectedOption' : {
-						'id' : '10',
-						'name' : '10'
-					}
-				},
-				'entries' : [],
-				'index' : 0,
-				'totalPages' : 1,
-			}
+			$scope.colunas = [ {
+				'title' : 'Nome Fantasia',
+				'field' : 'nomeFantasia'
+			}, {
+				'title' : 'CNPJ',
+				'field' : 'cnpj'
+			}, {
+				'title' : 'Contato',
+				'field' : 'contatos'
+			} ];
 
-			$scope.range = function(n) {
-				return new Array(n);
-			};
+			$scope.rest01 = 'fornecedor/search';
 
-			$scope.search = function(index) {
-				$scope.page(index);
-			};
-
-			$scope.page = function(index) {
-
-				$scope.view.index = index;
-
-				var pageable = FornecedorFactory.query({
-					searchTerm : $scope.view.searchTerm,
-					pageIndex : index,
-					size : $scope.view.totalPerPage.selectedOption.name
-				});
-
-				pageable.$promise.then(function(data) {
-					$scope.view.entries = data.result;
-					$scope.view.totalPerPage.selectedOption.id = data.size
-					$scope.view.totalPerPage.selectedOption.name = data.size
-					$scope.view.totalPages = data.totalPages;
-				}, function(data) {
-					if (data.status == 400) {
-						$scope.view.entries = [ {
-							'nomeFantasia' : 'Nenhum registro foi encontrado.',
-							'hideActions' : 'true'
-						} ]
-					} else {
-						alert(data.status + ' - Erro não esperado!');
-					}
-				});
-			};
-
-			$scope.previous = function() {
-				if ($scope.view.index > 0) {
-					$scope.view.index--;
-					$scope.page($scope.view.index);
-				}
-			};
-
-			$scope.next = function() {
-				if ($scope.view.index < $scope.view.totalPages - 1) {
-					$scope.view.index++;
-					$scope.view.page($scope.view.index);
-				}
-			};
-
-			$scope.newRegister = function() {
-				$location.path('private/fornecedor/fornecedor-form');
-			};
-
-			$scope.page($scope.view.index);
+			$scope.url = 'private/fornecedor/fornecedor-form';
 
 		} ]);
 

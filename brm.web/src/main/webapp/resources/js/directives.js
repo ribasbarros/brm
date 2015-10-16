@@ -201,6 +201,6 @@ app.directive('brmDataTable', function() {
 			restEntries : '=restEntries',
 			urlForm : '=urlForm'
 		},
-		templateUrl : 'template'
+		templateUrl : 'private/components/template-data-table'
 	};
 });
