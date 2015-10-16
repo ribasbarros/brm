@@ -8,7 +8,7 @@ public class Pageable<T> implements Serializable {
 	private static final long serialVersionUID = -2437853769045448579L;
 
 	private Collection<T> result;
-	private int numberOfElements;
+	private int size;
 	private int totalPages;
 	private int pageIndex;
 
@@ -16,10 +16,10 @@ public class Pageable<T> implements Serializable {
 		super();
 	}
 
-	public Pageable(Collection<T> result, int numberOfElements, int totalPages, int pageIndex) {
+	public Pageable(Collection<T> result, int size, int totalPages, int pageIndex) {
 		super();
 		this.result = result;
-		this.numberOfElements = numberOfElements;
+		this.size = size;
 		this.totalPages = totalPages;
 		this.pageIndex = pageIndex;
 	}
@@ -32,12 +32,12 @@ public class Pageable<T> implements Serializable {
 		this.result = result;
 	}
 
-	public int getNumberOfElements() {
-		return numberOfElements;
+	public int getSize() {
+		return size;
 	}
 
-	public void setNumberOfElements(int numberOfElements) {
-		this.numberOfElements = numberOfElements;
+	public void setSize(int size) {
+		this.size = size;
 	}
 
 	public int getTotalPages() {

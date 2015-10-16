@@ -21,10 +21,10 @@ import br.com.brm.scp.api.service.FornecedorService;
 import br.com.brm.scp.api.service.document.FornecedorCentroDocument;
 import br.com.brm.scp.api.service.document.FornecedorDocument;
 import br.com.brm.scp.api.service.repositories.FornecedorRepository;
+import br.com.brm.scp.api.service.status.FornecedorFiltroEnum;
 import br.com.brm.scp.fw.helper.converters.ConverterHelper;
 import br.com.brm.scp.fw.helper.validators.CNPJValidator;
 import br.com.brm.scp.fw.helper.validators.NumberHelper;
-import br.com.brm.scp.mock.api.service.status.FornecedorFiltroEnum;
 
 /**
  * @author Ribas
@@ -263,19 +263,22 @@ public class FornecedorServiceImpl implements FornecedorService {
 	 */
 	@Override
 	public br.com.brm.scp.api.pages.Pageable<FornecedorResponseDTO> search(String searchTerm, int pageIndex,
-			int numberOfFornecedorPorPagina) {
+			int size) throws FornecedorNotFoundException {
 
 		Page<FornecedorDocument> requestedPage = repository.findByRazaoSocialOrNomeFantasiaOrDescricaoOrCpnj(searchTerm,
-				constructPageSpecification(pageIndex, numberOfFornecedorPorPagina));
+				constructPageSpecification(pageIndex, size));
 
 		Collection<FornecedorDocument> result = requestedPage.getContent();
+		
+		if(result.isEmpty())
+			throw new FornecedorNotFoundException(FORNECEDOR_NOTFOUND);
 
-		int numberOfElements = requestedPage.getNumberOfElements();
+		int sizePage = requestedPage.getSize();
 		int totalPages = requestedPage.getTotalPages();
 
 		Collection<FornecedorResponseDTO> response = invokeResponse(result);
 
-		return new br.com.brm.scp.api.pages.Pageable<FornecedorResponseDTO>(response, numberOfElements, totalPages,
+		return new br.com.brm.scp.api.pages.Pageable<FornecedorResponseDTO>(response, sizePage, totalPages,
 				pageIndex);
 
 	}
@@ -288,8 +291,8 @@ public class FornecedorServiceImpl implements FornecedorService {
 		return ConverterHelper.convert(result, FornecedorResponseDTO.class);
 	}
 
-	private Pageable constructPageSpecification(int pageIndex, int numberOfFornecedorPorPagina) {
-		Pageable pageSpecification = new PageRequest(pageIndex, numberOfFornecedorPorPagina, sortByLastNameAsc());
+	private Pageable constructPageSpecification(int pageIndex, int size) {
+		Pageable pageSpecification = new PageRequest(pageIndex, size, sortByLastNameAsc());
 		return pageSpecification;
 	}
 
@@ -299,10 +302,10 @@ public class FornecedorServiceImpl implements FornecedorService {
 
 	@Override
 	public br.com.brm.scp.api.pages.Pageable<FornecedorResponseDTO> all(int pageIndex,
-			int numberOfFornecedorPorPagina) throws FornecedorNotFoundException {
+			int size) throws FornecedorNotFoundException {
 
 		Page<FornecedorDocument> requestedPage = repository
-				.findAll(constructPageSpecification(pageIndex, numberOfFornecedorPorPagina));
+				.findAll(constructPageSpecification(pageIndex, size));
 
 		Collection<FornecedorDocument> result = requestedPage.getContent();
 		

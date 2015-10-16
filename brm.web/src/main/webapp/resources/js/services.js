@@ -15,14 +15,11 @@ services.factory('CompanyFactory', function($resource) {
 });
 
 services.factory('FornecedorFactory', [ '$resource', function($resource) {
-	return $resource('fornecedor/:pageIndex/:numberOfFornecedorPorPagina', {}, {
-		'all' : {
-			method : 'GET',
-			params : {
-				pageIndex : '@pageIndex',
-				numberOfFornecedorPorPagina : '@numberOfFornecedorPorPagina'
-			},
+	return $resource('fornecedor/search', {}, {
+		'query' : {
+			method : 'POST',
 			isArray : false
 		}
-	});
+	})
+
 } ]);

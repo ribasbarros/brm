@@ -3,7 +3,7 @@ package br.com.brm.scp.api.dto.request;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import br.com.brm.scp.mock.api.service.status.ItemStatus;
+import br.com.brm.scp.api.service.status.ItemStatus;
 
 public class ItemRequestDTO implements Serializable {
 

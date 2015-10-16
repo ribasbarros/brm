@@ -12,8 +12,8 @@ import br.com.brm.scp.api.exceptions.PerfilNotFoundException;
 import br.com.brm.scp.api.service.PerfilService;
 import br.com.brm.scp.api.service.document.PerfilDocument;
 import br.com.brm.scp.api.service.repositories.PerfilRepository;
+import br.com.brm.scp.api.service.status.PerfilFiltroEnum;
 import br.com.brm.scp.fw.helper.converters.ConverterHelper;
-import br.com.brm.scp.mock.api.service.status.PerfilFiltroEnum;
 
 @Service
 public class PerfilServiceImpl implements PerfilService {

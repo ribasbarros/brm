@@ -12,8 +12,8 @@ import br.com.brm.scp.api.exceptions.CategoriaNotFoundException;
 import br.com.brm.scp.api.service.CategoriaService;
 import br.com.brm.scp.api.service.document.CategoriaDocument;
 import br.com.brm.scp.api.service.repositories.CategoriaRepository;
+import br.com.brm.scp.api.service.status.CategoriaFiltroEnum;
 import br.com.brm.scp.fw.helper.converters.ConverterHelper;
-import br.com.brm.scp.mock.api.service.status.CategoriaFiltroEnum;
 
 @Service
 public class CategoriaServiceImpl implements CategoriaService{

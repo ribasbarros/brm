@@ -28,11 +28,11 @@ import br.com.brm.scp.api.exceptions.SkuNotFoundException;
 import br.com.brm.scp.api.service.SkuService;
 import br.com.brm.scp.api.service.document.SkuDocument;
 import br.com.brm.scp.api.service.repositories.SkuRepository;
+import br.com.brm.scp.api.service.status.ClasseEnum;
+import br.com.brm.scp.api.service.status.OrigemTipoEnum;
+import br.com.brm.scp.api.service.status.PlanejamentoSku;
+import br.com.brm.scp.api.service.status.StatusReposicaoEnum;
 import br.com.brm.scp.fw.helper.converters.ConverterHelper;
-import br.com.brm.scp.mock.api.service.status.ClasseEnum;
-import br.com.brm.scp.mock.api.service.status.OrigemTipoEnum;
-import br.com.brm.scp.mock.api.service.status.PlanejamentoSku;
-import br.com.brm.scp.mock.api.service.status.StatusReposicaoEnum;
 import br.com.brm.scp.security.config.AppConfigurationTest;
 
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class, classes = AppConfigurationTest.class)

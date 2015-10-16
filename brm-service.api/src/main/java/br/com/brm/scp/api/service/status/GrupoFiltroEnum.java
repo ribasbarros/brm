@@ -1,4 +1,4 @@
-package br.com.brm.scp.mock.api.service.status;
+package br.com.brm.scp.api.service.status;
 
 public enum GrupoFiltroEnum {
 	ID,NOME,TUDO;

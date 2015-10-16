@@ -16,9 +16,9 @@ import br.com.brm.scp.api.dto.response.CategoriaResponseDTO;
 import br.com.brm.scp.api.exceptions.CategoriaExistenteException;
 import br.com.brm.scp.api.exceptions.CategoriaNotFoundException;
 import br.com.brm.scp.api.service.CategoriaService;
+import br.com.brm.scp.api.service.status.CategoriaFiltroEnum;
 import br.com.brm.scp.controller.exception.CategoriaExistenteWebException;
 import br.com.brm.scp.controller.exception.CategoriaNotFoundWebException;
-import br.com.brm.scp.mock.api.service.status.CategoriaFiltroEnum;
 
 @Controller
 @RequestMapping("categoria")

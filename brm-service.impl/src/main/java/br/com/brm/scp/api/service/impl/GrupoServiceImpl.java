@@ -12,8 +12,8 @@ import br.com.brm.scp.api.exceptions.GrupoNotFoundException;
 import br.com.brm.scp.api.service.GrupoService;
 import br.com.brm.scp.api.service.document.GrupoDocument;
 import br.com.brm.scp.api.service.repositories.GrupoRepository;
+import br.com.brm.scp.api.service.status.GrupoFiltroEnum;
 import br.com.brm.scp.fw.helper.converters.ConverterHelper;
-import br.com.brm.scp.mock.api.service.status.GrupoFiltroEnum;
 
 @Service
 public class GrupoServiceImpl implements GrupoService {

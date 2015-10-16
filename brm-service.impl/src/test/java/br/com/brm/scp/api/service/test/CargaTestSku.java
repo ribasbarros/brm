@@ -16,8 +16,8 @@ import br.com.brm.scp.api.service.repositories.CategoriaRepository;
 import br.com.brm.scp.api.service.repositories.FornecedorRepository;
 import br.com.brm.scp.api.service.repositories.ItemRepository;
 import br.com.brm.scp.api.service.repositories.TagRepository;
+import br.com.brm.scp.api.service.status.ItemStatus;
 import br.com.brm.scp.api.service.test.helper.GeraCpfCnpj;
-import br.com.brm.scp.mock.api.service.status.ItemStatus;
 
 public class CargaTestSku extends AbstractTestNGSpringContextTests {
 

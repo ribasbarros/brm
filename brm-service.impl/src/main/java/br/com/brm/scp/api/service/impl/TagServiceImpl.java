@@ -14,8 +14,8 @@ import br.com.brm.scp.api.exceptions.TagNotFoundException;
 import br.com.brm.scp.api.service.TagService;
 import br.com.brm.scp.api.service.document.TagDocument;
 import br.com.brm.scp.api.service.repositories.TagRepository;
+import br.com.brm.scp.api.service.status.TagFiltroEnum;
 import br.com.brm.scp.fw.helper.converters.ConverterHelper;
-import br.com.brm.scp.mock.api.service.status.TagFiltroEnum;
 
 @Service
 public class TagServiceImpl implements TagService{

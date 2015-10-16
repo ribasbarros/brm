@@ -4,7 +4,7 @@ import br.com.brm.scp.api.dto.request.PerfilRequestDTO;
 import br.com.brm.scp.api.dto.response.PerfilResponseDTO;
 import br.com.brm.scp.api.exceptions.PerfilExistenteException;
 import br.com.brm.scp.api.exceptions.PerfilNotFoundException;
-import br.com.brm.scp.mock.api.service.status.PerfilFiltroEnum;
+import br.com.brm.scp.api.service.status.PerfilFiltroEnum;
 
 public interface PerfilService {
 	

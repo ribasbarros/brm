@@ -1,11 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" total="0" passed="0">
+<testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="5" started-at="2015-07-14T02:30:15Z" finished-at="2015-07-14T02:30:15Z">
+  <suite name="Default suite" duration-ms="57" started-at="2015-10-14T04:59:09Z" finished-at="2015-10-14T04:59:09Z">
     <groups>
+      <group name="Utils">
+        <method signature="CNPJMaskTest.test()[pri:0, instance:br.com.brm.scp.fw.test.mask.CNPJMaskTest@6eebc39e]" name="test" class="br.com.brm.scp.fw.test.mask.CNPJMaskTest"/>
+      </group> <!-- Utils -->
     </groups>
-    <test name="Default test" duration-ms="5" started-at="2015-07-14T02:30:15Z" finished-at="2015-07-14T02:30:15Z">
+    <test name="Default test" duration-ms="57" started-at="2015-10-14T04:59:09Z" finished-at="2015-10-14T04:59:09Z">
+      <class name="br.com.brm.scp.fw.test.mask.CNPJMaskTest">
+        <test-method status="PASS" signature="setup()[pri:0, instance:br.com.brm.scp.fw.test.mask.CNPJMaskTest@6eebc39e]" name="setup" is-config="true" duration-ms="18" started-at="2015-10-14T01:59:09Z" finished-at="2015-10-14T01:59:09Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method status="PASS" signature="test()[pri:0, instance:br.com.brm.scp.fw.test.mask.CNPJMaskTest@6eebc39e]" name="test" duration-ms="15" started-at="2015-10-14T01:59:09Z" finished-at="2015-10-14T01:59:09Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- test -->
+        <test-method status="PASS" signature="tearDown()[pri:0, instance:br.com.brm.scp.fw.test.mask.CNPJMaskTest@6eebc39e]" name="tearDown" is-config="true" duration-ms="1" started-at="2015-10-14T01:59:09Z" finished-at="2015-10-14T01:59:09Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- br.com.brm.scp.fw.test.mask.CNPJMaskTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

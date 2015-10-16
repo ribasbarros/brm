@@ -12,9 +12,9 @@ import br.com.brm.scp.api.exceptions.UsuarioNotFoundException;
 import br.com.brm.scp.api.service.UsuarioService;
 import br.com.brm.scp.api.service.document.UsuarioDocument;
 import br.com.brm.scp.api.service.repositories.UsuarioRepository;
+import br.com.brm.scp.api.service.status.UsuarioFiltroEnum;
 import br.com.brm.scp.fw.helper.converters.ConverterHelper;
 import br.com.brm.scp.fw.helper.validators.EmailValidator;
-import br.com.brm.scp.mock.api.service.status.UsuarioFiltroEnum;
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService {

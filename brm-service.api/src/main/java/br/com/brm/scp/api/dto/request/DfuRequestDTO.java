@@ -10,7 +10,7 @@ import br.com.brm.scp.api.dto.response.ItemResponseDTO;
 import br.com.brm.scp.api.dto.response.PacotePlanoDTO;
 import br.com.brm.scp.api.dto.response.TagResponseDTO;
 import br.com.brm.scp.api.dto.response.UsuarioResponseDTO;
-import br.com.brm.scp.mock.api.service.status.PlanejamentoDfu;
+import br.com.brm.scp.api.service.status.PlanejamentoDfu;
 
 public class DfuRequestDTO {
 

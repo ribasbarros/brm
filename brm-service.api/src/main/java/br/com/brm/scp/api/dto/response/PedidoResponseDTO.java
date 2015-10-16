@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 
 import br.com.brm.scp.api.annotation.BindingClassMeta;
-import br.com.brm.scp.mock.api.service.status.StatusPedido;
+import br.com.brm.scp.api.service.status.StatusPedido;
 
 public class PedidoResponseDTO implements Serializable {
 

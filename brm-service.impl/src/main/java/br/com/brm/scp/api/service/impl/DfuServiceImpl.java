@@ -12,8 +12,8 @@ import br.com.brm.scp.api.exceptions.DfuNotFoundException;
 import br.com.brm.scp.api.service.DfuService;
 import br.com.brm.scp.api.service.document.DfuDocument;
 import br.com.brm.scp.api.service.repositories.DfuRepository;
+import br.com.brm.scp.api.service.status.DfuFiltroEnum;
 import br.com.brm.scp.fw.helper.converters.ConverterHelper;
-import br.com.brm.scp.mock.api.service.status.DfuFiltroEnum;
 
 @Service
 public class DfuServiceImpl implements DfuService {

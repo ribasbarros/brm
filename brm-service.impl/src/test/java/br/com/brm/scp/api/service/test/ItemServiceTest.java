@@ -28,9 +28,9 @@ import br.com.brm.scp.api.service.document.CategoriaDocument;
 import br.com.brm.scp.api.service.document.ItemDocument;
 import br.com.brm.scp.api.service.repositories.CategoriaRepository;
 import br.com.brm.scp.api.service.repositories.ItemRepository;
+import br.com.brm.scp.api.service.status.ItemFiltroEnum;
+import br.com.brm.scp.api.service.status.ItemStatus;
 import br.com.brm.scp.fw.helper.converters.ConverterHelper;
-import br.com.brm.scp.mock.api.service.status.ItemFiltroEnum;
-import br.com.brm.scp.mock.api.service.status.ItemStatus;
 import br.com.brm.scp.security.config.AppConfigurationTest;
 
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class, classes = AppConfigurationTest.class)

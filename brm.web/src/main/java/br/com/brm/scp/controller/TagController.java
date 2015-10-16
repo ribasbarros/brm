@@ -16,9 +16,9 @@ import br.com.brm.scp.api.dto.response.TagResponseDTO;
 import br.com.brm.scp.api.exceptions.TagExistenteException;
 import br.com.brm.scp.api.exceptions.TagNotFoundException;
 import br.com.brm.scp.api.service.TagService;
+import br.com.brm.scp.api.service.status.TagFiltroEnum;
 import br.com.brm.scp.controller.exception.TagExistenteWebException;
 import br.com.brm.scp.controller.exception.TagNotFoundWebException;
-import br.com.brm.scp.mock.api.service.status.TagFiltroEnum;
 
 @Controller
 @RequestMapping("tag")

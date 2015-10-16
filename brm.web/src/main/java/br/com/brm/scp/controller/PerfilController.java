@@ -16,9 +16,9 @@ import br.com.brm.scp.api.dto.response.PerfilResponseDTO;
 import br.com.brm.scp.api.exceptions.PerfilExistenteException;
 import br.com.brm.scp.api.exceptions.PerfilNotFoundException;
 import br.com.brm.scp.api.service.PerfilService;
+import br.com.brm.scp.api.service.status.PerfilFiltroEnum;
 import br.com.brm.scp.controller.exception.PerfilExistenteWebException;
 import br.com.brm.scp.controller.exception.PerfilNotFoundWebException;
-import br.com.brm.scp.mock.api.service.status.PerfilFiltroEnum;
 
 @Controller
 @RequestMapping("perfil")

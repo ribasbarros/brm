@@ -7,7 +7,7 @@ import br.com.brm.scp.api.exceptions.FornecedorCentroExistenteException;
 import br.com.brm.scp.api.exceptions.FornecedorExistenteException;
 import br.com.brm.scp.api.exceptions.FornecedorNotFoundException;
 import br.com.brm.scp.api.pages.Pageable;
-import br.com.brm.scp.mock.api.service.status.FornecedorFiltroEnum;
+import br.com.brm.scp.api.service.status.FornecedorFiltroEnum;
 
 public interface FornecedorService {
 
@@ -21,7 +21,7 @@ public interface FornecedorService {
 
 	void addCentro(String id, FornecedorCentroDTO request) throws FornecedorNotFoundException, FornecedorCentroExistenteException;
 
-	Pageable<FornecedorResponseDTO> search(String searchTerm, int pageIndex, int numberOfFornecedorPorPagina);
+	Pageable<FornecedorResponseDTO> search(String searchTerm, int pageIndex, int size) throws FornecedorNotFoundException;
 
-	Pageable<FornecedorResponseDTO> all(int pageIndex, int numberOfFornecedorPorPagina) throws FornecedorNotFoundException;
+	Pageable<FornecedorResponseDTO> all(int pageIndex, int size) throws FornecedorNotFoundException;
 }

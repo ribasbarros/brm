@@ -2,7 +2,7 @@ package br.com.brm.scp.api.service.document;
 
 import java.io.Serializable;
 
-import br.com.brm.scp.mock.api.service.status.OrigemTipoEnum;
+import br.com.brm.scp.api.service.status.OrigemTipoEnum;
 
 public class OrigemSkuDocument implements Serializable {
 

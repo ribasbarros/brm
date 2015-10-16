@@ -2,7 +2,7 @@ package br.com.brm.scp.api.dto.request;
 
 import java.io.Serializable;
 
-import br.com.brm.scp.mock.api.service.status.OrigemTipoEnum;
+import br.com.brm.scp.api.service.status.OrigemTipoEnum;
 
 public class OrigemSkuResponseDTO implements Serializable {
 

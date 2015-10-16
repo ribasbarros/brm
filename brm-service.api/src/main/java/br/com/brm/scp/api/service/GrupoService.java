@@ -4,7 +4,7 @@ import br.com.brm.scp.api.dto.request.GrupoRequestDTO;
 import br.com.brm.scp.api.dto.response.GrupoResponseDTO;
 import br.com.brm.scp.api.exceptions.GrupoExistenteException;
 import br.com.brm.scp.api.exceptions.GrupoNotFoundException;
-import br.com.brm.scp.mock.api.service.status.GrupoFiltroEnum;
+import br.com.brm.scp.api.service.status.GrupoFiltroEnum;
 
 public interface GrupoService {
 	GrupoResponseDTO create(GrupoRequestDTO request) throws GrupoExistenteException;

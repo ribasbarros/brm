@@ -16,8 +16,8 @@ import br.com.brm.scp.api.dto.response.ItemResponseDTO;
 import br.com.brm.scp.api.dto.response.PacotePlanoDTO;
 import br.com.brm.scp.api.dto.response.TagResponseDTO;
 import br.com.brm.scp.api.dto.response.UsuarioResponseDTO;
+import br.com.brm.scp.api.service.status.PlanejamentoDfu;
 import br.com.brm.scp.fw.annotations.BindingClass;
-import br.com.brm.scp.mock.api.service.status.PlanejamentoDfu;
 
 @Document
 public class DfuDocument implements Serializable {

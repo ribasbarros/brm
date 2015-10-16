@@ -6,7 +6,7 @@ import br.com.brm.scp.api.dto.request.TagRequestDTO;
 import br.com.brm.scp.api.dto.response.TagResponseDTO;
 import br.com.brm.scp.api.exceptions.TagExistenteException;
 import br.com.brm.scp.api.exceptions.TagNotFoundException;
-import br.com.brm.scp.mock.api.service.status.TagFiltroEnum;
+import br.com.brm.scp.api.service.status.TagFiltroEnum;
 
 public interface TagService {
 

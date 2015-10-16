@@ -20,9 +20,9 @@ import br.com.brm.scp.api.dto.response.UsuarioResponseDTO;
 import br.com.brm.scp.api.exceptions.UsuarioExistentException;
 import br.com.brm.scp.api.exceptions.UsuarioNotFoundException;
 import br.com.brm.scp.api.service.UsuarioService;
+import br.com.brm.scp.api.service.status.UsuarioFiltroEnum;
 import br.com.brm.scp.controller.exception.UsuarioExistenteWebException;
 import br.com.brm.scp.controller.exception.UsuarioNotFoundWebException;
-import br.com.brm.scp.mock.api.service.status.UsuarioFiltroEnum;
 
 @Controller
 @RequestMapping("application")

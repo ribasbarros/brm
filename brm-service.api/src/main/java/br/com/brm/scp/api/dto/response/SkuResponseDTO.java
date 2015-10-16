@@ -10,9 +10,9 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import br.com.brm.scp.api.annotation.BindingClassMeta;
 import br.com.brm.scp.api.dto.request.OrigemSkuResponseDTO;
-import br.com.brm.scp.mock.api.service.status.ClasseEnum;
-import br.com.brm.scp.mock.api.service.status.PlanejamentoSku;
-import br.com.brm.scp.mock.api.service.status.StatusReposicaoEnum;
+import br.com.brm.scp.api.service.status.ClasseEnum;
+import br.com.brm.scp.api.service.status.PlanejamentoSku;
+import br.com.brm.scp.api.service.status.StatusReposicaoEnum;
 
 public class SkuResponseDTO implements Serializable {
 

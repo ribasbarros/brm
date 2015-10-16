@@ -6,7 +6,7 @@ import java.util.Collection;
 
 import br.com.brm.scp.api.annotation.BindingClassMeta;
 import br.com.brm.scp.api.dto.MatrizSkuDTO;
-import br.com.brm.scp.mock.api.service.status.PlanejamentoDfu;
+import br.com.brm.scp.api.service.status.PlanejamentoDfu;
 
 public class DfuResponseDTO {
 	private String id;

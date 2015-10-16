@@ -17,10 +17,10 @@ import br.com.brm.scp.api.exceptions.ItemCategoriaNotFoundException;
 import br.com.brm.scp.api.exceptions.ItemExistenteException;
 import br.com.brm.scp.api.exceptions.ItemNotFoundException;
 import br.com.brm.scp.api.service.ItemService;
+import br.com.brm.scp.api.service.status.ItemFiltroEnum;
 import br.com.brm.scp.controller.exception.ItemCategoriaNotFoundWebException;
 import br.com.brm.scp.controller.exception.ItemExistenteWebException;
 import br.com.brm.scp.controller.exception.ItemNotFoundWebException;
-import br.com.brm.scp.mock.api.service.status.ItemFiltroEnum;
 
 @Controller
 @RequestMapping("item")

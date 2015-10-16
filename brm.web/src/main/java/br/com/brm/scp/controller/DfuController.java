@@ -16,9 +16,9 @@ import br.com.brm.scp.api.dto.response.DfuResponseDTO;
 import br.com.brm.scp.api.exceptions.DfuExistenteException;
 import br.com.brm.scp.api.exceptions.DfuNotFoundException;
 import br.com.brm.scp.api.service.DfuService;
+import br.com.brm.scp.api.service.status.DfuFiltroEnum;
 import br.com.brm.scp.controller.exception.DfuExistenteWebException;
 import br.com.brm.scp.controller.exception.DfuNotFoundWebException;
-import br.com.brm.scp.mock.api.service.status.DfuFiltroEnum;
 
 @Controller
 @RequestMapping("dfu")

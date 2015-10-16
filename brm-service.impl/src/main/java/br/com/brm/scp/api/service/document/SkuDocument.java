@@ -14,10 +14,10 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 import br.com.brm.scp.api.dto.request.OrigemSkuResponseDTO;
 import br.com.brm.scp.api.dto.response.ItemResponseDTO;
 import br.com.brm.scp.api.dto.response.TagResponseDTO;
+import br.com.brm.scp.api.service.status.ClasseEnum;
+import br.com.brm.scp.api.service.status.PlanejamentoSku;
+import br.com.brm.scp.api.service.status.StatusReposicaoEnum;
 import br.com.brm.scp.fw.annotations.BindingClass;
-import br.com.brm.scp.mock.api.service.status.ClasseEnum;
-import br.com.brm.scp.mock.api.service.status.PlanejamentoSku;
-import br.com.brm.scp.mock.api.service.status.StatusReposicaoEnum;
 
 @Document
 public class SkuDocument implements Serializable {

@@ -4,7 +4,7 @@ import br.com.brm.scp.api.dto.request.UsuarioRequestDTO;
 import br.com.brm.scp.api.dto.response.UsuarioResponseDTO;
 import br.com.brm.scp.api.exceptions.UsuarioExistentException;
 import br.com.brm.scp.api.exceptions.UsuarioNotFoundException;
-import br.com.brm.scp.mock.api.service.status.UsuarioFiltroEnum;
+import br.com.brm.scp.api.service.status.UsuarioFiltroEnum;
 
 public interface UsuarioService {
 
