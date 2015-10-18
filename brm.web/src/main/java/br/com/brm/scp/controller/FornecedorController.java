@@ -19,8 +19,10 @@ import br.com.brm.scp.api.exceptions.FornecedorNotFoundException;
 import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.pages.SearchPageableVO;
 import br.com.brm.scp.api.service.FornecedorService;
+import br.com.brm.scp.api.service.status.FornecedorFiltroEnum;
 import br.com.brm.scp.controller.exception.FornecedorExistenteWebException;
 import br.com.brm.scp.controller.exception.FornecedorNotFoundWebException;
+import scala.annotation.meta.getter;
 
 @Controller
 @RequestMapping("fornecedor")
@@ -62,6 +64,17 @@ public class FornecedorController implements Serializable {
 	void delete(@PathVariable("id") String id) {
 		try {
 			service.delete(id);
+		} catch (FornecedorNotFoundException e) {
+			throw new FornecedorNotFoundWebException(e.getMessage());
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "{id}", method = RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+	FornecedorResponseDTO get(@PathVariable("id") String id) {
+		try {
+			return service.find(FornecedorFiltroEnum.ID, id);
 		} catch (FornecedorNotFoundException e) {
 			throw new FornecedorNotFoundWebException(e.getMessage());
 		}

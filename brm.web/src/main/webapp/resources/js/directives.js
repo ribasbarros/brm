@@ -199,7 +199,8 @@ app.directive('brmDataTable', function() {
 		scope : {
 			column : '=column',
 			restEntries : '=restEntries',
-			urlForm : '=urlForm'
+			urlForm : '=urlForm',
+			urlCrud : '=urlCrud'
 		},
 		templateUrl : 'private/components/template-data-table'
 	};

@@ -46,6 +46,7 @@ app.controller('DataTableController', [ '$scope', '$http', '$location',
 				'entries' : [],
 				'index' : 0,
 				'totalPages' : 1,
+				'size' : 0
 			};
 
 			$scope.page = function(index) {
@@ -69,8 +70,9 @@ app.controller('DataTableController', [ '$scope', '$http', '$location',
 
 				pageable.$promise.then(function(data) {
 					$scope.view.entries = data.result;
-					$scope.view.totalPerPage.selectedOption.id = data.size
-					$scope.view.totalPerPage.selectedOption.name = data.size
+					// $scope.view.totalPerPage.selectedOption.id = data.size
+					// $scope.view.totalPerPage.selectedOption.name = data.size
+					$scope.view.size = data.size;
 					$scope.view.totalPages = data.totalPages;
 				}, function(data) {
 					if (data.status == 400) {
@@ -131,41 +133,36 @@ app.controller('DataTableController', [ '$scope', '$http', '$location',
 					}
 				}
 
-				if (mark == totalPages-1) {
-					console.log('debug 1');
+				if (mark == totalPages - 1) {
 					$scope.permitir.push(mark - 5);
 					$scope.permitir.push(mark - 6);
 					$scope.permitir.push(mark - 7);
 					$scope.permitir.push(mark - 8);
 					$scope.permitir.push(mark - 9);
 				}
-				
-				if (mark == totalPages-2) {
-					console.log('debug 2');
+
+				if (mark == totalPages - 2) {
 					$scope.permitir.push(mark - 5);
 					$scope.permitir.push(mark - 6);
 					$scope.permitir.push(mark - 7);
 					$scope.permitir.push(mark - 8);
 				}
-				
-				if (mark == totalPages-3) {
-					console.log('debug 3');
+
+				if (mark == totalPages - 3) {
 					$scope.permitir.push(mark - 5);
 					$scope.permitir.push(mark - 6);
 					$scope.permitir.push(mark - 7);
 				}
-				
-				if (mark == totalPages-4) {
-					console.log('debug 4');
+
+				if (mark == totalPages - 4) {
 					$scope.permitir.push(mark - 5);
 					$scope.permitir.push(mark - 6);
 				}
-				
-				if (mark == totalPages-5) {
-					console.log('debug 4');
+
+				if (mark == totalPages - 5) {
 					$scope.permitir.push(mark - 5);
 				}
-				
+
 			};
 
 			$scope.hideIndex = function(index) {
@@ -195,6 +192,31 @@ app.controller('DataTableController', [ '$scope', '$http', '$location',
 				$location.path($scope.urlForm);
 			};
 
+			$scope.deleteRegister = function(id) {
+
+				if (!confirm("Deseja excluir o registro?")) {
+					return;
+				}
+
+				var obj = $resource($scope.urlCrud, {
+					id : '@id'
+				});
+
+				obj.get({
+					id : id
+				}, function(response) {
+					response.$delete(function(u) {
+						
+						$scope.view.searchTerm = '';
+						
+						if ($scope.view.size == 1) {
+							$scope.view.index--;
+						}
+						$scope.page($scope.view.index);
+					});
+				});
+			};
+
 			$scope.page($scope.view.index);
 
 		} ]);
@@ -207,6 +229,10 @@ app.controller('CompanyCtrl',
 app.controller('FornecedorController', [ '$scope', '$location',
 		'FornecedorFactory', function($scope, $location, FornecedorFactory) {
 
+			$scope.REST_SEARCH = 'fornecedor/search';
+			$scope.URL_CRUD = 'fornecedor/:id'
+			$scope.URL_FORM = 'private/fornecedor/fornecedor-form';
+
 			$scope.map = [ {
 				'title' : 'Nome Fantasia',
 				'field' : 'nomeFantasia'
@@ -217,10 +243,6 @@ app.controller('FornecedorController', [ '$scope', '$location',
 				'title' : 'Contato',
 				'field' : 'contatos'
 			} ];
-
-			$scope.restSearch = 'fornecedor/search';
-
-			$scope.urlForm = 'private/fornecedor/fornecedor-form';
 
 		} ]);
 
