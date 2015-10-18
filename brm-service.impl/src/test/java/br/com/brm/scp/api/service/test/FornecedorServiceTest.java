@@ -44,7 +44,7 @@ public class FornecedorServiceTest extends AbstractTestNGSpringContextTests {
 	private static final boolean DISABLED = true;
 	private static final String ID_INVALIDO = "89898989_INVALIDO_888888";
 
-	private static final boolean DELETED_TEST = true;
+	private static final boolean DELETED_TEST = false;
 
 	private static final String CNPJ_4CENTRO = GeraCpfCnpj.cnpj().replaceAll(REGEX_NOCHAR_CNPJ, "");
 	private static final String CNPJ_4NOTFOUND = GeraCpfCnpj.cnpj().replaceAll(REGEX_NOCHAR_CNPJ, "");
@@ -207,21 +207,21 @@ public class FornecedorServiceTest extends AbstractTestNGSpringContextTests {
 	public void testSearchPageable() throws FornecedorNotFoundException {
 
 		Pageable<FornecedorResponseDTO> result01 = service.search("Brasil", 0, 10);
-		assertTrue(result01.getNumberOfElements() > 0);
+		assertTrue(result01.getSize() > 0);
 
 		createPages(1, 9);
 		Pageable<FornecedorResponseDTO> result02 = service.search("fornecedor", 0, 10);
-		assertTrue(result02.getNumberOfElements() > 0);
+		assertTrue(result02.getSize() > 0);
 
-		createPages(9, 100);
+		createPages(9, 200);
 		Pageable<FornecedorResponseDTO> result03 = service.search("fornecedor", 0, 10);
-		assertTrue(result03.getNumberOfElements() > 0);
+		assertTrue(result03.getSize() > 0);
 
 		Pageable<FornecedorResponseDTO> result04 = service.search("fornecedor", 1, 10);
-		assertTrue(result04.getNumberOfElements() > 0);
+		assertTrue(result04.getSize() > 0);
 
 		Pageable<FornecedorResponseDTO> result05 = service.search("fornecedor", 1, 5);
-		assertTrue(result05.getNumberOfElements() > 0);
+		assertTrue(result05.getSize() > 0);
 
 	}
 
