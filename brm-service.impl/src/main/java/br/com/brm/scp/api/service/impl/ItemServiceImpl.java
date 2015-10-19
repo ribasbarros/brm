@@ -231,7 +231,7 @@ public class ItemServiceImpl implements ItemService {
 	@Override
 	public Pageable<ItemResponseDTO> search(String searchTerm, int pageIndex, int size) throws ItemNotFoundException {
 
-		Page<ItemDocument> requestedPage = repository.findByNameOrNomeReduzidoOrDescricaoOrCategoria(searchTerm,
+		Page<ItemDocument> requestedPage = repository.findByNameOrNomeReduzidoOrDescricao(searchTerm,
 				ServiceUtil.constructPageSpecification(pageIndex, size, new Sort(Sort.Direction.ASC, "id")));
 
 		Collection<ItemDocument> result = requestedPage.getContent();

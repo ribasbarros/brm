@@ -1,13 +1,11 @@
 package br.com.brm.scp.api.service.test;
 
 import static org.testng.AssertJUnit.assertNotNull;
-import static org.testng.AssertJUnit.assertTrue;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,11 +36,11 @@ import br.com.brm.scp.security.config.AppConfigurationTest;
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class, classes = AppConfigurationTest.class)
 public class SkuServiceTest extends CargaTestSku {
 
-	private static final double PRECO_UNITARIO = 9.6;
+	private static final double PRECO_UNITARIO = 1012.6;
 
 	private static final boolean TEST_CRUD = true;
 	
-	private static final boolean EXCLUIR_TESTS = true;
+	private static final boolean EXCLUIR_TESTS = false;
 
 	private static final Date DATE_TEST = new Date();
 
@@ -111,16 +109,6 @@ public class SkuServiceTest extends CargaTestSku {
 	// TODO Desenvolver
 	@Test(enabled = TEST_CRUD && false, groups = "CRUD", priority = 4)
 	public void testFindPaginado() throws SkuNotFoundException {
-
-	}
-
-	//TODO Desenvolver
-	@Test(enabled = TEST_CRUD, groups = "CRUD", priority = 5)
-	public void testFind() throws SkuNotFoundException {
-
-		Collection<SkuResponseDTO> search = service.search(item.getNome());
-		
-		assertTrue(!search.isEmpty());
 
 	}
 

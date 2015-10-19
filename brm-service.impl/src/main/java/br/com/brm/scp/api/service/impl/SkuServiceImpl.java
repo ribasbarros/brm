@@ -1,10 +1,13 @@
 package br.com.brm.scp.api.service.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.apache.log4j.Logger;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -12,9 +15,13 @@ import br.com.brm.scp.api.dto.request.SkuRequestDTO;
 import br.com.brm.scp.api.dto.response.SkuResponseDTO;
 import br.com.brm.scp.api.exceptions.SkuExistenteException;
 import br.com.brm.scp.api.exceptions.SkuNotFoundException;
+import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.service.SkuService;
+import br.com.brm.scp.api.service.document.OrigemSkuDocument;
 import br.com.brm.scp.api.service.document.SkuDocument;
+import br.com.brm.scp.api.service.document.TagDocument;
 import br.com.brm.scp.api.service.repositories.SkuRepository;
+import br.com.brm.scp.api.service.status.SkuFiltroEnum;
 import br.com.brm.scp.fw.helper.converters.ConverterHelper;
 
 /**
@@ -33,8 +40,10 @@ public class SkuServiceImpl implements SkuService {
 	private static final String SKU_FREQUENCIA_ANALISE = "sku.frequenciaanalise";
 	private static final String SKU_MODELO = "sku.modelo";
 	private static final String SKU_ORIGEM = "sku.origem";
-
+	private static final String SKU_FILTRO = "sku.filtro";
 	private static final String SKU_EXISTENTE = "sku.existente";
+	private static final String SKU_NOTFOUND = "sku.notfound";
+
 	
 	@Autowired
 	private SkuRepository repository;
@@ -77,16 +86,80 @@ public class SkuServiceImpl implements SkuService {
 		return (SkuResponseDTO) ConverterHelper.convert(document, SkuResponseDTO.class);
 	}
 
-	@Override
-	public Collection<SkuResponseDTO> search(Object value) throws SkuNotFoundException {
-		
-		logger.info(String.format("Buscando %s na base", value));
-		
-		return null;
-	}
-
 	private Collection<SkuResponseDTO> invokeResponse(Collection<SkuDocument> collection) {
 		return ConverterHelper.convert(collection, SkuResponseDTO.class);
+	}
+
+	@Override
+	public SkuResponseDTO find(SkuFiltroEnum filtro, Object value) throws SkuNotFoundException {
+		SkuDocument document = findByFiltro(filtro, value);
+		return invokeResponse(document);
+	}
+
+	private SkuDocument findByFiltro(SkuFiltroEnum filtro, Object value) throws SkuNotFoundException {
+		
+		Assert.notNull(filtro, SKU_FILTRO);
+		
+		SkuDocument document = null;
+		if(SkuFiltroEnum.ID.equals(filtro))
+			document = repository.findOne((String) value);
+		
+		if(document == null)
+			throw new SkuNotFoundException(SKU_NOTFOUND);
+		
+		return document;
+		
+	}
+
+	@Override
+	public Pageable<SkuResponseDTO> all(int pageIndex, int size) throws SkuNotFoundException {
+
+		Page<SkuDocument> requestedPage = repository
+				.findAll(ServiceUtil.constructPageSpecification(pageIndex, size, new Sort(Sort.Direction.ASC, "id")));
+
+		Collection<SkuDocument> result = requestedPage.getContent();
+		
+		if(result.isEmpty())
+			throw new SkuNotFoundException(SKU_NOTFOUND);
+
+		int numberOfElements = requestedPage.getNumberOfElements();
+		int totalPages = requestedPage.getTotalPages();
+		
+		//TODO CRIAR SOLUCAO NO CONVERTER
+		for(SkuDocument d : result){
+			d.setTags(new ArrayList<TagDocument>(d.getTags()));
+			d.setOrigens(new ArrayList<OrigemSkuDocument>(d.getOrigens()));
+		}
+
+		Collection<SkuResponseDTO> response = invokeResponse(result);
+
+		return new br.com.brm.scp.api.pages.Pageable<SkuResponseDTO>(response, numberOfElements, totalPages,
+				pageIndex);
+
+	
+	}
+
+	@Override
+	public Pageable<SkuResponseDTO> search(String searchTerm, int pageIndex, int size) throws SkuNotFoundException {
+
+		//TODO Pesquisar por mais atributos!
+		Page<SkuDocument> requestedPage = repository.findByDescricao(searchTerm,
+				ServiceUtil.constructPageSpecification(pageIndex, size, new Sort(Sort.Direction.ASC, "id")));
+
+		Collection<SkuDocument> result = requestedPage.getContent();
+		
+		if(result.isEmpty())
+			throw new SkuNotFoundException(SKU_NOTFOUND);
+
+		int sizePage = requestedPage.getSize();
+		int totalPages = requestedPage.getTotalPages();
+
+		Collection<SkuResponseDTO> response = invokeResponse(result);
+
+		return new br.com.brm.scp.api.pages.Pageable<SkuResponseDTO>(response, sizePage, totalPages,
+				pageIndex);
+
+	
 	}
 
 }

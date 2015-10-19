@@ -200,7 +200,8 @@ app.directive('brmDataTable', function() {
 			column : '=column',
 			restEntries : '=restEntries',
 			urlForm : '=urlForm',
-			urlCrud : '=urlCrud'
+			urlCrud : '=urlCrud', 
+			isDelete : '=isDelete'
 		},
 		templateUrl : 'private/components/template-data-table'
 	};

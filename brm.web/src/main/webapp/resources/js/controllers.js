@@ -21,6 +21,52 @@ app.controller('CompanyCtrl',
 
 		} ]);
 
+app.controller('SkuController', [ '$scope', '$location',
+		function($scope, $location) {
+
+			$scope.REST_SEARCH = 'sku/search';
+			$scope.URL_CRUD = 'sku/:id'
+			$scope.URL_FORM = 'private/sku/sku-form';
+
+			$scope.map = [ {
+				'title' : 'Item',
+				'field' : 'item',
+				'subField' : 'nome'
+			}, {
+				'title' : 'Tags',
+				'field' : 'tags',
+				'subField' : 'nome',
+				'isArray' : 'true'
+			}, {
+				'title' : 'Situação',
+				'field' : 'status'
+			}, {
+				'title' : 'Planejamento',
+				'field' : 'modelo'
+			}, {
+				'title' : 'Classe',
+				'field' : 'classe'
+			},{
+				'title' : 'Origem',
+				'field' : 'origens', 
+				'subField' : 'tipo',
+				'isArray' : 'true'
+			},{
+				'title' : 'Data Maturidade',
+				'field' : 'dataMaturidade',
+				'isDate' : 'true'
+			}, {
+				'title' : 'Criação',
+				'field' : 'dataCriacao',
+				'isDate' : 'true'
+			}, {
+				'title' : 'Alteração',
+				'field' : 'dataAlteracao',
+				'isDate' : 'true'
+			} ];
+
+		} ]);
+
 app.controller('ItemController', [ '$scope', '$location',
 		function($scope, $location) {
 
@@ -36,7 +82,8 @@ app.controller('ItemController', [ '$scope', '$location',
 				'field' : 'status'
 			}, {
 				'title' : 'Valor Unitário',
-				'field' : 'valorUnitario'
+				'field' : 'valorUnitario',
+				'isCurrency' : 'true'
 			}, {
 				'title' : 'Unitilização',
 				'field' : 'unitizacao'
@@ -47,11 +94,11 @@ app.controller('ItemController', [ '$scope', '$location',
 			}, {
 				'title' : 'Criação',
 				'field' : 'dataCriacao',
-				'isDate': 'true'
+				'isDate' : 'true'
 			}, {
 				'title' : 'Alteração',
 				'field' : 'dataAlteracao',
-				'isDate': 'true'
+				'isDate' : 'true'
 			} ];
 
 		} ]);
