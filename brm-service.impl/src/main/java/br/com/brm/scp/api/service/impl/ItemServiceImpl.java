@@ -1,7 +1,12 @@
 package br.com.brm.scp.api.service.impl;
 
+import java.util.Collection;
+import java.util.Date;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -11,6 +16,7 @@ import br.com.brm.scp.api.exceptions.FornecedorNotFoundException;
 import br.com.brm.scp.api.exceptions.ItemCategoriaNotFoundException;
 import br.com.brm.scp.api.exceptions.ItemExistenteException;
 import br.com.brm.scp.api.exceptions.ItemNotFoundException;
+import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.service.ItemService;
 import br.com.brm.scp.api.service.document.ItemDocument;
 import br.com.brm.scp.api.service.repositories.CategoriaRepository;
@@ -53,7 +59,7 @@ public class ItemServiceImpl implements ItemService {
 	public ItemResponseDTO create(ItemRequestDTO request) throws ItemExistenteException, ItemCategoriaNotFoundException {
 
 		Assert.notNull(request, ITEM_NOTNULL);
-		Assert.notNull(request.getIdCategoria(), ITEM_CATEGORIA);
+		Assert.notNull(request.getCategoria(), ITEM_CATEGORIA);
 		Assert.notNull(request.getNome(), ITEM_NOME);
 		Assert.notNull(request.getNomeReduzido(), ITEM_NOMEREDUZIDO);
 		Assert.notNull(request.getStatus(), ITEM_STATUS);
@@ -66,9 +72,14 @@ public class ItemServiceImpl implements ItemService {
 			logger.debug(String.format("ITEM %s nao encontrado, pronto para cadastro!", request.getNome()));
 		}
 		
-		hasCategoria(request.getIdCategoria());
+		hasCategoria(request.getCategoria().getId());
 		
 		ItemDocument document = (ItemDocument) ConverterHelper.convert(request, ItemDocument.class);
+
+		Date current = new Date();
+		
+		document.setDataCriacao(current);
+		document.setDataAlteracao(current);
 
 		document = repository.save(document);
 		
@@ -145,7 +156,7 @@ public class ItemServiceImpl implements ItemService {
 		
 		Assert.notNull(request, ITEM_NOTNULL);
 		Assert.notNull(request.getId(), ITEM_ID);
-		Assert.notNull(request.getIdCategoria(), ITEM_CATEGORIA);
+		Assert.notNull(request.getCategoria().getId(), ITEM_CATEGORIA);
 		Assert.notNull(request.getNome(), ITEM_NOME);
 		Assert.notNull(request.getNomeReduzido(), ITEM_NOMEREDUZIDO);
 		Assert.notNull(request.getStatus(), ITEM_STATUS);
@@ -158,9 +169,19 @@ public class ItemServiceImpl implements ItemService {
 			logger.debug(String.format("Item %s encontrado, pronto para ser alterado!", request.getNome()));
 		}
 		
-		hasCategoria(request.getIdCategoria());
+		hasCategoria(request.getCategoria().getId());
 		
 		ItemDocument document = (ItemDocument) ConverterHelper.convert(request, ItemDocument.class);
+		
+		/*
+		 * Quando o Request não é completo, isto é, quando a Classe de document tem mais coisa que o Request, deve-se
+		 * tomar cuidado para nao salvar o objeto de destino para null, sendo que ele tem. (No caso eh a data de criacao)
+		 */
+		ItemDocument documentOld = findByFiltro(ItemFiltroEnum.ID, document.getId());
+		
+		Date current = new Date();
+		document.setDataCriacao(documentOld.getDataCriacao());
+		document.setDataAlteracao(current);
 		
 		document = repository.save(document);
 		
@@ -185,6 +206,51 @@ public class ItemServiceImpl implements ItemService {
 		}
 		
 		repository.delete(id);
+	}
+
+	@Override
+	public Pageable<ItemResponseDTO> all(int pageIndex, int size) throws ItemNotFoundException {
+		Page<ItemDocument> requestedPage = repository
+				.findAll(ServiceUtil.constructPageSpecification(pageIndex, size, new Sort(Sort.Direction.ASC, "id")));
+
+		Collection<ItemDocument> result = requestedPage.getContent();
+
+		if (result.isEmpty())
+			throw new ItemNotFoundException(ITEM_NOTFOUND);
+
+		int numberOfElements = requestedPage.getNumberOfElements();
+		int totalPages = requestedPage.getTotalPages();
+
+		Collection<ItemResponseDTO> response = invokeResponse(result);
+
+		return new br.com.brm.scp.api.pages.Pageable<ItemResponseDTO>(response, numberOfElements, totalPages,
+				pageIndex);
+	
+	}
+
+	@Override
+	public Pageable<ItemResponseDTO> search(String searchTerm, int pageIndex, int size) throws ItemNotFoundException {
+
+		Page<ItemDocument> requestedPage = repository.findByNameOrNomeReduzidoOrDescricaoOrCategoria(searchTerm,
+				ServiceUtil.constructPageSpecification(pageIndex, size, new Sort(Sort.Direction.ASC, "id")));
+
+		Collection<ItemDocument> result = requestedPage.getContent();
+		
+		if(result.isEmpty())
+			throw new ItemNotFoundException(ITEM_NOTFOUND);
+
+		int sizePage = requestedPage.getSize();
+		int totalPages = requestedPage.getTotalPages();
+
+		Collection<ItemResponseDTO> response = invokeResponse(result);
+
+		return new br.com.brm.scp.api.pages.Pageable<ItemResponseDTO>(response, sizePage, totalPages,
+				pageIndex);
+	
+	}
+
+	private Collection<ItemResponseDTO> invokeResponse(Collection<ItemDocument> result) {
+		return ConverterHelper.convert(result, ItemResponseDTO.class);
 	}
 
 }

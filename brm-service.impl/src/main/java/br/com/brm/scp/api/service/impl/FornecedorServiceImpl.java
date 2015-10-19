@@ -5,8 +5,6 @@ import java.util.Collection;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -266,7 +264,7 @@ public class FornecedorServiceImpl implements FornecedorService {
 			int size) throws FornecedorNotFoundException {
 
 		Page<FornecedorDocument> requestedPage = repository.findByRazaoSocialOrNomeFantasiaOrDescricaoOrCpnj(searchTerm,
-				constructPageSpecification(pageIndex, size));
+				ServiceUtil.constructPageSpecification(pageIndex, size, new Sort(Sort.Direction.ASC, "id")));
 
 		Collection<FornecedorDocument> result = requestedPage.getContent();
 		
@@ -291,21 +289,12 @@ public class FornecedorServiceImpl implements FornecedorService {
 		return ConverterHelper.convert(result, FornecedorResponseDTO.class);
 	}
 
-	private Pageable constructPageSpecification(int pageIndex, int size) {
-		Pageable pageSpecification = new PageRequest(pageIndex, size, sortByLastNameAsc());
-		return pageSpecification;
-	}
-
-	private Sort sortByLastNameAsc() {
-		return new Sort(Sort.Direction.ASC, "id");
-	}
-
 	@Override
 	public br.com.brm.scp.api.pages.Pageable<FornecedorResponseDTO> all(int pageIndex,
 			int size) throws FornecedorNotFoundException {
 
 		Page<FornecedorDocument> requestedPage = repository
-				.findAll(constructPageSpecification(pageIndex, size));
+				.findAll(ServiceUtil.constructPageSpecification(pageIndex, size, new Sort(Sort.Direction.ASC, "id")));
 
 		Collection<FornecedorDocument> result = requestedPage.getContent();
 		

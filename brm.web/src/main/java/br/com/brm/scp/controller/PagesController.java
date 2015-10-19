@@ -1,10 +1,18 @@
 package br.com.brm.scp.controller;
 
+import java.io.Serializable;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class PagesController {
+public class PagesController implements Serializable {
+
+	private static final long serialVersionUID = -5696101938250014714L;
+	
+	private static final Object PRIVATE_DOMAIN = "private";
 
 	@RequestMapping(value="/")
 	public String index() {
@@ -26,19 +34,14 @@ public class PagesController {
 		return "login-brm";
 	}
 	
-	@RequestMapping(value = "/private/fornecedor/fornecedor-view")
-	public String fornecedorView() {
-		return "private/fornecedor/fornecedor-view";
-	}
-	
-	@RequestMapping(value = "/private/fornecedor/fornecedor-form")
-	public String fornecedorForm() {
-		return "private/fornecedor/fornecedor-form";
-	}
-	
-	@RequestMapping(value = "/private/components/template-data-table")
-	public String templateDataTable() {
-		return "/private/components/template-data-table";
+	/**
+	 * @param type
+	 * @param typePage
+	 * @return url destino
+	 */
+	@RequestMapping(value = "/private/{type}/{typePage}", method = RequestMethod.GET)
+	public String doPrivate(@PathVariable("type") String type, @PathVariable("typePage") String typePage) {
+		return String.format("%s/%s/%s" , PRIVATE_DOMAIN, type, typePage);
 	}
 	
 }

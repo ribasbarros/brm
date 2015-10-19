@@ -75,7 +75,7 @@ public class CargaTestSku extends AbstractTestNGSpringContextTests {
 
 		categoria01 = categoriaRepository.save(categoria01);
 		
-		item.setIdCategoria(categoria01.getId());
+		item.setCategoria(categoria01);
 		item.setNome("Item0002");
 		item.setNomeReduzido("Item02");
 		item.setDescricao("Item 02 descricao teste");

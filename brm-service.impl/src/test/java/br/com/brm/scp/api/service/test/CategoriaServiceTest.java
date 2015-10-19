@@ -29,6 +29,8 @@ public class CategoriaServiceTest extends AbstractTestNGSpringContextTests{
 	CategoriaRepository repository;
 	
 	private static final boolean TEST_CRUD = true;
+	private static final boolean DELETE_TEST = false;
+	
 	private static String ULTIMO_ID = "";
 	private static String ID_INVALIDO = "XXXXXXX";
 	
@@ -69,7 +71,7 @@ public class CategoriaServiceTest extends AbstractTestNGSpringContextTests{
 	}
 	
 	
-	@org.testng.annotations.Test(enabled = TEST_CRUD, groups = "CRUD", priority = 5, dataProvider = "novoCategoriaAlterado")
+	@org.testng.annotations.Test(enabled = TEST_CRUD && DELETE_TEST, groups = "CRUD", priority = 5, dataProvider = "novoCategoriaAlterado")
 	public void delete(CategoriaRequestDTO request) throws CategoriaNotFoundException {
 		assertNotNull(request);
 		service.delete(request.getId());		

@@ -3,6 +3,10 @@ package br.com.brm.scp.api.dto.request;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import org.springframework.data.mongodb.core.mapping.DBRef;
+
+import br.com.brm.scp.api.annotation.BindingClassMeta;
+import br.com.brm.scp.api.dto.response.CategoriaResponseDTO;
 import br.com.brm.scp.api.service.status.ItemStatus;
 
 public class ItemRequestDTO implements Serializable {
@@ -16,7 +20,10 @@ public class ItemRequestDTO implements Serializable {
 	private BigDecimal valorUnitario;
 	private Integer unitizacao; // Quantidade que vem fechado
 	private String descricao;
-	private String idCategoria;
+
+	@DBRef
+	@BindingClassMeta("CATEGORIA")
+	private CategoriaResponseDTO categoria;
 
 	public String getId() {
 		return id;
@@ -66,20 +73,20 @@ public class ItemRequestDTO implements Serializable {
 		this.unitizacao = unitizacao;
 	}
 
-	public String getIdCategoria() {
-		return idCategoria;
-	}
-
-	public void setIdCategoria(String idCategoria) {
-		this.idCategoria = idCategoria;
-	}
-
 	public String getDescricao() {
 		return descricao;
 	}
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public CategoriaResponseDTO getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(CategoriaResponseDTO categoria) {
+		this.categoria = categoria;
 	}
 
 }

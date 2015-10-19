@@ -236,7 +236,7 @@ public class SkuServiceTest extends CargaTestSku {
 		} catch (Exception ex) {
 		}
 		try {
-			categoriaRepository.delete(item.getIdCategoria());
+			categoriaRepository.delete(item.getCategoria().getId());
 		} catch (Exception ex) {
 		}
 		try {

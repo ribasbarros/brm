@@ -22,7 +22,6 @@ import br.com.brm.scp.api.service.FornecedorService;
 import br.com.brm.scp.api.service.status.FornecedorFiltroEnum;
 import br.com.brm.scp.controller.exception.FornecedorExistenteWebException;
 import br.com.brm.scp.controller.exception.FornecedorNotFoundWebException;
-import scala.annotation.meta.getter;
 
 @Controller
 @RequestMapping("fornecedor")

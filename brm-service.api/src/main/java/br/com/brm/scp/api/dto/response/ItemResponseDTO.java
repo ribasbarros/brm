@@ -2,7 +2,9 @@ package br.com.brm.scp.api.dto.response;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
+import br.com.brm.scp.api.annotation.BindingClassMeta;
 import br.com.brm.scp.api.service.status.ItemStatus;
 
 public class ItemResponseDTO implements Serializable {
@@ -16,7 +18,13 @@ public class ItemResponseDTO implements Serializable {
 	private BigDecimal valorUnitario;
 	private Integer unitizacao; // Quantidade que vem fechado
 	private String descricao;
-	private String idCategoria;
+
+	@BindingClassMeta("CATEGORIA")
+	private CategoriaResponseDTO categoria;
+
+	private Date dataCriacao;
+
+	private Date dataAlteracao;
 
 	public String getId() {
 		return id;
@@ -66,20 +74,36 @@ public class ItemResponseDTO implements Serializable {
 		this.unitizacao = unitizacao;
 	}
 
-	public String getIdCategoria() {
-		return idCategoria;
-	}
-
-	public void setIdCategoria(String idCategoria) {
-		this.idCategoria = idCategoria;
-	}
-
 	public String getDescricao() {
 		return descricao;
 	}
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public CategoriaResponseDTO getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(CategoriaResponseDTO categoria) {
+		this.categoria = categoria;
+	}
+
+	public Date getDataCriacao() {
+		return dataCriacao;
+	}
+
+	public void setDataCriacao(Date dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+
+	public Date getDataAlteracao() {
+		return dataAlteracao;
+	}
+
+	public void setDataAlteracao(Date dataAlteracao) {
+		this.dataAlteracao = dataAlteracao;
 	}
 
 }
