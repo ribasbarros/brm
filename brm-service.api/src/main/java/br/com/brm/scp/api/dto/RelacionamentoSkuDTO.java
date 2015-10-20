@@ -3,7 +3,7 @@ package br.com.brm.scp.api.dto;
 import java.io.Serializable;
 
 
-public class MatrizSkuDTO implements Serializable{
+public class RelacionamentoSkuDTO implements Serializable{
 	
 	private static final long serialVersionUID = 7005405177794282663L;
 	private String id;

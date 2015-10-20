@@ -7,13 +7,15 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
-public class MatrizSkuDocument implements Serializable{	
+public class RelacaoSkuDocument implements Serializable{	
 	private static final long serialVersionUID = -6690751074830703188L;
 	
 	@Id
 	private String id;
+	
 	@DBRef
 	private String idDfu;
+	
 	@DBRef
 	private String idSku;
 	

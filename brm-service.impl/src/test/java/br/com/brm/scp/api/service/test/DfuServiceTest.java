@@ -20,14 +20,16 @@ import br.com.brm.scp.api.service.repositories.DfuRepository;
 import br.com.brm.scp.security.config.AppConfigurationTest;
 
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class, classes = AppConfigurationTest.class)
-
 public class DfuServiceTest extends AbstractTestNGSpringContextTests{
+	
 	@Autowired
 	DfuService service;
 	@Autowired
 	DfuRepository repository;
 	
 	private static final boolean TEST_CRUD = true;
+	private static final boolean DELETE_TEST = false;
+	
 	private static String ULTIMO_ID = "";
 	private static String ID_INVALIDO = "XXXXXXX";
 	
@@ -67,7 +69,7 @@ public class DfuServiceTest extends AbstractTestNGSpringContextTests{
 	}
 	
 	
-	@org.testng.annotations.Test(enabled = TEST_CRUD, groups = "CRUD", priority = 5, dataProvider = "novoDfuAlterado")
+	@org.testng.annotations.Test(enabled = TEST_CRUD && DELETE_TEST, groups = "CRUD", priority = 5, dataProvider = "novoDfuAlterado")
 	public void delete(DfuRequestDTO request) throws DfuNotFoundException {
 		assertNotNull(request);
 		service.delete(request.getId());		
@@ -84,7 +86,7 @@ public class DfuServiceTest extends AbstractTestNGSpringContextTests{
 	@DataProvider(name = "novaDfu")
 	public Object[][] providerDfu() {
 		DfuRequestDTO request = new DfuRequestDTO();
-		request.setDiaVenda(1);
+		request.setDdv(1);
 		
 		return new Object[][] { new Object[] { request } };
 	}
@@ -93,7 +95,7 @@ public class DfuServiceTest extends AbstractTestNGSpringContextTests{
 	public Object[][] providerDfuAlterada() {
 		DfuRequestDTO request = new DfuRequestDTO();
 		request.setId(ULTIMO_ID);
-		request.setDiaVenda(2);
+		request.setDdv(2);
 		
 		return new Object[][] { new Object[] { request } };
 	}
