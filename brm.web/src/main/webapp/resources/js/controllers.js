@@ -105,15 +105,17 @@ app.controller('ItemController', [ '$scope', '$location',
 
 app.controller('FornecedorController', [ '$scope', '$location',
 		'FornecedorFactory', function($scope, $location, FornecedorFactory) {
+			$scope.mensagem = '';
 
 			$scope.fornecedor = new FornecedorFactory();
-
 			$scope.submeter = function() {
-
-				$scope.fornecedor.$save(function(response) {
-					console.log(response);
-				});
-
+				if ($scope.formulario.$valid) {
+					$scope.fornecedor.$save(function(response) {
+						$scope.mensagem = 'Cadastro realizado com sucesso!';
+					}, function(erro) {
+						$scope.mensagem = 'Cadastro não realizado!';
+					});
+				}
 			};
 
 			$scope.REST_SEARCH = 'fornecedor/search';
