@@ -1,34 +1,55 @@
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <div ng-controller="FornecedorController">
 	<div class="page-header text-center">
-		<h1>[] Fornecedor</h1>
+		<h1>Cadastro Fornecedor</h1>
 	</div>
+
+	<p ng-show="mensagem.length" class="alert alert-info">{{mensagem}}</p>
 
 	<form novalidate name="formulario" class="row" ng-submit="submeter()">
 		<div class="col-md-6">
 			<div class="form-group">
-				<label>Raz�o Social</label> <input name="titulo" class="form-control"
-					ng-model="fornecedor.razaoSocial" required>
+				<label>Razão Social</label> <input name="razaoSocial"
+					class="form-control" ng-model="fornecedor.razaoSocial" required>
+					<span ng-show = "formulario.$submitted && formulario.razaoSocial.$error.required"
+				class="form-control alert-danger">
+				Razão Social é obrigatório
+			</span>
 			</div>
 			<div class="form-group">
-				<label>Nome Fantasia</label> <input name="url" class="form-control"
-					ng-model="fornecedor.nomeFantasia" required> 
+				<label>Nome Fantasia</label> <input name="nomeFantasia" class="form-control"
+					ng-model="fornecedor.nomeFantasia" required>
+					<span ng-show = "formulario.$submitted && formulario.nomeFantasia.$error.required"
+				class="form-control alert-danger">
+				Nome Fantasia é obrigatório
 			</div>
 			<div class="form-group">
-				<label>Descri��o</label> <input name="url" class="form-control"
-					ng-model="fornecedor.descricao" required> 
+				<label>Descrição</label> <input name="descricao" class="form-control"
+					ng-model="fornecedor.descricao" required>
+					<span ng-show = "formulario.$submitted && formulario.razaoSocial.$error.required"
+				class="form-control alert-danger">
+				Descrição é obrigatório
 			</div>
 			<div class="form-group">
-				<label>CNPJ</label> <input name="cpf" class="form-control"
-					ng-model="fornecedor.cnpj" required> 
+				<label>CNPJ</label> <input name="cnpj" class="form-control"
+					ng-model="fornecedor.cnpj" ui-mask="(999) 999-9999" required>
+					<span ng-show = "formulario.$submitted && formulario.cnpj.$error.required"
+				class="form-control alert-danger">
+				CNPJ é obrigatório
 			</div>
-			
+						
+			<brm-data-table column="map" rest-entries="REST_SEARCH" url-form="URL_FORM" url-crud="URL_CRUD" is-delete="true" />
 
 			<button type="submit" class="btn btn-primary"
-				ng-disabled="formulario.$invalid">Salvar</button>
+				>Salvar</button>
 			<a href="/" class="btn btn-primary">Voltar</a>
 			<hr>
 		</div>
-		
+
 	</form>
 
 </div>
