@@ -46,12 +46,12 @@ app.controller('SkuController', [ '$scope', '$location',
 			}, {
 				'title' : 'Classe',
 				'field' : 'classe'
-			},{
+			}, {
 				'title' : 'Origem',
-				'field' : 'origens', 
+				'field' : 'origens',
 				'subField' : 'tipo',
 				'isArray' : 'true'
-			},{
+			}, {
 				'title' : 'Data Maturidade',
 				'field' : 'dataMaturidade',
 				'isDate' : 'true'
@@ -103,8 +103,16 @@ app.controller('ItemController', [ '$scope', '$location',
 
 		} ]);
 
-app.controller('FornecedorController', [ '$scope', '$location',
-		function($scope, $location) {
+app.controller('FornecedorController', [
+		'$scope',
+		'$location',
+		'$http',
+		function($scope, $location, $http) {
+
+			$scope.fornecedor = {};
+			$scope.submeter = function() {
+				$http.post('/fornecedor', $scope.fornecedor).success(console.log($scope.fornecedor));
+			};
 
 			$scope.REST_SEARCH = 'fornecedor/search';
 			$scope.URL_CRUD = 'fornecedor/:id'

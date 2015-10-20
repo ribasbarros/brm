@@ -1,5 +1,34 @@
 <div ng-controller="FornecedorController">
-	
-	<h3>Fornecedor</h3>
-	
+	<div class="page-header text-center">
+		<h1>[] Fornecedor</h1>
+	</div>
+
+	<form novalidate name="formulario" class="row" ng-submit="submeter()">
+		<div class="col-md-6">
+			<div class="form-group">
+				<label>Razão Social</label> <input name="titulo" class="form-control"
+					ng-model="fornecedor.razaoSocial" required>
+			</div>
+			<div class="form-group">
+				<label>Nome Fantasia</label> <input name="url" class="form-control"
+					ng-model="fornecedor.nomeFantasia" required> 
+			</div>
+			<div class="form-group">
+				<label>Descrição</label> <input name="url" class="form-control"
+					ng-model="fornecedor.descricao" required> 
+			</div>
+			<div class="form-group">
+				<label>CNPJ</label> <input name="cpf" class="form-control"
+					ng-model="fornecedor.cnpj" required> 
+			</div>
+			
+
+			<button type="submit" class="btn btn-primary"
+				ng-disabled="formulario.$invalid">Salvar</button>
+			<a href="/" class="btn btn-primary">Voltar</a>
+			<hr>
+		</div>
+		
+	</form>
+
 </div>
