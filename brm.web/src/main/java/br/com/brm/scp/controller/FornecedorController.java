@@ -49,7 +49,7 @@ public class FornecedorController implements Serializable {
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.PUT)
 	@ResponseStatus(HttpStatus.OK)
-	void update(FornecedorRequestDTO request) {
+	void update(@RequestBody FornecedorRequestDTO request) {
 		try {
 			service.update(request);
 		} catch (FornecedorNotFoundException e) {

@@ -15,7 +15,6 @@ services.factory('CompanyFactory', function($resource) {
 });
 
 services.factory('FornecedorFactory', [ '$resource', function($resource) {
-	
 	return $resource('fornecedor/:id', { id: '@_id' }, {
 	    update: {
 	      method: 'PUT'
