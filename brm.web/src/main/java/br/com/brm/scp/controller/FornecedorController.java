@@ -35,7 +35,7 @@ public class FornecedorController implements Serializable {
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
-	FornecedorResponseDTO create(FornecedorRequestDTO request) {
+	FornecedorResponseDTO create(@RequestBody FornecedorRequestDTO request) {
 		FornecedorResponseDTO response = null;
 		try {
 			response = service.create(request);

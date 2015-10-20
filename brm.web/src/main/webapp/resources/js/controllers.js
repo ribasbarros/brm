@@ -103,15 +103,17 @@ app.controller('ItemController', [ '$scope', '$location',
 
 		} ]);
 
-app.controller('FornecedorController', [
-		'$scope',
-		'$location',
-		'$http',
-		function($scope, $location, $http) {
+app.controller('FornecedorController', [ '$scope', '$location',
+		'FornecedorFactory', function($scope, $location, FornecedorFactory) {
 
-			$scope.fornecedor = {};
+			$scope.fornecedor = new FornecedorFactory();
+
 			$scope.submeter = function() {
-				$http.post('/fornecedor', $scope.fornecedor).success(console.log($scope.fornecedor));
+
+				$scope.fornecedor.$save(function(response) {
+					console.log(response);
+				});
+
 			};
 
 			$scope.REST_SEARCH = 'fornecedor/search';
