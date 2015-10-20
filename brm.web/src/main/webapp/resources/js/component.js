@@ -179,7 +179,11 @@ app.controller('DataTableController', [ '$scope', '$http', '$location',
 			};
 
 			$scope.newRegister = function() {
-				$location.path($scope.urlForm);
+				$location.path($scope.urlFormCreate);
+			};
+
+			$scope.edit = function(id) {
+				$location.path($scope.urlFormEdit + "/" + id);
 			};
 
 			$scope.deleteRegister = function(id) {

@@ -26,7 +26,8 @@ app.controller('SkuController', [ '$scope', '$location',
 
 			$scope.REST_SEARCH = 'sku/search';
 			$scope.URL_CRUD = 'sku/:id'
-			$scope.URL_FORM = 'private/sku/sku-form';
+			$scope.URL_FORM_CREATE = 'private/sku/sku-create';
+			$scope.URL_FORM_EDIT = 'private/sku/sku-edit';
 
 			$scope.map = [ {
 				'title' : 'Item',
@@ -72,7 +73,8 @@ app.controller('ItemController', [ '$scope', '$location',
 
 			$scope.REST_SEARCH = 'item/search';
 			$scope.URL_CRUD = 'item/:id'
-			$scope.URL_FORM = 'private/item/item-form';
+			$scope.URL_FORM_CREATE = 'private/item/item-create';
+			$scope.URL_FORM_EDIT = 'private/item/item-edit';
 
 			$scope.map = [ {
 				'title' : 'Nome',
@@ -105,6 +107,7 @@ app.controller('ItemController', [ '$scope', '$location',
 
 app.controller('FornecedorController', [ '$scope', '$location',
 		'FornecedorFactory', function($scope, $location, FornecedorFactory) {
+
 			$scope.mensagem = '';
 
 			$scope.fornecedor = new FornecedorFactory();
@@ -120,7 +123,8 @@ app.controller('FornecedorController', [ '$scope', '$location',
 
 			$scope.REST_SEARCH = 'fornecedor/search';
 			$scope.URL_CRUD = 'fornecedor/:id'
-			$scope.URL_FORM = 'private/fornecedor/fornecedor-form';
+			$scope.URL_FORM_CREATE = 'private/fornecedor/fornecedor-create';
+			$scope.URL_FORM_EDIT = 'private/fornecedor/fornecedor-edit';
 
 			$scope.map = [ {
 				'title' : 'Nome Fantasia',
@@ -135,12 +139,36 @@ app.controller('FornecedorController', [ '$scope', '$location',
 
 		} ]);
 
+app.controller('FornecedorEditController', [ '$scope', '$routeParams',
+		'$location', 'FornecedorFactory',
+		function($scope, $routeParams, $location, FornecedorFactory) {
+
+			$scope.fornecedor = FornecedorFactory.get({
+				id : $routeParams.id
+			});
+
+			console.log($scope.fornecedor);
+		} ]);
+
+app.controller('SkuEditController', [ '$scope', '$routeParams', '$location',
+		'SkuFactory',
+		function($scope, $routeParams, $location, FornecedorFactory) {
+
+		} ]);
+
+app.controller('ItemEditController', [ '$scope', '$routeParams', '$location',
+		'ItemFactory',
+		function($scope, $routeParams, $location, FornecedorFactory) {
+
+		} ]);
+
 app.controller('CategoriaController', [ '$scope', '$location',
 		function($scope, $location) {
 
 			$scope.REST_SEARCH = 'categoria/search';
 			$scope.URL_CRUD = 'categoria/:id'
-			$scope.URL_FORM = 'private/categoria/categoria-form';
+			$scope.URL_FORM_CREATE = 'private/categoria/categoria-create';
+			$scope.URL_FORM_EDIT = 'private/categoria/categoria-edit';
 
 			$scope.map = [ {
 				'title' : 'Nome',

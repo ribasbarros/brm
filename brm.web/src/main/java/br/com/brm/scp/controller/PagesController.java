@@ -44,4 +44,14 @@ public class PagesController implements Serializable {
 		return String.format("%s/%s/%s" , PRIVATE_DOMAIN, type, typePage);
 	}
 	
+	/**
+	 * @param type
+	 * @param typePage
+	 * @return url destino
+	 */
+	@RequestMapping(value = "/private/{type}/{typePage}/{id}", method = RequestMethod.GET)
+	public String doPrivateEdit(@PathVariable("type") String type, @PathVariable("typePage") String typePage, @PathVariable("typePage") String id) {
+		return String.format("%s/%s/%s" , PRIVATE_DOMAIN, type, typePage);
+	}
+	
 }
