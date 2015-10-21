@@ -3,8 +3,8 @@
 /* Controllers */
 var app = angular.module('brm.controllers', [ 'ngCookies', 'ngResource' ]);
 
-app.controller('DummyController', [ '$rootScope', '$scope', '$http', '$window',
-		function($rootScope, $scope, $http, $window) {
+app.controller('DummyController', ['$rootScope', '$scope', '$http', '$resource', 
+		'ItemFactory', function( $rootScope, $scope, $http, $resource, ItemFactory) {
 
 			$scope.logout = function() {
 				$http.post('auth/logout', {}).success(function() {
@@ -34,6 +34,40 @@ app.controller('DummyController', [ '$rootScope', '$scope', '$http', '$window',
 				alert($scope.ENTRIES);
 			};
 
+			var List = $resource('item/all');
+			
+			$scope.itemsTeste = List.query();
+			
+			$scope.items = ['item1', 'item2', 'item3'];
+
+			  $scope.animationsEnabled = true;
+
+			  $scope.open = function (size) {
+
+			    var modalInstance = $uibModal.open({
+			      animation: $scope.animationsEnabled,
+			      templateUrl: 'myModalContent.html',
+			      controller: 'ModalInstanceCtrl',
+			      size: size,
+			      resolve: {
+			        items: function () {
+			          return $scope.items;
+			        }
+			      }
+			    });
+
+			    modalInstance.result.then(function (selectedItem) {
+			      $scope.selected = selectedItem;
+			    }, function () {
+			      $log.info('Modal dismissed at: ' + new Date());
+			    });
+			  };
+
+			  $scope.toggleAnimation = function () {
+			    $scope.animationsEnabled = !$scope.animationsEnabled;
+			  };
+
+
 		} ]);
 
 app.controller('CompanyCtrl',
@@ -41,181 +75,215 @@ app.controller('CompanyCtrl',
 
 		} ]);
 
-app.controller('SkuController', [ '$scope', '$location', 'SkuFactory',
-		function($scope, $location, SkuFactory) {
+app
+		.controller(
+				'SkuController',
+				[
+						'$scope',
+						'$location',
+						'SkuFactory',
+						function($scope, $location, SkuFactory) {
 
-			$scope.sku = new SkuFactory();
-			$scope.submeter = function() {
-				if ($scope.formulario.$valid) {
-					$scope.sku.$save(function(response) {
-						$scope.mensagem = 'Cadastro de Sku realizado com sucesso!';
-					}, function(erro) {
-						$scope.mensagem = 'Cadastro de Sku não realizado!';
-					});
-				}
-			};
+							$scope.sku = new SkuFactory();
+							$scope.submeter = function() {
+								if ($scope.formulario.$valid) {
+									$scope.sku
+											.$save(
+													function(response) {
+														$scope.mensagem = 'Cadastro de Sku realizado com sucesso!';
+													},
+													function(erro) {
+														$scope.mensagem = 'Cadastro de Sku não realizado!';
+													});
+								}
+							};
 
-			$scope.REST_SEARCH = 'sku/search';
-			$scope.URL_CRUD = 'sku/:id';
-			$scope.URL_FORM_CREATE = 'private/sku/sku-create';
-			$scope.URL_FORM_EDIT = 'private/sku/sku-edit';
+							$scope.REST_SEARCH = 'sku/search';
+							$scope.URL_CRUD = 'sku/:id';
+							$scope.URL_FORM_CREATE = 'private/sku/sku-create';
+							$scope.URL_FORM_EDIT = 'private/sku/sku-edit';
 
-			$scope.map = [ {
-				'title' : 'Item',
-				'field' : 'item',
-				'subField' : 'nome'
-			}, {
-				'title' : 'Tags',
-				'field' : 'tags',
-				'subField' : 'nome',
-				'isArray' : 'true'
-			}, {
-				'title' : 'Situação',
-				'field' : 'status'
-			}, {
-				'title' : 'Planejamento',
-				'field' : 'modelo'
-			}, {
-				'title' : 'Classe',
-				'field' : 'classe'
-			}, {
-				'title' : 'Origem',
-				'field' : 'origens',
-				'subField' : 'tipo',
-				'isArray' : 'true'
-			}, {
-				'title' : 'Data Maturidade',
-				'field' : 'dataMaturidade',
-				'isDate' : 'true'
-			}, {
-				'title' : 'Criação',
-				'field' : 'dataCriacao',
-				'isDate' : 'true'
-			}, {
-				'title' : 'Alteração',
-				'field' : 'dataAlteracao',
-				'isDate' : 'true'
-			} ];
+							$scope.map = [ {
+								'title' : 'Item',
+								'field' : 'item',
+								'subField' : 'nome'
+							}, {
+								'title' : 'Tags',
+								'field' : 'tags',
+								'subField' : 'nome',
+								'isArray' : 'true'
+							}, {
+								'title' : 'Situação',
+								'field' : 'status'
+							}, {
+								'title' : 'Planejamento',
+								'field' : 'modelo'
+							}, {
+								'title' : 'Classe',
+								'field' : 'classe'
+							}, {
+								'title' : 'Origem',
+								'field' : 'origens',
+								'subField' : 'tipo',
+								'isArray' : 'true'
+							}, {
+								'title' : 'Data Maturidade',
+								'field' : 'dataMaturidade',
+								'isDate' : 'true'
+							}, {
+								'title' : 'Criação',
+								'field' : 'dataCriacao',
+								'isDate' : 'true'
+							}, {
+								'title' : 'Alteração',
+								'field' : 'dataAlteracao',
+								'isDate' : 'true'
+							} ];
 
-		} ]);
+						} ]);
 
-app.controller('ItemController', [ '$scope', '$location', 'ItemFactory',
-		function($scope, $location, ItemFactory) {
+app
+		.controller(
+				'ItemController',
+				[
+						'$scope',
+						'$location',
+						'ItemFactory',
+						function($scope, $location, ItemFactory) {
 
-			$scope.mensagem = '';
+							$scope.mensagem = '';
 
-			$scope.item = new ItemFactory();
-			$scope.submeter = function() {
-				if ($scope.formulario.$valid) {
-					$scope.item.$save(function(response) {
-						$scope.mensagem = 'Cadastro de Item realizado com sucesso!';
-					}, function(erro) {
-						$scope.mensagem = 'Cadastro de Item não realizado!';
-					});
-				}
-			};
+							$scope.item = new ItemFactory();
+							$scope.submeter = function() {
+								if ($scope.formulario.$valid) {
+									$scope.item
+											.$save(
+													function(response) {
+														$scope.mensagem = 'Cadastro de Item realizado com sucesso!';
+													},
+													function(erro) {
+														$scope.mensagem = 'Cadastro de Item não realizado!';
+													});
+								}
+							};
 
-			$scope.REST_SEARCH = 'item/search';
-			$scope.URL_CRUD = 'item/:id';
-			$scope.URL_FORM_CREATE = 'private/item/item-create';
-			$scope.URL_FORM_EDIT = 'private/item/item-edit';
+							$scope.REST_SEARCH = 'item/search';
+							$scope.URL_CRUD = 'item/:id';
+							$scope.URL_FORM_CREATE = 'private/item/item-create';
+							$scope.URL_FORM_EDIT = 'private/item/item-edit';
 
-			$scope.map = [ {
-				'title' : 'Nome',
-				'field' : 'nome'
-			}, {
-				'title' : 'Situação',
-				'field' : 'status'
-			}, {
-				'title' : 'Valor Unitário',
-				'field' : 'valorUnitario',
-				'isCurrency' : 'true'
-			}, {
-				'title' : 'Unitilização',
-				'field' : 'unitizacao'
-			}, {
-				'title' : 'Categoria',
-				'field' : 'categoria',
-				'subField' : 'nome'
-			}, {
-				'title' : 'Criação',
-				'field' : 'dataCriacao',
-				'isDate' : 'true'
-			}, {
-				'title' : 'Alteração',
-				'field' : 'dataAlteracao',
-				'isDate' : 'true'
-			} ];
+							$scope.map = [ {
+								'title' : 'Nome',
+								'field' : 'nome'
+							}, {
+								'title' : 'Situação',
+								'field' : 'status'
+							}, {
+								'title' : 'Valor Unitário',
+								'field' : 'valorUnitario',
+								'isCurrency' : 'true'
+							}, {
+								'title' : 'Unitilização',
+								'field' : 'unitizacao'
+							}, {
+								'title' : 'Categoria',
+								'field' : 'categoria',
+								'subField' : 'nome'
+							}, {
+								'title' : 'Criação',
+								'field' : 'dataCriacao',
+								'isDate' : 'true'
+							}, {
+								'title' : 'Alteração',
+								'field' : 'dataAlteracao',
+								'isDate' : 'true'
+							} ];
 
-		} ]);
+						} ]);
 
-app.controller('FornecedorController', [ '$scope', '$location',
-		'FornecedorFactory', function($scope, $location, FornecedorFactory) {
+app
+		.controller(
+				'FornecedorController',
+				[
+						'$scope',
+						'$location',
+						'FornecedorFactory',
+						function($scope, $location, FornecedorFactory) {
 
-			$scope.mensagem = '';
-			
-			$scope.columns = [{'title' : 'Nome', 'field' : 'nome'}];
+							$scope.mensagem = '';
 
-			$scope.fornecedor = new FornecedorFactory();
-			$scope.fornecedor.contatos = [];
-			
-			
-			$scope.addContato = function (){
-				$scope.fornecedor.contatos.push({
-					nome: 'Leon GAY!' , 
-					telefone : {numero: '111' , 
-						celular : false, 
-						ramal : ''} 
-				});
-			};
-			
-			$scope.submeter = function() {
-				if ($scope.formulario.$valid) {
-					$scope.fornecedor.$save(function(response) {
-						$scope.mensagem = 'Cadastro de Fornecedor realizado com sucesso!';
-					}, function(erro) {
-						$scope.mensagem = 'Cadastro de Fornecedor não realizado!';
-					});
-				}
-			};
+							$scope.columns = [ {
+								'title' : 'Nome',
+								'field' : 'nome'
+							} ];
 
-			$scope.REST_SEARCH = 'fornecedor/search';
-			$scope.URL_CRUD = 'fornecedor/:id';
-			$scope.URL_FORM_CREATE = 'private/fornecedor/fornecedor-create';
-			$scope.URL_FORM_EDIT = 'private/fornecedor/fornecedor-edit';
+							$scope.fornecedor = new FornecedorFactory();
+							$scope.fornecedor.contatos = [];
 
-			$scope.map = [ {
-				'title' : 'Nome Fantasia',
-				'field' : 'nomeFantasia'
-			}, {
-				'title' : 'CNPJ',
-				'field' : 'cnpj'
-			}, {
-				'title' : 'Contato',
-				'field' : 'contatos',
-				'subField' : 'nome',
-				'isArray' : 'true'
-			} ];
+							$scope.addContato = function() {
+								$scope.fornecedor.contatos.push({
+									nome : 'Leon GAY!',
+									telefone : {
+										numero : '111',
+										celular : false,
+										ramal : ''
+									}
+								});
+							};
 
-		} ]);
+							$scope.submeter = function() {
+								if ($scope.formulario.$valid) {
+									$scope.fornecedor
+											.$save(
+													function(response) {
+														$scope.mensagem = 'Cadastro de Fornecedor realizado com sucesso!';
+													},
+													function(erro) {
+														$scope.mensagem = 'Cadastro de Fornecedor não realizado!';
+													});
+								}
+							};
+
+							$scope.REST_SEARCH = 'fornecedor/search';
+							$scope.URL_CRUD = 'fornecedor/:id';
+							$scope.URL_FORM_CREATE = 'private/fornecedor/fornecedor-create';
+							$scope.URL_FORM_EDIT = 'private/fornecedor/fornecedor-edit';
+
+							$scope.map = [ {
+								'title' : 'Nome Fantasia',
+								'field' : 'nomeFantasia'
+							}, {
+								'title' : 'CNPJ',
+								'field' : 'cnpj'
+							}, {
+								'title' : 'Contato',
+								'field' : 'contatos',
+								'subField' : 'nome',
+								'isArray' : 'true'
+							} ];
+
+						} ]);
 
 app.controller('FornecedorEditController', [ '$scope', '$routeParams',
 		'$location', 'FornecedorFactory',
 		function($scope, $routeParams, $location, FornecedorFactory) {
 
-			$scope.columns = [{'title' : 'Nome', 'field' : 'nome'}];
-	
+			$scope.columns = [ {
+				'title' : 'Nome',
+				'field' : 'nome'
+			} ];
+
 			$scope.fornecedor = FornecedorFactory.get({
 				id : $routeParams.id
 			});
-			
+
 			var temp = [];
 			$scope.fornecedor.$promise.then(function(data) {
 				temp = data.contatos;
 			});
-			
+
 			$scope.fornecedor.contatos = temp;
-			
+
 		} ]);
 
 app.controller('SkuEditController', [ '$scope', '$routeParams', '$location',

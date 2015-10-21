@@ -1,10 +1,46 @@
 <div ng-controller="DummyController">
 
+	<br> Exemplo de Auto-complete
+	<angucomplete id="ex1" placeholder="Digite o item" pause="100"
+		selectedobject="selectedItem" localdata="itemsTeste"
+		searchfields="nome,status" titlefield="nome,status" minlength="1"
+		inputclass="form-control form-control-small" />
+		
+		<br>ITEM: {{selectedItem.originalObject.nome}}<br>
+		STATUS: {{selectedItem.originalObject.status}}<br>
+		DESCRICAO: {{selectedItem.originalObject.descricao}}<br>
+		
+		<br>
+		
+		<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+  Launch demo modal
+</button>
+		
+		<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-	Exemplo de Data-table sem rest entrada <br>
+		
+	<br> <br> Exemplo de Data-table sem rest entrada <br>
 	<button type="button" class="btn btn-primary" ng-click="teste()">Ver
 		valor da table</button>
 	<br>
 	<brm-show-data column="MAP" data="ENTRIES" is-delete="true" />
 
+	<br> FIM TESTE
 </div>

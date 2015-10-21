@@ -1,6 +1,7 @@
 package br.com.brm.scp.controller;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -84,6 +85,17 @@ public class ItemController implements Serializable {
 			throw new ItemNotFoundWebException(e.getMessage());
 		}
 		return response;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "all", method = RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+	Collection<ItemResponseDTO> all() {
+		try {
+			return service.all();
+		} catch (ItemNotFoundException e) {
+			throw new ItemNotFoundWebException(e.getMessage());
+		}
 	}
 	
 	@ResponseBody

@@ -253,4 +253,9 @@ public class ItemServiceImpl implements ItemService {
 		return ConverterHelper.convert(result, ItemResponseDTO.class);
 	}
 
+	@Override
+	public Collection<ItemResponseDTO> all() throws ItemNotFoundException {
+		return invokeResponse(repository.findAll());
+	}
+
 }
