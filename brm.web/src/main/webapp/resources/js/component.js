@@ -3,8 +3,12 @@
 /* Controllers */
 var app = angular.module('brm.controllers.comp', [ 'ngCookies', 'ngResource' ]);
 
-app.controller('DataTableController', [ '$scope', '$http', '$location',
-		'$resource', function($scope, $http, $location, $resource) {
+app.controller('DataTableController', [
+		'$scope',
+		'$http',
+		'$location',
+		'$resource',
+		function($scope, $http, $location, $resource) {
 
 			$scope.view = {
 				'searchTerm' : '',
@@ -61,16 +65,18 @@ app.controller('DataTableController', [ '$scope', '$http', '$location',
 					// $scope.view.totalPerPage.selectedOption.name = data.size
 					$scope.view.size = data.size;
 					$scope.view.totalPages = data.totalPages;
-				}, function(data) {
+				},
+						function(data) {
 
-					$scope.view.entries = [];
+							$scope.view.entries = [];
 
-					if (data.status == 400) {
-						alert('Nenhum registro encontrado!');
-					} else {
-						alert('Error ' + data.status + ' - Erro não esperado!');
-					}
-				});
+							if (data.status == 400) {
+								alert('Nenhum registro encontrado!');
+							} else {
+								alert('Error ' + data.status
+										+ ' - Erro não esperado!');
+							}
+						});
 
 			};
 
@@ -186,7 +192,7 @@ app.controller('DataTableController', [ '$scope', '$http', '$location',
 				$location.path($scope.urlFormEdit + "/" + id);
 			};
 
-			$scope.deleteRegister = function(id) {
+			$scope.deleteRegister = function(entry) {
 
 				if (!confirm("Deseja excluir o registro?")) {
 					return;
@@ -197,7 +203,7 @@ app.controller('DataTableController', [ '$scope', '$http', '$location',
 				});
 
 				obj.get({
-					id : id
+					id : entry.id
 				}, function(response) {
 					response.$delete(function(u) {
 						$scope.view.searchTerm = '';
@@ -210,5 +216,32 @@ app.controller('DataTableController', [ '$scope', '$http', '$location',
 			};
 
 			$scope.page($scope.view.index);
+
+		} ]);
+
+app.controller('ShowDataController', [ '$scope', '$http', '$location',
+		'$resource', function($scope, $http, $location, $resource) {
+
+			$scope.isEdit = false;
+
+			$scope.view = {
+				'entries' : [],
+			};
+
+			$scope.view.entries = $scope.data;
+
+			$scope.deleteRegister = function(entry) {
+
+				if (!confirm("Deseja excluir o registro?")) {
+					return;
+				}
+				
+				var index = $scope.view.entries.indexOf(entry);
+				
+				console.log("index : %s", index)
+				
+				$scope.view.entries.splice(index, 1); 
+
+			};
 
 		} ]);

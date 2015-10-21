@@ -1,0 +1,52 @@
+<table class="table table-hover data-table">
+	<thead>
+		<tr>
+			<th ng-repeat="col in column">{{col.title}}</th>
+			<th ng-show="isEdit">&nbsp;</th>
+			<th ng-show="isDelete">&nbsp;</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="entry in view.entries">
+			<td ng-repeat="field in column">
+				<span ng-if="!field.subField">
+					<span ng-if="field.isDate">
+						{{entry[field.field] | date: 'dd/MM/yyyy h:mma' }}
+					</span>
+					<span ng-if="field.isCurrency">
+						{{entry[field.field] | currency }}
+					</span>
+					<span ng-if="!field.isDate && !field.isCurrency">
+						{{entry[field.field]}}
+					</span>
+				</span>
+				<span ng-if="field.subField">
+					<span ng-if="field.isDate">
+						{{entry[field.field][field.subField] | date: 'dd/MM/yyyy h:mma' }}
+					</span>
+					<span ng-if="field.isArray">
+						<ol class="breadcrumb">
+							<li ng-repeat="l in entry[field.field]"><a href="">{{l[field.subField]}}</a></li>
+						</ol>
+					</span>
+					<span ng-if="field.isCurrency">
+						{{entry[field.field][field.subField] | currency }}
+					</span>
+					<span ng-if="!field.isDate">
+						{{entry[field.field][field.subField]}}
+					</span>
+				</span>
+			</td>
+			<td ng-show="isEdit">
+				<a href="" ng-click="edit(entry.id)">
+					<span class="glyphicon glyphicon-pencil" aria-hidden="true" />
+				</a>
+			</td>
+			<td ng-show="isDelete">
+				<a href="" ng-click="deleteRegister(entry)">
+					<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+				</a>
+			</td>
+		</tr>
+	</tbody>
+</table>

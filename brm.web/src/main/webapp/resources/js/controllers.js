@@ -12,7 +12,27 @@ app.controller('DummyController', [ '$rootScope', '$scope', '$http', '$window',
 				}).error(function(data) {
 					console.log(data);
 				});
-			}
+			};
+
+			$scope.ENTRIES = [ {
+				'nome' : 'nome teste 1',
+				'usuarioCriacao' : 'user teste 1'
+			}, {
+				'nome' : 'nome teste 2',
+				'usuarioCriacao' : 'user teste 2'
+			} ];
+
+			$scope.MAP = [ {
+				'title' : 'Nome',
+				'field' : 'nome'
+			}, {
+				'title' : 'Usuario Criação',
+				'field' : 'usuarioCriacao'
+			} ];
+
+			$scope.teste = function() {
+				alert($scope.ENTRIES);
+			};
 
 		} ]);
 
