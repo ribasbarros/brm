@@ -9,7 +9,6 @@
 
 	<p ng-show="mensagem.length" class="alert alert-info">{{mensagem}}</p>
 
-	<form novalidate name="formulario" class="row" ng-submit="submeter()">
 		<div class="col-md-6">
 			<div class="form-group">
 				<label>Razão Social</label> <input name="razaoSocial"
@@ -40,12 +39,14 @@
 				class="form-control alert-danger">
 				CNPJ é obrigatório
 			</div>
+			<div>
+				<button type="button" class="btn btn-primary" ng-click="addContato()">Adicionar Contato</button>
+				<brm-show-data column="columns" data="fornecedor.contatos" is-delete="true" />
+			</div>
 						
 			<button type="submit" class="btn btn-primary"
 				>Salvar</button>
 			<a href="#/private/fornecedor/fornecedor-view" class="btn btn-primary">Voltar</a>
 			<hr>
 		</div>
-
-	</form>
 

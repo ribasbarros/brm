@@ -1,5 +1,5 @@
 <div ng-controller="FornecedorController">
-	
-	<div ng-include="'private/fornecedor/fornecedor-form'"></div>
-	
+	<form novalidate name="formulario" class="row" ng-submit="submeter()">
+		<div ng-include="'private/fornecedor/fornecedor-form'"></div>
+	</form>
 </div>

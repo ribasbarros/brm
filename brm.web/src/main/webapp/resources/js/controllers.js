@@ -153,8 +153,17 @@ app.controller('FornecedorController', [ '$scope', '$location',
 		'FornecedorFactory', function($scope, $location, FornecedorFactory) {
 
 			$scope.mensagem = '';
+			
+			$scope.columns = [{'title' : 'Nome', 'field' : 'nome'}];
 
 			$scope.fornecedor = new FornecedorFactory();
+			
+			$scope.fornecedor.contatos = [];
+			
+			$scope.addContato = function (){
+				$scope.fornecedor.contatos.push("{'nome' : 'Leon GAY'}");
+			};
+			
 			$scope.submeter = function() {
 				if ($scope.formulario.$valid) {
 					$scope.fornecedor.$save(function(response) {
