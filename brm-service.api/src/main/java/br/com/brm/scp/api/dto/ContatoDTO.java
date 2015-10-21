@@ -1,7 +1,6 @@
 package br.com.brm.scp.api.dto;
 
 import java.io.Serializable;
-import java.util.Collection;
 
 import br.com.brm.scp.api.annotation.BindingClassMeta;
 
@@ -12,7 +11,7 @@ public class ContatoDTO implements Serializable {
 	private String nome;
 
 	@BindingClassMeta("TELEFONE")
-	private Collection<TelefoneDTO> telefone;
+	private TelefoneDTO telefone;
 
 	public String getNome() {
 		return nome;
@@ -22,11 +21,11 @@ public class ContatoDTO implements Serializable {
 		this.nome = nome;
 	}
 
-	public Collection<TelefoneDTO> getTelefone() {
+	public TelefoneDTO getTelefone() {
 		return telefone;
 	}
 
-	public void setTelefone(Collection<TelefoneDTO> telefone) {
+	public void setTelefone(TelefoneDTO telefone) {
 		this.telefone = telefone;
 	}
 

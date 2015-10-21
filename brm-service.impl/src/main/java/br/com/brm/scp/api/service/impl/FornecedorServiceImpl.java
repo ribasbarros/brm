@@ -1,5 +1,6 @@
 package br.com.brm.scp.api.service.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.apache.log4j.Logger;
@@ -16,8 +17,10 @@ import br.com.brm.scp.api.exceptions.FornecedorCentroExistenteException;
 import br.com.brm.scp.api.exceptions.FornecedorExistenteException;
 import br.com.brm.scp.api.exceptions.FornecedorNotFoundException;
 import br.com.brm.scp.api.service.FornecedorService;
+import br.com.brm.scp.api.service.document.ContatoDocument;
 import br.com.brm.scp.api.service.document.FornecedorCentroDocument;
 import br.com.brm.scp.api.service.document.FornecedorDocument;
+import br.com.brm.scp.api.service.document.OrigemSkuDocument;
 import br.com.brm.scp.api.service.repositories.FornecedorRepository;
 import br.com.brm.scp.api.service.status.FornecedorFiltroEnum;
 import br.com.brm.scp.fw.helper.converters.ConverterHelper;
@@ -249,6 +252,10 @@ public class FornecedorServiceImpl implements FornecedorService {
 	@Override
 	public FornecedorResponseDTO find(FornecedorFiltroEnum filtro, Object value) throws FornecedorNotFoundException {
 		FornecedorDocument document = findByFiltro(filtro, value);
+
+		document.setContatos(new ArrayList<ContatoDocument>(document.getContatos()));
+		document.setCentros(new ArrayList<FornecedorCentroDocument>(document.getCentros()));
+
 		return invokeResponse(document);
 	}
 
@@ -260,15 +267,15 @@ public class FornecedorServiceImpl implements FornecedorService {
 	 * int)
 	 */
 	@Override
-	public br.com.brm.scp.api.pages.Pageable<FornecedorResponseDTO> search(String searchTerm, int pageIndex,
-			int size) throws FornecedorNotFoundException {
+	public br.com.brm.scp.api.pages.Pageable<FornecedorResponseDTO> search(String searchTerm, int pageIndex, int size)
+			throws FornecedorNotFoundException {
 
 		Page<FornecedorDocument> requestedPage = repository.findByRazaoSocialOrNomeFantasiaOrDescricaoOrCpnj(searchTerm,
 				ServiceUtil.constructPageSpecification(pageIndex, size, new Sort(Sort.Direction.ASC, "id")));
 
 		Collection<FornecedorDocument> result = requestedPage.getContent();
-		
-		if(result.isEmpty())
+
+		if (result.isEmpty())
 			throw new FornecedorNotFoundException(FORNECEDOR_NOTFOUND);
 
 		int sizePage = requestedPage.getSize();
@@ -276,8 +283,7 @@ public class FornecedorServiceImpl implements FornecedorService {
 
 		Collection<FornecedorResponseDTO> response = invokeResponse(result);
 
-		return new br.com.brm.scp.api.pages.Pageable<FornecedorResponseDTO>(response, sizePage, totalPages,
-				pageIndex);
+		return new br.com.brm.scp.api.pages.Pageable<FornecedorResponseDTO>(response, sizePage, totalPages, pageIndex);
 
 	}
 
@@ -290,19 +296,25 @@ public class FornecedorServiceImpl implements FornecedorService {
 	}
 
 	@Override
-	public br.com.brm.scp.api.pages.Pageable<FornecedorResponseDTO> all(int pageIndex,
-			int size) throws FornecedorNotFoundException {
+	public br.com.brm.scp.api.pages.Pageable<FornecedorResponseDTO> all(int pageIndex, int size)
+			throws FornecedorNotFoundException {
 
 		Page<FornecedorDocument> requestedPage = repository
 				.findAll(ServiceUtil.constructPageSpecification(pageIndex, size, new Sort(Sort.Direction.ASC, "id")));
 
 		Collection<FornecedorDocument> result = requestedPage.getContent();
-		
-		if(result.isEmpty())
+
+		if (result.isEmpty())
 			throw new FornecedorNotFoundException(FORNECEDOR_NOTFOUND);
 
 		int numberOfElements = requestedPage.getNumberOfElements();
 		int totalPages = requestedPage.getTotalPages();
+
+		// TODO CRIAR SOLUCAO NO CONVERTER
+		for (FornecedorDocument d : result) {
+			d.setContatos(new ArrayList<ContatoDocument>(d.getContatos()));
+			d.setCentros(new ArrayList<FornecedorCentroDocument>(d.getCentros()));
+		}
 
 		Collection<FornecedorResponseDTO> response = invokeResponse(result);
 

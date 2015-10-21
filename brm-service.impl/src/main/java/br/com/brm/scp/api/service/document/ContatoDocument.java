@@ -1,7 +1,6 @@
 package br.com.brm.scp.api.service.document;
 
 import java.io.Serializable;
-import java.util.Collection;
 
 import br.com.brm.scp.api.dto.TelefoneDTO;
 import br.com.brm.scp.fw.annotations.BindingClass;
@@ -11,9 +10,9 @@ public class ContatoDocument implements Serializable {
 	private static final long serialVersionUID = -6433003551096069983L;
 
 	private String nome;
-	
+
 	@BindingClass(TelefoneDTO.class)
-	private Collection<TelefoneDocument> telefone;
+	private TelefoneDocument telefone;
 
 	public String getNome() {
 		return nome;
@@ -23,11 +22,11 @@ public class ContatoDocument implements Serializable {
 		this.nome = nome;
 	}
 
-	public Collection<TelefoneDocument> getTelefone() {
+	public TelefoneDocument getTelefone() {
 		return telefone;
 	}
 
-	public void setTelefone(Collection<TelefoneDocument> telefone) {
+	public void setTelefone(TelefoneDocument telefone) {
 		this.telefone = telefone;
 	}
 

@@ -157,11 +157,16 @@ app.controller('FornecedorController', [ '$scope', '$location',
 			$scope.columns = [{'title' : 'Nome', 'field' : 'nome'}];
 
 			$scope.fornecedor = new FornecedorFactory();
-			
 			$scope.fornecedor.contatos = [];
 			
+			
 			$scope.addContato = function (){
-				$scope.fornecedor.contatos.push("{'nome' : 'Leon GAY'}");
+				$scope.fornecedor.contatos.push({
+					nome: 'Leon GAY!' , 
+					telefone : {numero: '111' , 
+						celular : false, 
+						ramal : ''} 
+				});
 			};
 			
 			$scope.submeter = function() {
@@ -187,7 +192,9 @@ app.controller('FornecedorController', [ '$scope', '$location',
 				'field' : 'cnpj'
 			}, {
 				'title' : 'Contato',
-				'field' : 'contatos'
+				'field' : 'contatos',
+				'subField' : 'nome',
+				'isArray' : 'true'
 			} ];
 
 		} ]);
@@ -196,11 +203,19 @@ app.controller('FornecedorEditController', [ '$scope', '$routeParams',
 		'$location', 'FornecedorFactory',
 		function($scope, $routeParams, $location, FornecedorFactory) {
 
+			$scope.columns = [{'title' : 'Nome', 'field' : 'nome'}];
+	
 			$scope.fornecedor = FornecedorFactory.get({
 				id : $routeParams.id
 			});
-
-			console.log($scope.fornecedor);
+			
+			var temp = [];
+			$scope.fornecedor.$promise.then(function(data) {
+				temp = data.contatos;
+			});
+			
+			$scope.fornecedor.contatos = temp;
+			
 		} ]);
 
 app.controller('SkuEditController', [ '$scope', '$routeParams', '$location',
