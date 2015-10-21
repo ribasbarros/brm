@@ -18,6 +18,12 @@ public class GrupoResponseDTO implements Serializable {
 	@BindingClassMeta("USUARIO")
 	private UsuarioResponseDTO usuarioCriacao;
 	
+	
+	
+	public GrupoResponseDTO() {
+		super();
+	}
+
 	public String getId() {
 		return id;
 	}

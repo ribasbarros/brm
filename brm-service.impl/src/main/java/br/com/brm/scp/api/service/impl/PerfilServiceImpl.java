@@ -1,15 +1,27 @@
 package br.com.brm.scp.api.service.impl;
 
+import java.util.Collection;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import br.com.brm.scp.api.dto.request.PerfilRequestDTO;
 import br.com.brm.scp.api.dto.response.PerfilResponseDTO;
+import br.com.brm.scp.api.dto.response.FornecedorResponseDTO;
+import br.com.brm.scp.api.dto.response.PerfilResponseDTO;
+import br.com.brm.scp.api.dto.response.PerfilResponseDTO;
+import br.com.brm.scp.api.exceptions.PerfilNotFoundException;
+import br.com.brm.scp.api.exceptions.PerfilNotFoundException;
 import br.com.brm.scp.api.exceptions.PerfilExistenteException;
 import br.com.brm.scp.api.exceptions.PerfilNotFoundException;
+import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.service.PerfilService;
+import br.com.brm.scp.api.service.document.PerfilDocument;
+import br.com.brm.scp.api.service.document.PerfilDocument;
 import br.com.brm.scp.api.service.document.PerfilDocument;
 import br.com.brm.scp.api.service.repositories.PerfilRepository;
 import br.com.brm.scp.api.service.status.PerfilFiltroEnum;
@@ -122,6 +134,52 @@ public class PerfilServiceImpl implements PerfilService {
 			throws PerfilNotFoundException {
 		PerfilDocument document = findByFiltro(filtro, value);
 		return invokeResponse(document);
+	}
+
+	@Override
+	public Pageable<PerfilResponseDTO> search(String searchTerm, int pageIndex,
+			int size) throws PerfilNotFoundException {
+		
+		Page<PerfilDocument> requestedPage = repository.findByNome(searchTerm,
+				ServiceUtil.constructPageSpecification(pageIndex, size, new Sort(Sort.Direction.ASC, "id")));
+
+		Collection<PerfilDocument> result = requestedPage.getContent();
+		
+		if(result.isEmpty())
+			throw new PerfilNotFoundException(PERFIL_NOTFOUND);
+
+		int sizePage = requestedPage.getSize();
+		int totalPages = requestedPage.getTotalPages();
+
+		Collection<PerfilResponseDTO> response = invokeResponse(result);
+
+		return new br.com.brm.scp.api.pages.Pageable<PerfilResponseDTO>(response, sizePage, totalPages,
+				pageIndex);
+	}
+
+	private Collection<PerfilResponseDTO> invokeResponse(
+			Collection<PerfilDocument> result) {
+		return ConverterHelper.convert(result, PerfilResponseDTO.class);
+	}
+
+	@Override
+	public Pageable<PerfilResponseDTO> all(int pageIndex, int size)
+			throws PerfilNotFoundException {
+		Page<PerfilDocument> requestedPage = repository
+				.findAll(ServiceUtil.constructPageSpecification(pageIndex, size, new Sort(Sort.Direction.ASC, "id")));
+
+		Collection<PerfilDocument> result = requestedPage.getContent();
+
+		if (result.isEmpty())
+			throw new PerfilNotFoundException(PERFIL_NOTFOUND);
+
+		int numberOfElements = requestedPage.getNumberOfElements();
+		int totalPages = requestedPage.getTotalPages();
+
+		Collection<PerfilResponseDTO> response = invokeResponse(result);
+
+		return new br.com.brm.scp.api.pages.Pageable<PerfilResponseDTO>(response, numberOfElements, totalPages,
+				pageIndex);
 	}
 
 }

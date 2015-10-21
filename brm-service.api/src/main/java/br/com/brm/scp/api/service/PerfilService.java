@@ -4,6 +4,7 @@ import br.com.brm.scp.api.dto.request.PerfilRequestDTO;
 import br.com.brm.scp.api.dto.response.PerfilResponseDTO;
 import br.com.brm.scp.api.exceptions.PerfilExistenteException;
 import br.com.brm.scp.api.exceptions.PerfilNotFoundException;
+import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.service.status.PerfilFiltroEnum;
 
 public interface PerfilService {
@@ -15,4 +16,9 @@ public interface PerfilService {
 	void update(PerfilRequestDTO request) throws PerfilNotFoundException;
 
 	PerfilResponseDTO find(PerfilFiltroEnum filtro, Object value) throws PerfilNotFoundException;
+
+	Pageable<PerfilResponseDTO> search(String searchTerm, int pageIndex, int size) throws PerfilNotFoundException;
+
+	Pageable<PerfilResponseDTO> all(int pageIndex, int size) throws PerfilNotFoundException;
+
 }

@@ -1,180 +1,271 @@
 package br.com.brm.scp.api.dto.response;
 
-import java.math.BigDecimal;
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.Collection;
 
+import org.springframework.data.annotation.Id;
+
 import br.com.brm.scp.api.annotation.BindingClassMeta;
-import br.com.brm.scp.api.dto.MatrizSkuDTO;
+import br.com.brm.scp.api.dto.request.RelacaoSkuResponseDTO;
+import br.com.brm.scp.api.service.status.ClasseEnum;
 import br.com.brm.scp.api.service.status.PlanejamentoDfu;
 
-public class DfuResponseDTO {
+public class DfuResponseDTO implements Serializable {
+
+	private static final long serialVersionUID = -975886870342616335L;
+
+	@Id
 	private String id;
+
 	@BindingClassMeta("ITEM")
-	private ItemResponseDTO produto;
+	private ItemResponseDTO item;
+
 	@BindingClassMeta("TAGS")
 	private Collection<TagResponseDTO> tags;
+
 	private Date dataMaturidade;
+
 	private Date dataLancamento;
+
 	private Date dataDescontinuacao;
-	@BindingClassMeta("TAGS")
-	private PacotePlanoDTO pacotePlano;
+
+	private ClasseEnum classe;
+
 	private PlanejamentoDfu modelo;
+
 	private Date validadeModelo;
-	private BigDecimal precoUnitarioMedio;
-	private BigDecimal margemUnitMedio;
-	private Double fatorAjustePeriodoAtual;
-	private Double demandaRecuperada;
-	private Double demandaAntecipada;
-	private Double maxAjuste;
-	private Double minAjuste;
-	private Double representatividade;
-	private Integer diaVenda;
-	@BindingClassMeta("MATRIZES")
-	private Collection<MatrizSkuDTO> matriz;
+
+	private Date validadePrimeiraSaida;
+
+	/**
+	 * Indica a fase de vida da DFU (nova, madura, descontinuada ou em
+	 * descontinuação).
+	 */
+	private String faseVida;
+
+	private Date dataUltimaModelagem;
+
+	@BindingClassMeta("USUARIO")
+	private UsuarioResponseDTO responsavelUltimaModelagem;
+
+	private double ddv;
+
+	private double desvioPadrao;
+
+	/**
+	 * Coeficiente de Variação: Coeficiente de variação do DDV (Desvio
+	 * Padrão/DDV).
+	 */
+	private double variacao;
+
+	/**
+	 * Intermitência Diária: Porcentagem de dias no mes em que não há venda.
+	 */
+	private double percDiaMesSemVendas;
+
+	/**
+	 * Intermitência Mensal: Porcentagem de meses no ano que não há venda.
+	 */
+	private double percMesSemVendas;
+
+	@BindingClassMeta("RELACAO")
+	private Collection<RelacaoSkuResponseDTO> relacaoSku;
+
 	private Date dataCriacao;
+
 	private Date dataAlteracao;
+
 	@BindingClassMeta("USUARIO")
 	private UsuarioResponseDTO usuarioCriacao;
+
 	@BindingClassMeta("USUARIO")
 	private UsuarioResponseDTO usuarioAlteracao;
-	
+
 	public String getId() {
 		return id;
 	}
+
 	public void setId(String id) {
 		this.id = id;
 	}
-	public ItemResponseDTO getProduto() {
-		return produto;
+
+	public ItemResponseDTO getItem() {
+		return item;
 	}
-	public void setProduto(ItemResponseDTO produto) {
-		this.produto = produto;
+
+	public void setItem(ItemResponseDTO item) {
+		this.item = item;
 	}
+
 	public Collection<TagResponseDTO> getTags() {
 		return tags;
 	}
+
 	public void setTags(Collection<TagResponseDTO> tags) {
 		this.tags = tags;
 	}
+
 	public Date getDataMaturidade() {
 		return dataMaturidade;
 	}
+
 	public void setDataMaturidade(Date dataMaturidade) {
 		this.dataMaturidade = dataMaturidade;
 	}
+
 	public Date getDataLancamento() {
 		return dataLancamento;
 	}
+
 	public void setDataLancamento(Date dataLancamento) {
 		this.dataLancamento = dataLancamento;
 	}
+
 	public Date getDataDescontinuacao() {
 		return dataDescontinuacao;
 	}
+
 	public void setDataDescontinuacao(Date dataDescontinuacao) {
 		this.dataDescontinuacao = dataDescontinuacao;
 	}
-	public PacotePlanoDTO getPacotePlano() {
-		return pacotePlano;
+
+	public ClasseEnum getClasse() {
+		return classe;
 	}
-	public void setPacotePlano(PacotePlanoDTO pacotePlano) {
-		this.pacotePlano = pacotePlano;
+
+	public void setClasse(ClasseEnum classe) {
+		this.classe = classe;
 	}
+
 	public PlanejamentoDfu getModelo() {
 		return modelo;
 	}
+
 	public void setModelo(PlanejamentoDfu modelo) {
 		this.modelo = modelo;
 	}
+
 	public Date getValidadeModelo() {
 		return validadeModelo;
 	}
+
 	public void setValidadeModelo(Date validadeModelo) {
 		this.validadeModelo = validadeModelo;
 	}
-	public BigDecimal getPrecoUnitarioMedio() {
-		return precoUnitarioMedio;
+
+	public Date getValidadePrimeiraSaida() {
+		return validadePrimeiraSaida;
 	}
-	public void setPrecoUnitarioMedio(BigDecimal precoUnitarioMedio) {
-		this.precoUnitarioMedio = precoUnitarioMedio;
+
+	public void setValidadePrimeiraSaida(Date validadePrimeiraSaida) {
+		this.validadePrimeiraSaida = validadePrimeiraSaida;
 	}
-	public BigDecimal getMargemUnitMedio() {
-		return margemUnitMedio;
+
+	public String getFaseVida() {
+		return faseVida;
 	}
-	public void setMargemUnitMedio(BigDecimal margemUnitMedio) {
-		this.margemUnitMedio = margemUnitMedio;
+
+	public void setFaseVida(String faseVida) {
+		this.faseVida = faseVida;
 	}
-	public Double getFatorAjustePeriodoAtual() {
-		return fatorAjustePeriodoAtual;
+
+	public Date getDataUltimaModelagem() {
+		return dataUltimaModelagem;
 	}
-	public void setFatorAjustePeriodoAtual(Double fatorAjustePeriodoAtual) {
-		this.fatorAjustePeriodoAtual = fatorAjustePeriodoAtual;
+
+	public void setDataUltimaModelagem(Date dataUltimaModelagem) {
+		this.dataUltimaModelagem = dataUltimaModelagem;
 	}
-	public Double getDemandaRecuperada() {
-		return demandaRecuperada;
+
+	public UsuarioResponseDTO getResponsavelUltimaModelagem() {
+		return responsavelUltimaModelagem;
 	}
-	public void setDemandaRecuperada(Double demandaRecuperada) {
-		this.demandaRecuperada = demandaRecuperada;
+
+	public void setResponsavelUltimaModelagem(UsuarioResponseDTO responsavelUltimaModelagem) {
+		this.responsavelUltimaModelagem = responsavelUltimaModelagem;
 	}
-	public Double getDemandaAntecipada() {
-		return demandaAntecipada;
+
+	public double getDdv() {
+		return ddv;
 	}
-	public void setDemandaAntecipada(Double demandaAntecipada) {
-		this.demandaAntecipada = demandaAntecipada;
+
+	public void setDdv(double ddv) {
+		this.ddv = ddv;
 	}
-	public Double getMaxAjuste() {
-		return maxAjuste;
+
+	public double getDesvioPadrao() {
+		return desvioPadrao;
 	}
-	public void setMaxAjuste(Double maxAjuste) {
-		this.maxAjuste = maxAjuste;
+
+	public void setDesvioPadrao(double desvioPadrao) {
+		this.desvioPadrao = desvioPadrao;
 	}
-	public Double getMinAjuste() {
-		return minAjuste;
+
+	public double getVariacao() {
+		return variacao;
 	}
-	public void setMinAjuste(Double minAjuste) {
-		this.minAjuste = minAjuste;
+
+	public void setVariacao(double variacao) {
+		this.variacao = variacao;
 	}
-	public Double getRepresentatividade() {
-		return representatividade;
+
+	public double getPercDiaMesSemVendas() {
+		return percDiaMesSemVendas;
 	}
-	public void setRepresentatividade(Double representatividade) {
-		this.representatividade = representatividade;
+
+	public void setPercDiaMesSemVendas(double percDiaMesSemVendas) {
+		this.percDiaMesSemVendas = percDiaMesSemVendas;
 	}
-	public Integer getDiaVenda() {
-		return diaVenda;
+
+	public double getPercMesSemVendas() {
+		return percMesSemVendas;
 	}
-	public void setDiaVenda(Integer diaVenda) {
-		this.diaVenda = diaVenda;
+
+	public void setPercMesSemVendas(double percMesSemVendas) {
+		this.percMesSemVendas = percMesSemVendas;
 	}
-	public Collection<MatrizSkuDTO> getMatriz() {
-		return matriz;
+
+	public Collection<RelacaoSkuResponseDTO> getRelacaoSku() {
+		return relacaoSku;
 	}
-	public void setMatriz(Collection<MatrizSkuDTO> matriz) {
-		this.matriz = matriz;
+
+	public void setRelacaoSku(Collection<RelacaoSkuResponseDTO> relacaoSku) {
+		this.relacaoSku = relacaoSku;
 	}
+
 	public Date getDataCriacao() {
 		return dataCriacao;
 	}
+
 	public void setDataCriacao(Date dataCriacao) {
 		this.dataCriacao = dataCriacao;
 	}
+
 	public Date getDataAlteracao() {
 		return dataAlteracao;
 	}
+
 	public void setDataAlteracao(Date dataAlteracao) {
 		this.dataAlteracao = dataAlteracao;
 	}
+
 	public UsuarioResponseDTO getUsuarioCriacao() {
 		return usuarioCriacao;
 	}
+
 	public void setUsuarioCriacao(UsuarioResponseDTO usuarioCriacao) {
 		this.usuarioCriacao = usuarioCriacao;
 	}
+
 	public UsuarioResponseDTO getUsuarioAlteracao() {
 		return usuarioAlteracao;
 	}
+
 	public void setUsuarioAlteracao(UsuarioResponseDTO usuarioAlteracao) {
 		this.usuarioAlteracao = usuarioAlteracao;
 	}
+
+
+	
 }

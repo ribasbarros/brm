@@ -36,17 +36,15 @@
 			</div>
 			<div class="form-group">
 				<label>CNPJ</label> <input name="cnpj" class="form-control"
-					ng-model="fornecedor.cnpj" ui-mask="(999) 999-9999" required>
+					ng-model="fornecedor.cnpj" required>
 					<span ng-show = "formulario.$submitted && formulario.cnpj.$error.required"
 				class="form-control alert-danger">
 				CNPJ é obrigatório
 			</div>
 						
-			<brm-data-table column="map" rest-entries="REST_SEARCH" url-form="URL_FORM" url-crud="URL_CRUD" is-delete="true" />
-
 			<button type="submit" class="btn btn-primary"
 				>Salvar</button>
-			<a href="/" class="btn btn-primary">Voltar</a>
+			<a href="#/private/fornecedor/fornecedor-view" class="btn btn-primary">Voltar</a>
 			<hr>
 		</div>
 

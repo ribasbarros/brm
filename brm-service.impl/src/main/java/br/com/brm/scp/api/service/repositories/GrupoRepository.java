@@ -1,5 +1,7 @@
 package br.com.brm.scp.api.service.repositories;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -13,4 +15,9 @@ public interface GrupoRepository extends MongoRepository<GrupoDocument, String>{
 	
 	@Query("{ '_id' : ?0 }")
 	GrupoDocument findById(String id);
+
+	@Query("{ 'nome': {'$regex': ?0 , $options: 'i'}, "
+			+ " 'perfis.$id' : { '$all' : ?1 } , "
+			+ " 'perfis' : { '$exists' : true} }")
+	Page<GrupoDocument> findByNomeAndPerfil(String searchTerm,Pageable pageable);
 }

@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,15 +18,21 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import br.com.brm.scp.api.dto.request.UsuarioRequestDTO;
 import br.com.brm.scp.api.dto.response.UsuarioResponseDTO;
+import br.com.brm.scp.api.dto.response.UsuarioResponseDTO;
+import br.com.brm.scp.api.exceptions.UsuarioNotFoundException;
 import br.com.brm.scp.api.exceptions.UsuarioExistentException;
 import br.com.brm.scp.api.exceptions.UsuarioNotFoundException;
+import br.com.brm.scp.api.pages.Pageable;
+import br.com.brm.scp.api.pages.SearchPageableVO;
 import br.com.brm.scp.api.service.UsuarioService;
 import br.com.brm.scp.api.service.status.UsuarioFiltroEnum;
+import br.com.brm.scp.api.service.status.UsuarioFiltroEnum;
+import br.com.brm.scp.controller.exception.UsuarioNotFoundWebException;
 import br.com.brm.scp.controller.exception.UsuarioExistenteWebException;
 import br.com.brm.scp.controller.exception.UsuarioNotFoundWebException;
 
 @Controller
-@RequestMapping("application")
+@RequestMapping("usuario")
 public class UserController implements Serializable {
 	@Autowired
 	UsuarioService service;
@@ -49,7 +56,7 @@ public class UserController implements Serializable {
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
-	UsuarioResponseDTO create(UsuarioRequestDTO request) {
+	UsuarioResponseDTO create(@RequestBody UsuarioRequestDTO request) {
 		UsuarioResponseDTO response = null;
 		try {
 			response = service.create(request);
@@ -63,11 +70,11 @@ public class UserController implements Serializable {
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.PUT)
 	@ResponseStatus(HttpStatus.OK)
-	void update(UsuarioRequestDTO request) {
+	void update(@RequestBody UsuarioRequestDTO request) {
 		try {
 			service.update(request);
 		} catch (UsuarioNotFoundException e) {
-			throw new UsuarioNotFoundWebException();
+			throw new UsuarioNotFoundWebException(e.getMessage());
 		}
 	}
 	
@@ -78,9 +85,10 @@ public class UserController implements Serializable {
 		try {
 			service.delete(id);
 		} catch (UsuarioNotFoundException e) {
-			throw new UsuarioNotFoundWebException();
+			throw new UsuarioNotFoundWebException(e.getMessage());
 		}
 	}
+	
 	
 	@ResponseBody
 	@RequestMapping(value= "{filtro}/{value}", method = RequestMethod.GET)
@@ -90,9 +98,46 @@ public class UserController implements Serializable {
 		try {
 			response = service.find(UsuarioFiltroEnum.valueOf(filtro), value);
 		} catch (UsuarioNotFoundException e) {
-			throw new UsuarioNotFoundWebException();
+			throw new UsuarioNotFoundWebException(e.getMessage());
 		}
 		return response;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "{id}", method = RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+	UsuarioResponseDTO get(@PathVariable("id") String id) {
+		try {
+			return service.find(UsuarioFiltroEnum.ID, id);
+		} catch (UsuarioNotFoundException e) {
+			throw new UsuarioNotFoundWebException(e.getMessage());
+		}
+	}
 
+
+	@ResponseBody
+	@RequestMapping(value = "search", method = RequestMethod.POST)
+	@ResponseStatus(HttpStatus.OK)
+	Pageable<UsuarioResponseDTO> search(@RequestBody SearchPageableVO searchPageable) {
+		Pageable<UsuarioResponseDTO> result = null;
+
+		if (searchPageable.getPageIndex() < 0) {
+			searchPageable.setPageIndex(0);
+		}
+
+		try {
+			if ("".equals(searchPageable.getSearchTerm()) || null == searchPageable.getSearchTerm()) {
+				result = service.all(searchPageable.getPageIndex(), searchPageable.getSize());
+			} else {
+
+				searchPageable.setSearchTerm(searchPageable.getSearchTerm().replaceAll("[();$]", "\\\\$0"));
+
+				result = service.search(searchPageable.getSearchTerm(), searchPageable.getPageIndex(),
+						searchPageable.getSize());
+			}
+		} catch (UsuarioNotFoundException e) {
+			throw new UsuarioNotFoundWebException(e.getMessage());
+		}
+		return result;
+	}
 }

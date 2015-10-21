@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,7 +31,7 @@ public class TagController implements Serializable {
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
-	TagResponseDTO create(TagRequestDTO request) {
+	TagResponseDTO create(@RequestBody TagRequestDTO request) {
 		TagResponseDTO response = null;
 		try {
 			response = service.create(request);
@@ -44,7 +45,7 @@ public class TagController implements Serializable {
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.PUT)
 	@ResponseStatus(HttpStatus.OK)
-	void update(TagRequestDTO request) {
+	void update(@RequestBody TagRequestDTO request) {
 		try {
 			service.update(request);
 		} catch (TagNotFoundException e) {

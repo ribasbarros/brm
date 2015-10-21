@@ -1,15 +1,24 @@
 package br.com.brm.scp.api.service.impl;
 
+import java.util.Collection;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import br.com.brm.scp.api.dto.request.UsuarioRequestDTO;
+import br.com.brm.scp.api.dto.response.GrupoResponseDTO;
 import br.com.brm.scp.api.dto.response.UsuarioResponseDTO;
+import br.com.brm.scp.api.dto.response.UsuarioResponseDTO;
+import br.com.brm.scp.api.exceptions.UsuarioNotFoundException;
 import br.com.brm.scp.api.exceptions.UsuarioExistentException;
 import br.com.brm.scp.api.exceptions.UsuarioNotFoundException;
+import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.service.UsuarioService;
+import br.com.brm.scp.api.service.document.UsuarioDocument;
 import br.com.brm.scp.api.service.document.UsuarioDocument;
 import br.com.brm.scp.api.service.repositories.UsuarioRepository;
 import br.com.brm.scp.api.service.status.UsuarioFiltroEnum;
@@ -41,7 +50,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		Assert.notNull(request, USUARIO_NOTNULL);
 		Assert.notNull(request.getNome(), USUARIO_NOME);
 		Assert.notNull(request.getCargo(), USUARIO_CARGO);
-		Assert.notNull(request.getGrupos(), USUARIO_GRUPO);
+		//Assert.notNull(request.getGrupos(), USUARIO_GRUPO);
 		Assert.notNull(request.getEmail(), USUARIO_EMAIL);
 		Assert.isNull(request.getId(), USUARIO_EMAIL);
 		Assert.isTrue(EmailValidator.isEmail(request.getEmail()),
@@ -86,7 +95,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		Assert.notNull(request.getId(), USUARIO_ID);
 		Assert.notNull(request, USUARIO_NOTNULL);
 		Assert.notNull(request.getNome(), USUARIO_NOME);
-		Assert.notNull(request.getCargo(), USUARIO_CARGO);
+		//Assert.notNull(request.getCargo(), USUARIO_CARGO);
 		Assert.notNull(request.getGrupos(), USUARIO_GRUPO);
 		Assert.notNull(request.getEmail(), USUARIO_EMAIL);
 		Assert.isTrue(EmailValidator.isEmail(request.getEmail()),
@@ -140,6 +149,52 @@ public class UsuarioServiceImpl implements UsuarioService {
 			throw new UsuarioNotFoundException(USUARIO_NOTFOUND);
 
 		return document;
+	}
+
+	@Override
+	public Pageable<UsuarioResponseDTO> search(String searchTerm,
+			int pageIndex, int size) throws UsuarioNotFoundException {
+
+		Page<UsuarioDocument> requestedPage = repository.findByNomeCargoEmailGrupos(searchTerm,
+				ServiceUtil.constructPageSpecification(pageIndex, size, new Sort(Sort.Direction.ASC, "id")));
+
+		Collection<UsuarioDocument> result = requestedPage.getContent();
+		
+		if(result.isEmpty())
+			throw new UsuarioNotFoundException(USUARIO_NOTFOUND);
+
+		int sizePage = requestedPage.getSize();
+		int totalPages = requestedPage.getTotalPages();
+
+		Collection<UsuarioResponseDTO> response = invokeResponse(result);
+
+		return new br.com.brm.scp.api.pages.Pageable<UsuarioResponseDTO>(response, sizePage, totalPages,
+				pageIndex);
+	}
+
+	private Collection<UsuarioResponseDTO> invokeResponse(
+			Collection<UsuarioDocument> result) {
+		return ConverterHelper.convert(result, UsuarioResponseDTO.class);
+	}
+
+	@Override
+	public Pageable<UsuarioResponseDTO> all(int pageIndex, int size)
+			throws UsuarioNotFoundException {
+		Page<UsuarioDocument> requestedPage = repository
+				.findAll(ServiceUtil.constructPageSpecification(pageIndex, size, new Sort(Sort.Direction.ASC, "id")));
+
+		Collection<UsuarioDocument> result = requestedPage.getContent();
+
+		if (result.isEmpty())
+			throw new UsuarioNotFoundException(USUARIO_NOTFOUND);
+
+		int numberOfElements = requestedPage.getNumberOfElements();
+		int totalPages = requestedPage.getTotalPages();
+
+		Collection<UsuarioResponseDTO> response = invokeResponse(result);
+
+		return new br.com.brm.scp.api.pages.Pageable<UsuarioResponseDTO>(response, numberOfElements, totalPages,
+				pageIndex);
 	}
 
 }

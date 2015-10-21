@@ -1,15 +1,28 @@
 package br.com.brm.scp.api.service.impl;
 
+import java.util.Collection;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import br.com.brm.scp.api.dto.request.GrupoRequestDTO;
 import br.com.brm.scp.api.dto.response.GrupoResponseDTO;
+import br.com.brm.scp.api.dto.response.GrupoResponseDTO;
+import br.com.brm.scp.api.dto.response.GrupoResponseDTO;
+import br.com.brm.scp.api.dto.response.GrupoResponseDTO;
 import br.com.brm.scp.api.exceptions.GrupoExistenteException;
 import br.com.brm.scp.api.exceptions.GrupoNotFoundException;
+import br.com.brm.scp.api.exceptions.GrupoNotFoundException;
+import br.com.brm.scp.api.exceptions.GrupoNotFoundException;
+import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.service.GrupoService;
+import br.com.brm.scp.api.service.document.GrupoDocument;
+import br.com.brm.scp.api.service.document.GrupoDocument;
+import br.com.brm.scp.api.service.document.GrupoDocument;
 import br.com.brm.scp.api.service.document.GrupoDocument;
 import br.com.brm.scp.api.service.repositories.GrupoRepository;
 import br.com.brm.scp.api.service.status.GrupoFiltroEnum;
@@ -39,7 +52,7 @@ public class GrupoServiceImpl implements GrupoService {
 			hasRegister(request);
 		} catch (GrupoNotFoundException e) {
 			logger.debug(String
-					.format("Perfil nao encontrado, pronto para cadastro!"));
+					.format("Grupo nao encontrado, pronto para cadastro!"));
 		}
 				
 		GrupoDocument document = invokeDocument(request);
@@ -122,5 +135,51 @@ public class GrupoServiceImpl implements GrupoService {
 			throw new GrupoNotFoundException(GRUPO_NOTFOUND);
 
 		return document;
+	}
+
+	@Override
+	public Pageable<GrupoResponseDTO> search(String searchTerm, int pageIndex,
+			int size) throws GrupoNotFoundException {
+
+		Page<GrupoDocument> requestedPage = repository.findByNomeAndPerfil(searchTerm,
+				ServiceUtil.constructPageSpecification(pageIndex, size, new Sort(Sort.Direction.ASC, "id")));
+
+		Collection<GrupoDocument> result = requestedPage.getContent();
+		
+		if(result.isEmpty())
+			throw new GrupoNotFoundException(GRUPO_NOTFOUND);
+
+		int sizePage = requestedPage.getSize();
+		int totalPages = requestedPage.getTotalPages();
+
+		Collection<GrupoResponseDTO> response = invokeResponse(result);
+
+		return new br.com.brm.scp.api.pages.Pageable<GrupoResponseDTO>(response, sizePage, totalPages,
+				pageIndex);
+	}
+	
+	private Collection<GrupoResponseDTO> invokeResponse(
+			Collection<GrupoDocument> result) {
+		return ConverterHelper.convert(result, GrupoResponseDTO.class);
+	}
+
+	@Override
+	public Pageable<GrupoResponseDTO> all(int pageIndex, int size)
+			throws GrupoNotFoundException {
+		Page<GrupoDocument> requestedPage = repository
+				.findAll(ServiceUtil.constructPageSpecification(pageIndex, size, new Sort(Sort.Direction.ASC, "id")));
+
+		Collection<GrupoDocument> result = requestedPage.getContent();
+
+		if (result.isEmpty())
+			throw new GrupoNotFoundException(GRUPO_NOTFOUND);
+
+		int numberOfElements = requestedPage.getNumberOfElements();
+		int totalPages = requestedPage.getTotalPages();
+
+		Collection<GrupoResponseDTO> response = invokeResponse(result);
+
+		return new br.com.brm.scp.api.pages.Pageable<GrupoResponseDTO>(response, numberOfElements, totalPages,
+				pageIndex);
 	}	
 }

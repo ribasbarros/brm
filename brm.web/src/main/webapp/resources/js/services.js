@@ -20,6 +20,54 @@ services.factory('FornecedorFactory', [ '$resource', function($resource) {
 	      method: 'PUT'
 	    }
 	  });
-	
-	
+} ]);
+
+services.factory('CategoriaFactory', [ '$resource', function($resource) {
+	return $resource('categoria/:id', { id: '@_id' }, {
+	    update: {
+	      method: 'PUT'
+	    }
+	  });
+} ]);
+
+services.factory('ItemFactory', [ '$resource', function($resource) {
+	return $resource('item/:id', { id: '@_id' }, {
+	    update: {
+	      method: 'PUT'
+	    }
+	  });
+} ]);
+
+services.factory('SkuFactory', [ '$resource', function($resource) {
+	return $resource('sku/:id', { id: '@_id' }, {
+	    update: {
+	      method: 'PUT'
+	    }
+	  });
+} ]);
+
+services.factory('PerfilFactory', [ '$resource', function($resource) {
+	return $resource('perfil/:id', { id: '@_id' }, {
+	    update: {
+	      method: 'PUT'
+	    }
+	  });
+} ]);
+
+
+services.factory('GrupoFactory', [ '$resource', function($resource) {
+	return $resource('grupo/:id', { id: '@_id' }, {
+	    update: {
+	      method: 'PUT'
+	    }
+	  });
+} ]);
+
+
+services.factory('UsuarioFactory', [ '$resource', function($resource) {
+	return $resource('usuario/:id', { id: '@_id' }, {
+	    update: {
+	      method: 'PUT'
+	    }
+	  });
 } ]);

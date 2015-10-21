@@ -199,10 +199,25 @@ app.directive('brmDataTable', function() {
 		scope : {
 			column : '=column',
 			restEntries : '=restEntries',
-			urlForm : '=urlForm',
+			urlFormCreate : '=urlFormCreate',
+			urlFormEdit : '=urlFormEdit',
 			urlCrud : '=urlCrud', 
-			isDelete : '=isDelete'
+			isDelete : '=isDelete',
+			isEdit : '=isEdit'
 		},
 		templateUrl : 'private/components/template-data-table'
+	};
+});
+
+app.directive('brmShowData', function() {
+	return {
+		restrict : 'E',
+		scope : {
+			column : '=column',
+			data : '=data',
+			isDelete : '=isDelete',
+			isEdit : '=isEdit'
+		},
+		templateUrl : 'private/components/template-show-data'
 	};
 });

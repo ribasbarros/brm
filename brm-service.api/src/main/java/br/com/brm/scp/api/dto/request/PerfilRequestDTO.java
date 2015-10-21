@@ -19,6 +19,14 @@ public class PerfilRequestDTO implements Serializable {
 		super();
 		this.id = id;
 	}
+	
+	
+
+	public PerfilRequestDTO() {
+		super();
+	}
+
+
 
 	public String getId() {
 		return id;

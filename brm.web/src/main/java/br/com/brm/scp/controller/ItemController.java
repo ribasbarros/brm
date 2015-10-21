@@ -36,7 +36,7 @@ public class ItemController implements Serializable {
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
-	ItemResponseDTO create(ItemRequestDTO request) {
+	ItemResponseDTO create(@RequestBody ItemRequestDTO request) {
 		ItemResponseDTO response = null;
 		try {
 			response = service.create(request);
@@ -52,7 +52,7 @@ public class ItemController implements Serializable {
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.PUT)
 	@ResponseStatus(HttpStatus.OK)
-	void update(ItemRequestDTO request) {
+	void update(@RequestBody ItemRequestDTO request) {
 		try {
 			service.update(request);
 		} catch (ItemCategoriaNotFoundException e) {

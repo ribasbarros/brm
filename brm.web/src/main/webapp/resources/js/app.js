@@ -10,6 +10,8 @@ app.config(function($routeProvider) {
 		templateUrl : 'company.html'
 	}).when('/private/:type/:typePage', {
 		templateUrl : buildPath
+	}).when('/private/:type/:typePage/:id', {
+		templateUrl : buildPath
 	}).otherwise({
 		redirectTo : '/dummy'
 	});
