@@ -2,7 +2,7 @@
 	<thead>
 		<tr>
 			<th ng-repeat="col in column">{{col.title}}</th>
-			<th ng-show="isEdit">&nbsp;</th>
+			<th ng-if="isEdit" ng-show="isEdit">&nbsp;</th>
 			<th ng-show="isDelete">&nbsp;</th>
 		</tr>
 	</thead>
