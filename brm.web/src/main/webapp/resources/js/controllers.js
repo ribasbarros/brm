@@ -57,8 +57,6 @@ app.controller('SkuController', [ '$scope', '$location', 'SkuFactory',
 
 			$scope.REST_SEARCH = 'sku/search';
 			$scope.URL_CRUD = 'sku/:id';
-			$scope.URL_FORM = 'private/sku/sku-form';
-			$scope.URL_CRUD = 'sku/:id'
 			$scope.URL_FORM_CREATE = 'private/sku/sku-create';
 			$scope.URL_FORM_EDIT = 'private/sku/sku-edit';
 
