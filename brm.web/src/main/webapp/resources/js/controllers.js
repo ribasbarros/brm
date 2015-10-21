@@ -310,7 +310,8 @@ app.controller('UsuarioController', [ '$scope', '$location',
 
 		$scope.REST_SEARCH = 'usuario/search';
 		$scope.URL_CRUD = 'usuario/:id';
-		$scope.URL_FORM = 'private/usuario/usuario-form';
+		$scope.URL_FORM_CREATE = 'private/usuario/usuario-create';
+		$scope.URL_FORM_EDIT = 'private/usuario/usuario-edit';
 
 		$scope.map = [ {
 			'title' : 'Nome',
@@ -328,6 +329,27 @@ app.controller('UsuarioController', [ '$scope', '$location',
 		} ];
 	} ]);
 
+
+app.controller('UsuarioEditController', [ '$scope', '$routeParams',
+                                     		'$location', 'UsuarioFactory',
+                                     		function($scope, $routeParams, $location, UsuarioFactory) {
+                                     			
+                                     			$scope.usuario = UsuarioFactory.get({
+                                     				id : $routeParams.id
+                                     			});
+                                     			                                     			
+                                     			 $scope.submeter = function() {
+                                                     if ($scope.formulario.$valid) {
+                                                         $scope.usuario.$update(function() {
+                                                             $scope.mensagem = 'Cadastro Atualizado com sucesso!';
+                                                         }, function(erro) {
+                                                        	 console.log($scope.usuario);
+                                                             $scope.mensagem = 'ERRO';
+                                                         });
+                                                     }
+                                                 };
+                                     			                                     			
+                                     		} ]);
 
 
 app.controller('PerfilController', [ '$scope', '$location',

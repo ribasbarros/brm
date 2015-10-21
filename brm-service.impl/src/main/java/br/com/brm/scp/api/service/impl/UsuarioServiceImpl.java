@@ -95,8 +95,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 		Assert.notNull(request.getId(), USUARIO_ID);
 		Assert.notNull(request, USUARIO_NOTNULL);
 		Assert.notNull(request.getNome(), USUARIO_NOME);
-		//Assert.notNull(request.getCargo(), USUARIO_CARGO);
-		Assert.notNull(request.getGrupos(), USUARIO_GRUPO);
+		Assert.notNull(request.getCargo(), USUARIO_CARGO);
+		//Assert.notNull(request.getGrupos(), USUARIO_GRUPO);
 		Assert.notNull(request.getEmail(), USUARIO_EMAIL);
 		Assert.isTrue(EmailValidator.isEmail(request.getEmail()),
 				USUARIO_EMAILINVALIDO);
