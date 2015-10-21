@@ -1,0 +1,34 @@
+<form name="form" class="css-form" novalidate>
+	<div>
+		<div class="controls form-group has-feedback" >
+		
+			<label class="control-label" for="name">Nome do Contato</label> 
+			
+			<input class="form-control" type="text" id="name" ng-model="selectedContato.nome" name="fName"
+				ng-minlength="3" ng-maxlength="40" maxlength="40" required /> 
+				
+				<span ng-show="formulario.form.fName.$valid" class="glyphicon glyphicon-ok form-control-feedback" /> 
+				<span ng-show="!formulario.form.fName.$valid"  class="glyphicon glyphicon-remove form-control-feedback" />
+
+		</div>
+
+
+
+
+		<div class="form-group">
+			<label>Telefone / Celular</label> <input type="number"
+				name="telefone" class="form-control"
+				ng-model="selectedContato.telefone.numero" required>
+		</div>
+		<div class="form-group">
+			<label>Ramal</label> <input name="telefone"
+				class="form-control" ng-model="selectedContato.telefone.ramal"
+				required>
+		</div>
+		<div class="form-group">
+			<label>Celular</label> <input type="checkbox"
+				ng-model="selectedContato.telefone.celular">
+		</div>
+	</div>
+
+</form>

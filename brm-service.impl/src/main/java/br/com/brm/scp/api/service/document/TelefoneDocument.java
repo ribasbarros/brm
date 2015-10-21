@@ -9,7 +9,7 @@ public class TelefoneDocument implements Serializable {
 
 	private BigInteger numero;
 	private boolean celular;
-	private String Ramal;
+	private String ramal;
 
 	public BigInteger getNumero() {
 		return numero;
@@ -28,11 +28,11 @@ public class TelefoneDocument implements Serializable {
 	}
 
 	public String getRamal() {
-		return Ramal;
+		return ramal;
 	}
 
 	public void setRamal(String ramal) {
-		Ramal = ramal;
+		this.ramal = ramal;
 	}
 
 }

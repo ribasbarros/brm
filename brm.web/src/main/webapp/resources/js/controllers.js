@@ -210,6 +210,8 @@ app
 						'FornecedorFactory',
 						function($scope, $location, FornecedorFactory) {
 
+							$scope.selectedContato = {};
+							
 							$scope.mensagem = '';
 
 							$scope.columns = [ {

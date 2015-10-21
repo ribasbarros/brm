@@ -1,70 +1,99 @@
-
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<div class="page-header text-right">
+	<h3>Cadastro Fornecedor</h3>
+</div>
 
-	<div class="page-header text-center">
-		<h1>Cadastro Fornecedor</h1>
-	</div>
+<p ng-show="mensagem.length" class="alert alert-info">{{mensagem}}</p>
 
-	<p ng-show="mensagem.length" class="alert alert-info">{{mensagem}}</p>
-
-		<div class="col-md-6">
-			<div class="form-group">
-				<label>Razão Social</label> <input name="razaoSocial"
-					class="form-control" ng-model="fornecedor.razaoSocial" required>
-					<span ng-show = "formulario.$submitted && formulario.razaoSocial.$error.required"
-				class="form-control alert-danger">
-				Razão Social é obrigatório
+<div class="row">
+	<div class="col-md-4">
+		<div class="form-group">
+			<label>Razão Social</label> <input name="razaoSocial"
+				class="form-control" ng-model="fornecedor.razaoSocial" required />
+			<span
+				ng-show="formulario.$submitted && formulario.razaoSocial.$error.required"
+				class="form-control alert-danger"> Razão Social é obrigatório
 			</span>
-			</div>
-			<div class="form-group">
-				<label>Nome Fantasia</label> <input name="nomeFantasia" class="form-control"
-					ng-model="fornecedor.nomeFantasia" required>
-					<span ng-show = "formulario.$submitted && formulario.nomeFantasia.$error.required"
-				class="form-control alert-danger">
-				Nome Fantasia é obrigatório
-			</div>
-			<div class="form-group">
-				<label>Descrição</label> <input name="descricao" class="form-control"
-					ng-model="fornecedor.descricao" required>
-					<span ng-show = "formulario.$submitted && formulario.razaoSocial.$error.required"
-				class="form-control alert-danger">
-				Descrição é obrigatório
-			</div>
-			<div class="form-group">
-				<label>CNPJ</label> <input name="cnpj" class="form-control"
-					ng-model="fornecedor.cnpj" required>
-					<span ng-show = "formulario.$submitted && formulario.cnpj.$error.required"
-				class="form-control alert-danger">
-				CNPJ é obrigatório
-			</div>
-			<div>
-				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" >Adicionar Contato</button>
-				<brm-show-data column="columns" data="fornecedor.contatos" is-delete="true" />
-			</div>
-						
-			<button type="submit" class="btn btn-primary"
-				>Salvar</button>
-			<a href="#/private/fornecedor/fornecedor-view" class="btn btn-primary">Voltar</a>
-			<hr>
 		</div>
+	</div>
+	<div class="col-md-4">
+		<div class="form-group">
+			<label>CNPJ</label> <input valid-number type="text" name="cnpj"
+				class="form-control" ng-model="fornecedor.cnpj" maxlength="14"
+				size="15" style="width: 150px;" required /> <span
+				ng-show="formulario.$submitted && formulario.cnpj.$error.required"
+				class="form-control alert-danger"> CNPJ é obrigatório </span>
+		</div>
+	</div>
+</div>
 
-		<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" ng-click="addContato()">Adicionar</button>
-      </div>
-    </div>
-  </div>
+<div class="row">
+	<div class="col-md-6">
+
+		<div class="form-group">
+			<label>Nome Fantasia</label> <input name="nomeFantasia"
+				class="form-control" ng-model="fornecedor.nomeFantasia" required />
+			<span
+				ng-show="formulario.$submitted && formulario.nomeFantasia.$error.required"
+				class="form-control alert-danger"> Nome Fantasia é
+				obrigatório </span>
+
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-6">
+		<div class="form-group">
+			<label>Descrição</label>
+			<textarea name="descricao" class="form-control"
+				ng-model="fornecedor.descricao" required />
+			<span
+				ng-show="formulario.$submitted && formulario.razaoSocial.$error.required"
+				class="form-control alert-danger"> Descrição é obrigatório </span>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-6">
+		<button type="button" class="btn btn-primary" data-toggle="modal"
+			data-target="#idModalContato">Adicionar Contato</button>
+			<br><br>
+		<div ng-show="fornecedor.contatos.length > 0">
+			<brm-show-data column="columns" data="fornecedor.contatos"
+				is-delete="true" />
+		</div>
+	</div>
+</div>
+
+<button type="submit" class="btn btn-primary">Salvar</button>
+<a href="#/private/fornecedor/fornecedor-view" class="btn btn-primary">Voltar</a>
+<hr>
+
+<!-- Modal -->
+<div class="modal fade" id="idModalContato" tabindex="-1" role="dialog"
+	aria-labelledby="modalContatoLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="modalContatoLabel">Adicionar
+					Contato</h4>
+			</div>
+			<div class="modal-body">
+				<div ng-include="'private/fornecedor/fornecedor-form-contato'"></div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+				<button type="button" class="btn btn-primary"
+					ng-click="addContato()">Adicionar</button>
+			</div>
+		</div>
+	</div>
 </div>
