@@ -3,8 +3,9 @@
 /* Controllers */
 var app = angular.module('brm.controllers', [ 'ngCookies', 'ngResource' ]);
 
-app.controller('DummyController', ['$rootScope', '$scope', '$http', '$resource', 
-		'ItemFactory', function( $rootScope, $scope, $http, $resource, ItemFactory) {
+app.controller('DummyController', [ '$rootScope', '$scope', '$http',
+		'$resource', 'ItemFactory',
+		function($rootScope, $scope, $http, $resource, ItemFactory) {
 
 			$scope.logout = function() {
 				$http.post('auth/logout', {}).success(function() {
@@ -35,38 +36,37 @@ app.controller('DummyController', ['$rootScope', '$scope', '$http', '$resource',
 			};
 
 			var List = $resource('item/all');
-			
+
 			$scope.itemsTeste = List.query();
-			
-			$scope.items = ['item1', 'item2', 'item3'];
 
-			  $scope.animationsEnabled = true;
+			$scope.items = [ 'item1', 'item2', 'item3' ];
 
-			  $scope.open = function (size) {
+			$scope.animationsEnabled = true;
 
-			    var modalInstance = $uibModal.open({
-			      animation: $scope.animationsEnabled,
-			      templateUrl: 'myModalContent.html',
-			      controller: 'ModalInstanceCtrl',
-			      size: size,
-			      resolve: {
-			        items: function () {
-			          return $scope.items;
-			        }
-			      }
-			    });
+			$scope.open = function(size) {
 
-			    modalInstance.result.then(function (selectedItem) {
-			      $scope.selected = selectedItem;
-			    }, function () {
-			      $log.info('Modal dismissed at: ' + new Date());
-			    });
-			  };
+				var modalInstance = $uibModal.open({
+					animation : $scope.animationsEnabled,
+					templateUrl : 'myModalContent.html',
+					controller : 'ModalInstanceCtrl',
+					size : size,
+					resolve : {
+						items : function() {
+							return $scope.items;
+						}
+					}
+				});
 
-			  $scope.toggleAnimation = function () {
-			    $scope.animationsEnabled = !$scope.animationsEnabled;
-			  };
+				modalInstance.result.then(function(selectedItem) {
+					$scope.selected = selectedItem;
+				}, function() {
+					$log.info('Modal dismissed at: ' + new Date());
+				});
+			};
 
+			$scope.toggleAnimation = function() {
+				$scope.animationsEnabled = !$scope.animationsEnabled;
+			};
 
 		} ]);
 
@@ -75,15 +75,16 @@ app.controller('CompanyCtrl',
 
 		} ]);
 
-app
-		.controller(
-				'SkuController',
+app.controller('SkuController',
 				[
 						'$scope',
+						'$resource',
 						'$location',
 						'SkuFactory',
-						function($scope, $location, SkuFactory) {
-
+						function($scope, $resource,$location,SkuFactory) {
+							$scope.listaItens = $resource('item/all').query();
+							$scope.listaStatus = $resource('item/allStatus').query();
+							
 							$scope.sku = new SkuFactory();
 							$scope.submeter = function() {
 								if ($scope.formulario.$valid) {
@@ -142,28 +143,31 @@ app
 
 						} ]);
 
-app
-		.controller(
-				'ItemController',
+app.controller('ItemController',
 				[
 						'$scope',
+						'$resource',
 						'$location',
 						'ItemFactory',
-						function($scope, $location, ItemFactory) {
-
+						function($scope,$resource, $location, ItemFactory) {
+							
+							$scope.listaCategoria = $resource('categoria/all').query();
+							$scope.listaStatus = [{'nome' :'DESCONTINUADO'},
+							                      {'nome' :'CANCELADO'},
+							                      {'nome':'ATIVO'}];							
+							
 							$scope.mensagem = '';
 
 							$scope.item = new ItemFactory();
 							$scope.submeter = function() {
 								if ($scope.formulario.$valid) {
-									$scope.item
-											.$save(
-													function(response) {
-														$scope.mensagem = 'Cadastro de Item realizado com sucesso!';
-													},
-													function(erro) {
-														$scope.mensagem = 'Cadastro de Item não realizado!';
-													});
+									$scope.item.$save(
+										function(response) {
+											$scope.mensagem = 'Cadastro de Item realizado com sucesso!';
+										},
+										function(erro) {
+											$scope.mensagem = 'Cadastro de Item não realizado!';
+										});
 								}
 							};
 
@@ -201,9 +205,7 @@ app
 
 						} ]);
 
-app
-		.controller(
-				'FornecedorController',
+app.controller('FornecedorController',
 				[
 						'$scope',
 						'$location',
@@ -211,26 +213,24 @@ app
 						function($scope, $location, FornecedorFactory) {
 
 							$scope.selectedContato = {};
-							
+
 							$scope.mensagem = '';
 
 							$scope.columns = [ {
 								'title' : 'Nome',
 								'field' : 'nome'
+							}, {
+								'title' : 'Telefone',
+								'field' : 'telefone.numero',
+
 							} ];
 
 							$scope.fornecedor = new FornecedorFactory();
 							$scope.fornecedor.contatos = [];
 
 							$scope.addContato = function() {
-								$scope.fornecedor.contatos.push({
-									nome : 'Leon GAY!',
-									telefone : {
-										numero : '111',
-										celular : false,
-										ramal : ''
-									}
-								});
+								$scope.fornecedor.contatos
+										.push($scope.selectedContato);
 							};
 
 							$scope.submeter = function() {
@@ -266,191 +266,312 @@ app
 
 						} ]);
 
-app.controller('FornecedorEditController', [ '$scope', '$routeParams',
-		'$location', 'FornecedorFactory',
-		function($scope, $routeParams, $location, FornecedorFactory) {
+app.controller(
+				'FornecedorEditController',
+				[
+						'$scope',
+						'$routeParams',
+						'$location',
+						'FornecedorFactory',
+						function($scope, $routeParams, $location,
+								FornecedorFactory) {
 
-			$scope.columns = [ {
-				'title' : 'Nome',
-				'field' : 'nome'
-			} ];
+							$scope.columns = [ {
+								'title' : 'Nome',
+								'field' : 'nome'
+							} ];
 
-			$scope.fornecedor = FornecedorFactory.get({
-				id : $routeParams.id
-			});
+							$scope.fornecedor = FornecedorFactory.get({
+								id : $routeParams.id
+							});
 
-			var temp = [];
-			$scope.fornecedor.$promise.then(function(data) {
-				temp = data.contatos;
-			});
+							var temp = [];
+							$scope.fornecedor.$promise.then(function(data) {
+								temp = data.contatos;
+							});
 
-			$scope.fornecedor.contatos = temp;
+							$scope.fornecedor.contatos = temp;
 
-		} ]);
+							$scope.submeter = function() {
+								if ($scope.formulario.$valid) {
+									$scope.fornecedor
+											.$update(
+													function() {
+														$scope.mensagem = 'Alteração de Fornecedor realizado com sucesso!';
+													},
+													function(erro) {
+														$scope.mensagem = 'Alteração de Fornecedor não realizado!';
+													});
+								}
+							};
+
+						} ]);
 
 app.controller('SkuEditController', [ '$scope', '$routeParams', '$location',
 		'SkuFactory',
-		function($scope, $routeParams, $location, FornecedorFactory) {
+		function($scope, $routeParams, $location, SkuFactory) {
 
+		$scope.sku = SkuFactory.get({
+			id : $routeParams.id
+		});
+
+		$scope.submeter = function() {
+			if ($scope.formulario.$valid) {
+				$scope.sku.$update(function() {
+					$scope.mensagem = 'Sku Atualizado com sucesso!';
+				}, function(erro) {
+					$scope.mensagem = 'Alteração de Sku não realizada!';
+				});
+			}
+		};
+	
 		} ]);
 
-app.controller('ItemEditController', [ '$scope', '$routeParams', '$location',
-		'ItemFactory',
-		function($scope, $routeParams, $location, FornecedorFactory) {
+app.controller(
+				'CategoriaController',
+				[
+						'$scope',
+						'$location',
+						'CategoriaFactory',
+						function($scope, $location, CategoriaFactory) {
+							$scope.mensagem = '';
 
-		} ]);
+							$scope.categoria = new CategoriaFactory();
+							$scope.submeter = function() {
+								if ($scope.formularioCategoria.$valid) {
+									$scope.categoria
+											.$save(
+													function(response) {
+														$scope.mensagem = 'Cadastro de Categoria realizado com sucesso!';
+													},
+													function(erro) {
+														$scope.mensagem = 'Cadastro de Categoria não realizado!';
+													});
+								}
+							};
 
-app.controller('CategoriaController', [ '$scope', '$location',
-		'CategoriaFactory', function($scope, $location, CategoriaFactory) {
-			$scope.mensagem = '';
+							$scope.REST_SEARCH = 'categoria/search';
+							$scope.URL_CRUD = 'categoria/:id';
+							$scope.URL_FORM_CREATE = 'private/categoria/categoria-create';
+							$scope.URL_FORM_EDIT = 'private/categoria/categoria-edit';
 
-			$scope.categoria = new CategoriaFactory();
+							$scope.map = [ {
+								'title' : 'Nome',
+								'field' : 'nome'
+							}, {
+								'title' : 'Usuario Criação',
+								'field' : 'usuarioCriacao'
+							} ];
+
+						} ]);
+
+app.controller('CategoriaEditController', [ '$scope', '$routeParams',
+                                  		'$location', 'CategoriaFactory',
+                                  		function($scope, $routeParams, $location, CategoriaFactory) {
+
+                                  			$scope.categoria = CategoriaFactory.get({
+                                  				id : $routeParams.id
+                                  			});
+
+                                  			$scope.submeter = function() {
+                                  				if ($scope.formularioCategoria.$valid) {
+                                  					$scope.categoria.$update(function() {
+                                  						$scope.mensagem = 'Categoria Atualizado com sucesso!';
+                                  					}, function(erro) {
+                                  						$scope.mensagem = 'Alteração de Categoria não realizada!';
+                                  					});
+                                  				}
+                                  			};
+
+                                  		} ]);
+
+
+app.controller(
+				'GrupoController',
+				[
+						'$scope',
+						'$location',
+						'GrupoFactory',
+						function($scope, $location, GrupoFactory) {
+							$scope.mensagem = '';
+
+							$scope.grupo = new GrupoFactory();
+							$scope.submeter = function() {
+								if ($scope.formulario.$valid) {
+									$scope.grupo
+											.$save(
+													function(response) {
+														$scope.mensagem = 'Cadastro de Grupo realizado com sucesso!';
+													},
+													function(erro) {
+														$scope.mensagem = 'Cadastro de Grupo não realizado!';
+													});
+								}
+							};
+
+							$scope.REST_SEARCH = 'grupo/search';
+							$scope.URL_CRUD = 'grupo/:id';
+							$scope.URL_FORM_CREATE = 'private/grupo/grupo-create';
+							$scope.URL_FORM_EDIT = 'private/grupo/grupo-edit';
+
+
+							$scope.map = [ {
+								'title' : 'Nome',
+								'field' : 'nome'
+							}, {
+								'title' : 'Perfis',
+								'field' : 'perfis',
+								'isArray' : 'true'
+							} ];
+						} ]);
+
+app.controller('GrupoEditController', [ '$scope', '$routeParams',
+                                  		'$location', 'GrupoFactory',
+                                  		function($scope, $routeParams, $location, GrupoFactory) {
+
+                                  			$scope.grupo = GrupoFactory.get({
+                                  				id : $routeParams.id
+                                  			});
+
+                                  			$scope.submeter = function() {
+                                  				if ($scope.formulario.$valid) {
+                                  					$scope.grupo.$update(function() {
+                                  						$scope.mensagem = 'Alteração de Grupo realizada com sucesso!';
+                                  					}, function(erro) {
+                                  						console.log($scope.usuario);
+                                  						$scope.mensagem = 'Alteração de Grupo não realizada!';
+                                  					});
+                                  				}
+                                  			};
+
+                                  		} ]);
+
+app
+		.controller(
+				'UsuarioController',
+				[
+						'$scope',
+						'$location',
+						'UsuarioFactory',
+						function($scope, $location, UsuarioFactory) {
+							$scope.mensagem = '';
+
+							$scope.usuario = new UsuarioFactory();
+							$scope.submeter = function() {
+								if ($scope.formulario.$valid) {
+									$scope.usuario
+											.$save(
+													function(response) {
+														$scope.mensagem = 'Cadastro de Usuario realizado com sucesso!';
+													},
+													function(erro) {
+														$scope.mensagem = 'Cadastro de Usuario não realizado!';
+													});
+								}
+							};
+
+							$scope.REST_SEARCH = 'usuario/search';
+							$scope.URL_CRUD = 'usuario/:id';
+							$scope.URL_FORM_CREATE = 'private/usuario/usuario-create';
+							$scope.URL_FORM_EDIT = 'private/usuario/usuario-edit';
+
+							$scope.map = [ {
+								'title' : 'Nome',
+								'field' : 'nome'
+							}, {
+								'title' : 'Cargo',
+								'field' : 'cargo'
+							}, {
+								'title' : 'Email',
+								'field' : 'email'
+							}, {
+								'title' : 'Grupos',
+								'field' : 'grupos',
+								'isArray' : 'true'
+							} ];
+						} ]);
+
+app.controller('UsuarioEditController', [ '$scope', '$routeParams',
+		'$location', 'UsuarioFactory',
+		function($scope, $routeParams, $location, UsuarioFactory) {
+
+			$scope.usuario = UsuarioFactory.get({
+				id : $routeParams.id
+			});
+
 			$scope.submeter = function() {
-				if ($scope.formularioCategoria.$valid) {
-					$scope.categoria.$save(function(response) {
-						$scope.mensagem = 'Cadastro de Categoria realizado com sucesso!';
+				if ($scope.formulario.$valid) {
+					$scope.usuario.$update(function() {
+						$scope.mensagem = 'Alteração de Usuário realizada com sucesso!';
 					}, function(erro) {
-						$scope.mensagem = 'Cadastro de Categoria não realizado!';
+						console.log($scope.usuario);
+						$scope.mensagem = 'Alteração de Usuário não realizada';
 					});
 				}
 			};
 
-			$scope.REST_SEARCH = 'categoria/search';
-			$scope.URL_CRUD = 'categoria/:id';
-			$scope.URL_FORM_CREATE = 'private/categoria/categoria-create';
-			$scope.URL_FORM_EDIT = 'private/categoria/categoria-edit';
-
-			$scope.map = [ {
-				'title' : 'Nome',
-				'field' : 'nome'
-			}, {
-				'title' : 'Usuario Criação',
-				'field' : 'usuarioCriacao'
-			} ];
-
 		} ]);
 
+app
+		.controller(
+				'PerfilController',
+				[
+						'$scope',
+						'$location',
+						'PerfilFactory',
+						function($scope, $location, PerfilFactory) {
+							$scope.mensagem = '';
 
+							$scope.perfil = new PerfilFactory();
+							$scope.submeter = function() {
+								if ($scope.formulario.$valid) {
+									$scope.perfil
+											.$save(
+													function(response) {
+														$scope.mensagem = 'Cadastro de Perfil realizado com sucesso!';
+													},
+													function(erro) {
+														console
+																.log($scope.perfil);
+														$scope.mensagem = 'Cadastro de Perfil não realizado!';
+													});
+								}
+							};
 
-app.controller('GrupoController', [ '$scope', '$location',
-	'GrupoFactory', function($scope, $location, GrupoFactory) {
-		$scope.mensagem = '';
+							$scope.REST_SEARCH = 'perfil/search';
+							$scope.URL_CRUD = 'perfil/:id';
+							$scope.URL_FORM_CREATE = 'private/perfil/perfil-create';
+							$scope.URL_FORM_EDIT = 'private/perfil/perfil-edit';
 
-		$scope.grupo = new GrupoFactory();
-		$scope.submeter = function() {
-			if ($scope.formulario.$valid) {
-				$scope.grupo.$save(function(response) {
-					$scope.mensagem = 'Cadastro de Grupo realizado com sucesso!';
-				}, function(erro) {
-					$scope.mensagem = 'Cadastro de Grupo não realizado!';
-				});
-			}
-		};
+							$scope.map = [ {
+								'title' : 'Nome',
+								'field' : 'nome'
+							}, {
+								'title' : 'Usuario Criação',
+								'field' : 'usuarioCriacao'
+							} ];
 
-		$scope.REST_SEARCH = 'grupo/search';
-		$scope.URL_CRUD = 'grupo/:id';
-		$scope.URL_FORM = 'private/grupo/grupo-form';
+						} ]);
 
-		$scope.map = [ {
-			'title' : 'Nome',
-			'field' : 'nome'
-		}, {
-			'title' : 'Perfis',
-			'field' : 'perfis',
-			'isArray' : 'true'
-		} ];
-	} ]);
+app.controller('PerfilEditController', [ '$scope', '$routeParams',
+                                  		'$location', 'PerfilFactory',
+                                  		function($scope, $routeParams, $location, PerfilFactory) {
 
+                                  			$scope.perfil = PerfilFactory.get({
+                                  				id : $routeParams.id
+                                  			});
 
+                                  			$scope.submeter = function() {
+                                  				if ($scope.formulario.$valid) {
+                                  					$scope.perfil.$update(function() {
+                                  						$scope.mensagem = 'Alteração de Perfil realizada com sucesso!';
+                                  					}, function(erro) {
+                                  						$scope.mensagem = 'Alteração de Perfil não realizada!';
+                                  					});
+                                  				}
+                                  			};
 
-app.controller('UsuarioController', [ '$scope', '$location',
-	'UsuarioFactory', function($scope, $location, UsuarioFactory) {
-		$scope.mensagem = '';
-
-		$scope.usuario = new UsuarioFactory();
-		$scope.submeter = function() {
-			if ($scope.formulario.$valid) {
-				$scope.usuario.$save(function(response) {
-					$scope.mensagem = 'Cadastro de Usuario realizado com sucesso!';
-				}, function(erro) {
-					$scope.mensagem = 'Cadastro de Usuario não realizado!';
-				});
-			}
-		};
-
-		$scope.REST_SEARCH = 'usuario/search';
-		$scope.URL_CRUD = 'usuario/:id';
-		$scope.URL_FORM_CREATE = 'private/usuario/usuario-create';
-		$scope.URL_FORM_EDIT = 'private/usuario/usuario-edit';
-
-		$scope.map = [ {
-			'title' : 'Nome',
-			'field' : 'nome'
-		}, {
-			'title' : 'Cargo',
-			'field' : 'cargo'
-		}, {
-			'title' : 'Email',
-			'field' : 'email'
-		}, {
-			'title' : 'Grupos',
-			'field' : 'grupos',
-			'isArray' : 'true'
-		} ];
-	} ]);
-
-
-app.controller('UsuarioEditController', [ '$scope', '$routeParams',
-                                     		'$location', 'UsuarioFactory',
-                                     		function($scope, $routeParams, $location, UsuarioFactory) {
-                                     			
-                                     			$scope.usuario = UsuarioFactory.get({
-                                     				id : $routeParams.id
-                                     			});
-                                     			                                     			
-                                     			 $scope.submeter = function() {
-                                                     if ($scope.formulario.$valid) {
-                                                         $scope.usuario.$update(function() {
-                                                             $scope.mensagem = 'Cadastro Atualizado com sucesso!';
-                                                         }, function(erro) {
-                                                        	 console.log($scope.usuario);
-                                                             $scope.mensagem = 'ERRO';
-                                                         });
-                                                     }
-                                                 };
-                                     			                                     			
-                                     		} ]);
-
-
-app.controller('PerfilController', [ '$scope', '$location',
-                                     'PerfilFactory', function($scope, $location, PerfilFactory) {
-                                         $scope.mensagem = '';
-
-                                         $scope.perfil = new PerfilFactory();
-                                         $scope.submeter = function() {
-                                             if ($scope.formulario.$valid) {
-                                                 $scope.perfil.$save(function(response) {
-                                                     $scope.mensagem = 'Cadastro de Perfil realizado com sucesso!';
-                                                 }, function(erro) {
-                                                	 console.log($scope.perfil);
-                                                     $scope.mensagem = 'Cadastro de Perfil não realizado!';
-                                                 });
-                                             }
-                                         };
-
-                                         $scope.REST_SEARCH = 'perfil/search';
-                                         $scope.URL_CRUD = 'perfil/:id';
-                                         $scope.URL_FORM = 'private/perfil/perfil-form';
-
-                                         $scope.map = [ {
-                                             'title' : 'Nome',
-                                             'field' : 'nome'
-                                         }, {
-                                             'title' : 'Usuario Criação',
-                                             'field' : 'usuarioCriacao'
-                                         } ];
-
-                                     } ]);
+                                  		} ]);
 
 
 app.controller('CsrfCtrl', [ '$rootScope', '$scope', '$http', '$cookies',

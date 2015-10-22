@@ -9,6 +9,7 @@ import br.com.brm.scp.api.exceptions.ItemExistenteException;
 import br.com.brm.scp.api.exceptions.ItemNotFoundException;
 import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.service.status.ItemFiltroEnum;
+import br.com.brm.scp.api.service.status.ItemStatus;
 
 public interface ItemService {
 
@@ -25,5 +26,7 @@ public interface ItemService {
 	Pageable<ItemResponseDTO> search(String searchTerm, int pageIndex, int size) throws ItemNotFoundException;
 
 	Collection<ItemResponseDTO> all() throws ItemNotFoundException;
+
+	Collection<ItemStatus> status();
 
 }

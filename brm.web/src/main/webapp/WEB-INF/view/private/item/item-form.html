@@ -3,14 +3,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<div ng-controller="ItemController">
 	<div class="page-header text-center">
 		<h1>Cadastro Item</h1>
 	</div>
 
 	<p ng-show="mensagem.length" class="alert alert-info">{{mensagem}}</p>
 
-	<form novalidate name="formulario" class="row" ng-submit="submeter()">
 		<div class="col-md-5">
 			<div class="form-group">
 				<label>Nome</label> <input name="nome"
@@ -31,17 +29,23 @@
 			
 			
 			<div class="form-group">
-				<label>Categoria</label> <input name="categoria" class="form-control"
-					ng-model="item.categoria" placeholder="alterar para autocomplete" required>
-					<span ng-show = "formulario.$submitted && formulario.categoria.$error.required"
+				<label>Categoria</label>
+				<angucomplete id="categoria" placeholder="Digite a categoria" pause="100"
+				selectedobject="item.categoria" localdata="listaCategoria"
+				searchfields="nome" titlefield="nome" minlength="1"
+				inputclass="form-control form-control-small" />
+				<span ng-show = "formulario.$submitted && formulario.categoria.$error.required"
 				class="form-control alert-danger">
 				Categoria é obrigatório
 			</div>
 			
 			<div class="form-group">
-				<label>Status</label> <input name="status" class="form-control"
-					ng-model="item.status" placeholder="alterar para autocomplete" required>
-					<span ng-show = "formulario.$submitted && formulario.status.$error.required"
+				<label>Status</label>
+				<angucomplete id="status" placeholder="Digite o status" pause="100"
+				selectedobject="item.status" localdata="listaStatus"
+				searchfields="nome" titlefield="nome" minlength="1"
+				inputclass="form-control form-control-small" />
+				<span ng-show = "formulario.$submitted && formulario.status.$error.required"
 				class="form-control alert-danger">
 				Status é obrigatório
 			</div>
@@ -69,6 +73,3 @@
 			<hr>
 		</div>
 
-	</form>
-
-</div>

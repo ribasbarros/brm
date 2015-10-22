@@ -3,8 +3,6 @@ package br.com.brm.scp.api.dto.request;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import org.springframework.data.mongodb.core.mapping.DBRef;
-
 import br.com.brm.scp.api.annotation.BindingClassMeta;
 import br.com.brm.scp.api.dto.response.CategoriaResponseDTO;
 import br.com.brm.scp.api.service.status.ItemStatus;
@@ -21,7 +19,6 @@ public class ItemRequestDTO implements Serializable {
 	private Integer unitizacao; // Quantidade que vem fechado
 	private String descricao;
 
-	@DBRef
 	@BindingClassMeta("CATEGORIA")
 	private CategoriaResponseDTO categoria;
 

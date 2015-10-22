@@ -57,12 +57,12 @@ public class FornecedorResponseDTO implements Serializable {
 	}
 
 	public String getCnpj() {
-		if (cnpj != null && cnpj.length() > 10) {
+/*		if (cnpj != null && cnpj.length() > 10) {
 			// TODO Temporario
 			cnpj = String.format("%s.%s.%s/%s-%s", cnpj.substring(0, 2), cnpj.substring(2, 5), cnpj.substring(5, 8),
 					cnpj.substring(8, 12), cnpj.substring(12, 14));
 		}
-		return cnpj;
+*/		return cnpj;
 	}
 
 	public void setCnpj(String cnpj) {

@@ -1,5 +1,7 @@
 <div ng-controller="CategoriaController">
-	
-	<h3>Categoria</h3>
-	
+	<form novalidate name="formularioCategoria" class="row"
+		ng-submit="submeter()">
+		<div ng-include="'private/categoria/categoria-form'"></div>
+
+	</form>
 </div>

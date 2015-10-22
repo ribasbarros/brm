@@ -14,16 +14,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import br.com.brm.scp.api.dto.request.GrupoRequestDTO;
 import br.com.brm.scp.api.dto.response.GrupoResponseDTO;
-import br.com.brm.scp.api.dto.response.GrupoResponseDTO;
 import br.com.brm.scp.api.exceptions.GrupoExistenteException;
-import br.com.brm.scp.api.exceptions.GrupoNotFoundException;
 import br.com.brm.scp.api.exceptions.GrupoNotFoundException;
 import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.pages.SearchPageableVO;
 import br.com.brm.scp.api.service.GrupoService;
 import br.com.brm.scp.api.service.status.GrupoFiltroEnum;
 import br.com.brm.scp.controller.exception.GrupoExistenteWebException;
-import br.com.brm.scp.controller.exception.GrupoNotFoundWebException;
 import br.com.brm.scp.controller.exception.GrupoNotFoundWebException;
 
 @Controller
@@ -65,6 +62,17 @@ public class GrupoController implements Serializable {
 	void delete(@PathVariable("id") String id) {
 		try {
 			service.delete(id);
+		} catch (GrupoNotFoundException e) {
+			throw new GrupoNotFoundWebException(e.getMessage());
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "{id}", method = RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+	GrupoResponseDTO get(@PathVariable("id") String id) {
+		try {
+			return service.find(GrupoFiltroEnum.ID, id);
 		} catch (GrupoNotFoundException e) {
 			throw new GrupoNotFoundWebException(e.getMessage());
 		}

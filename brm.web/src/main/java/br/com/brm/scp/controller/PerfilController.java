@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import br.com.brm.scp.api.dto.request.PerfilRequestDTO;
 import br.com.brm.scp.api.dto.response.PerfilResponseDTO;
 import br.com.brm.scp.api.dto.response.PerfilResponseDTO;
+import br.com.brm.scp.api.dto.response.PerfilResponseDTO;
+import br.com.brm.scp.api.exceptions.PerfilNotFoundException;
 import br.com.brm.scp.api.exceptions.PerfilNotFoundException;
 import br.com.brm.scp.api.exceptions.PerfilExistenteException;
 import br.com.brm.scp.api.exceptions.PerfilNotFoundException;
@@ -22,6 +24,8 @@ import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.pages.SearchPageableVO;
 import br.com.brm.scp.api.service.PerfilService;
 import br.com.brm.scp.api.service.status.PerfilFiltroEnum;
+import br.com.brm.scp.api.service.status.PerfilFiltroEnum;
+import br.com.brm.scp.controller.exception.PerfilNotFoundWebException;
 import br.com.brm.scp.controller.exception.PerfilNotFoundWebException;
 import br.com.brm.scp.controller.exception.PerfilExistenteWebException;
 import br.com.brm.scp.controller.exception.PerfilNotFoundWebException;
@@ -102,5 +106,16 @@ public class PerfilController implements Serializable {
 			throw new PerfilNotFoundWebException(e.getMessage());
 		}
 		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "{id}", method = RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+	PerfilResponseDTO get(@PathVariable("id") String id) {
+		try {
+			return service.find(PerfilFiltroEnum.ID, id);
+		} catch (PerfilNotFoundException e) {
+			throw new PerfilNotFoundWebException(e.getMessage());
+		}
 	}
 }

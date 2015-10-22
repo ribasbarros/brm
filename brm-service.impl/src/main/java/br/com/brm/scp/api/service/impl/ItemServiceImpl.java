@@ -1,5 +1,6 @@
 package br.com.brm.scp.api.service.impl;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 
@@ -22,6 +23,7 @@ import br.com.brm.scp.api.service.document.ItemDocument;
 import br.com.brm.scp.api.service.repositories.CategoriaRepository;
 import br.com.brm.scp.api.service.repositories.ItemRepository;
 import br.com.brm.scp.api.service.status.ItemFiltroEnum;
+import br.com.brm.scp.api.service.status.ItemStatus;
 import br.com.brm.scp.fw.helper.converters.ConverterHelper;
 
 /**
@@ -256,6 +258,11 @@ public class ItemServiceImpl implements ItemService {
 	@Override
 	public Collection<ItemResponseDTO> all() throws ItemNotFoundException {
 		return invokeResponse(repository.findAll());
+	}
+
+	@Override
+	public Collection<ItemStatus> status() {
+		return Arrays.asList(ItemStatus.values());
 	}
 
 }

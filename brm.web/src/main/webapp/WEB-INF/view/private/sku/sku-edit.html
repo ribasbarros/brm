@@ -1,5 +1,7 @@
 <div ng-controller="SkuEditController">
-	
-	<h3>Sku Edit</h3>
-	
+
+	<form novalidate name="formulario" class="row"
+		ng-submit="submeter()">
+		<div ng-include="'private/sku/sku-form'"></div>
+	</form>
 </div>

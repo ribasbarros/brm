@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +23,7 @@ import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.pages.SearchPageableVO;
 import br.com.brm.scp.api.service.ItemService;
 import br.com.brm.scp.api.service.status.ItemFiltroEnum;
+import br.com.brm.scp.api.service.status.ItemStatus;
 import br.com.brm.scp.controller.exception.ItemCategoriaNotFoundWebException;
 import br.com.brm.scp.controller.exception.ItemExistenteWebException;
 import br.com.brm.scp.controller.exception.ItemNotFoundWebException;
@@ -85,6 +87,13 @@ public class ItemController implements Serializable {
 			throw new ItemNotFoundWebException(e.getMessage());
 		}
 		return response;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "allStatus", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(HttpStatus.OK)
+	Collection<ItemStatus> allStatus() {
+			return service.status();
 	}
 	
 	@ResponseBody

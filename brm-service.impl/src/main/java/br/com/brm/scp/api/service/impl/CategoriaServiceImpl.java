@@ -165,4 +165,11 @@ public class CategoriaServiceImpl implements CategoriaService {
 				pageIndex);
 	}
 
+	@Override
+	public Collection<CategoriaResponseDTO> all()
+			throws CategoriaNotFoundException {
+		
+		return invokeResponse(repository.findAll());
+	}
+
 }

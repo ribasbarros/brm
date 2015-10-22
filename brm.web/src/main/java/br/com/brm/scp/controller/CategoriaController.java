@@ -1,6 +1,7 @@
 package br.com.brm.scp.controller;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,13 +15,20 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import br.com.brm.scp.api.dto.request.CategoriaRequestDTO;
 import br.com.brm.scp.api.dto.response.CategoriaResponseDTO;
+import br.com.brm.scp.api.dto.response.CategoriaResponseDTO;
+import br.com.brm.scp.api.dto.response.CategoriaResponseDTO;
 import br.com.brm.scp.api.exceptions.CategoriaExistenteException;
+import br.com.brm.scp.api.exceptions.CategoriaNotFoundException;
+import br.com.brm.scp.api.exceptions.CategoriaNotFoundException;
 import br.com.brm.scp.api.exceptions.CategoriaNotFoundException;
 import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.pages.SearchPageableVO;
 import br.com.brm.scp.api.service.CategoriaService;
 import br.com.brm.scp.api.service.status.CategoriaFiltroEnum;
+import br.com.brm.scp.api.service.status.CategoriaFiltroEnum;
 import br.com.brm.scp.controller.exception.CategoriaExistenteWebException;
+import br.com.brm.scp.controller.exception.CategoriaNotFoundWebException;
+import br.com.brm.scp.controller.exception.CategoriaNotFoundWebException;
 import br.com.brm.scp.controller.exception.CategoriaNotFoundWebException;
 
 @Controller
@@ -67,6 +75,21 @@ public class CategoriaController implements Serializable {
 			throw new CategoriaNotFoundWebException(e.getMessage());
 		}
 	}
+	
+	
+
+	@ResponseBody
+	@RequestMapping(value= "{filtro}/{value}", method = RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+	CategoriaResponseDTO find(@PathVariable("filtro") String filtro, @PathVariable("value") String value) {
+		CategoriaResponseDTO response = null;
+		try {
+			response = service.find(CategoriaFiltroEnum.valueOf(filtro), value);
+		} catch (CategoriaNotFoundException e) {
+			throw new CategoriaNotFoundWebException(e.getMessage());
+		}
+		return response;
+	}
 
 	@ResponseBody
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
@@ -104,5 +127,17 @@ public class CategoriaController implements Serializable {
 		}
 		return result;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "all", method = RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+	Collection<CategoriaResponseDTO> all() {
+		try {
+			return service.all();
+		} catch (CategoriaNotFoundException e) {
+			throw new CategoriaNotFoundWebException(e.getMessage());
+		}
+	}
+	
 
 }

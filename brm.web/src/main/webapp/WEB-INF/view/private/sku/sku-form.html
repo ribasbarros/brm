@@ -1,5 +1,96 @@
-<div ng-controller="SkuController">
-	
-	<h3>SKU Form</h3>
-	
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<div class="page-header text-center">
+	<h1>Cadastro Sku</h1>
 </div>
+
+<p ng-show="mensagem.length" class="alert alert-info">{{mensagem}}</p>
+
+<div class="col-md-6">
+	<div class="form-group">
+		<label>Teste Select</label>
+		
+	</div>
+	
+	<div class="form-group">
+		<label>Item</label>
+		<angucomplete id="item" placeholder="Digite o item" pause="100"
+			selectedobject="formulario.item" localdata="listaItens"
+			searchfields="nome" titlefield="nome" minlength="1"
+			inputclass="form-control form-control-small" />
+		<span ng-show="formulario.$submitted && formulario.item.$error.required"
+			class="form-control alert-danger"> Item é obrigatório </span>
+	</div>
+	
+	<div class="form-group">
+		<label>Data de maturidade</label>
+		<input type="date" class="form-control"  ng-model="sku.nome" name="dataMaturidade" required/>	
+		<span ng-show="formulario.$submitted && formulario.dataMaturidade.$error.required"
+			class="form-control alert-danger"> Maturidade é obrigatório </span>
+	</div>
+	
+	<div class="form-group">
+		<label>Data de Descontinuação</label>
+		<input type="date" class="form-control" ng-model="sku.dataDescontinuacao"  name="dataDescontinuacao" required/>	
+		<span ng-show="formulario.$submitted && formulario.dataDescontinuacao.$error.required"
+			class="form-control alert-danger"> Descontinuação é obrigatório </span>
+	</div>
+	
+	<div class="form-group">
+				<label>Descrição</label> <input name="descricao"
+					class="form-control" ng-model="sku.descricao" required>
+					<span ng-show = "formulario.$submitted && formulario.descricao.$error.required"
+				class="form-control alert-danger">
+				Descrição é obrigatório
+			</span>
+	</div>
+	
+	<div class="form-group">
+				<label>Estoque Máximo</label> <input type="number"  name="estoqueMaximo" class="form-control"
+					ng-model="sku.estoqueMaximo" required>
+					<span ng-show = "formulario.$submitted && formulario.estoqueMaximo.$error.required"
+				class="form-control alert-danger">
+				Estoque máximo é obrigatório
+	</div>
+			
+	<div class="form-group">
+				<label>Estoque Minimo</label> <input type="number"  name="estoqueMinimo" class="form-control"
+					ng-model="sku.estoqueMinimo" required>
+					<span ng-show = "formulario.$submitted && formulario.estoqueMinimo.$error.required"
+				class="form-control alert-danger">
+				Estoque mínimo é obrigatório
+	</div>
+			
+	<div class="form-group">
+				<label>Estoque Ideal</label> <input type="number"  name="estoqueIdeal" class="form-control"
+					ng-model="sku.estoqueIdeal" required>
+					<span ng-show = "formulario.$submitted && formulario.estoqueIdeal.$error.required"
+				class="form-control alert-danger">
+				Estoque ideal é obrigatório
+	</div>
+			
+	<div class="form-group">
+				<label>Estoque Atual</label> <input type="number"  name="estoqueAtual" class="form-control"
+					ng-model="sku.estoqueAtual" required>
+					<span ng-show = "formulario.$submitted && formulario.estoqueAtual.$error.required"
+				class="form-control alert-danger">
+				Estoque atual é obrigatório
+	</div>
+	
+	<div class="form-group">
+				<label>Custo Unitário</label> <input type="number"  name="custoUnitario" class="form-control"
+					ng-model="sku.custoUnitario" required>
+					<span ng-show = "formulario.$submitted && formulario.custoUnitario.$error.required"
+				class="form-control alert-danger">
+				Custo Unitário é obrigatório
+	</div>
+	
+	<button type="submit" class="btn btn-primary">Salvar</button>
+	<a href="#/private/sku/sku-view" class="btn btn-primary">Voltar</a>
+	<hr>
+</div>
+
+
