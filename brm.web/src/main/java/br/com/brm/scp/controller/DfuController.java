@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -15,6 +16,8 @@ import br.com.brm.scp.api.dto.request.DfuRequestDTO;
 import br.com.brm.scp.api.dto.response.DfuResponseDTO;
 import br.com.brm.scp.api.exceptions.DfuExistenteException;
 import br.com.brm.scp.api.exceptions.DfuNotFoundException;
+import br.com.brm.scp.api.pages.Pageable;
+import br.com.brm.scp.api.pages.SearchPageableVO;
 import br.com.brm.scp.api.service.DfuService;
 import br.com.brm.scp.api.service.status.DfuFiltroEnum;
 import br.com.brm.scp.controller.exception.DfuExistenteWebException;
@@ -50,7 +53,7 @@ public class DfuController implements Serializable {
 		try {
 			service.update(request);
 		} catch (DfuNotFoundException e) {
-			throw new DfuNotFoundWebException();
+			throw new DfuNotFoundWebException(e.getMessage());
 		}
 	}
 	
@@ -61,7 +64,7 @@ public class DfuController implements Serializable {
 		try {
 			service.delete(id);
 		} catch (DfuNotFoundException e) {
-			throw new DfuNotFoundWebException();
+			throw new DfuNotFoundWebException(e.getMessage());
 		}
 	}
 	
@@ -73,9 +76,42 @@ public class DfuController implements Serializable {
 		try {
 			response = service.find(DfuFiltroEnum.valueOf(filtro), value);
 		} catch (DfuNotFoundException e) {
-			throw new DfuNotFoundWebException();
+			throw new DfuNotFoundWebException(e.getMessage());
 		}
 		return response;
 	}
 
+	
+	@ResponseBody
+	@RequestMapping(value = "search", method = RequestMethod.POST)
+	@ResponseStatus(HttpStatus.OK)
+	Pageable<DfuResponseDTO> search(@RequestBody SearchPageableVO searchPageable) {
+		Pageable<DfuResponseDTO> result = null;
+		try {
+			if ("".equals(searchPageable.getSearchTerm()) || null == searchPageable.getSearchTerm()) {
+				result = service.all(searchPageable.getPageIndex(), searchPageable.getSize());
+			} else {
+				
+				searchPageable.setSearchTerm(searchPageable.getSearchTerm().replaceAll("[();$]", "\\\\$0"));
+
+				result = service.search(searchPageable.getSearchTerm(), searchPageable.getPageIndex(),
+						searchPageable.getSize());
+			}
+		} catch (DfuNotFoundException e) {
+			throw new DfuNotFoundWebException(e.getMessage());
+		}
+		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "{id}", method = RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+	DfuResponseDTO get(@PathVariable("id") String id) {
+		try {
+			return service.find(DfuFiltroEnum.ID, id);
+		} catch (DfuNotFoundException e) {
+			throw new DfuNotFoundWebException(e.getMessage());
+		}
+	}
+	
 }

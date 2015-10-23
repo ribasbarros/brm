@@ -46,6 +46,14 @@ services.factory('SkuFactory', [ '$resource', function($resource) {
 	  });
 } ]);
 
+services.factory('DfuFactory', [ '$resource', function($resource) {
+	return $resource('dfu/:id', { id: '@_id' }, {
+	    update: {
+	      method: 'PUT'
+	    }
+	  });
+} ]);
+
 services.factory('PerfilFactory', [ '$resource', function($resource) {
 	return $resource('perfil/:id', { id: '@_id' }, {
 	    update: {

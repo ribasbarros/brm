@@ -61,10 +61,10 @@ public class ItemServiceImpl implements ItemService {
 	public ItemResponseDTO create(ItemRequestDTO request) throws ItemExistenteException, ItemCategoriaNotFoundException {
 
 		Assert.notNull(request, ITEM_NOTNULL);
-		Assert.notNull(request.getCategoria(), ITEM_CATEGORIA);
+		//Assert.notNull(request.getCategoria(), ITEM_CATEGORIA);
 		Assert.notNull(request.getNome(), ITEM_NOME);
 		Assert.notNull(request.getNomeReduzido(), ITEM_NOMEREDUZIDO);
-		Assert.notNull(request.getStatus(), ITEM_STATUS);
+		//Assert.notNull(request.getStatus(), ITEM_STATUS);
 		Assert.notNull(request.getUnitizacao(), ITEM_UNITIZACAO);
 		Assert.notNull(request.getValorUnitario(), ITEM_VALOR);
 
@@ -73,9 +73,7 @@ public class ItemServiceImpl implements ItemService {
 		} catch (ItemNotFoundException e) {
 			logger.debug(String.format("ITEM %s nao encontrado, pronto para cadastro!", request.getNome()));
 		}
-		
-		hasCategoria(request.getCategoria().getId());
-		
+				
 		ItemDocument document = (ItemDocument) ConverterHelper.convert(request, ItemDocument.class);
 
 		Date current = new Date();
@@ -89,11 +87,6 @@ public class ItemServiceImpl implements ItemService {
 		
 		return response;
 
-	}
-
-	private void hasCategoria(String idCategoria) throws ItemCategoriaNotFoundException {
-		if( categoriaRepository.findOne(idCategoria) == null )
-			throw new ItemCategoriaNotFoundException(ITEM_CATEGORIA_NOTFOUND);
 	}
 
 	/**
@@ -158,10 +151,10 @@ public class ItemServiceImpl implements ItemService {
 		
 		Assert.notNull(request, ITEM_NOTNULL);
 		Assert.notNull(request.getId(), ITEM_ID);
-		Assert.notNull(request.getCategoria().getId(), ITEM_CATEGORIA);
+		//Assert.notNull(request.getCategoria().getId(), ITEM_CATEGORIA);
 		Assert.notNull(request.getNome(), ITEM_NOME);
 		Assert.notNull(request.getNomeReduzido(), ITEM_NOMEREDUZIDO);
-		Assert.notNull(request.getStatus(), ITEM_STATUS);
+		//Assert.notNull(request.getStatus(), ITEM_STATUS);
 		Assert.notNull(request.getUnitizacao(), ITEM_UNITIZACAO);
 		Assert.notNull(request.getValorUnitario(), ITEM_VALOR);
 		
@@ -170,9 +163,7 @@ public class ItemServiceImpl implements ItemService {
 		} catch (ItemExistenteException e) {
 			logger.debug(String.format("Item %s encontrado, pronto para ser alterado!", request.getNome()));
 		}
-		
-		hasCategoria(request.getCategoria().getId());
-		
+				
 		ItemDocument document = (ItemDocument) ConverterHelper.convert(request, ItemDocument.class);
 		
 		/*

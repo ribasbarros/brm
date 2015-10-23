@@ -9,6 +9,7 @@ import br.com.brm.scp.api.dto.request.DfuRequestDTO;
 import br.com.brm.scp.api.dto.response.DfuResponseDTO;
 import br.com.brm.scp.api.exceptions.DfuExistenteException;
 import br.com.brm.scp.api.exceptions.DfuNotFoundException;
+import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.service.DfuService;
 import br.com.brm.scp.api.service.document.DfuDocument;
 import br.com.brm.scp.api.service.repositories.DfuRepository;
@@ -121,5 +122,19 @@ public class DfuServiceImpl implements DfuService {
 	private DfuDocument invokeDocument(DfuRequestDTO request) {
 		return (DfuDocument) ConverterHelper
 				.convert(request, DfuDocument.class);
+	}
+
+	@Override
+	public Pageable<DfuResponseDTO> search(String searchTerm, int pageIndex,
+			int size) throws DfuNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Pageable<DfuResponseDTO> all(int pageIndex, int size)
+			throws DfuNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -53,7 +53,7 @@ public class PerfilServiceImpl implements PerfilService {
 			logger.debug(String
 					.format("Perfil nao encontrado, pronto para cadastro!"));
 		}
-
+		
 		PerfilDocument document = invokeDocument(request);
 
 		document = repository.save(document);
