@@ -157,7 +157,7 @@ app
 						function($scope, $resource, $location, ItemFactory) {
 
 							$scope.selectedCategoria = {};
-							
+
 							$scope.listaCategoria = $resource('categoria/all')
 									.query();
 							$scope.listaStatus = [ {
@@ -173,10 +173,10 @@ app
 							$scope.item = new ItemFactory();
 							$scope.submeter = function() {
 								if ($scope.formulario.$valid) {
-									
+
 									console.log($scope.selectedCategoria);
 									$scope.item.categoria = $scope.selectedCategoria.originalObject;
-									
+
 									$scope.item
 											.$save(
 													function(response) {
@@ -222,29 +222,28 @@ app
 
 						} ]);
 
-app.controller('ItemEditController', [ '$scope', '$routeParams',
-                                      		'$location', 'ItemFactory',
-                                      		function($scope, $routeParams, $location, ItemFactory) {
-	
-                                      			$scope.item = ItemFactory.get({
-                                      				id : $routeParams.id
-                                      			});
-                                      		                    							
-                                      			$scope.submeter = function() {
-                                      				if ($scope.formulario.$valid) {
-                                      					$scope.item.$update(function() {
-                                      						$scope.mensagem = 'Item Atualizado com sucesso!';
-                                      					}, function(erro) {
-                                      						$scope.mensagem = 'Alteração de Item não realizada!';
-                                      					});
-                                      				}
-                                      			};
+app.controller('ItemEditController', [ '$scope', '$routeParams', '$location',
+		'ItemFactory', function($scope, $routeParams, $location, ItemFactory) {
 
-                                      		} ]);
+			$scope.item = ItemFactory.get({
+				id : $routeParams.id
+			});
 
+			$scope.submeter = function() {
+				if ($scope.formulario.$valid) {
+					$scope.item.$update(function() {
+						$scope.mensagem = 'Item Atualizado com sucesso!';
+					}, function(erro) {
+						$scope.mensagem = 'Alteração de Item não realizada!';
+					});
+				}
+			};
 
+		} ]);
 
-app.controller('FornecedorController',
+app
+		.controller(
+				'FornecedorController',
 				[
 						'$scope',
 						'$location',
@@ -666,91 +665,118 @@ app
 
 						} ]);
 
+app
+		.controller(
+				'DfuController',
+				[
+						'$scope',
+						'$location',
+						'DfuFactory',
+						function($scope, $location, DfuFactory) {
+							$scope.mensagem = '';
 
-app.controller(
-		'DfuController',
-		[
-				'$scope',
-				'$location',
-				'DfuFactory',
-				function($scope, $location, DfuFactory) {
-					$scope.mensagem = '';
+							$scope.dfu = new DfuFactory();
+							$scope.submeter = function() {
+								if ($scope.formularioCategoria.$valid) {
+									$scope.dfu
+											.$save(
+													function(response) {
+														$scope.mensagem = 'Cadastro de Dfu realizado com sucesso!';
+													},
+													function(erro) {
+														$scope.mensagem = 'Cadastro de Dfu não realizado!';
+													});
+								}
+							};
 
-					$scope.dfu = new DfuFactory();
-					$scope.submeter = function() {
-						if ($scope.formularioCategoria.$valid) {
-							$scope.dfu
-									.$save(
-											function(response) {
-												$scope.mensagem = 'Cadastro de Dfu realizado com sucesso!';
-											},
-											function(erro) {
-												$scope.mensagem = 'Cadastro de Dfu não realizado!';
-											});
-						}
-					};
+							$scope.REST_SEARCH = 'dfu/search';
+							$scope.URL_CRUD = 'dfu/:id';
+							$scope.URL_FORM_CREATE = 'private/dfu/dfu-create';
+							$scope.URL_FORM_EDIT = 'private/dfu/dfu-edit';
 
-					$scope.REST_SEARCH = 'dfu/search';
-					$scope.URL_CRUD = 'dfu/:id';
-					$scope.URL_FORM_CREATE = 'private/dfu/dfu-create';
-					$scope.URL_FORM_EDIT = 'private/dfu/dfu-edit';
+							$scope.map = [ {
+								'title' : 'Item',
+								'field' : 'item',
+								'subField' : 'nome'
 
-					$scope.map = [ {
-						'title' : 'Item',
-						'field' : 'item',
-						'subField' : 'nome'
-						
-					} , {
-						'title' : 'Tags',
-						'field' : 'tags',
-						'subField' : 'nome',
-						'isArray' : 'true'
-						
-					} , {
-						'title' : 'Data de Maturidade',
-						'field' : 'dataMaturidade',
-						'isDate' : 'true'
-						
-					}, {
-						'title' : 'Data de Lançamento',
-						'field' : 'dataLancamento',
-						'isDate' : 'true'
-						
-					},{
-						'title' : 'Data de Descontinuação',
-						'field' : 'dataDescontinuacao',
-						'isDate' : 'true'
-						
-					},{
-						'title' : 'Classe',
-						'field' : 'classe'						
-					},{
-						'title' : 'Planejamento Dfu',
-						'field' : 'modelo'						
-					} ];
+							}, {
+								'title' : 'Tags',
+								'field' : 'tags',
+								'subField' : 'nome',
+								'isArray' : 'true'
 
-				} ]);
+							}, {
+								'title' : 'Data de Maturidade',
+								'field' : 'dataMaturidade',
+								'isDate' : 'true'
 
-app.controller('CategoriaEditController', [ '$scope', '$routeParams',
-                          		'$location', 'CategoriaFactory',
-                          		function($scope, $routeParams, $location, CategoriaFactory) {
+							}, {
+								'title' : 'Data de Lançamento',
+								'field' : 'dataLancamento',
+								'isDate' : 'true'
 
-                          			$scope.categoria = CategoriaFactory.get({
-                          				id : $routeParams.id
-                          			});
+							}, {
+								'title' : 'Data de Descontinuação',
+								'field' : 'dataDescontinuacao',
+								'isDate' : 'true'
 
-                          			$scope.submeter = function() {
-                          				if ($scope.formularioCategoria.$valid) {
-                          					$scope.categoria.$update(function() {
-                          						$scope.mensagem = 'Categoria Atualizado com sucesso!';
-                          					}, function(erro) {
-                          						$scope.mensagem = 'Alteração de Categoria não realizada!';
-                          					});
-                          				}
-                          			};
+							}, {
+								'title' : 'Classe',
+								'field' : 'classe'
+							}, {
+								'title' : 'Planejamento Dfu',
+								'field' : 'modelo'
+							} ];
 
-                          		} ]);
+						} ]);
 
+app
+		.controller(
+				'CategoriaEditController',
+				[
+						'$scope',
+						'$routeParams',
+						'$location',
+						'CategoriaFactory',
+						function($scope, $routeParams, $location,
+								CategoriaFactory) {
+
+							$scope.categoria = CategoriaFactory.get({
+								id : $routeParams.id
+							});
+
+							$scope.submeter = function() {
+								if ($scope.formularioCategoria.$valid) {
+									$scope.categoria
+											.$update(
+													function() {
+														$scope.mensagem = 'Categoria Atualizado com sucesso!';
+													},
+													function(erro) {
+														$scope.mensagem = 'Alteração de Categoria não realizada!';
+													});
+								}
+							};
+
+						} ]);
+
+app.controller('ProfileController', [ '$resource', '$http', '$window', '$scope', '$routeParams', '$location',
+		'UsuarioFactory',
+		function($resource, $http, $window, $scope, $routeParams, $location, UsuarioFactory) {
+
+			$scope.user = {
+				name : 'User'
+			};
+			
+			$scope.logout = function() {
+				$http.post('auth/logout', {}).success(function() {
+					$window.location.href = "/brm.web/";
+				}).error(function(data) {
+					console.log(data);
+				});
+			};
+
+		} ]);
 
 app.controller('CsrfCtrl', [ '$rootScope', '$scope', '$http', '$cookies',
 		'$window', function($rootScope, $scope, $http, $cookies, $window) {

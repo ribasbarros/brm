@@ -2,4 +2,75 @@
 	<form novalidate name="formulario" ng-submit="submeter()">
 		<div ng-include="'private/fornecedor/fornecedor-form'"></div>
 	</form>
+
+	<!-- Modal -->
+	<div class="modal fade" id="idModalContato" tabindex="-1" role="dialog"
+		aria-labelledby="modalContatoLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="modalContatoLabel">Adicionar
+						Contato</h4>
+				</div>
+				<div class="modal-body">
+					<form novalidate name="modaContato" ng-submit="submeter()">
+						0
+						<div>
+							<div class="controls form-group has-feedback">
+								<label class="control-label" for="name">Nome do Contato</label>
+								<input class="form-control" type="text" id="name"
+									ng-model="selectedContato.nome" name="name" required /> <span
+									ng-show="modaContato.name.$valid"
+									class="glyphicon glyphicon-ok form-control-feedback"></span> <span
+									ng-show="!modaContato.name.$valid"
+									class="glyphicon glyphicon-remove form-control-feedback"></span>
+							</div>
+
+							<div class="row">
+								<div class="col-md-6">
+									<div class="controls form-group has-feedback">
+										<label class="control-label" for="telefone">Nro.
+											Telefone</label> <input class="form-control" type="number"
+											id="telefone" ng-model="selectedContato.telefone.numero"
+											name="telefone" required /> <span
+											ng-show="modaContato.telefone.$valid"
+											class="glyphicon glyphicon-ok form-control-feedback"></span>
+										<span ng-show="!modaContato.telefone.$valid"
+											class="glyphicon glyphicon-remove form-control-feedback"></span>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="controls form-group has-feedback">
+										<label class="control-label" for="ramal">Ramal</label> <input
+											class="form-control" type="text" id="ramal"
+											ng-model="selectedContato.telefone.ramal" name="ramal" /> <span
+											ng-show="modaContato.ramal.$valid"
+											class="glyphicon glyphicon-ok form-control-feedback"></span>
+										<span ng-show="!modaContato.ramal.$valid"
+											class="glyphicon glyphicon-remove form-control-feedback"></span>
+									</div>
+								</div>
+							</div>
+							<div class="controls form-group has-feedback">
+								<label class="control-label" for="celular">Celular</label> <input
+									type="checkbox" id="celular" name="celular"
+									ng-model="selectedContato.telefone.celular">
+							</div>
+
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+					<button type="button" class="btn btn-primary"
+						ng-click="addContato()">Adicionar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 </div>
