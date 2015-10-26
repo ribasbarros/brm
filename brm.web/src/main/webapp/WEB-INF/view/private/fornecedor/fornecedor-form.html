@@ -61,7 +61,7 @@
 	<div class="col-md-6">
 		<button type="button" class="btn btn-primary" data-toggle="modal"
 			data-target="#idModalContato">Adicionar Contato</button>
-			<br><br>
+		<br> <br>
 		<div ng-show="fornecedor.contatos.length > 0">
 			<brm-show-data column="columns" data="fornecedor.contatos"
 				is-delete="true" />
@@ -69,8 +69,22 @@
 	</div>
 </div>
 
-<button type="submit" class="btn btn-primary">Salvar</button>
-<a href="#/private/fornecedor/fornecedor-view" class="btn btn-primary">Voltar</a>
+<div class="row">
+	<div class="col-md-6">
+		<button type="button" class="btn btn-primary" data-toggle="modal"
+			data-target="#idModalCentro">Adicionar Centro</button>
+		<br> <br>
+		<div ng-show="fornecedor.centros.length > 0">
+			<brm-show-data column="columns" data="fornecedor.centros"
+				is-delete="true" />
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<button type="submit" class="btn btn-primary">Salvar</button>
+	<a href="#/private/fornecedor/fornecedor-view" class="btn btn-primary">Voltar</a>
+</div>
 <hr>
 
 <!-- Modal -->
@@ -87,12 +101,59 @@
 					Contato</h4>
 			</div>
 			<div class="modal-body">
-				<div ng-include="'private/fornecedor/fornecedor-form-contato'"></div>
+				<div>
+					<div class="controls form-group has-feedback">
+
+						<label class="control-label" for="name">Nome do Contato</label> <input
+							class="form-control" type="text" id="name"
+							ng-model="selectedContato.nome" name="fName" />
+
+						<!-- <span ng-show="formulario.form.fName.$valid" class="glyphicon glyphicon-ok form-control-feedback" /> 
+				<span ng-show="!formulario.form.fName.$valid"  class="glyphicon glyphicon-remove form-control-feedback" /> -->
+
+					</div>
+
+
+					<div class="form-group">
+						<label>Telefone / Celular</label> <input type="number"
+							name="telefone" class="form-control"
+							ng-model="selectedContato.telefone.numero">
+					</div>
+					<div class="form-group">
+						<label>Ramal</label> <input name="telefone" class="form-control"
+							ng-model="selectedContato.telefone.ramal">
+					</div>
+					<div class="form-group">
+						<label>Celular</label> <input type="checkbox"
+							ng-model="selectedContato.telefone.celular">
+					</div>
+				</div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
 				<button type="button" class="btn btn-primary"
 					ng-click="addContato()">Adicionar</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="idModalCentro" tabindex="-1" role="dialog"
+	aria-labelledby="modalCentroLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="modalCentroLabel">Adicionar Centro</h4>
+			</div>
+			<div class="modal-body">bla</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+				<button type="button" class="btn btn-primary" ng-click="addCentro()">Adicionar</button>
 			</div>
 		</div>
 	</div>
