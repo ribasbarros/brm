@@ -3,70 +3,62 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<div class="page-header text-center">
-		<h1>Cadastro Item</h1>
+<div class="page-header text-center">
+	<h1>Cadastro Item</h1>
+</div>
+
+<p ng-show="mensagem.length" class="alert alert-info">{{mensagem}}</p>
+
+<div class="col-md-5">
+	<div class="form-group">
+		<label>Nome</label> <input name="nome" class="form-control"
+			ng-model="item.nome" required> <span
+			ng-show="formulario.$submitted && formulario.nome.$error.required"
+			class="form-control alert-danger"> Nome é obrigatório </span>
 	</div>
 
-	<p ng-show="mensagem.length" class="alert alert-info">{{mensagem}}</p>
+	<div class="form-group">
+		<label>Nome Reduzido</label> <input name="nomeReduzido"
+			class="form-control" ng-model="item.nomeReduzido" required> <span
+			ng-show="formulario.$submitted && formulario.nomeReduzido.$error.required"
+			class="form-control alert-danger"></span>
+	</div>
 
-		<div class="col-md-5">
-			<div class="form-group">
-				<label>Nome</label> <input name="nome"
-					class="form-control" ng-model="item.nome" required>
-					<span ng-show = "formulario.$submitted && formulario.nome.$error.required"
-				class="form-control alert-danger">
-				Nome é obrigatório
-			</span>
-			</div>
-			
-			<div class="form-group">
-				<label>Nome Reduzido</label> <input name="nomeReduzido" class="form-control"
-					ng-model="item.nomeReduzido" required>
-					<span ng-show = "formulario.$submitted && formulario.nomeReduzido.$error.required"
-				class="form-control alert-danger">
-				Nome Reduzido é obrigatório
-			</div>
-			
-			
-			<div class="form-group">
-				<label>Categoria</label>
-				<angucomplete id="categoria" placeholder="Digite a categoria" pause="100"
-				selectedobject="selectedCategoria" localdata="listaCategoria"
-				searchfields="nome" titlefield="nome" minlength="1"
-				inputclass="form-control form-control-small" />
-				Categoria é obrigatório
-			</div>
-			{{selectedCategoria}}
-			
-			<div class="form-group">
-				<label>Status</label>
-				<angucomplete id="status" placeholder="Digite o status" pause="100"
-				selectedobject="item.status" localdata="listaStatus"
-				searchfields="nome" titlefield="nome" minlength="1"
-				inputclass="form-control form-control-small" />
-				Status é obrigatório
-			</div>
-			
-			
-			<div class="form-group">
-				<label>Valor Unitário</label> <input type="number"  name="valorUnitario" class="form-control"
-					ng-model="item.valorUnitario" required>
-					<span ng-show = "formulario.$submitted && formulario.valorUnitario.$error.required"
-				class="form-control alert-danger">
-				Valor Unitário é obrigatório
-			</div>
-			
-			<div class="form-group">
-				<label>Unitização</label> <input type="number" name="unitizacao" class="form-control"
-					ng-model="item.unitizacao" required>
-					<span ng-show = "formulario.$submitted && formulario.unitizacao.$error.required"
-				class="form-control alert-danger">
-				Unitização é obrigatório
-			</div>	
-					
-			<button type="submit" class="btn btn-primary"
-				>Salvar</button>
-			<a href="#/private/item/item-view" class="btn btn-primary">Voltar</a>
-			<hr>
-		</div>
+
+	<div class="form-group large-padded-row">
+		<label>Categoria</label> <select class="form-control" name="selectCategoria" id="repeatSelect"
+			ng-model="item.categoria">
+			<option ng-repeat="option in categorias"
+				value="option">{{option.nome}}</option>
+		</select>
+	</div>
+
+	<div class="form-group">
+		<label>Status</label>
+		<select class="form-control" name="repeatSelect" id="selectStatus"
+			ng-model="item.status">
+			<option ng-repeat="option in listaStatus"
+				value="option.nome">{{option.nome}}</option>
+		</select>
+	</div>
+
+	<div class="form-group">
+		<label>Valor Unitário</label> <input type="number"
+			name="valorUnitario" class="form-control"
+			ng-model="item.valorUnitario" required> <span
+			ng-show="formulario.$submitted && formulario.valorUnitario.$error.required"
+			class="form-control alert-danger"></span>
+	</div>
+
+	<div class="form-group">
+		<label>Unitização</label> <input type="number" name="unitizacao"
+			class="form-control" ng-model="item.unitizacao" required> <span
+			ng-show="formulario.$submitted && formulario.unitizacao.$error.required"
+			class="form-control alert-danger"></span>
+	</div>
+
+	<button type="button" class="btn btn-primary" ng-click="submeter()">Salvar</button>
+	<a href="#/private/item/item-view" class="btn btn-primary">Voltar</a>
+	<hr>
+</div>
 

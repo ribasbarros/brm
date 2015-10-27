@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('brm', ['ngTouch', 'angucomplete', 'ngRoute', 'ngCookies', 'brm.controllers',
+var app = angular.module('brm', [ 'ngCpfCnpj', 'ui.mask', 'ngRoute', 'ngCookies', 'brm.controllers',
 		'brm.controllers.comp', 'brm.directives', 'brm.services' ]);
 
 app.config(function($routeProvider) {

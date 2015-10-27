@@ -1,7 +1,8 @@
 'use strict';
 
 /* Controllers */
-var app = angular.module('brm.controllers', [ 'ngCookies', 'ngResource' ]);
+var app = angular.module('brm.controllers', [ 'ngCpfCnpj', 'ui.mask',
+		'ngCookies', 'ngResource' ]);
 
 app.controller('DummyController', [ '$rootScope', '$scope', '$http',
 		'$resource', 'ItemFactory',
@@ -13,59 +14,6 @@ app.controller('DummyController', [ '$rootScope', '$scope', '$http',
 				}).error(function(data) {
 					console.log(data);
 				});
-			};
-
-			$scope.ENTRIES = [ {
-				'nome' : 'nome teste 1',
-				'usuarioCriacao' : 'user teste 1'
-			}, {
-				'nome' : 'nome teste 2',
-				'usuarioCriacao' : 'user teste 2'
-			} ];
-
-			$scope.MAP = [ {
-				'title' : 'Nome',
-				'field' : 'nome'
-			}, {
-				'title' : 'Usuario Criação',
-				'field' : 'usuarioCriacao'
-			} ];
-
-			$scope.teste = function() {
-				alert($scope.ENTRIES);
-			};
-
-			var List = $resource('item/all');
-
-			$scope.itemsTeste = List.query();
-
-			$scope.items = [ 'item1', 'item2', 'item3' ];
-
-			$scope.animationsEnabled = true;
-
-			$scope.open = function(size) {
-
-				var modalInstance = $uibModal.open({
-					animation : $scope.animationsEnabled,
-					templateUrl : 'myModalContent.html',
-					controller : 'ModalInstanceCtrl',
-					size : size,
-					resolve : {
-						items : function() {
-							return $scope.items;
-						}
-					}
-				});
-
-				modalInstance.result.then(function(selectedItem) {
-					$scope.selected = selectedItem;
-				}, function() {
-					$log.info('Modal dismissed at: ' + new Date());
-				});
-			};
-
-			$scope.toggleAnimation = function() {
-				$scope.animationsEnabled = !$scope.animationsEnabled;
 			};
 
 		} ]);
@@ -156,10 +104,9 @@ app
 						'ItemFactory',
 						function($scope, $resource, $location, ItemFactory) {
 
-							$scope.selectedCategoria = {};
-
-							$scope.listaCategoria = $resource('categoria/all')
+							$scope.categorias = $resource('categoria/all')
 									.query();
+
 							$scope.listaStatus = [ {
 								'nome' : 'DESCONTINUADO'
 							}, {
@@ -173,9 +120,6 @@ app
 							$scope.item = new ItemFactory();
 							$scope.submeter = function() {
 								if ($scope.formulario.$valid) {
-
-									console.log($scope.selectedCategoria);
-									$scope.item.categoria = $scope.selectedCategoria.originalObject;
 
 									$scope.item
 											.$save(
@@ -250,12 +194,11 @@ app
 						'FornecedorFactory',
 						function($scope, $location, FornecedorFactory) {
 
-							$scope.selectedContato = {};
-							$scope.selectedCentro = {};
+							$scope.selected = {};
 
 							$scope.mensagem = '';
 
-							$scope.columns = [ {
+							$scope.mapColumnsContato = [ {
 								'title' : 'Nome',
 								'field' : 'nome'
 							}, {
@@ -264,25 +207,42 @@ app
 								'subField' : 'numero'
 							} ];
 
+							$scope.mapColumnsCentro = [ {
+								'title' : 'CNPJ',
+								'field' : 'cnpj'
+							}, {
+								'title' : 'CEP',
+								'field' : 'cep',
+							}, {
+								'title' : 'Centro',
+								'field' : 'centro',
+							} ];
+
 							$scope.fornecedor = new FornecedorFactory();
 							$scope.fornecedor.contatos = [];
+							$scope.fornecedor.centros = [];
 
 							$scope.addContato = function() {
-								$scope.fornecedor.contatos
-										.push($scope.selectedContato);
-
-								$scope.selectedContato = {};
+								if ($scope.modalContato.$valid) {
+									$scope.fornecedor.contatos
+											.push($scope.selected);
+									$scope.selected = {};
+									alert("Adicionado com sucesso!");
+								}
 							};
 
 							$scope.addCentro = function() {
-								$scope.fornecedor.centros
-										.push($scope.selectedCentro);
-
-								$scope.selectedCentro = {};
+								if ($scope.modalCentro.$valid) {
+									$scope.fornecedor.centros
+											.push($scope.selected);
+									$scope.selected = {};
+									alert("Adicionado com sucesso!");
+								}
 							};
 
 							$scope.submeter = function() {
 								if ($scope.formulario.$valid) {
+									console.log($scope.fornecedor);
 									$scope.fornecedor
 											.$save(
 													function(response) {
@@ -325,25 +285,54 @@ app
 						function($scope, $routeParams, $location,
 								FornecedorFactory) {
 
-							$scope.fornecedor = {};
-
-							$scope.columns = [ {
+							$scope.mapColumnsContato = [ {
 								'title' : 'Nome',
 								'field' : 'nome'
 							}, {
 								'title' : 'Telefone',
 								'field' : 'telefone',
 								'subField' : 'numero'
-
 							} ];
 
-							$scope.fornecedor = FornecedorFactory.get({
+							$scope.mapColumnsCentro = [ {
+								'title' : 'CNPJ',
+								'field' : 'cnpj'
+							}, {
+								'title' : 'CEP',
+								'field' : 'cep',
+							}, {
+								'title' : 'Centro',
+								'field' : 'centro',
+							} ];
+
+							$scope.fornecedor = new FornecedorFactory();
+							$scope.fornecedor.contatos = [];
+							$scope.fornecedor.centros = [];
+
+							$scope.fornecedor.$get({
 								id : $routeParams.id
-							}, function(data) {
-								data.$promise.then(function(response) {
-									$scope.fornecedor = data;
-								});
 							});
+
+							$scope.selected = {};
+							$scope.mensagem = '';
+
+							$scope.addContato = function() {
+								if ($scope.modalContato.$valid) {
+									$scope.fornecedor.contatos
+											.push($scope.selected);
+									$scope.selected = {};
+									alert("Adicionado com sucesso!");
+								}
+							};
+
+							$scope.addCentro = function() {
+								if ($scope.modalCentro.$valid) {
+									$scope.fornecedor.centros
+											.push($scope.selected);
+									$scope.selected = {};
+									alert("Adicionado com sucesso!");
+								}
+							};
 
 							$scope.submeter = function() {
 								if ($scope.formulario.$valid) {
@@ -760,14 +749,21 @@ app
 
 						} ]);
 
-app.controller('ProfileController', [ '$resource', '$http', '$window', '$scope', '$routeParams', '$location',
+app.controller('ProfileController', [
+		'$resource',
+		'$http',
+		'$window',
+		'$scope',
+		'$routeParams',
+		'$location',
 		'UsuarioFactory',
-		function($resource, $http, $window, $scope, $routeParams, $location, UsuarioFactory) {
+		function($resource, $http, $window, $scope, $routeParams, $location,
+				UsuarioFactory) {
 
 			$scope.user = {
 				name : 'User'
 			};
-			
+
 			$scope.logout = function() {
 				$http.post('auth/logout', {}).success(function() {
 					$window.location.href = "/brm.web/";
