@@ -1,0 +1,60 @@
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<nav class="navbar navbar-default">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed"
+				data-toggle="collapse" data-target="#bs-example-navbar-collapse-3"
+				aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#/private/tag/tag-view"> <span
+				class="glyphicon glyphicon-chevron-left btn-xs" aria-hidden="true"></span>
+			</a>
+		</div>
+		<div class="collapse navbar-collapse"
+			id="bs-example-navbar-collapse-3">
+			<button type="submit" class="btn btn-primary btn-sm navbar-btn">
+				<span class="glyphicon glyphicon-check"></span> Salvar
+			</button>
+			<button type="submit" class="btn btn-danger btn-sm navbar-btn">
+				<span class="glyphicon glyphicon-ok"></span> Salvar & Fechar
+			</button>
+		</div>
+	</div>
+</nav>
+<center>
+<h3>Cadastro de Tag</h3>
+</center>
+<p ng-show="mensagem.length" class="alert alert-info">{{mensagem}}</p>
+
+<div class="row">
+	<div class="col-md-6">
+		<div class="controls form-group has-feedback">
+			<label class="control-label" for="nome">Nome</label> <input
+				class="form-control" id="nome" ng-model="tag.nome" name="nome"
+				required /> <span ng-show="formulario.nome.$valid"
+				class="glyphicon glyphicon-ok form-control-feedback"></span> <span
+				ng-show="!formulario.nome.$valid"
+				class="glyphicon glyphicon-remove form-control-feedback"></span>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-2">
+		<div class="controls form-group has-feedback">
+			<label class="control-label" for="nivel">Nível</label> <input
+				type="number" class="form-control" id="nivel" ng-model="tag.nivel"
+				name="nivel" required /> <span ng-show="formulario.nivel.$valid"
+				class="glyphicon glyphicon-ok form-control-feedback"></span> <span
+				ng-show="!formulario.nivel.$valid"
+				class="glyphicon glyphicon-remove form-control-feedback"></span>
+		</div>
+	</div>
+</div>
+
+

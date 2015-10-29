@@ -6,6 +6,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(value=HttpStatus.NOT_FOUND, reason="Registro não encontrado")  // 404
 public class TagNotFoundWebException extends RuntimeException {
 
+	public TagNotFoundWebException(String message) {
+		super(message);
+	}
+
 	/**
 	 * 
 	 */

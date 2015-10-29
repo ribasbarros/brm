@@ -27,9 +27,9 @@
 
 	<div class="form-group large-padded-row">
 		<label>Categoria</label> <select class="form-control" name="selectCategoria" id="repeatSelect"
-			ng-model="item.categoria">
+			ng-model="item.categoria.id">
 			<option ng-repeat="option in categorias"
-				value="option">{{option.nome}}</option>
+				ng-value="option.id | json">{{option.nome}}</option>
 		</select>
 	</div>
 
@@ -38,7 +38,7 @@
 		<select class="form-control" name="repeatSelect" id="selectStatus"
 			ng-model="item.status">
 			<option ng-repeat="option in listaStatus"
-				value="option.nome">{{option.nome}}</option>
+				ng-value="option.nome">{{option.nome}}</option>
 		</select>
 	</div>
 
@@ -57,7 +57,7 @@
 			class="form-control alert-danger"></span>
 	</div>
 
-	<button type="button" class="btn btn-primary" ng-click="submeter()">Salvar</button>
+	<button type="button" class="btn btn-primary" ng-click="salvar()">Salvar</button>
 	<a href="#/private/item/item-view" class="btn btn-primary">Voltar</a>
 	<hr>
 </div>

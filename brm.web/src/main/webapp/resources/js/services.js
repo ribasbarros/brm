@@ -79,3 +79,11 @@ services.factory('UsuarioFactory', [ '$resource', function($resource) {
 	    }
 	  });
 } ]);
+
+services.factory('TagFactory', [ '$resource', function($resource) {
+	return $resource('tag/:id', { id: '@_id' }, {
+	    update: {
+	      method: 'PUT'
+	    }
+	  });
+} ]);
