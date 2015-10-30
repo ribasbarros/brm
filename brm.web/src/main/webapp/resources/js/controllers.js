@@ -186,6 +186,7 @@ app
 								'title' : 'Categoria',
 								'field' : 'categoria',
 								'subField' : 'nome'
+								
 							}, {
 								'title' : 'Criação',
 								'field' : 'dataCriacao',
@@ -763,9 +764,31 @@ app
 				'DfuController',
 				[
 						'$scope',
+						'$resource',
 						'$location',
 						'DfuFactory',
-						function($scope, $location, DfuFactory) {
+						function($scope, $resource, $location, DfuFactory) {
+							$scope.listaItens = $resource('item/all').query();
+
+							$scope.listaStatus = [ {
+								'nome' : 'A'
+							}, {
+								'nome' : 'B'
+							}, {
+								'nome' : 'C'
+							} ];
+							
+							$scope.listaPlanejamentos = [ {
+								'nome' : 'ESTOQUE'
+							}, {
+								'nome' : 'SOB_ENCOMENDA'
+							}, {
+								'nome' : 'PROMOCAO'
+							}, {
+								'nome' : 'NO_LIMITE'
+							} ];
+
+							
 							$scope.mensagem = '';
 
 							$scope.dfu = new DfuFactory();

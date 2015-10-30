@@ -56,11 +56,11 @@ public class SkuServiceImpl implements SkuService {
 		
 		Assert.notNull(request, SKU_NOTNULL);
 		Assert.notNull(request.getItem(), SKU_ITEM);
-		Assert.notNull(request.getTags(), SKU_TAG);
+		//Assert.notNull(request.getTags(), SKU_TAG);
 		Assert.notNull(request.getDescricao(), SKU_DESCRICAO);
-		Assert.notNull(request.getFrequenciaAnalise(), SKU_FREQUENCIA_ANALISE);
+		//Assert.notNull(request.getFrequenciaAnalise(), SKU_FREQUENCIA_ANALISE);
 		Assert.notNull(request.getModelo(), SKU_MODELO);
-		Assert.notNull(request.getOrigens(), SKU_ORIGEM);
+		//Assert.notNull(request.getOrigens(), SKU_ORIGEM);
 		
 		hasSkuRegistered(request);
 		
@@ -169,11 +169,11 @@ public class SkuServiceImpl implements SkuService {
 	public void update(SkuRequestDTO request) throws SkuNotFoundException {
 		Assert.notNull(request, SKU_NOTNULL);
 		Assert.notNull(request.getItem(), SKU_ITEM);
-		Assert.notNull(request.getTags(), SKU_TAG);
+		//Assert.notNull(request.getTags(), SKU_TAG);
 		Assert.notNull(request.getDescricao(), SKU_DESCRICAO);
-		Assert.notNull(request.getFrequenciaAnalise(), SKU_FREQUENCIA_ANALISE);
+		//Assert.notNull(request.getFrequenciaAnalise(), SKU_FREQUENCIA_ANALISE);
 		Assert.notNull(request.getModelo(), SKU_MODELO);
-		Assert.notNull(request.getOrigens(), SKU_ORIGEM);
+		//Assert.notNull(request.getOrigens(), SKU_ORIGEM);
 	
 		if (find(SkuFiltroEnum.ID, request.getId()) == null) {
 			throw new SkuNotFoundException(SKU_NOTFOUND);

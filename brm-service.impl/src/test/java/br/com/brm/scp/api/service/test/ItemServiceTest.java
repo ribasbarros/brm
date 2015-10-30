@@ -50,9 +50,9 @@ public class ItemServiceTest extends AbstractTestNGSpringContextTests {
 
 	private static final String ID_ITEM_NOTFOUND = "ID_NOT_FOUND";
 
-	private static final boolean DELETE_CATEGORIA_TEST = false;
+	private static final boolean DELETE_CATEGORIA_TEST = true;
 
-	private static final boolean DELETE_ITEM_TEST = false;
+	private static final boolean DELETE_ITEM_TEST = true;
 
 	private CategoriaResponseDTO categoria4Test;
 
@@ -145,14 +145,17 @@ public class ItemServiceTest extends AbstractTestNGSpringContextTests {
 		ItemResponseDTO response01 = service.find(ItemFiltroEnum.ID, request.getId());
 
 		assertNotNull(response01);
+		assertNotNull(response01.getCategoria());
 
 		ItemResponseDTO response02 = service.find(ItemFiltroEnum.NOME, request.getNome());
 
 		assertNotNull(response02);
-
+		assertNotNull(response02.getCategoria());
+		
 		ItemResponseDTO response03 = service.find(ItemFiltroEnum.NOME_REDUZIDO, request.getNomeReduzido());
 
 		assertNotNull(response03);
+		assertNotNull(response03.getCategoria());
 
 	}
 
