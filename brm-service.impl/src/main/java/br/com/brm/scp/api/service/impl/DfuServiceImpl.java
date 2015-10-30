@@ -1,16 +1,30 @@
 package br.com.brm.scp.api.service.impl;
 
+import java.awt.List;
+import java.util.Collection;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import br.com.brm.scp.api.dto.request.DfuRequestDTO;
 import br.com.brm.scp.api.dto.response.DfuResponseDTO;
+import br.com.brm.scp.api.dto.response.DfuResponseDTO;
+import br.com.brm.scp.api.dto.response.DfuResponseDTO;
+import br.com.brm.scp.api.dto.response.DfuResponseDTO;
 import br.com.brm.scp.api.exceptions.DfuExistenteException;
+import br.com.brm.scp.api.exceptions.DfuNotFoundException;
+import br.com.brm.scp.api.exceptions.DfuNotFoundException;
 import br.com.brm.scp.api.exceptions.DfuNotFoundException;
 import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.service.DfuService;
+import br.com.brm.scp.api.service.document.DfuDocument;
+import br.com.brm.scp.api.service.document.DfuDocument;
+import br.com.brm.scp.api.service.document.DfuDocument;
+import br.com.brm.scp.api.service.document.DfuDocument;
 import br.com.brm.scp.api.service.document.DfuDocument;
 import br.com.brm.scp.api.service.repositories.DfuRepository;
 import br.com.brm.scp.api.service.status.DfuFiltroEnum;
@@ -119,6 +133,10 @@ public class DfuServiceImpl implements DfuService {
 				DfuResponseDTO.class);
 	}
 
+	private Collection<DfuResponseDTO> invokeResponse(Collection<DfuDocument> result) {
+		return ConverterHelper.convert(result, DfuResponseDTO.class);
+	}
+	
 	private DfuDocument invokeDocument(DfuRequestDTO request) {
 		return (DfuDocument) ConverterHelper
 				.convert(request, DfuDocument.class);
@@ -127,14 +145,41 @@ public class DfuServiceImpl implements DfuService {
 	@Override
 	public Pageable<DfuResponseDTO> search(String searchTerm, int pageIndex,
 			int size) throws DfuNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Page<DfuDocument> requestedPage = repository.find(searchTerm,
+				ServiceUtil.constructPageSpecification(pageIndex, size, new Sort(Sort.Direction.ASC, "id")));
+
+		Collection<DfuDocument> result = requestedPage.getContent();
+		
+		if(result.isEmpty())
+			throw new DfuNotFoundException(DFU_NOTFOUND);
+
+		int sizePage = requestedPage.getSize();
+		int totalPages = requestedPage.getTotalPages();
+
+		Collection<DfuResponseDTO> response = invokeResponse(result);
+
+		return new br.com.brm.scp.api.pages.Pageable<DfuResponseDTO>(response, sizePage, totalPages,
+				pageIndex);
 	}
 
 	@Override
 	public Pageable<DfuResponseDTO> all(int pageIndex, int size)
 			throws DfuNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+		Page<DfuDocument> requestedPage = repository
+				.findAll(ServiceUtil.constructPageSpecification(pageIndex, size, new Sort(Sort.Direction.ASC, "id")));
+
+		Collection<DfuDocument> result = requestedPage.getContent();
+
+		if (result.isEmpty())
+			throw new DfuNotFoundException(DFU_NOTFOUND);
+
+		int numberOfElements = requestedPage.getNumberOfElements();
+		int totalPages = requestedPage.getTotalPages();
+
+		Collection<DfuResponseDTO> response = invokeResponse(result);
+
+		return new br.com.brm.scp.api.pages.Pageable<DfuResponseDTO>(response, numberOfElements, totalPages,
+				pageIndex);
 	}
 }

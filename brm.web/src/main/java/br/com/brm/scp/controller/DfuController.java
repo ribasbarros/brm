@@ -35,7 +35,7 @@ public class DfuController implements Serializable {
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
-	DfuResponseDTO create(DfuRequestDTO request) {
+	DfuResponseDTO create(@RequestBody DfuRequestDTO request) {
 		DfuResponseDTO response = null;
 		try {
 			response = service.create(request);
@@ -49,7 +49,7 @@ public class DfuController implements Serializable {
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.PUT)
 	@ResponseStatus(HttpStatus.OK)
-	void update(DfuRequestDTO request) {
+	void update(@RequestBody DfuRequestDTO request) {
 		try {
 			service.update(request);
 		} catch (DfuNotFoundException e) {

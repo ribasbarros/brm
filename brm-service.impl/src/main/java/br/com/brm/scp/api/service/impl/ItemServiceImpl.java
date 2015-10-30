@@ -151,10 +151,10 @@ public class ItemServiceImpl implements ItemService {
 		
 		Assert.notNull(request, ITEM_NOTNULL);
 		Assert.notNull(request.getId(), ITEM_ID);
-		//Assert.notNull(request.getCategoria().getId(), ITEM_CATEGORIA);
+		Assert.notNull(request.getCategoria().getId(), ITEM_CATEGORIA);
 		Assert.notNull(request.getNome(), ITEM_NOME);
 		Assert.notNull(request.getNomeReduzido(), ITEM_NOMEREDUZIDO);
-		//Assert.notNull(request.getStatus(), ITEM_STATUS);
+		Assert.notNull(request.getStatus(), ITEM_STATUS);
 		Assert.notNull(request.getUnitizacao(), ITEM_UNITIZACAO);
 		Assert.notNull(request.getValorUnitario(), ITEM_VALOR);
 		

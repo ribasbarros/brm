@@ -793,7 +793,8 @@ app
 
 							$scope.dfu = new DfuFactory();
 							$scope.submeter = function() {
-								if ($scope.formularioCategoria.$valid) {
+								if ($scope.formulario.$valid) {
+									console.log($scope.dfu);
 									$scope.dfu
 											.$save(
 													function(response) {
