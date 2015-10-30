@@ -19,6 +19,7 @@ import br.com.brm.scp.api.exceptions.ItemExistenteException;
 import br.com.brm.scp.api.exceptions.ItemNotFoundException;
 import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.service.ItemService;
+import br.com.brm.scp.api.service.document.CategoriaDocument;
 import br.com.brm.scp.api.service.document.ItemDocument;
 import br.com.brm.scp.api.service.repositories.CategoriaRepository;
 import br.com.brm.scp.api.service.repositories.ItemRepository;
@@ -50,21 +51,30 @@ public class ItemServiceImpl implements ItemService {
 
 	@Autowired
 	private ItemRepository repository;
-	
+
 	@Autowired
 	private CategoriaRepository categoriaRepository;
 
-	/* (non-Javadoc)
-	 * @see br.com.brm.scp.api.service.ItemService#create(br.com.brm.scp.api.dto.request.ItemRequestDTO)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * br.com.brm.scp.api.service.ItemService#create(br.com.brm.scp.api.dto.
+	 * request.ItemRequestDTO)
 	 */
 	@Override
-	public ItemResponseDTO create(ItemRequestDTO request) throws ItemExistenteException, ItemCategoriaNotFoundException {
+	public ItemResponseDTO create(ItemRequestDTO request)
+			throws ItemExistenteException, ItemCategoriaNotFoundException {
 
 		Assert.notNull(request, ITEM_NOTNULL);
-		//Assert.notNull(request.getCategoria(), ITEM_CATEGORIA);
+		Assert.notNull(request.getCategoria(), ITEM_CATEGORIA);
+
+		if (!hasCategoria(request.getCategoria().getId()))
+			throw new ItemCategoriaNotFoundException(ITEM_CATEGORIA_NOTFOUND);
+
 		Assert.notNull(request.getNome(), ITEM_NOME);
 		Assert.notNull(request.getNomeReduzido(), ITEM_NOMEREDUZIDO);
-		//Assert.notNull(request.getStatus(), ITEM_STATUS);
+		// Assert.notNull(request.getStatus(), ITEM_STATUS);
 		Assert.notNull(request.getUnitizacao(), ITEM_UNITIZACAO);
 		Assert.notNull(request.getValorUnitario(), ITEM_VALOR);
 
@@ -73,20 +83,25 @@ public class ItemServiceImpl implements ItemService {
 		} catch (ItemNotFoundException e) {
 			logger.debug(String.format("ITEM %s nao encontrado, pronto para cadastro!", request.getNome()));
 		}
-				
+
 		ItemDocument document = (ItemDocument) ConverterHelper.convert(request, ItemDocument.class);
 
 		Date current = new Date();
-		
+
 		document.setDataCriacao(current);
 		document.setDataAlteracao(current);
 
 		document = repository.save(document);
-		
+
 		ItemResponseDTO response = invokeResponse(document);
-		
+
 		return response;
 
+	}
+
+	private boolean hasCategoria(String id) {
+		CategoriaDocument findOne = categoriaRepository.findOne(id);
+		return null != findOne;
 	}
 
 	/**
@@ -143,43 +158,53 @@ public class ItemServiceImpl implements ItemService {
 
 	}
 
-	/* Nao se altera os nomes
-	 * @see br.com.brm.scp.api.service.ItemService#update(br.com.brm.scp.api.dto.request.ItemRequestDTO)
+	/*
+	 * Nao se altera os nomes
+	 * 
+	 * @see
+	 * br.com.brm.scp.api.service.ItemService#update(br.com.brm.scp.api.dto.
+	 * request.ItemRequestDTO)
 	 */
 	@Override
 	public ItemResponseDTO update(ItemRequestDTO request) throws ItemNotFoundException, ItemCategoriaNotFoundException {
-		
+
 		Assert.notNull(request, ITEM_NOTNULL);
 		Assert.notNull(request.getId(), ITEM_ID);
-		//Assert.notNull(request.getCategoria().getId(), ITEM_CATEGORIA);
+		Assert.notNull(request.getCategoria(), ITEM_CATEGORIA);
+
+		if (!hasCategoria(request.getCategoria().getId()))
+			throw new ItemCategoriaNotFoundException(ITEM_CATEGORIA_NOTFOUND);
+
 		Assert.notNull(request.getNome(), ITEM_NOME);
 		Assert.notNull(request.getNomeReduzido(), ITEM_NOMEREDUZIDO);
-		//Assert.notNull(request.getStatus(), ITEM_STATUS);
+		// Assert.notNull(request.getStatus(), ITEM_STATUS);
 		Assert.notNull(request.getUnitizacao(), ITEM_UNITIZACAO);
 		Assert.notNull(request.getValorUnitario(), ITEM_VALOR);
-		
+
 		try {
 			hasRegister(request);
 		} catch (ItemExistenteException e) {
 			logger.debug(String.format("Item %s encontrado, pronto para ser alterado!", request.getNome()));
 		}
-				
+
 		ItemDocument document = (ItemDocument) ConverterHelper.convert(request, ItemDocument.class);
-		
+
 		/*
-		 * Quando o Request não é completo, isto é, quando a Classe de document tem mais coisa que o Request, deve-se
-		 * tomar cuidado para nao salvar o objeto de destino para null, sendo que ele tem. (No caso eh a data de criacao)
+		 * Quando o Request não é completo, isto é, quando a Classe de document
+		 * tem mais coisa que o Request, deve-se tomar cuidado para nao salvar o
+		 * objeto de destino para null, sendo que ele tem. (No caso eh a data de
+		 * criacao)
 		 */
 		ItemDocument documentOld = findByFiltro(ItemFiltroEnum.ID, document.getId());
-		
+
 		Date current = new Date();
 		document.setDataCriacao(documentOld.getDataCriacao());
 		document.setDataAlteracao(current);
-		
+
 		document = repository.save(document);
-		
+
 		ItemResponseDTO response = invokeResponse(document);
-		
+
 		return response;
 	}
 
@@ -191,13 +216,13 @@ public class ItemServiceImpl implements ItemService {
 
 	@Override
 	public void delete(String id) throws ItemNotFoundException {
-		
+
 		Assert.notNull(id, ITEM_ID);
-		
-		if( findByFiltro(ItemFiltroEnum.ID, id) == null ){
+
+		if (findByFiltro(ItemFiltroEnum.ID, id) == null) {
 			throw new ItemNotFoundException(ITEM_ID);
 		}
-		
+
 		repository.delete(id);
 	}
 
@@ -218,7 +243,7 @@ public class ItemServiceImpl implements ItemService {
 
 		return new br.com.brm.scp.api.pages.Pageable<ItemResponseDTO>(response, numberOfElements, totalPages,
 				pageIndex);
-	
+
 	}
 
 	@Override
@@ -228,8 +253,8 @@ public class ItemServiceImpl implements ItemService {
 				ServiceUtil.constructPageSpecification(pageIndex, size, new Sort(Sort.Direction.ASC, "id")));
 
 		Collection<ItemDocument> result = requestedPage.getContent();
-		
-		if(result.isEmpty())
+
+		if (result.isEmpty())
 			throw new ItemNotFoundException(ITEM_NOTFOUND);
 
 		int sizePage = requestedPage.getSize();
@@ -237,9 +262,8 @@ public class ItemServiceImpl implements ItemService {
 
 		Collection<ItemResponseDTO> response = invokeResponse(result);
 
-		return new br.com.brm.scp.api.pages.Pageable<ItemResponseDTO>(response, sizePage, totalPages,
-				pageIndex);
-	
+		return new br.com.brm.scp.api.pages.Pageable<ItemResponseDTO>(response, sizePage, totalPages, pageIndex);
+
 	}
 
 	private Collection<ItemResponseDTO> invokeResponse(Collection<ItemDocument> result) {
