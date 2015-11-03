@@ -182,4 +182,9 @@ public class PerfilServiceImpl implements PerfilService {
 				pageIndex);
 	}
 
+	@Override
+	public Collection<PerfilResponseDTO> all() throws PerfilNotFoundException {
+		return invokeResponse(repository.findAll());
+	}
+
 }

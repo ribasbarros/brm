@@ -170,12 +170,10 @@ public class ItemServiceImpl implements ItemService {
 
 		Assert.notNull(request, ITEM_NOTNULL);
 		Assert.notNull(request.getId(), ITEM_ID);
-<<<<<<< HEAD
 		Assert.notNull(request.getCategoria().getId(), ITEM_CATEGORIA);
 		Assert.notNull(request.getNome(), ITEM_NOME);
 		Assert.notNull(request.getNomeReduzido(), ITEM_NOMEREDUZIDO);
 		Assert.notNull(request.getStatus(), ITEM_STATUS);
-=======
 		Assert.notNull(request.getCategoria(), ITEM_CATEGORIA);
 
 		if (!hasCategoria(request.getCategoria().getId()))
@@ -183,8 +181,7 @@ public class ItemServiceImpl implements ItemService {
 
 		Assert.notNull(request.getNome(), ITEM_NOME);
 		Assert.notNull(request.getNomeReduzido(), ITEM_NOMEREDUZIDO);
-		// Assert.notNull(request.getStatus(), ITEM_STATUS);
->>>>>>> 44b29d167e9120cf2c296d356b6873e4f954c609
+		Assert.notNull(request.getStatus(), ITEM_STATUS);
 		Assert.notNull(request.getUnitizacao(), ITEM_UNITIZACAO);
 		Assert.notNull(request.getValorUnitario(), ITEM_VALOR);
 

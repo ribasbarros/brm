@@ -1,5 +1,7 @@
 package br.com.brm.scp.api.service;
 
+import java.util.Collection;
+
 import br.com.brm.scp.api.dto.request.GrupoRequestDTO;
 import br.com.brm.scp.api.dto.response.GrupoResponseDTO;
 import br.com.brm.scp.api.exceptions.GrupoExistenteException;
@@ -19,5 +21,7 @@ public interface GrupoService {
 	Pageable<GrupoResponseDTO> search(String searchTerm, int pageIndex, int size) throws GrupoNotFoundException;
 
 	Pageable<GrupoResponseDTO> all(int pageIndex, int size) throws GrupoNotFoundException;
+
+	Collection<GrupoResponseDTO> all();
 
 }

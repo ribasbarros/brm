@@ -1,5 +1,6 @@
 package br.com.brm.scp.api.service.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.apache.log4j.Logger;
@@ -11,19 +12,12 @@ import org.springframework.util.Assert;
 
 import br.com.brm.scp.api.dto.request.GrupoRequestDTO;
 import br.com.brm.scp.api.dto.response.GrupoResponseDTO;
-import br.com.brm.scp.api.dto.response.GrupoResponseDTO;
-import br.com.brm.scp.api.dto.response.GrupoResponseDTO;
-import br.com.brm.scp.api.dto.response.GrupoResponseDTO;
 import br.com.brm.scp.api.exceptions.GrupoExistenteException;
-import br.com.brm.scp.api.exceptions.GrupoNotFoundException;
-import br.com.brm.scp.api.exceptions.GrupoNotFoundException;
 import br.com.brm.scp.api.exceptions.GrupoNotFoundException;
 import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.service.GrupoService;
 import br.com.brm.scp.api.service.document.GrupoDocument;
-import br.com.brm.scp.api.service.document.GrupoDocument;
-import br.com.brm.scp.api.service.document.GrupoDocument;
-import br.com.brm.scp.api.service.document.GrupoDocument;
+import br.com.brm.scp.api.service.document.PerfilDocument;
 import br.com.brm.scp.api.service.repositories.GrupoRepository;
 import br.com.brm.scp.api.service.status.GrupoFiltroEnum;
 import br.com.brm.scp.fw.helper.converters.ConverterHelper;
@@ -176,10 +170,19 @@ public class GrupoServiceImpl implements GrupoService {
 
 		int numberOfElements = requestedPage.getNumberOfElements();
 		int totalPages = requestedPage.getTotalPages();
+		
+		for(GrupoDocument g : result){
+			g.setPerfis(new ArrayList<PerfilDocument>(g.getPerfis()));
+		}
 
 		Collection<GrupoResponseDTO> response = invokeResponse(result);
 
 		return new br.com.brm.scp.api.pages.Pageable<GrupoResponseDTO>(response, numberOfElements, totalPages,
 				pageIndex);
+	}
+
+	@Override
+	public Collection<GrupoResponseDTO> all() {
+		return invokeResponse(repository.findAll());
 	}	
 }

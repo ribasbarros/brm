@@ -31,8 +31,12 @@ app
 						'$resource',
 						'$location',
 						'SkuFactory',
-						function($scope, $resource, $location, SkuFactory) {
+						function($scope, $resource ,$location, SkuFactory) {
 							$scope.listaItens = $resource('item/all').query();
+							
+							 $scope.loadTags = function(query) {
+								 return $resource('tag/all').query().$promise;
+							 };
 							
 							$scope.listaStatus = [ {
 								'nome' : 'A'
@@ -64,11 +68,10 @@ app
 							}, {
 								'nome' : 'FINALIZADA'
 							} ];
-							
 							$scope.sku = new SkuFactory();
+
 							$scope.submeter = function() {
 								if ($scope.formulario.$valid) {
-									console.log($scope.sku.item);
 									$scope.sku.$save(
 													function(response) {
 														$scope.mensagem = 'Cadastro de Sku realizado com sucesso!';
@@ -149,16 +152,14 @@ app
 							$scope.item = new ItemFactory();
 							$scope.salvar = function() {
 								if ($scope.formulario.$valid) {
-
-									console.log($scope.item);
-									
 									$scope.item
 											.$save(
+
 													function(response) {
 														$scope.mensagem = 'Cadastro de Item realizado com sucesso!';
 													},
 													function(erro) {
-														console.log(erro);
+														console.log($scope.item);
 														$scope.mensagem = 'Cadastro de Item não realizado!';
 													});
 								}
@@ -547,12 +548,26 @@ app
 				'GrupoController',
 				[
 						'$scope',
+						'$resource',
 						'$location',
 						'GrupoFactory',
-						function($scope, $location, GrupoFactory) {
+						function($scope,$resource ,$location, GrupoFactory) {
+							
 							$scope.mensagem = '';
-
 							$scope.grupo = new GrupoFactory();
+							$scope.selected = {};
+							$scope.grupo.perfis = [];
+							$scope.listaPerfis = $resource('perfil/all').query();
+							$scope.addPerfil = function() {
+								if ($scope.modalPerfil.$valid) {
+									$scope.grupo.perfis
+											.push($scope.selected);
+									$scope.selected = {};
+									alert("Adicionado com sucesso!");
+								}
+							};
+							
+							
 							$scope.submeter = function() {
 								if ($scope.formulario.$valid) {
 									$scope.grupo
@@ -571,12 +586,18 @@ app
 							$scope.URL_FORM_CREATE = 'private/grupo/grupo-create';
 							$scope.URL_FORM_EDIT = 'private/grupo/grupo-edit';
 
+							$scope.mapColumnsPerfil = [ {
+								'title' : 'Nome',
+								'field' : 'nome'
+							} ];
+							
 							$scope.map = [ {
 								'title' : 'Nome',
 								'field' : 'nome'
 							}, {
 								'title' : 'Perfis',
 								'field' : 'perfis',
+								'subField' : 'nome',
 								'isArray' : 'true'
 							} ];
 						} ]);
@@ -617,12 +638,29 @@ app
 				'UsuarioController',
 				[
 						'$scope',
+						'$resource',
 						'$location',
 						'UsuarioFactory',
-						function($scope, $location, UsuarioFactory) {
+						function($scope, $resource ,$location, UsuarioFactory) {
+							$scope.listaGrupos = $resource('grupo/all').query();
 							$scope.mensagem = '';
-
+							$scope.selected = {};
+							
 							$scope.usuario = new UsuarioFactory();
+							$scope.usuario.grupos = [];
+
+							$scope.addGrupo = function() {
+								if ($scope.modalGrupo.$valid) {									
+									console.log($scope.usuario.grupos);
+									console.log($scope.selected);
+									
+									$scope.usuario.grupos
+											.push($scope.selected);
+									$scope.selected = {};
+									alert("Adicionado com sucesso!");
+								}
+							};
+														
 							$scope.submeter = function() {
 								if ($scope.formulario.$valid) {
 									$scope.usuario
@@ -635,12 +673,18 @@ app
 													});
 								}
 							};
-
+							
+														
 							$scope.REST_SEARCH = 'usuario/search';
 							$scope.URL_CRUD = 'usuario/:id';
 							$scope.URL_FORM_CREATE = 'private/usuario/usuario-create';
 							$scope.URL_FORM_EDIT = 'private/usuario/usuario-edit';
 
+							$scope.mapColumnsGrupo = [ {
+								'title' : 'Nome',
+								'field' : 'nome'
+							} ];
+							
 							$scope.map = [ {
 								'title' : 'Nome',
 								'field' : 'nome'
@@ -653,6 +697,7 @@ app
 							}, {
 								'title' : 'Grupos',
 								'field' : 'grupos',
+								'subField' : 'nome',
 								'isArray' : 'true'
 							} ];
 						} ]);

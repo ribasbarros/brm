@@ -33,21 +33,29 @@
 
 <p ng-show="mensagem.length" class="alert alert-info">{{mensagem}}</p>
 <div class="row">
+	<div class="col-md-6">
+		<div class="form-group ">
+			<label>Tags</label>
+			<tags-input ng-model="sku.tags" display-property="nome" placeholder="Adicionar Tag" add-from-autocomplete-only="true">
+		 		<auto-complete source="loadTags($query)"></auto-complete>
+			</tags-input>
+		</div>
+	</div>
+</div>
+<div class="row">
 	<div class="col-md-3">
 		<div class="form-group ">
-			<label>Classe</label> <select class="form-control" name="classe"
-				id="repeatSelect" ng-model="sku.classe">
-				<option ng-repeat="option in listaStatus" value="option">{{option.nome}}</option>
+			<label>Classe</label>
+			<select class="form-control" name="classe" id="classe" ng-model="sku.classe">
+				<option ng-repeat="option in listaStatus" ng-value="option.nome">{{option.nome}}</option>
 			</select>
 		</div>
 	</div>
 
 	<div class="col-md-3">
 		<div class="form-group ">
-			<label>Item</label> <select class="form-control" name="item"
-				id="teste" ng-model="sku.item">
-				<option ng-repeat="option in listaItens" value="option">{{option.nome}}</option>
-			</select>
+			<label>Item</label> 
+				<select class="form-control" ng-options="item as item.nome for item in listaItens track by item.id" ng-model="sku.item"></select>				
 		</div>
 	</div>
 </div>
@@ -57,9 +65,7 @@
 		<div class="form-group">
 			<label>Data de maturidade</label> <input type="date"
 				class="form-control" ng-model="sku.dataMaturidade"
-				name="dataMaturidade" required /> <span
-				ng-show="formulario.$submitted && formulario.dataMaturidade.$error.required"
-				class="form-control alert-danger"> Maturidade é obrigatório </span>
+				name="dataMaturidade" /> 
 		</div>
 	</div>
 
@@ -67,10 +73,7 @@
 		<div class="form-group">
 			<label>Data de Descontinuação</label> <input type="date"
 				class="form-control" ng-model="sku.dataDescontinuacao"
-				name="dataDescontinuacao" required /> <span
-				ng-show="formulario.$submitted && formulario.dataDescontinuacao.$error.required"
-				class="form-control alert-danger"> Descontinuação é
-				obrigatório </span>
+				name="dataDescontinuacao" />
 		</div>
 	</div>
 
@@ -86,19 +89,20 @@
 
 	<div class="col-md-3">
 		<div class="form-group ">
-			<label>Tipos de Planejamento</label> <select class="form-control"
-				name="modelo" id="repeatSelect" ng-model="sku.modelo">
-				<option ng-repeat="option in listaPlanejamentos" value="option">{{option.nome}}</option>
+			<label>Tipos de Planejamento</label>
+			 <select class="form-control" name="modelo" id="modelo" ng-model="sku.modelo">
+				<option ng-repeat="option in listaPlanejamentos" ng-value="option.nome">{{option.nome}}</option>
 			</select>
 		</div>
 	</div>
 
 	<div class="col-md-3">
 		<div class="form-group large-padded-row">
-			<label>Tipos de Reposição</label> <select class="form-control"
-				name="status" id="repeatSelect" ng-model="sku.status">
-				<option ng-repeat="option in listaReposicoes" value="option">{{option.nome}}</option>
+			<label>Tipos de Reposição</label> 		
+			 <select class="form-control" name="status" id="status" ng-model="sku.status">
+				<option ng-repeat="option in listaReposicoes" ng-value="option.nome">{{option.nome}}</option>
 			</select>
+		
 		</div>
 	</div>
 </div>
@@ -106,9 +110,7 @@
 	<div class="col-md-6">
 		<div class="form-group">
 			<label>Descrição</label> <input name="descricao" class="form-control"
-				ng-model="sku.descricao" required> <span
-				ng-show="formulario.$submitted && formulario.descricao.$error.required"
-				class="form-control alert-danger"> Descrição é obrigatório </span>
+				ng-model="sku.descricao">
 		</div>
 	</div>
 </div>
@@ -118,20 +120,14 @@
 		<div class="form-group">
 			<label>Estoque Máximo</label> <input type="number"
 				name="estoqueMaximo" class="form-control"
-				ng-model="sku.estoqueMaximo" required> <span
-				ng-show="formulario.$submitted && formulario.estoqueMaximo.$error.required"
-				class="form-control alert-danger"> Estoque máximo é
-				obrigatório 
+				ng-model="sku.estoqueMaximo" >
 		</div>
 	</div>
 	<div class="col-md-3">
 		<div class="form-group">
 			<label>Estoque Minimo</label> <input type="number"
 				name="estoqueMinimo" class="form-control"
-				ng-model="sku.estoqueMinimo" required> <span
-				ng-show="formulario.$submitted && formulario.estoqueMinimo.$error.required"
-				class="form-control alert-danger"> Estoque mínimo é
-				obrigatório 
+				ng-model="sku.estoqueMinimo" >
 		</div>
 	</div>
 </div>
@@ -140,29 +136,20 @@
 
 		<div class="form-group">
 			<label>Estoque Ideal</label> <input type="number" name="estoqueIdeal"
-				class="form-control" ng-model="sku.estoqueIdeal" required> <span
-				ng-show="formulario.$submitted && formulario.estoqueIdeal.$error.required"
-				class="form-control alert-danger"> Estoque ideal é
-				obrigatório 
+				class="form-control" ng-model="sku.estoqueIdeal">
 		</div>
 	</div>
 	<div class="col-md-2">
 		<div class="form-group">
 			<label>Estoque Atual</label> <input type="number" name="estoqueAtual"
-				class="form-control" ng-model="sku.estoqueAtual" required> <span
-				ng-show="formulario.$submitted && formulario.estoqueAtual.$error.required"
-				class="form-control alert-danger"> Estoque atual é
-				obrigatório 
+				class="form-control" ng-model="sku.estoqueAtual">
 		</div>
 	</div>
 	<div class="col-md-2">
 		<div class="form-group">
 			<label>Custo Unitário</label> <input type="number"
 				name="custoUnitario" class="form-control"
-				ng-model="sku.custoUnitario" required> <span
-				ng-show="formulario.$submitted && formulario.custoUnitario.$error.required"
-				class="form-control alert-danger"> Custo Unitário é
-				obrigatório 
+				ng-model="sku.custoUnitario" > 
 		</div>
 	</div>
 </div>

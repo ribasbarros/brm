@@ -24,6 +24,10 @@
 			<button type="submit" class="btn btn-danger btn-sm navbar-btn">
 				<span class="glyphicon glyphicon-ok"></span> Salvar & Fechar
 			</button>
+			<button type="button" class="btn btn-success btn-sm navbar-btn"
+				data-toggle="modal" data-target="#idModalGrupo">
+				<span class="glyphicon glyphicon-book"></span> Adicionar Grupo
+			</button>
 		</div>
 	</div>
 </nav>
@@ -33,7 +37,6 @@
 
 <p ng-show="mensagem.length" class="alert alert-info">{{mensagem}}</p>
 
-<form novalidate name="formulario" class="row" ng-submit="submeter()">
 	<div class="row">
 		<div class="col-md-6">
 			<div class="controls form-group has-feedback">
@@ -61,7 +64,7 @@
 		</div>
 
 	</div>
-	
+
 	<div class="row">
 		<div class="col-md-6">
 			<div class="controls form-group has-feedback">
@@ -74,5 +77,15 @@
 			</div>
 		</div>
 	</div>
-	
-</form>
+
+<div class="row">
+	<div ng-show="usuario.grupos.length > 0">
+		<div class="col-md-4">
+			<label>Grupos</label>
+			<div>
+				<brm-show-data column="mapColumnsGrupo" data="usuario.grupos"
+					is-delete="true" />
+			</div>
+		</div>
+	</div>
+</div>

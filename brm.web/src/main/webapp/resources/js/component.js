@@ -228,7 +228,7 @@ app.controller('ShowDataController', [ '$scope', '$http', '$location',
 				'entries' : [],
 			};
 
-			$scope.view.entries = $scope.data();
+			$scope.view.entries = $scope.data;
 
 			$scope.deleteRegister = function(entry) {
 

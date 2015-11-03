@@ -1,5 +1,5 @@
 <div ng-controller="ItemController">
-	<form novalidate name="formulario">
+	<form novalidate name="formulario" ng-submit="salvar()">
 		<div ng-include src="'private/item/item-form.html'"></div>
 	</form>
 </div>

@@ -1,5 +1,6 @@
 package br.com.brm.scp.api.service.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.apache.log4j.Logger;
@@ -18,6 +19,8 @@ import br.com.brm.scp.api.exceptions.UsuarioExistentException;
 import br.com.brm.scp.api.exceptions.UsuarioNotFoundException;
 import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.service.UsuarioService;
+import br.com.brm.scp.api.service.document.GrupoDocument;
+import br.com.brm.scp.api.service.document.PerfilDocument;
 import br.com.brm.scp.api.service.document.UsuarioDocument;
 import br.com.brm.scp.api.service.document.UsuarioDocument;
 import br.com.brm.scp.api.service.repositories.UsuarioRepository;
@@ -165,7 +168,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 		int sizePage = requestedPage.getSize();
 		int totalPages = requestedPage.getTotalPages();
-
+				
 		Collection<UsuarioResponseDTO> response = invokeResponse(result);
 
 		return new br.com.brm.scp.api.pages.Pageable<UsuarioResponseDTO>(response, sizePage, totalPages,
@@ -191,6 +194,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 		int numberOfElements = requestedPage.getNumberOfElements();
 		int totalPages = requestedPage.getTotalPages();
 
+		for(UsuarioDocument document : result){
+			document.setGrupos(new ArrayList<GrupoDocument>(document.getGrupos()));			
+		}
+		
 		Collection<UsuarioResponseDTO> response = invokeResponse(result);
 
 		return new br.com.brm.scp.api.pages.Pageable<UsuarioResponseDTO>(response, numberOfElements, totalPages,
