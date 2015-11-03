@@ -33,7 +33,7 @@ app
 						'SkuFactory',
 						function($scope, $resource, $location, SkuFactory) {
 							$scope.listaItens = $resource('item/all').query();
-							
+
 							$scope.listaStatus = [ {
 								'nome' : 'A'
 							}, {
@@ -41,7 +41,7 @@ app
 							}, {
 								'nome' : 'C'
 							} ];
-							
+
 							$scope.listaPlanejamentos = [ {
 								'nome' : 'ESTOQUE'
 							}, {
@@ -52,7 +52,6 @@ app
 								'nome' : 'NO_LIMITE'
 							} ];
 
-							
 							$scope.listaReposicoes = [ {
 								'nome' : 'RASCUNHO'
 							}, {
@@ -64,12 +63,13 @@ app
 							}, {
 								'nome' : 'FINALIZADA'
 							} ];
-							
+
 							$scope.sku = new SkuFactory();
 							$scope.submeter = function() {
 								if ($scope.formulario.$valid) {
 									console.log($scope.sku.item);
-									$scope.sku.$save(
+									$scope.sku
+											.$save(
 													function(response) {
 														$scope.mensagem = 'Cadastro de Sku realizado com sucesso!';
 													},
@@ -135,7 +135,7 @@ app
 
 							$scope.categorias = $resource('categoria/all')
 									.query();
-							
+
 							$scope.listaStatus = [ {
 								'nome' : 'DESCONTINUADO'
 							}, {
@@ -151,7 +151,7 @@ app
 								if ($scope.formulario.$valid) {
 
 									console.log($scope.item);
-									
+
 									$scope.item
 											.$save(
 													function(response) {
@@ -186,7 +186,7 @@ app
 								'title' : 'Categoria',
 								'field' : 'categoria',
 								'subField' : 'nome'
-								
+
 							}, {
 								'title' : 'Criação',
 								'field' : 'dataCriacao',
@@ -314,9 +314,10 @@ app
 						'$scope',
 						'$routeParams',
 						'$location',
+						'$route', 
 						'FornecedorFactory',
 						function($scope, $routeParams, $location,
-								FornecedorFactory) {
+								$route, FornecedorFactory) {
 
 							$scope.mapColumnsContato = [ {
 								'title' : 'Nome',
@@ -338,17 +339,6 @@ app
 								'field' : 'centro',
 							} ];
 
-							$scope.fornecedor = new FornecedorFactory();
-							$scope.fornecedor.contatos = [];
-							$scope.fornecedor.centros = [];
-
-							$scope.fornecedor.$get({
-								id : $routeParams.id
-							});
-
-							$scope.selected = {};
-							$scope.mensagem = '';
-
 							$scope.addContato = function() {
 								if ($scope.modalContato.$valid) {
 									$scope.fornecedor.contatos
@@ -367,7 +357,23 @@ app
 								}
 							};
 
-							$scope.submeter = function() {
+							$scope.load = function() {
+								
+								$scope.fornecedor = FornecedorFactory.get({
+									id : $routeParams.id
+								}, function(data) {
+									console.log(data);
+								});
+								
+							};
+
+							$scope.saveAndClose = function() {
+								$scope.save();
+								$location
+										.path("#/private/fornecedor/fornecedor-view");
+							};
+
+							$scope.save = function() {
 								if ($scope.formulario.$valid) {
 									$scope.fornecedor
 											.$update(
@@ -379,6 +385,8 @@ app
 													});
 								}
 							};
+
+							$scope.load();
 
 						} ]);
 
@@ -401,77 +409,66 @@ app.controller('SkuEditController', [ '$scope', '$routeParams', '$location',
 
 		} ]);
 
+app
+		.controller(
+				'TagController',
+				[
+						'$scope',
+						'$location',
+						'TagFactory',
+						function($scope, $location, TagFactory) {
+							$scope.mensagem = '';
 
-app.controller(
-		'TagController',
-		[
-				'$scope',
-				'$location',
-				'TagFactory',
-				function($scope, $location, TagFactory) {
-					$scope.mensagem = '';
+							$scope.tag = new TagFactory();
+							$scope.submeter = function() {
+								if ($scope.formulario.$valid) {
+									$scope.tag
+											.$save(
+													function(response) {
+														$scope.mensagem = 'Cadastro de Tag realizado com sucesso!';
+													},
+													function(erro) {
+														$scope.mensagem = 'Cadastro de Tag não realizado!';
+													});
+								}
+							};
 
-					$scope.tag = new TagFactory();
-					$scope.submeter = function() {
-						if ($scope.formulario.$valid) {
-							$scope.tag
-									.$save(
-											function(response) {
-												$scope.mensagem = 'Cadastro de Tag realizado com sucesso!';
-											},
-											function(erro) {
-												$scope.mensagem = 'Cadastro de Tag não realizado!';
-											});
-						}
-					};
+							$scope.REST_SEARCH = 'tag/search';
+							$scope.URL_CRUD = 'tag/:id';
+							$scope.URL_FORM_CREATE = 'private/tag/tag-create';
+							$scope.URL_FORM_EDIT = 'private/tag/tag-edit';
 
-					$scope.REST_SEARCH = 'tag/search';
-					$scope.URL_CRUD = 'tag/:id';
-					$scope.URL_FORM_CREATE = 'private/tag/tag-create';
-					$scope.URL_FORM_EDIT = 'private/tag/tag-edit';
+							$scope.map = [ {
+								'title' : 'Nome',
+								'field' : 'nome'
+							}, {
+								'title' : 'Nível',
+								'field' : 'nivel'
+							}, {
+								'title' : 'Usuario Criação',
+								'field' : 'usuarioCriacao'
+							} ];
 
-					$scope.map = [ {
-						'title' : 'Nome',
-						'field' : 'nome'
-					}, {
-						'title' : 'Nível',
-						'field' : 'nivel'
-					}, {
-						'title' : 'Usuario Criação',
-						'field' : 'usuarioCriacao'
-					} ];
+						} ]);
 
-				} ]);
+app.controller('TagEditController', [ '$scope', '$routeParams', '$location',
+		'TagFactory', function($scope, $routeParams, $location, TagFactory) {
 
-app.controller(
-		'TagEditController',
-		[
-				'$scope',
-				'$routeParams',
-				'$location',
-				'TagFactory',
-				function($scope, $routeParams, $location,
-						TagFactory) {
+			$scope.tag = TagFactory.get({
+				id : $routeParams.id
+			});
 
-					$scope.tag = TagFactory.get({
-						id : $routeParams.id
+			$scope.submeter = function() {
+				if ($scope.formulario.$valid) {
+					$scope.tag.$update(function() {
+						$scope.mensagem = 'Tag Atualizado com sucesso!';
+					}, function(erro) {
+						$scope.mensagem = 'Alteração de Tag não realizada!';
 					});
+				}
+			};
 
-					$scope.submeter = function() {
-						if ($scope.formulario.$valid) {
-							$scope.tag
-									.$update(
-											function() {
-												$scope.mensagem = 'Tag Atualizado com sucesso!';
-											},
-											function(erro) {
-												$scope.mensagem = 'Alteração de Tag não realizada!';
-											});
-						}
-					};
-
-				} ]);
-
+		} ]);
 
 app
 		.controller(
@@ -777,7 +774,7 @@ app
 							}, {
 								'nome' : 'C'
 							} ];
-							
+
 							$scope.listaPlanejamentos = [ {
 								'nome' : 'ESTOQUE'
 							}, {
@@ -788,7 +785,6 @@ app
 								'nome' : 'NO_LIMITE'
 							} ];
 
-							
 							$scope.mensagem = '';
 
 							$scope.dfu = new DfuFactory();

@@ -18,10 +18,11 @@
 		</div>
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-3">
-			<button type="submit" class="btn btn-primary btn-sm navbar-btn">
+			<button ng-click="save()" class="btn btn-primary btn-sm navbar-btn">
 				<span class="glyphicon glyphicon-check"></span> Salvar
 			</button>
-			<button type="submit" class="btn btn-danger btn-sm navbar-btn">
+			<button ng-click="saveAndClose()"
+				class="btn btn-danger btn-sm navbar-btn">
 				<span class="glyphicon glyphicon-ok"></span> Salvar & Fechar
 			</button>
 			<button type="button" class="btn btn-success btn-sm navbar-btn"
@@ -84,31 +85,29 @@
 <div class="row">
 	<div class="col-md-9">
 		<div class="form-group">
-				<div class="controls form-group has-feedback">
-				<label class="control-label" for="descricao">Descrição</label> <textarea class="form-control" id="descricao"
+			<div class="controls form-group has-feedback">
+				<label class="control-label" for="descricao">Descrição</label>
+				<textarea class="form-control" id="descricao"
 					ng-model="fornecedor.descricao" name="descricao" required></textarea>
 				<span ng-show="formulario.descricao.$valid"
 					class="glyphicon glyphicon-ok form-control-feedback"></span> <span
 					ng-show="!formulario.descricao.$valid"
 					class="glyphicon glyphicon-remove form-control-feedback"></span>
 			</div>
-				
+
 		</div>
 	</div>
 </div>
-
 <div class="row">
 	<div ng-show="fornecedor.contatos.length > 0">
-		<div class="col-md-4">
+		<div ng-if="fornecedor.contatos" class="col-md-4">
 			<label>Contatos</label>
-			<div>
-				<brm-show-data column="mapColumnsContato" data="contatos()"
-					is-delete="true" />
-			</div>
+			<brm-show-data column="mapColumnsContato" data="fornecedor.contatos"
+				type-id="some_prop" is-delete="true" />
 		</div>
 	</div>
 	<div ng-show="fornecedor.centros.length > 0">
-		<div class="col-md-4">
+		<div ng-if="fornecedor.centros" class="col-md-4">
 			<label>Centros</label>
 			<div ng-show="fornecedor.centros.length > 0">
 				<brm-show-data column="mapColumnsCentro" data="fornecedor.centros"
