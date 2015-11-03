@@ -33,15 +33,11 @@ app
 						'SkuFactory',
 						function($scope, $resource ,$location, SkuFactory) {
 							$scope.listaItens = $resource('item/all').query();
-<<<<<<< HEAD
 							
 							 $scope.loadTags = function(query) {
 								 return $resource('tag/all').query().$promise;
 							 };
 							
-=======
-
->>>>>>> c5f3ba97b8a7f2b9651354396abd619269ebd99c
 							$scope.listaStatus = [ {
 								'nome' : 'A'
 							}, {
@@ -155,12 +151,6 @@ app
 							$scope.item = new ItemFactory();
 							$scope.salvar = function() {
 								if ($scope.formulario.$valid) {
-<<<<<<< HEAD
-=======
-
-									console.log($scope.item);
-
->>>>>>> c5f3ba97b8a7f2b9651354396abd619269ebd99c
 									$scope.item
 											.$save(
 
