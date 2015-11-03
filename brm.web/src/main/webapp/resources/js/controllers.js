@@ -361,8 +361,6 @@ app
 								
 								$scope.fornecedor = FornecedorFactory.get({
 									id : $routeParams.id
-								}, function(data) {
-									console.log(data);
 								});
 								
 							};
