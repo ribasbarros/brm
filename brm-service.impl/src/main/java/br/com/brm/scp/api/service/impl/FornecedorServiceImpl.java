@@ -281,6 +281,12 @@ public class FornecedorServiceImpl implements FornecedorService {
 		int sizePage = requestedPage.getSize();
 		int totalPages = requestedPage.getTotalPages();
 
+		// TODO CRIAR SOLUCAO NO CONVERTER
+		for (FornecedorDocument d : result) {
+			d.setContatos(new ArrayList<ContatoDocument>(d.getContatos()));
+			d.setCentros(new ArrayList<FornecedorCentroDocument>(d.getCentros()));
+		}
+
 		Collection<FornecedorResponseDTO> response = invokeResponse(result);
 
 		return new br.com.brm.scp.api.pages.Pageable<FornecedorResponseDTO>(response, sizePage, totalPages, pageIndex);

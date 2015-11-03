@@ -22,6 +22,7 @@ app.directive('brmDataTable', function() {
 });
 
 app.directive('brmShowData', function() {
+
 	return {
 		restrict : 'E',
 		scope : {
