@@ -1,6 +1,7 @@
 package br.com.brm.scp.controller;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,12 +15,15 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import br.com.brm.scp.api.dto.request.SkuRequestDTO;
 import br.com.brm.scp.api.dto.response.SkuResponseDTO;
+import br.com.brm.scp.api.dto.response.SkuResponseDTO;
+import br.com.brm.scp.api.exceptions.SkuNotFoundException;
 import br.com.brm.scp.api.exceptions.SkuExistenteException;
 import br.com.brm.scp.api.exceptions.SkuNotFoundException;
 import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.pages.SearchPageableVO;
 import br.com.brm.scp.api.service.SkuService;
 import br.com.brm.scp.api.service.status.SkuFiltroEnum;
+import br.com.brm.scp.controller.exception.SkuNotFoundWebException;
 import br.com.brm.scp.controller.exception.SkuExistenteWebException;
 import br.com.brm.scp.controller.exception.SkuNotFoundWebException;
 
@@ -104,6 +108,13 @@ public class SkuController implements Serializable {
 			throw new SkuNotFoundWebException(e.getMessage());
 		}
 		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "all", method = RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+	Collection<SkuResponseDTO> all() {
+			return service.all();
 	}
 
 }

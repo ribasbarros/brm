@@ -1,5 +1,7 @@
 package br.com.brm.scp.api.service;
 
+import java.util.Collection;
+
 import br.com.brm.scp.api.dto.FornecedorCentroDTO;
 import br.com.brm.scp.api.dto.request.FornecedorRequestDTO;
 import br.com.brm.scp.api.dto.response.FornecedorResponseDTO;
@@ -24,4 +26,6 @@ public interface FornecedorService {
 	Pageable<FornecedorResponseDTO> search(String searchTerm, int pageIndex, int size) throws FornecedorNotFoundException;
 
 	Pageable<FornecedorResponseDTO> all(int pageIndex, int size) throws FornecedorNotFoundException;
+
+	Collection<FornecedorResponseDTO> all();
 }

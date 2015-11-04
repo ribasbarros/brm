@@ -131,7 +131,6 @@ public class SkuServiceImpl implements SkuService {
 		//TODO CRIAR SOLUCAO NO CONVERTER
 		for(SkuDocument d : result){
 			d.setTags(new ArrayList<TagDocument>(d.getTags()));
-			d.setOrigens(new ArrayList<OrigemSkuDocument>(d.getOrigens()));
 		}
 
 		Collection<SkuResponseDTO> response = invokeResponse(result);
@@ -169,7 +168,7 @@ public class SkuServiceImpl implements SkuService {
 	public void update(SkuRequestDTO request) throws SkuNotFoundException {
 		Assert.notNull(request, SKU_NOTNULL);
 		Assert.notNull(request.getItem(), SKU_ITEM);
-		//Assert.notNull(request.getTags(), SKU_TAG);
+		Assert.notNull(request.getTags(), SKU_TAG);
 		Assert.notNull(request.getDescricao(), SKU_DESCRICAO);
 		//Assert.notNull(request.getFrequenciaAnalise(), SKU_FREQUENCIA_ANALISE);
 		Assert.notNull(request.getModelo(), SKU_MODELO);
@@ -198,6 +197,12 @@ public class SkuServiceImpl implements SkuService {
 		}
 				
 		repository.delete(id);			
+	}
+
+	@Override
+	public Collection<SkuResponseDTO> all() {
+		// TODO Auto-generated method stub
+		return invokeResponse(repository.findAll());
 	}
 
 }

@@ -1,5 +1,7 @@
 package br.com.brm.scp.api.service;
 
+import java.util.Collection;
+
 import br.com.brm.scp.api.dto.request.SkuRequestDTO;
 import br.com.brm.scp.api.dto.response.SkuResponseDTO;
 import br.com.brm.scp.api.exceptions.SkuExistenteException;
@@ -23,5 +25,7 @@ public interface SkuService {
 
 	Pageable<SkuResponseDTO> search(String searchTerm, int pageIndex, int size)
 			throws SkuNotFoundException;
+
+	Collection<SkuResponseDTO> all();
 
 }

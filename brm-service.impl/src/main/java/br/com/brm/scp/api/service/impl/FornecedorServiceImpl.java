@@ -329,4 +329,10 @@ public class FornecedorServiceImpl implements FornecedorService {
 
 	}
 
+	@Override
+	public Collection<FornecedorResponseDTO> all() {
+		// TODO Auto-generated method stub
+		return invokeResponse(repository.findAll());
+	}
+
 }

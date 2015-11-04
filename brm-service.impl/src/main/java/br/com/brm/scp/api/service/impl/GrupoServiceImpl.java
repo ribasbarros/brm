@@ -172,7 +172,9 @@ public class GrupoServiceImpl implements GrupoService {
 		int totalPages = requestedPage.getTotalPages();
 		
 		for(GrupoDocument g : result){
-			g.setPerfis(new ArrayList<PerfilDocument>(g.getPerfis()));
+			if(g.getPerfis() != null){				
+				g.setPerfis(new ArrayList<PerfilDocument>(g.getPerfis()));
+			}
 		}
 
 		Collection<GrupoResponseDTO> response = invokeResponse(result);
