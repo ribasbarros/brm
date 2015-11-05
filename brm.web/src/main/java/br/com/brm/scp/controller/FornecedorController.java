@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import br.com.brm.scp.api.dto.request.FornecedorRequestDTO;
 import br.com.brm.scp.api.dto.response.FornecedorResponseDTO;
 import br.com.brm.scp.api.dto.response.FornecedorResponseDTO;
+import br.com.brm.scp.api.dto.response.FornecedorResponseDTO;
+import br.com.brm.scp.api.exceptions.FornecedorNotFoundException;
+import br.com.brm.scp.api.exceptions.FornecedorNotFoundException;
 import br.com.brm.scp.api.exceptions.FornecedorExistenteException;
 import br.com.brm.scp.api.exceptions.FornecedorNotFoundException;
 import br.com.brm.scp.api.exceptions.FornecedorNotFoundException;
@@ -23,6 +26,8 @@ import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.pages.SearchPageableVO;
 import br.com.brm.scp.api.service.FornecedorService;
 import br.com.brm.scp.api.service.status.FornecedorFiltroEnum;
+import br.com.brm.scp.controller.exception.FornecedorNotFoundWebException;
+import br.com.brm.scp.controller.exception.FornecedorNotFoundWebException;
 import br.com.brm.scp.controller.exception.FornecedorExistenteWebException;
 import br.com.brm.scp.controller.exception.FornecedorNotFoundWebException;
 import br.com.brm.scp.controller.exception.FornecedorNotFoundWebException;
@@ -102,11 +107,16 @@ public class FornecedorController implements Serializable {
 	@ResponseStatus(HttpStatus.OK)
 	Pageable<FornecedorResponseDTO> search(@RequestBody SearchPageableVO searchPageable) {
 		Pageable<FornecedorResponseDTO> result = null;
+
+		if (searchPageable.getPageIndex() < 0) {
+			searchPageable.setPageIndex(0);
+		}
+
 		try {
 			if ("".equals(searchPageable.getSearchTerm()) || null == searchPageable.getSearchTerm()) {
 				result = service.all(searchPageable.getPageIndex(), searchPageable.getSize());
 			} else {
-				
+
 				searchPageable.setSearchTerm(searchPageable.getSearchTerm().replaceAll("[();$]", "\\\\$0"));
 
 				result = service.search(searchPageable.getSearchTerm(), searchPageable.getPageIndex(),
@@ -122,7 +132,11 @@ public class FornecedorController implements Serializable {
 	@RequestMapping(value = "all", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
 	Collection<FornecedorResponseDTO> all() {
-		return service.all();
+		try {
+			return service.all();
+		} catch (FornecedorNotFoundException e) {
+			throw new FornecedorNotFoundWebException(e.getMessage());
+		}
 	}
 
 }

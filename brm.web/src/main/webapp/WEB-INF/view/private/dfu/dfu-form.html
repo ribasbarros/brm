@@ -24,6 +24,11 @@
 			<button type="submit" class="btn btn-danger btn-sm navbar-btn">
 				<span class="glyphicon glyphicon-ok"></span> Salvar & Fechar
 			</button>
+			<button type="button" class="btn btn-success btn-sm navbar-btn"
+				data-toggle="modal" data-target="#idModalRelacao">
+				<span class="glyphicon glyphicon-book"></span> Adicionar Relação de
+				Sku
+			</button>
 		</div>
 	</div>
 </nav>
@@ -34,12 +39,21 @@
 <p ng-show="mensagem.length" class="alert alert-info">{{mensagem}}</p>
 
 <div class="row">
+	<div class="col-md-6">
+		<div class="form-group ">
+			<label>Tags</label>
+			<tags-input ng-model="dfu.tags" display-property="nome"
+				placeholder="Adicionar Tag" add-from-autocomplete-only="true">
+			<auto-complete source="loadTags($query)"></auto-complete> </tags-input>
+		</div>
+	</div>
+</div>
+<div class="row">
 	<div class="col-md-3">
-		<div class="controls form-group has-feedback">
-			<label>Item</label> <select class="form-control" name="item"
-				id="teste" ng-model="dfu.item">
-				<option ng-repeat="option in listaItens" ng-value="option.id | json">{{option.nome}}</option>
-			</select>
+		<div class="form-group ">
+			<label>Item</label> <select class="form-control"
+				ng-options="item as item.nome for item in listaItens track by item.id"
+				ng-model="dfu.item"></select>
 		</div>
 	</div>
 </div>
@@ -70,19 +84,21 @@
 	</div>
 </div>
 <div class="row">
-	<div class="col-md-2">
-		<div class="controls form-group has-feedback">
+	<div class="col-md-3">
+		<div class="form-group ">
 			<label>Classe</label> <select class="form-control" name="classe"
-				id="repeatSelect" ng-model="dfu.classe">
+				id="classe" ng-model="dfu.classe">
 				<option ng-repeat="option in listaStatus" ng-value="option.nome">{{option.nome}}</option>
 			</select>
 		</div>
 	</div>
-	<div class="col-md-2">
-		<div class="controls form-group has-feedback">
+
+	<div class="col-md-3">
+		<div class="form-group ">
 			<label>Tipos de Planejamento</label> <select class="form-control"
-				name="modelo" id="repeatSelect" ng-model="dfu.modelo">
-				<option ng-repeat="option in listaPlanejamentos" ng-value="option.nome">{{option.nome}}</option>
+				name="modelo" id="modelo" ng-model="dfu.modelo">
+				<option ng-repeat="option in listaPlanejamentos"
+					ng-value="option.nome">{{option.nome}}</option>
 			</select>
 		</div>
 	</div>
@@ -106,4 +122,16 @@
 		</div>
 	</div>
 </div>
-	
+
+<div class="row">
+	<div ng-show="dfu.relacaoSku.length > 0">
+		<div class="col-md-4">
+			<label>Relação Sku</label>
+			<div>
+				<brm-show-data column="mapColumnsRelacao" data="dfu.relacaoSku"
+					is-delete="true" />
+			</div>
+		</div>
+	</div>
+</div>
+

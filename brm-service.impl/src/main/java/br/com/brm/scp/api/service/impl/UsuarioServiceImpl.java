@@ -195,7 +195,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 		int totalPages = requestedPage.getTotalPages();
 
 		for(UsuarioDocument document : result){
-			document.setGrupos(new ArrayList<GrupoDocument>(document.getGrupos()));			
+			if(document.getGrupos() != null){
+				document.setGrupos(new ArrayList<GrupoDocument>(document.getGrupos()));							
+			}
 		}
 		
 		Collection<UsuarioResponseDTO> response = invokeResponse(result);

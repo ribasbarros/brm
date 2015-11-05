@@ -318,8 +318,12 @@ public class FornecedorServiceImpl implements FornecedorService {
 
 		// TODO CRIAR SOLUCAO NO CONVERTER
 		for (FornecedorDocument d : result) {
-			d.setContatos(new ArrayList<ContatoDocument>(d.getContatos()));
-			d.setCentros(new ArrayList<FornecedorCentroDocument>(d.getCentros()));
+			if(d.getContatos() != null){
+				d.setContatos(new ArrayList<ContatoDocument>(d.getContatos()));		
+			}
+			if(d.getCentros() != null){
+				d.setCentros(new ArrayList<FornecedorCentroDocument>(d.getCentros()));			
+			}
 		}
 
 		Collection<FornecedorResponseDTO> response = invokeResponse(result);
@@ -330,7 +334,7 @@ public class FornecedorServiceImpl implements FornecedorService {
 	}
 
 	@Override
-	public Collection<FornecedorResponseDTO> all() {
+	public Collection<FornecedorResponseDTO> all() throws FornecedorNotFoundException{
 		// TODO Auto-generated method stub
 		return invokeResponse(repository.findAll());
 	}

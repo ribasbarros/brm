@@ -16,5 +16,5 @@ public interface DfuRepository extends MongoRepository<DfuDocument, String>{
 	DfuDocument findById(String id);
 	
 	@Query("{ 'faseVida': {'$regex': ?0 , $options: 'i'} }")
-	Page<DfuDocument> find(String searchTerm, Pageable pageable);
+	Page<DfuDocument> findByFase(String searchTerm, Pageable pageable);
 }

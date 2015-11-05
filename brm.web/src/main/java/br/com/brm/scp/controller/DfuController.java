@@ -1,6 +1,7 @@
 package br.com.brm.scp.controller;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,14 +14,27 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import br.com.brm.scp.api.dto.request.DfuRequestDTO;
+import br.com.brm.scp.api.dto.request.DfuRequestDTO;
+import br.com.brm.scp.api.dto.response.DfuResponseDTO;
+import br.com.brm.scp.api.dto.response.DfuResponseDTO;
+import br.com.brm.scp.api.dto.response.DfuResponseDTO;
 import br.com.brm.scp.api.dto.response.DfuResponseDTO;
 import br.com.brm.scp.api.exceptions.DfuExistenteException;
+import br.com.brm.scp.api.exceptions.DfuNotFoundException;
+import br.com.brm.scp.api.exceptions.DfuExistenteException;
+import br.com.brm.scp.api.exceptions.DfuNotFoundException;
+import br.com.brm.scp.api.exceptions.DfuNotFoundException;
 import br.com.brm.scp.api.exceptions.DfuNotFoundException;
 import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.pages.SearchPageableVO;
 import br.com.brm.scp.api.service.DfuService;
 import br.com.brm.scp.api.service.status.DfuFiltroEnum;
+import br.com.brm.scp.api.service.status.DfuFiltroEnum;
 import br.com.brm.scp.controller.exception.DfuExistenteWebException;
+import br.com.brm.scp.controller.exception.DfuNotFoundWebException;
+import br.com.brm.scp.controller.exception.DfuExistenteWebException;
+import br.com.brm.scp.controller.exception.DfuNotFoundWebException;
+import br.com.brm.scp.controller.exception.DfuNotFoundWebException;
 import br.com.brm.scp.controller.exception.DfuNotFoundWebException;
 
 @Controller
@@ -31,7 +45,7 @@ public class DfuController implements Serializable {
 
 	@Autowired
 	private DfuService service;
-
+	
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
@@ -56,9 +70,9 @@ public class DfuController implements Serializable {
 			throw new DfuNotFoundWebException(e.getMessage());
 		}
 	}
-	
+
 	@ResponseBody
-	@RequestMapping(value= "{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
 	@ResponseStatus(HttpStatus.OK)
 	void delete(@PathVariable("id") String id) {
 		try {
@@ -68,6 +82,8 @@ public class DfuController implements Serializable {
 		}
 	}
 	
+	
+
 	@ResponseBody
 	@RequestMapping(value= "{filtro}/{value}", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
@@ -81,17 +97,32 @@ public class DfuController implements Serializable {
 		return response;
 	}
 
-	
+	@ResponseBody
+	@RequestMapping(value = "{id}", method = RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+	DfuResponseDTO get(@PathVariable("id") String id) {
+		try {
+			return service.find(DfuFiltroEnum.ID, id);
+		} catch (DfuNotFoundException e) {
+			throw new DfuNotFoundWebException(e.getMessage());
+		}
+	}
+
 	@ResponseBody
 	@RequestMapping(value = "search", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	Pageable<DfuResponseDTO> search(@RequestBody SearchPageableVO searchPageable) {
 		Pageable<DfuResponseDTO> result = null;
+
+		if (searchPageable.getPageIndex() < 0) {
+			searchPageable.setPageIndex(0);
+		}
+
 		try {
 			if ("".equals(searchPageable.getSearchTerm()) || null == searchPageable.getSearchTerm()) {
 				result = service.all(searchPageable.getPageIndex(), searchPageable.getSize());
 			} else {
-				
+
 				searchPageable.setSearchTerm(searchPageable.getSearchTerm().replaceAll("[();$]", "\\\\$0"));
 
 				result = service.search(searchPageable.getSearchTerm(), searchPageable.getPageIndex(),
@@ -104,11 +135,11 @@ public class DfuController implements Serializable {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "all", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
-	DfuResponseDTO get(@PathVariable("id") String id) {
+	Collection<DfuResponseDTO> all() {
 		try {
-			return service.find(DfuFiltroEnum.ID, id);
+			return service.all();
 		} catch (DfuNotFoundException e) {
 			throw new DfuNotFoundWebException(e.getMessage());
 		}

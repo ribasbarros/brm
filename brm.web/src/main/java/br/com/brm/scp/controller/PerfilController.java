@@ -96,6 +96,11 @@ public class PerfilController implements Serializable {
 	@ResponseStatus(HttpStatus.OK)
 	Pageable<PerfilResponseDTO> search(@RequestBody SearchPageableVO searchPageable) {
 		Pageable<PerfilResponseDTO> result = null;
+		
+		if (searchPageable.getPageIndex() < 0) {
+			searchPageable.setPageIndex(0);
+		}
+		
 		try {
 			if ("".equals(searchPageable.getSearchTerm()) || null == searchPageable.getSearchTerm()) {
 				result = service.all(searchPageable.getPageIndex(), searchPageable.getSize());

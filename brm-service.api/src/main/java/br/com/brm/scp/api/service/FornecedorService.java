@@ -27,5 +27,5 @@ public interface FornecedorService {
 
 	Pageable<FornecedorResponseDTO> all(int pageIndex, int size) throws FornecedorNotFoundException;
 
-	Collection<FornecedorResponseDTO> all();
+	Collection<FornecedorResponseDTO> all() throws FornecedorNotFoundException;
 }

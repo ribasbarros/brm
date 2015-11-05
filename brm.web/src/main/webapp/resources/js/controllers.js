@@ -874,8 +874,18 @@ app
 						'$location',
 						'DfuFactory',
 						function($scope, $resource, $location, DfuFactory) {
+							$scope.dfu = new DfuFactory();
+							$scope.mensagem = '';
+							$scope.dfu.relacaoSku = [];
+							$scope.selected = {};						
 							$scope.listaItens = $resource('item/all').query();
-
+							$scope.listaDfu = $resource('dfu/all').query();
+							$scope.listaSku = $resource('sku/all').query();
+							
+							$scope.loadTags = function(query) {
+								return $resource('tag/all').query().$promise;
+							};
+							
 							$scope.listaStatus = [ {
 								'nome' : 'A'
 							}, {
@@ -885,29 +895,32 @@ app
 							} ];
 
 							$scope.listaPlanejamentos = [ {
-								'nome' : 'ESTOQUE'
+								'nome' : 'MANUAL'
 							}, {
-								'nome' : 'SOB_ENCOMENDA'
-							}, {
-								'nome' : 'PROMOCAO'
-							}, {
-								'nome' : 'NO_LIMITE'
+								'nome' : 'AUTOMATICO'
 							} ];
 
-							$scope.mensagem = '';
-
-							$scope.dfu = new DfuFactory();
+							
 							$scope.submeter = function() {
 								if ($scope.formulario.$valid) {
-									console.log($scope.dfu);
 									$scope.dfu
 											.$save(
 													function(response) {
 														$scope.mensagem = 'Cadastro de Dfu realizado com sucesso!';
+														$scope.dfu = new DfuFactory();
 													},
 													function(erro) {
 														$scope.mensagem = 'Cadastro de Dfu não realizado!';
 													});
+								}
+							};
+							
+							$scope.addRelacao = function() {
+								if ($scope.modalRelacao.$valid) {
+									$scope.dfu.relacaoSku
+											.push($scope.selected);
+									$scope.selected = {};
+									alert("Adicionado com sucesso!");
 								}
 							};
 
@@ -916,6 +929,14 @@ app
 							$scope.URL_FORM_CREATE = 'private/dfu/dfu-create';
 							$scope.URL_FORM_EDIT = 'private/dfu/dfu-edit';
 
+							$scope.mapColumnsRelacao = [ {
+								'title' : 'ID Sku',
+								'field' : 'idSku'
+							}, {
+								'title' : 'ID Dfu',
+								'field' : 'idDfu'
+							}];
+							
 							$scope.map = [ {
 								'title' : 'Item',
 								'field' : 'item',
@@ -927,6 +948,12 @@ app
 								'subField' : 'nome',
 								'isArray' : 'true'
 
+							}, {
+								'title' : 'Classe',
+								'field' : 'classe'
+							}, {
+								'title' : 'Planejamento Dfu',
+								'field' : 'modelo'
 							}, {
 								'title' : 'Data de Maturidade',
 								'field' : 'dataMaturidade',
@@ -942,12 +969,6 @@ app
 								'field' : 'dataDescontinuacao',
 								'isDate' : 'true'
 
-							}, {
-								'title' : 'Classe',
-								'field' : 'classe'
-							}, {
-								'title' : 'Planejamento Dfu',
-								'field' : 'modelo'
 							} ];
 
 						} ]);

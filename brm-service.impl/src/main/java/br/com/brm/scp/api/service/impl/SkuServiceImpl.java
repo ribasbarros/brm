@@ -130,7 +130,9 @@ public class SkuServiceImpl implements SkuService {
 		
 		//TODO CRIAR SOLUCAO NO CONVERTER
 		for(SkuDocument d : result){
-			d.setTags(new ArrayList<TagDocument>(d.getTags()));
+			if(d.getTags() != null){
+				d.setTags(new ArrayList<TagDocument>(d.getTags()));
+			}
 		}
 
 		Collection<SkuResponseDTO> response = invokeResponse(result);

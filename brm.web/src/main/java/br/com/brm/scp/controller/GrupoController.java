@@ -101,6 +101,11 @@ public class GrupoController implements Serializable {
 	@ResponseStatus(HttpStatus.OK)
 	Pageable<GrupoResponseDTO> search(@RequestBody SearchPageableVO searchPageable) {
 		Pageable<GrupoResponseDTO> result = null;
+		
+		if (searchPageable.getPageIndex() < 0) {
+			searchPageable.setPageIndex(0);
+		}
+		
 		try {
 			if ("".equals(searchPageable.getSearchTerm()) || null == searchPageable.getSearchTerm()) {
 				result = service.all(searchPageable.getPageIndex(), searchPageable.getSize());
