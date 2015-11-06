@@ -1,5 +1,134 @@
 <div ng-controller="FornecedorEditController">
-	<form novalidate name="formulario" class="row" ng-submit="submeter()">
+	<form novalidate name="formulario" class="row">
 		<div ng-include="'private/fornecedor/fornecedor-form'"></div>
 	</form>
+
+	<!-- Modal -->
+	<div class="modal fade" id="idModalContato" tabindex="-1" role="dialog"
+		aria-labelledby="modalContatoLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="modalContatoLabel">Adicionar
+						Contato</h4>
+				</div>
+				<div class="modal-body">
+					<form novalidate name="modalContato">
+						<div>
+							<div class="controls form-group has-feedback">
+								<label class="control-label" for="name">Nome do Contato</label>
+								<input class="form-control" type="text" id="name"
+									ng-model="selected.nome" name="name" required /> <span
+									ng-show="modalContato.name.$valid"
+									class="glyphicon glyphicon-ok form-control-feedback"></span> <span
+									ng-show="!modalContato.name.$valid"
+									class="glyphicon glyphicon-remove form-control-feedback"></span>
+							</div>
+
+							<div class="row">
+								<div class="col-md-6">
+									<div class="controls form-group has-feedback">
+										<label class="control-label" for="telefone">Nro.
+											Telefone</label> <input class="form-control"
+											ui-mask="(99) 99999-9999" id="telefone"
+											ng-model="selected.telefone.numero" name="telefone" required />
+										<span ng-show="modalContato.telefone.$valid"
+											class="glyphicon glyphicon-ok form-control-feedback"></span>
+										<span ng-show="!modalContato.telefone.$valid"
+											class="glyphicon glyphicon-remove form-control-feedback"></span>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="controls form-group has-feedback">
+										<label class="control-label" for="ramal">Ramal</label> <input
+											class="form-control" type="text" id="ramal"
+											ng-model="selected.telefone.ramal" name="ramal" />
+									</div>
+								</div>
+							</div>
+							<div class="controls form-group has-feedback">
+								<label class="control-label" for="celular">Celular</label> <input
+									type="checkbox" id="celular" name="celular"
+									ng-model="selected.telefone.celular">
+							</div>
+
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+					<button type="button" class="btn btn-primary"
+						ng-click="addContato()">Adicionar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="idModalCentro" tabindex="-1" role="dialog"
+		aria-labelledby="modalCentroLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="modalCentroLabel">Adicionar Centro</h4>
+				</div>
+				<div class="modal-body">
+					<form novalidate name="modalCentro">
+						<div class="row">
+							<div class="col-md-8">
+								<div class="controls form-group has-feedback">
+									<label class="control-label" for="cnpj">CNPJ do Centro</label>
+									<input class="form-control" ui-mask="99.999.999/9999-99"
+										ng-cnpj id="cnpj" ng-model="selected.cnpj" name="cnpj"
+										required /> <span ng-show="modalCentro.cnpj.$valid"
+										class="glyphicon glyphicon-ok form-control-feedback"></span> <span
+										ng-show="!modalCentro.cnpj.$valid"
+										class="glyphicon glyphicon-remove form-control-feedback"></span>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-4">
+								<div class="controls form-group has-feedback">
+									<label class="control-label" for="cep">CEP</label> <input
+										class="form-control" ui-mask="99999-999" id="cep"
+										ng-model="selected.cep" name="cep" required /> <span
+										ng-show="modalCentro.cep.$valid"
+										class="glyphicon glyphicon-ok form-control-feedback"></span> <span
+										ng-show="!modalCentro.cep.$valid"
+										class="glyphicon glyphicon-remove form-control-feedback"></span>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="controls form-group has-feedback">
+									<label class="control-label" for="centro">Centro</label> <input
+										class="form-control" type="number" id="centro"
+										ng-model="selected.centro" name="centro" required /> <span
+										ng-show="modalCentro.centro.$valid"
+										class="glyphicon glyphicon-ok form-control-feedback"></span> <span
+										ng-show="!modalCentro.centro.$valid"
+										class="glyphicon glyphicon-remove form-control-feedback"></span>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-body"></div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+					<button type="button" class="btn btn-primary"
+						ng-click="addCentro()">Adicionar</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

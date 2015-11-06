@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
@@ -12,10 +14,12 @@ import br.com.brm.scp.api.dto.response.CategoriaResponseDTO;
 import br.com.brm.scp.api.service.status.ItemStatus;
 import br.com.brm.scp.fw.annotations.BindingClass;
 
+@Document
 public class ItemDocument implements Serializable {
 
 	private static final long serialVersionUID = -852183949869132845L;
 
+	@Id
 	private String id;
 	private String nome;
 	private String nomeReduzido;

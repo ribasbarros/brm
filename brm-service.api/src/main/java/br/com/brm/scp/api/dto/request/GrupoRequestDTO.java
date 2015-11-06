@@ -14,6 +14,21 @@ public class GrupoRequestDTO implements Serializable {
 
 	private String id;
 	private String nome;
+	private Date dataCriacao;
+	private Date dataAlteracao;
+	
+	
+	public Date getDataCriacao() {
+		return dataCriacao;
+	}
+
+	public void setDataCriacao(Date dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+
+	public Date getDataAlteracao() {
+		return dataAlteracao;
+	}
 
 	@BindingClassMeta("PERFIS")
 	private Collection<PerfilResponseDTO> perfis = new ArrayList<>();

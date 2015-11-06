@@ -11,74 +11,21 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.csrf.CsrfFilter;
 
+import br.com.brm.scp.api.service.auth.MongoDBAuthenticationProvider;
 import br.com.brm.scp.security.filter.CsrfTokenFilter;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 @Order(1)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-
+	
+	@Autowired
+	private MongoDBAuthenticationProvider authenticationProvider;
+	
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		// The authentication provider below uses MongoDB to store SHA1 hashed
-		// passwords
-		// To see how to configure users for the example below, please see the
-		// README file
-		// auth.userDetailsService(loginService).passwordEncoder(new
-		// ShaPasswordEncoder());
-		auth.inMemoryAuthentication()
-		//.passwordEncoder( new ShaPasswordEncoder())
-		.withUser("user").password("user").roles("ADMIN");
-
-		// The authentication provider below is the simplest provider you can
-		// use
-		// The users, their passwords and roles are all added as clear text
-		/*
-		 * auth.inMemoryAuthentication().withUser("admin").password("admin").
-		 * roles("ADMIN").and().withUser("user")
-		 * .password("user").roles("USER");
-		 */
-
-		// The authentication provider below hashes incoming passwords using
-		// SHA1
-		// The users passwords below are hashed using SHA1 (see README for
-		// values)
-		// auth
-		// .inMemoryAuthentication()
-		// .passwordEncoder( new ShaPasswordEncoder() )
-		// .withUser( "admin" )
-		// .password( "d033e22ae348aeb5660fc2140aec35850c4da997" )
-		// .roles( "ADMIN" )
-		// .and()
-		// .withUser( "user" )
-		// .password( "12dea96fec20593566ab75692c9949596833adc9" )
-		// .roles( "USER" );
-
-		// The authentication provider below uses JDBC to retrieve your
-		// credentials
-		// The data source bean configuration can be found at the bottom of this
-		// file
-		// The first example uses the default Spring Security tables, see link
-		// below
-		// http://docs.spring.io/spring-security/site/docs/3.0.x/reference/appendix-schema.html
-		// auth
-		// .jdbcAuthentication()
-		// .dataSource( dataSource )
-		// .passwordEncoder( new ShaPasswordEncoder() );
-
-		// The second example shows how you can override the default queries in
-		// order
-		// to use your own tables rather than Spring Security's default tables
-		// The SQL is relatively simple and should be easy to figure out and map
-		// to your needs
-		// auth
-		// .jdbcAuthentication()
-		// .dataSource( dataSource )
-		// .usersByUsernameQuery( "select username,password from users where
-		// username=?" )
-		// .authoritiesByUsernameQuery( "select u.username, r.authority from
-		// users u, roles r where u.userid = r.userid and u.username =?" );
+		auth.authenticationProvider(authenticationProvider);
 	}
 
 	@Override
@@ -113,7 +60,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		// the matches are executed
 		// in the order they are configured below. So /** (anyRequest()) should
 		// always be at the bottom of the list.
-				.authorizeRequests().antMatchers("/login*", "/auth/*").permitAll().antMatchers("/**").authenticated()
+				.authorizeRequests().antMatchers("/login*").permitAll()
+				.antMatchers("/private/grupo/**").hasAuthority("ADMIN")
+				.anyRequest().authenticated()
 				.and()
 
 		// This is where we configure our login form.

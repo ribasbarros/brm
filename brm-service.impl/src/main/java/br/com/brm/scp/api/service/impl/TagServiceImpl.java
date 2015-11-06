@@ -1,9 +1,12 @@
 package br.com.brm.scp.api.service.impl;
 
 import java.util.Collection;
+import java.util.Date;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -11,6 +14,7 @@ import br.com.brm.scp.api.dto.request.TagRequestDTO;
 import br.com.brm.scp.api.dto.response.TagResponseDTO;
 import br.com.brm.scp.api.exceptions.TagExistenteException;
 import br.com.brm.scp.api.exceptions.TagNotFoundException;
+import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.service.TagService;
 import br.com.brm.scp.api.service.document.TagDocument;
 import br.com.brm.scp.api.service.repositories.TagRepository;
@@ -53,8 +57,10 @@ public class TagServiceImpl implements TagService{
 					.format("Tag nao encontrado, pronto para cadastro!"));
 		}
 		
-		TagDocument document = repository.save(invokeDocument(request));
+		TagDocument document =invokeDocument(request);
+		document.setDataCriacao(new Date());
 		
+		document = repository.save(document);
 		return invokeResponse(document);
 	}
 
@@ -77,7 +83,7 @@ public class TagServiceImpl implements TagService{
 		}
 
 		TagDocument document = invokeDocument(request);
-
+		document.setDataAlteracao(new Date());
 		repository.save(document);
 	}
 
@@ -128,5 +134,55 @@ public class TagServiceImpl implements TagService{
 
 	private TagDocument invokeDocument(TagRequestDTO request){
 		return (TagDocument) ConverterHelper.convert(request, TagDocument.class);
+	}
+
+
+	@Override
+	public Pageable<TagResponseDTO> all(int pageIndex, int size) throws TagNotFoundException {
+		Page<TagDocument> requestedPage = repository
+				.findAll(ServiceUtil.constructPageSpecification(pageIndex, size, new Sort(Sort.Direction.ASC, "id")));
+
+		Collection<TagDocument> result = requestedPage.getContent();
+
+		if (result.isEmpty())
+			throw new TagNotFoundException(TAG_NOTFOUND);
+
+		int numberOfElements = requestedPage.getNumberOfElements();
+		int totalPages = requestedPage.getTotalPages();
+
+		Collection<TagResponseDTO> response = invokeResponse(result);
+
+		return new br.com.brm.scp.api.pages.Pageable<TagResponseDTO>(response, numberOfElements, totalPages,
+				pageIndex);
+	}
+
+	private Collection<TagResponseDTO> invokeResponse(Collection<TagDocument> result) {
+		return ConverterHelper.convert(result, TagResponseDTO.class);
+	}
+	
+	@Override
+	public Pageable<TagResponseDTO> search(String searchTerm, int pageIndex, int size)
+			throws TagNotFoundException {
+		Page<TagDocument> requestedPage = repository.findByName(searchTerm,
+				ServiceUtil.constructPageSpecification(pageIndex, size, new Sort(Sort.Direction.ASC, "id")));
+
+		Collection<TagDocument> result = requestedPage.getContent();
+		
+		if(result.isEmpty())
+			throw new TagNotFoundException(TAG_NOTFOUND);
+
+		int sizePage = requestedPage.getSize();
+		int totalPages = requestedPage.getTotalPages();
+
+		Collection<TagResponseDTO> response = invokeResponse(result);
+
+		return new br.com.brm.scp.api.pages.Pageable<TagResponseDTO>(response, sizePage, totalPages,
+				pageIndex);
+	}
+
+
+	@Override
+	public Collection<TagResponseDTO> all() {
+		return invokeResponse(repository.findAll());
 	}
 }

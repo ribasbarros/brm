@@ -2,4 +2,36 @@
 	<form novalidate name="formulario" class="row" ng-submit="submeter()">
 		<div ng-include="'private/usuario/usuario-form'"></div>
 	</form>
+	
+	<!-- Modal -->
+	<div class="modal fade" id="idModalGrupo" tabindex="-1" role="dialog"
+		aria-labelledby="modalGrupoLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header"> 
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="modalGrupoLabel">Adicionar Grupo</h4>
+				</div>
+				<div class="modal-body">
+					<form novalidate name="modalGrupo">
+						<div class="controls form-group has-feedback">
+							<label class="control-label" for="name">Nome do Grupo</label>
+							<select class="form-control"
+								ng-options="grup as grup.nome for grup in listaGrupos track by grup.id"
+								ng-model="selected"></select> 
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+					<button type="button" class="btn btn-primary"
+						ng-click="addGrupo()">Adicionar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 </div>

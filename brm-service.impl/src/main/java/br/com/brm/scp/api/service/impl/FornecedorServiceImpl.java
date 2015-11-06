@@ -2,6 +2,7 @@ package br.com.brm.scp.api.service.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,9 +91,8 @@ public class FornecedorServiceImpl implements FornecedorService {
 		}
 
 		FornecedorDocument document = (FornecedorDocument) ConverterHelper.convert(request, FornecedorDocument.class);
-
+		document.setDataCriacao(new Date());
 		document = repository.save(document);
-
 		FornecedorResponseDTO response = invokeResponse(document);
 
 		return response;
@@ -191,9 +191,9 @@ public class FornecedorServiceImpl implements FornecedorService {
 		}
 
 		FornecedorDocument document = (FornecedorDocument) ConverterHelper.convert(request, FornecedorDocument.class);
-
+		document.setDataAlteracao(new Date());
+		
 		document = repository.save(document);
-
 		FornecedorResponseDTO response = invokeResponse(document);
 
 		return response;
@@ -281,6 +281,12 @@ public class FornecedorServiceImpl implements FornecedorService {
 		int sizePage = requestedPage.getSize();
 		int totalPages = requestedPage.getTotalPages();
 
+		// TODO CRIAR SOLUCAO NO CONVERTER
+		for (FornecedorDocument d : result) {
+			d.setContatos(new ArrayList<ContatoDocument>(d.getContatos()));
+			d.setCentros(new ArrayList<FornecedorCentroDocument>(d.getCentros()));
+		}
+
 		Collection<FornecedorResponseDTO> response = invokeResponse(result);
 
 		return new br.com.brm.scp.api.pages.Pageable<FornecedorResponseDTO>(response, sizePage, totalPages, pageIndex);
@@ -312,8 +318,12 @@ public class FornecedorServiceImpl implements FornecedorService {
 
 		// TODO CRIAR SOLUCAO NO CONVERTER
 		for (FornecedorDocument d : result) {
-			d.setContatos(new ArrayList<ContatoDocument>(d.getContatos()));
-			d.setCentros(new ArrayList<FornecedorCentroDocument>(d.getCentros()));
+			if(d.getContatos() != null){
+				d.setContatos(new ArrayList<ContatoDocument>(d.getContatos()));		
+			}
+			if(d.getCentros() != null){
+				d.setCentros(new ArrayList<FornecedorCentroDocument>(d.getCentros()));			
+			}
 		}
 
 		Collection<FornecedorResponseDTO> response = invokeResponse(result);
@@ -321,6 +331,12 @@ public class FornecedorServiceImpl implements FornecedorService {
 		return new br.com.brm.scp.api.pages.Pageable<FornecedorResponseDTO>(response, numberOfElements, totalPages,
 				pageIndex);
 
+	}
+
+	@Override
+	public Collection<FornecedorResponseDTO> all() throws FornecedorNotFoundException{
+		// TODO Auto-generated method stub
+		return invokeResponse(repository.findAll());
 	}
 
 }

@@ -5,8 +5,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BRM - Principal</title>
+<link rel="icon" type="image/png" href="resources/images/logo3.png" />
 <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.css" />
 <link rel="stylesheet" href="resources/css/app.css" />
+<link rel="stylesheet" href="resources/css/ng-tags-input.min.css" />
+
 <script>
 	document.write('<base href="' + document.location + '" />');
 </script>
@@ -64,7 +67,7 @@
 				style="margin-top: 0px !important; border: 0px !important">
 				<table style="width: 100%" style="border: 0px;">
 					<tr>
-						<td><img src="resources/images/logo3.png"  style="width: 12%"
+						<td><img src="resources/images/logo3.png" style="width: 12%"
 							alt="BRM"></td>
 					</tr>
 				</table>
@@ -85,8 +88,8 @@
 								class="icon-bar"></span> <span class="icon-bar"></span> <span
 								class="icon-bar"></span>
 						</button>
-						<a class="navbar-brand" href="#/dummy">
-							<img src="resources/images/logo6.png" />
+						<a class="navbar-brand" href="#/dummy"> <img
+							src="resources/images/logo6.png" />
 						</a>
 					</div>
 
@@ -109,7 +112,7 @@
 								<ul class="dropdown-menu" role="menu">
 									<li><a href="#/private/dfu/dfu-view">DFU</a></li>
 									<li role="separator" class="divider"></li>
-									<li><a href="#">Tag de Agrupamento</a></li>
+									<li><a href="#/private/tag/tag-view">Tag de Agrupamento</a></li>
 								</ul></li>
 							<li class="dropdown"><a href="" class="dropdown-toggle"
 								data-toggle="dropdown">MONITORAMENTO <span class="caret"></span></a>
@@ -134,11 +137,10 @@
 								</ul></li>
 						</ul>
 
-						<ul class="nav navbar-nav navbar-right">
+						<ul class="nav navbar-nav navbar-right" ng-controller="ProfileController">
 							<li id="fat-menu" class="dropdown"><a id="drop3" href=""
 								class="dropdown-toggle" data-toggle="dropdown" role="button"
-								aria-haspopup="true" aria-expanded="false"> MINHAS
-									CONFIGURAÇÕES <span class="caret"></span>
+								aria-haspopup="true" aria-expanded="false"> {{user.name}} <span class="caret"></span>
 							</a>
 								<ul class="dropdown-menu" aria-labelledby="drop3">
 									<li><a href="#">Minha Configurações</a></li>
@@ -162,7 +164,40 @@
 
 
 		<div id="footer">
-			<div class="panel-footer"></div>
+			<div class="panel-footer">
+				<div class="container" style="margin-top: 20px">
+					<div class="row">
+						<div class="col-md-4">
+							<h3>Links rápidos</h3>
+							<p>
+								<a href="#/private/fornecedor/fornecedor-view">Fornecedor</a>
+							</p>
+							<p>
+								<a href="#/private/item/item-view">Gestão de Item</a>
+							</p>
+							<p>
+								<a href="#/private/sku/sku-view">SKU</a>
+							</p>
+						</div>
+						<div class="col-md-4">
+							<h3>Monitoramento</h3>
+							<p>DFU</p>
+							<p>SKU</p>
+							<p>Cadeia de Suplimentos</p>
+						</div>
+						<div class="col-md-4">
+							<h3>O Sistema</h3>
+							<p>Sobre!</p>
+							<p>O que vem ai?</p>
+						</div>
+						<div class="col-md-4">
+							<h3>Materias</h3>
+							<p>Suppy Chain</p>
+						</div>
+					</div>
+				</div>
+
+			</div>
 		</div>
 
 	</div>
@@ -194,11 +229,17 @@
 	<script src="resources/js/component.js"></script>
 	<script src="resources/js/services.js"></script>
 	<script src="resources/js/directives.js"></script>
+	<script src="resources/angular/ngCpfCnpj/ngCpfCnpj.js"></script>
+	<script src="resources/angular/ui-mask/mask.min.js"></script>
+    <script src="resources/js/ng-tags-input.min.js"></script>
+    
+	
+	
 	<!-- <script src="resources/js/filters.js"></script>
 	 -->
 
-	<script src="resources/angular/autocomplete/angular-touch.min.js"></script>
-	<script src="resources/angular/autocomplete/angucomplete.js"></script>
+	<!-- <script src="resources/angular/autocomplete/angular-touch.min.js"></script>
+	<script src="resources/angular/autocomplete/angucomplete.js"></script> -->
 
 	<script type="text/javascript">
 		$('ul.dropdown-menu [data-toggle=dropdown]')

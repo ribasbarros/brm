@@ -119,6 +119,8 @@ public class UsuarioServiceTest extends AbstractTestNGSpringContextTests{
 	private UsuarioRequestDTO doUsuario() {
 		List<GrupoResponseDTO> list = new ArrayList<GrupoResponseDTO>();
 		UsuarioRequestDTO request = new UsuarioRequestDTO();
+		request.setLogin("leon");
+		request.setSenha("leon");
 		request.setNome("Jose");
 		request.setCargo("Analista BCP");
 		request.setEmail("jose.sila@gmail.com");

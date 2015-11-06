@@ -100,16 +100,16 @@ form[role=login]>div a {
 				ng-controller="CsrfCtrl" ng-submit="login()">
 				<div>
 					<img src="resources/images/logo1.png" style="width: 30%" alt="" />
-					<h4>Login to your private dashboard</h4>
+					<h4>Logue para acessar seu dashboard privado</h4>
 				</div>
 				<input ng-model="credentials.username" type="text" id="username"
-					name="username" placeholder="username" required
+					name="username" placeholder="login" required
 					class="form-control input-lg" /> <input
 					ng-model="credentials.password" type="password" id="password"
-					name="password" placeholder="Password" required
+					name="password" placeholder="senha" required
 					class="form-control input-lg" />
 				<button type="submit" name="go"
-					class="btn btn-lg btn-block btn-info">Sign in</button>
+					class="btn btn-lg btn-block btn-info">Autenticar</button>
 			</form>
 		</section>
 	</section>
@@ -138,11 +138,15 @@ form[role=login]>div a {
 	<script src="resources/js/component.js"></script>
 	<script src="resources/js/services.js"></script>
 	<script src="resources/js/directives.js"></script>
+	<script src="resources/angular/ngCpfCnpj/ngCpfCnpj.js"></script>
+	<script src="resources/angular/ui-mask/mask.min.js"></script>
+	<script src="resources/js/ng-tags-input.min.js"></script>
+	
 	<!-- <script src="resources/js/filters.js"></script>
 	<script src="resources/js/directives.js"></script> -->
 	
-	<script src="resources/angular/autocomplete/angular-touch.min.js"></script>
-	<script src="resources/angular/autocomplete/angucomplete.js"></script>
+	<!-- <script src="resources/angular/autocomplete/angular-touch.min.js"></script>
+	<script src="resources/angular/autocomplete/angucomplete.js"></script> -->
 
 
 </body>

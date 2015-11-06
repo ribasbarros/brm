@@ -4,8 +4,11 @@ import java.util.Collection;
 
 import br.com.brm.scp.api.dto.request.TagRequestDTO;
 import br.com.brm.scp.api.dto.response.TagResponseDTO;
+import br.com.brm.scp.api.dto.response.TagResponseDTO;
+import br.com.brm.scp.api.exceptions.TagNotFoundException;
 import br.com.brm.scp.api.exceptions.TagExistenteException;
 import br.com.brm.scp.api.exceptions.TagNotFoundException;
+import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.service.status.TagFiltroEnum;
 
 public interface TagService {
@@ -20,4 +23,12 @@ public interface TagService {
 	TagResponseDTO find(TagFiltroEnum filtro, Object value) throws TagNotFoundException;
 
 	void delete(String id) throws TagNotFoundException;
+	
+	Pageable<TagResponseDTO> all(int pageIndex, int size) throws TagNotFoundException;
+	
+	Pageable<TagResponseDTO> search(String searchTerm, int pageIndex, int size) throws TagNotFoundException;
+
+	Collection<TagResponseDTO> all();
+
+
 }

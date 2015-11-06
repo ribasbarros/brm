@@ -21,8 +21,24 @@ public class UsuarioRequestDTO implements Serializable {
 	private Date dataExcluido;
 	@BindingClassMeta("USUARIO")
 	private UsuarioResponseDTO usuarioCriacao;
-
+	private String login;
+	private String senha;
+	private Date dataCriacao;
+	private Date dataAlteracao;
 	
+	
+	public Date getDataCriacao() {
+		return dataCriacao;
+	}
+
+	public void setDataCriacao(Date dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+
+	public Date getDataAlteracao() {
+		return dataAlteracao;
+	}
+
 
 	public String getId() {
 		return id;
@@ -78,6 +94,23 @@ public class UsuarioRequestDTO implements Serializable {
 	public void setUsuarioCriacao(UsuarioResponseDTO usuarioCriacao) {
 		this.usuarioCriacao = usuarioCriacao;
 	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+	
 	
 		
 }

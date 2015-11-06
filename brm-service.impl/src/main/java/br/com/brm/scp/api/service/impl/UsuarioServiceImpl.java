@@ -1,6 +1,8 @@
 package br.com.brm.scp.api.service.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,8 @@ import br.com.brm.scp.api.exceptions.UsuarioExistentException;
 import br.com.brm.scp.api.exceptions.UsuarioNotFoundException;
 import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.service.UsuarioService;
+import br.com.brm.scp.api.service.document.GrupoDocument;
+import br.com.brm.scp.api.service.document.PerfilDocument;
 import br.com.brm.scp.api.service.document.UsuarioDocument;
 import br.com.brm.scp.api.service.document.UsuarioDocument;
 import br.com.brm.scp.api.service.repositories.UsuarioRepository;
@@ -50,7 +54,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		Assert.notNull(request, USUARIO_NOTNULL);
 		Assert.notNull(request.getNome(), USUARIO_NOME);
 		Assert.notNull(request.getCargo(), USUARIO_CARGO);
-		//Assert.notNull(request.getGrupos(), USUARIO_GRUPO);
+		Assert.notNull(request.getGrupos(), USUARIO_GRUPO);
 		Assert.notNull(request.getEmail(), USUARIO_EMAIL);
 		Assert.isNull(request.getId(), USUARIO_EMAIL);
 		Assert.isTrue(EmailValidator.isEmail(request.getEmail()),
@@ -63,6 +67,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 					.format("Perfil nao encontrado, pronto para cadastro!"));
 		}
 		UsuarioDocument document = invokeDocument(request);
+		document.setDataCriacao(new Date());
 		document = repository.save(document);
 
 		UsuarioResponseDTO response = invokeResponse(document);
@@ -96,7 +101,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		Assert.notNull(request, USUARIO_NOTNULL);
 		Assert.notNull(request.getNome(), USUARIO_NOME);
 		Assert.notNull(request.getCargo(), USUARIO_CARGO);
-		//Assert.notNull(request.getGrupos(), USUARIO_GRUPO);
+		Assert.notNull(request.getGrupos(), USUARIO_GRUPO);
 		Assert.notNull(request.getEmail(), USUARIO_EMAIL);
 		Assert.isTrue(EmailValidator.isEmail(request.getEmail()),
 				USUARIO_EMAILINVALIDO);
@@ -104,8 +109,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 		if (find(UsuarioFiltroEnum.ID, request.getId()) == null) {
 			throw new UsuarioNotFoundException(USUARIO_NOTFOUND);
 		}
-
-		repository.save(invokeDocument(request));
+		UsuarioDocument document = invokeDocument(request);
+		document.setDataAlteracao(new Date());
+		repository.save(document);
 	}
 
 	@Override
@@ -125,6 +131,11 @@ public class UsuarioServiceImpl implements UsuarioService {
 	public UsuarioResponseDTO find(UsuarioFiltroEnum filtro, Object value)
 			throws UsuarioNotFoundException {
 		UsuarioDocument document = findByFiltro(filtro, value);
+		
+		if(document.getGrupos() != null){
+			document.setGrupos(new ArrayList<GrupoDocument>(document.getGrupos()));							
+		}
+		
 		return invokeResponse(document);
 	}
 
@@ -165,7 +176,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 		int sizePage = requestedPage.getSize();
 		int totalPages = requestedPage.getTotalPages();
-
+				
 		Collection<UsuarioResponseDTO> response = invokeResponse(result);
 
 		return new br.com.brm.scp.api.pages.Pageable<UsuarioResponseDTO>(response, sizePage, totalPages,
@@ -191,6 +202,12 @@ public class UsuarioServiceImpl implements UsuarioService {
 		int numberOfElements = requestedPage.getNumberOfElements();
 		int totalPages = requestedPage.getTotalPages();
 
+		for(UsuarioDocument document : result){
+			if(document.getGrupos() != null){
+				document.setGrupos(new ArrayList<GrupoDocument>(document.getGrupos()));							
+			}
+		}
+		
 		Collection<UsuarioResponseDTO> response = invokeResponse(result);
 
 		return new br.com.brm.scp.api.pages.Pageable<UsuarioResponseDTO>(response, numberOfElements, totalPages,

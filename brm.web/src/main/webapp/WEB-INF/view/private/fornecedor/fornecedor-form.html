@@ -1,159 +1,117 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<div class="page-header text-center">
-	<h3>Cadastro Fornecedor</h3>
-</div>
-
+<nav class="navbar navbar-default">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed"
+				data-toggle="collapse" data-target="#bs-example-navbar-collapse-3"
+				aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#/private/fornecedor/fornecedor-view">
+				<span class="glyphicon glyphicon-chevron-left btn-xs"
+				aria-hidden="true"></span>
+			</a>
+		</div>
+		<div class="collapse navbar-collapse"
+			id="bs-example-navbar-collapse-3">
+			<button ng-click="save()" class="btn btn-primary btn-sm navbar-btn">
+				<span class="glyphicon glyphicon-check"></span> Salvar
+			</button>
+			<button ng-click="saveAndClose()"
+				class="btn btn-danger btn-sm navbar-btn">
+				<span class="glyphicon glyphicon-ok"></span> Salvar & Fechar
+			</button>
+			<button type="button" class="btn btn-success btn-sm navbar-btn"
+				data-toggle="modal" data-target="#idModalContato">
+				<span class="glyphicon glyphicon-book"></span> Adicionar Contato
+			</button>
+			<button type="button" class="btn btn-success btn-sm navbar-btn"
+				data-toggle="modal" data-target="#idModalCentro">
+				<span class="glyphicon glyphicon-home"></span> Adicionar Centro
+			</button>
+		</div>
+	</div>
+</nav>
+<center>
+	<h3>Cadastro de Fornecedor</h3>
+</center>
 <p ng-show="mensagem.length" class="alert alert-info">{{mensagem}}</p>
 
 <div class="row">
-	<div class="col-md-4">
-		<div class="form-group">
-			<label>Razão Social</label> <input name="razaoSocial"
-				class="form-control" ng-model="fornecedor.razaoSocial" required />
-			<span
-				ng-show="formulario.$submitted && formulario.razaoSocial.$error.required"
-				class="form-control alert-danger"> Razão Social é obrigatório
-			</span>
-		</div>
-	</div>
-	<div class="col-md-4">
-		<div class="form-group">
-			<label>CNPJ</label> <input valid-number type="text" name="cnpj"
-				class="form-control" ng-model="fornecedor.cnpj" maxlength="14"
-				size="15" style="width: 150px;" required /> <span
-				ng-show="formulario.$submitted && formulario.cnpj.$error.required"
-				class="form-control alert-danger"> CNPJ é obrigatório </span>
-		</div>
-	</div>
-</div>
-
-<div class="row">
 	<div class="col-md-6">
+		<div class="controls form-group has-feedback">
+			<label class="control-label" for="razaoSocial">Razão Social</label> <input
+				class="form-control" id="razaoSocial"
+				ng-model="fornecedor.razaoSocial" name="razaoSocial" required /> <span
+				ng-show="formulario.razaoSocial.$valid"
+				class="glyphicon glyphicon-ok form-control-feedback"></span> <span
+				ng-show="!formulario.razaoSocial.$valid"
+				class="glyphicon glyphicon-remove form-control-feedback"></span>
+		</div>
+	</div>
+	<div class="col-md-3">
+		<div class="controls form-group has-feedback">
+			<label class="control-label" for="cnpj">CNPJ</label> <input
+				ui-mask="99.999.999/9999-99" ng-cnpj class="form-control" id="cnpj"
+				ng-model="fornecedor.cnpj" name="cnpj" required /> <span
+				ng-show="formulario.cnpj.$valid"
+				class="glyphicon glyphicon-ok form-control-feedback"></span> <span
+				ng-show="!formulario.cnpj.$valid"
+				class="glyphicon glyphicon-remove form-control-feedback"></span>
+		</div>
+	</div>
+</div>
 
+<div class="row">
+	<div class="col-md-9">
 		<div class="form-group">
-			<label>Nome Fantasia</label> <input name="nomeFantasia"
-				class="form-control" ng-model="fornecedor.nomeFantasia" required />
-			<span
-				ng-show="formulario.$submitted && formulario.nomeFantasia.$error.required"
-				class="form-control alert-danger"> Nome Fantasia é
-				obrigatório </span>
-
-		</div>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-md-6">
-		<div class="form-group">
-			<label>Descrição</label>
-			<textarea name="descricao" class="form-control"
-				ng-model="fornecedor.descricao" required />
-			<span
-				ng-show="formulario.$submitted && formulario.razaoSocial.$error.required"
-				class="form-control alert-danger"> Descrição é obrigatório </span>
-		</div>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-md-6">
-		<button type="button" class="btn btn-primary" data-toggle="modal"
-			data-target="#idModalContato">Adicionar Contato</button>
-		<br> <br>
-		<div ng-show="fornecedor.contatos.length > 0">
-			<brm-show-data column="columns" data="fornecedor.contatos"
-				is-delete="true" />
-		</div>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-md-6">
-		<button type="button" class="btn btn-primary" data-toggle="modal"
-			data-target="#idModalCentro">Adicionar Centro</button>
-		<br> <br>
-		<div ng-show="fornecedor.centros.length > 0">
-			<brm-show-data column="columns" data="fornecedor.centros"
-				is-delete="true" />
-		</div>
-	</div>
-</div>
-
-<div class="row">
-	<button type="submit" class="btn btn-primary">Salvar</button>
-	<a href="#/private/fornecedor/fornecedor-view" class="btn btn-primary">Voltar</a>
-</div>
-<hr>
-
-<!-- Modal -->
-<div class="modal fade" id="idModalContato" tabindex="-1" role="dialog"
-	aria-labelledby="modalContatoLabel">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				<h4 class="modal-title" id="modalContatoLabel">Adicionar
-					Contato</h4>
-			</div>
-			<div class="modal-body">
-				<div>
-					<div class="controls form-group has-feedback">
-
-						<label class="control-label" for="name">Nome do Contato</label> <input
-							class="form-control" type="text" id="name"
-							ng-model="selectedContato.nome" name="fName" />
-
-						<!-- <span ng-show="formulario.form.fName.$valid" class="glyphicon glyphicon-ok form-control-feedback" /> 
-				<span ng-show="!formulario.form.fName.$valid"  class="glyphicon glyphicon-remove form-control-feedback" /> -->
-
-					</div>
-
-
-					<div class="form-group">
-						<label>Telefone / Celular</label> <input type="number"
-							name="telefone" class="form-control"
-							ng-model="selectedContato.telefone.numero">
-					</div>
-					<div class="form-group">
-						<label>Ramal</label> <input name="telefone" class="form-control"
-							ng-model="selectedContato.telefone.ramal">
-					</div>
-					<div class="form-group">
-						<label>Celular</label> <input type="checkbox"
-							ng-model="selectedContato.telefone.celular">
-					</div>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-				<button type="button" class="btn btn-primary"
-					ng-click="addContato()">Adicionar</button>
+			<div class="controls form-group has-feedback">
+				<label class="control-label" for="nomeFantasia">Nome
+					Fantasia</label> <input class="form-control" id="nomeFantasia"
+					ng-model="fornecedor.nomeFantasia" name="nomeFantasia" required />
+				<span ng-show="formulario.nomeFantasia.$valid"
+					class="glyphicon glyphicon-ok form-control-feedback"></span> <span
+					ng-show="!formulario.nomeFantasia.$valid"
+					class="glyphicon glyphicon-remove form-control-feedback"></span>
 			</div>
 		</div>
 	</div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="idModalCentro" tabindex="-1" role="dialog"
-	aria-labelledby="modalCentroLabel">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				<h4 class="modal-title" id="modalCentroLabel">Adicionar Centro</h4>
+<div class="row">
+	<div class="col-md-9">
+		<div class="form-group">
+			<div class="controls form-group has-feedback">
+				<label class="control-label" for="descricao">Descrição</label>
+				<textarea class="form-control" id="descricao"
+					ng-model="fornecedor.descricao" name="descricao" required></textarea>
+				<span ng-show="formulario.descricao.$valid"
+					class="glyphicon glyphicon-ok form-control-feedback"></span> <span
+					ng-show="!formulario.descricao.$valid"
+					class="glyphicon glyphicon-remove form-control-feedback"></span>
 			</div>
-			<div class="modal-body">bla</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-				<button type="button" class="btn btn-primary" ng-click="addCentro()">Adicionar</button>
+
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div ng-show="fornecedor.contatos.length > 0">
+		<div ng-if="fornecedor.contatos" class="col-md-4">
+			<label>Contatos</label>
+			<brm-show-data column="mapColumnsContato" data="fornecedor.contatos"
+				type-id="some_prop" is-delete="true" />
+		</div>
+	</div>
+	<div ng-show="fornecedor.centros.length > 0">
+		<div ng-if="fornecedor.centros" class="col-md-4">
+			<label>Centros</label>
+			<div ng-show="fornecedor.centros.length > 0">
+				<brm-show-data column="mapColumnsCentro" data="fornecedor.centros"
+					is-delete="true" />
 			</div>
 		</div>
 	</div>

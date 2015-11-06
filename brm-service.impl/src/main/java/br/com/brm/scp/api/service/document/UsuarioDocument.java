@@ -7,6 +7,8 @@ import java.util.Date;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import br.com.brm.scp.api.dto.response.GrupoResponseDTO;
 import br.com.brm.scp.api.dto.response.UsuarioResponseDTO;
@@ -29,6 +31,15 @@ public class UsuarioDocument implements Serializable {
 	@DBRef
 	@BindingClass(UsuarioResponseDTO.class)
 	private UsuarioDocument usuarioCriacao;
+	private String login;
+	private String senha;
+	
+	@DateTimeFormat(iso = ISO.DATE_TIME)
+	private Date dataCriacao;
+
+	@DateTimeFormat(iso = ISO.DATE_TIME)
+	private Date dataAlteracao;
+
 
 	public UsuarioDocument() {
 		super();
@@ -97,5 +108,39 @@ public class UsuarioDocument implements Serializable {
 	public void setUsuarioCriacao(UsuarioDocument usuarioCriacao) {
 		this.usuarioCriacao = usuarioCriacao;
 	}
+	
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	public Date getDataCriacao() {
+		return dataCriacao;
+	}
+
+	public void setDataCriacao(Date dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+
+	public Date getDataAlteracao() {
+		return dataAlteracao;
+	}
+
+	public void setDataAlteracao(Date dataAlteracao) {
+		this.dataAlteracao = dataAlteracao;
+	}
+
 
 }

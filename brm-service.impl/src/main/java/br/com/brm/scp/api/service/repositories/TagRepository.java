@@ -1,5 +1,7 @@
 package br.com.brm.scp.api.service.repositories;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -15,4 +17,7 @@ public interface TagRepository extends MongoRepository<TagDocument, String> {
 	@Query("{ 'nome' : ?0 }")
 	TagDocument findByNome(String value);
 	
+	@Query("{ 'nome': {'$regex': ?0 , $options: 'i'} }")
+	Page<TagDocument> findByName(String searchTerm, Pageable pageable);
+
 }

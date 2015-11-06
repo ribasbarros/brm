@@ -190,6 +190,7 @@ app.controller('DataTableController', [
 
 			$scope.edit = function(id) {
 				$location.path($scope.urlFormEdit + "/" + id);
+				
 			};
 
 			$scope.deleteRegister = function(entry) {
@@ -237,8 +238,6 @@ app.controller('ShowDataController', [ '$scope', '$http', '$location',
 				}
 				
 				var index = $scope.view.entries.indexOf(entry);
-				
-				console.log("index : %s", index)
 				
 				$scope.view.entries.splice(index, 1); 
 

@@ -1,5 +1,7 @@
 package br.com.brm.scp.api.service;
 
+import java.util.Collection;
+
 import br.com.brm.scp.api.dto.request.DfuRequestDTO;
 import br.com.brm.scp.api.dto.response.DfuResponseDTO;
 import br.com.brm.scp.api.exceptions.DfuExistenteException;
@@ -20,4 +22,6 @@ public interface DfuService {
 	Pageable<DfuResponseDTO> search(String searchTerm, int pageIndex, int size) throws DfuNotFoundException;
 
 	Pageable<DfuResponseDTO> all(int pageIndex, int size) throws DfuNotFoundException;
+
+	Collection<DfuResponseDTO> all() throws DfuNotFoundException;
 }

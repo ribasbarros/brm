@@ -1,9 +1,12 @@
 package br.com.brm.scp.controller;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,13 +17,16 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import br.com.brm.scp.api.dto.request.GrupoRequestDTO;
 import br.com.brm.scp.api.dto.response.GrupoResponseDTO;
+import br.com.brm.scp.api.dto.response.GrupoResponseDTO;
 import br.com.brm.scp.api.exceptions.GrupoExistenteException;
+import br.com.brm.scp.api.exceptions.GrupoNotFoundException;
 import br.com.brm.scp.api.exceptions.GrupoNotFoundException;
 import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.pages.SearchPageableVO;
 import br.com.brm.scp.api.service.GrupoService;
 import br.com.brm.scp.api.service.status.GrupoFiltroEnum;
 import br.com.brm.scp.controller.exception.GrupoExistenteWebException;
+import br.com.brm.scp.controller.exception.GrupoNotFoundWebException;
 import br.com.brm.scp.controller.exception.GrupoNotFoundWebException;
 
 @Controller
@@ -97,6 +103,11 @@ public class GrupoController implements Serializable {
 	@ResponseStatus(HttpStatus.OK)
 	Pageable<GrupoResponseDTO> search(@RequestBody SearchPageableVO searchPageable) {
 		Pageable<GrupoResponseDTO> result = null;
+		
+		if (searchPageable.getPageIndex() < 0) {
+			searchPageable.setPageIndex(0);
+		}
+		
 		try {
 			if ("".equals(searchPageable.getSearchTerm()) || null == searchPageable.getSearchTerm()) {
 				result = service.all(searchPageable.getPageIndex(), searchPageable.getSize());
@@ -112,6 +123,11 @@ public class GrupoController implements Serializable {
 		}
 		return result;
 	}
-
 	
+	@ResponseBody
+	@RequestMapping(value = "all", method = RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+	Collection<GrupoResponseDTO> all() {
+			return service.all();
+	}
 }

@@ -2,95 +2,182 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<div class="page-header text-center">
+<nav class="navbar navbar-default">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed"
+				data-toggle="collapse" data-target="#bs-example-navbar-collapse-3"
+				aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#/private/sku/sku-view"> <span
+				class="glyphicon glyphicon-chevron-left btn-xs" aria-hidden="true"></span>
+			</a>
+		</div>
+		<div class="collapse navbar-collapse"
+			id="bs-example-navbar-collapse-3">
+			<button type="submit" class="btn btn-primary btn-sm navbar-btn">
+				<span class="glyphicon glyphicon-check"></span> Salvar
+			</button>
+			<button type="submit" class="btn btn-danger btn-sm navbar-btn">
+				<span class="glyphicon glyphicon-ok"></span> Salvar & Fechar
+			</button>
+			<button type="button" class="btn btn-success btn-sm navbar-btn"
+				data-toggle="modal" data-target="#idModalOrigem">
+				<span class="glyphicon glyphicon-book"></span> Adicionar Origem
+			</button>
+			
+		</div>
+	</div>
+</nav>
+<center>
 	<h1>Cadastro Sku</h1>
-</div>
+</center>
 
 <p ng-show="mensagem.length" class="alert alert-info">{{mensagem}}</p>
+<div class="row">
+	<div class="col-md-6">
+		<div class="form-group ">
+			<label>Tags</label>
+			<tags-input ng-model="sku.tags" display-property="nome"
+				placeholder="Adicionar Tag" add-from-autocomplete-only="true">
+			<auto-complete source="loadTags($query)"></auto-complete> </tags-input>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-3">
+		<div class="form-group ">
+			<label>Classe</label> <select class="form-control" name="classe"
+				id="classe" ng-model="sku.classe">
+				<option ng-repeat="option in listaStatus" ng-value="option.nome">{{option.nome}}</option>
+			</select>
+		</div>
+	</div>
 
-<div class="col-md-6">
-	<div class="form-group">
-		<label>Teste Select</label>
-		
+	<div class="col-md-3">
+		<div class="form-group ">
+			<label>Item</label> <select class="form-control"
+				ng-options="item as item.nome for item in listaItens track by item.id"
+				ng-model="sku.item"></select>
+		</div>
 	</div>
-	
-	<div class="form-group">
-		<label>Item</label>
-		<angucomplete id="item" placeholder="Digite o item" pause="100"
-			selectedobject="formulario.item" localdata="listaItens"
-			searchfields="nome" titlefield="nome" minlength="1"
-			inputclass="form-control form-control-small" />
-		<span ng-show="formulario.$submitted && formulario.item.$error.required"
-			class="form-control alert-danger"> Item é obrigatório </span>
-	</div>
-	
-	<div class="form-group">
-		<label>Data de maturidade</label>
-		<input type="date" class="form-control"  ng-model="sku.nome" name="dataMaturidade" required/>	
-		<span ng-show="formulario.$submitted && formulario.dataMaturidade.$error.required"
-			class="form-control alert-danger"> Maturidade é obrigatório </span>
-	</div>
-	
-	<div class="form-group">
-		<label>Data de Descontinuação</label>
-		<input type="date" class="form-control" ng-model="sku.dataDescontinuacao"  name="dataDescontinuacao" required/>	
-		<span ng-show="formulario.$submitted && formulario.dataDescontinuacao.$error.required"
-			class="form-control alert-danger"> Descontinuação é obrigatório </span>
-	</div>
-	
-	<div class="form-group">
-				<label>Descrição</label> <input name="descricao"
-					class="form-control" ng-model="sku.descricao" required>
-					<span ng-show = "formulario.$submitted && formulario.descricao.$error.required"
-				class="form-control alert-danger">
-				Descrição é obrigatório
-			</span>
-	</div>
-	
-	<div class="form-group">
-				<label>Estoque Máximo</label> <input type="number"  name="estoqueMaximo" class="form-control"
-					ng-model="sku.estoqueMaximo" required>
-					<span ng-show = "formulario.$submitted && formulario.estoqueMaximo.$error.required"
-				class="form-control alert-danger">
-				Estoque máximo é obrigatório
-	</div>
-			
-	<div class="form-group">
-				<label>Estoque Minimo</label> <input type="number"  name="estoqueMinimo" class="form-control"
-					ng-model="sku.estoqueMinimo" required>
-					<span ng-show = "formulario.$submitted && formulario.estoqueMinimo.$error.required"
-				class="form-control alert-danger">
-				Estoque mínimo é obrigatório
-	</div>
-			
-	<div class="form-group">
-				<label>Estoque Ideal</label> <input type="number"  name="estoqueIdeal" class="form-control"
-					ng-model="sku.estoqueIdeal" required>
-					<span ng-show = "formulario.$submitted && formulario.estoqueIdeal.$error.required"
-				class="form-control alert-danger">
-				Estoque ideal é obrigatório
-	</div>
-			
-	<div class="form-group">
-				<label>Estoque Atual</label> <input type="number"  name="estoqueAtual" class="form-control"
-					ng-model="sku.estoqueAtual" required>
-					<span ng-show = "formulario.$submitted && formulario.estoqueAtual.$error.required"
-				class="form-control alert-danger">
-				Estoque atual é obrigatório
-	</div>
-	
-	<div class="form-group">
-				<label>Custo Unitário</label> <input type="number"  name="custoUnitario" class="form-control"
-					ng-model="sku.custoUnitario" required>
-					<span ng-show = "formulario.$submitted && formulario.custoUnitario.$error.required"
-				class="form-control alert-danger">
-				Custo Unitário é obrigatório
-	</div>
-	
-	<button type="submit" class="btn btn-primary">Salvar</button>
-	<a href="#/private/sku/sku-view" class="btn btn-primary">Voltar</a>
-	<hr>
 </div>
 
+<div class="row">
+	<div class="col-md-2">
+		<div class="form-group">
+			<label>Data de maturidade</label> <input type="date"
+				class="form-control" ng-model="sku.dataMaturidade"
+				name="dataMaturidade" />
+		</div>
+	</div>
 
+	<div class="col-md-2">
+		<div class="form-group">
+			<label>Data de Descontinuação</label> <input type="date"
+				class="form-control" ng-model="sku.dataDescontinuacao"
+				name="dataDescontinuacao" />
+		</div>
+	</div>
+
+	<div class="col-md-1">
+		<div class="form-group">
+			<label>Automática</label> <input type="checkbox" class="form-control"
+				ng-model="sku.automatica" name="automatica" />
+		</div>
+	</div>
+</div>
+
+<div class="row">
+
+	<div class="col-md-3">
+		<div class="form-group ">
+			<label>Tipos de Planejamento</label> <select class="form-control"
+				name="modelo" id="modelo" ng-model="sku.modelo">
+				<option ng-repeat="option in listaPlanejamentos"
+					ng-value="option.nome">{{option.nome}}</option>
+			</select>
+		</div>
+	</div>
+
+	<div class="col-md-3">
+		<div class="form-group large-padded-row">
+			<label>Tipos de Reposição</label> <select class="form-control"
+				name="status" id="status" ng-model="sku.status">
+				<option ng-repeat="option in listaReposicoes" ng-value="option.nome">{{option.nome}}</option>
+			</select>
+
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-6">
+		<div class="form-group">
+			<label>Descrição</label> <input name="descricao" class="form-control"
+				ng-model="sku.descricao">
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-3">
+
+		<div class="form-group">
+			<label>Estoque Máximo</label> <input type="number"
+				name="estoqueMaximo" class="form-control"
+				ng-model="sku.estoqueMaximo">
+		</div>
+	</div>
+	<div class="col-md-3">
+		<div class="form-group">
+			<label>Estoque Minimo</label> <input type="number"
+				name="estoqueMinimo" class="form-control"
+				ng-model="sku.estoqueMinimo">
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-2">
+
+		<div class="form-group">
+			<label>Estoque Ideal</label> <input type="number" name="estoqueIdeal"
+				class="form-control" ng-model="sku.estoqueIdeal">
+		</div>
+	</div>
+	<div class="col-md-2">
+		<div class="form-group">
+			<label>Estoque Atual</label> <input type="number" name="estoqueAtual"
+				class="form-control" ng-model="sku.estoqueAtual">
+		</div>
+	</div>
+	<div class="col-md-2">
+		<div class="form-group">
+			<label>Custo Unitário</label> <input type="number"
+				name="custoUnitario" class="form-control"
+				ng-model="sku.custoUnitario">
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-1">
+		<div ng-repeat="dia in diasDaSemana">
+			<label>{{dia.value}}</label> <input type="checkbox"
+				ng-model="dia.checked"
+				ng-change="checkedOrNot(dia.id, dia.checked, $index)" />
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div ng-show="sku.origens.length > 0">
+		<div ng-if="sku.origens" class="col-md-4">
+			<label>Origem</label>
+			<div>
+				<brm-show-data column="mapColumnsOrigem" data="sku.origens"
+					is-delete="true" />
+			</div>
+		</div>
+	</div>
+</div>

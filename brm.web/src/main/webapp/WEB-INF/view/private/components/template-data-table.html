@@ -1,58 +1,56 @@
-<div ng-controller="DataTableController">
-	<div class="panel panel-default">
-		<!-- Default panel contents -->
-		<div class="panel-body">
 
-			<div class="row">
-				<div class="col-lg-6">
-					<div class="input-group">
-						<button type="button" class="btn btn-primary"
-							ng-click="newRegister()">Novo</button>
-					</div>
-					<!-- /input-group -->
+<div class="panel panel-default">
+	<!-- Default panel contents -->
+	<div class="panel-body">
+
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="input-group">
+					<button type="button" class="btn btn-primary"
+						ng-click="newRegister()">Novo</button>
 				</div>
-				<!-- /.col-lg-6 -->
-				<div class="col-lg-6">
-					<div class="input-group">
-						<input type="text" class="form-control"
-							placeholder="Pesquisar por palavra-chave"
-							ng-model="view.searchTerm"> <span class="input-group-btn">
-							<button class="btn btn-default" type="button"
-								ng-click="search(0)">
-								<span class="glyphicon glyphicon-search"></span>
-							</button>
-						</span>
-					</div>
-					<!-- /input-group -->
-				</div>
-				<!-- /.col-lg-6 -->
+				<!-- /input-group -->
 			</div>
-			<!-- /.row -->
+			<!-- /.col-lg-6 -->
+			<div class="col-lg-6">
+				<div class="input-group">
+					<input type="text" class="form-control"
+						placeholder="Pesquisar por palavra-chave"
+						ng-model="view.searchTerm"> <span class="input-group-btn">
+						<button class="btn btn-default" type="button" ng-click="search(0)">
+							<span class="glyphicon glyphicon-search"></span>
+						</button>
+					</span>
+				</div>
+				<!-- /input-group -->
+			</div>
+			<!-- /.col-lg-6 -->
 		</div>
-		
-		<div ng-include="'private/components/template-data-column'" />
-		
-		<div class="panel-body">
+		<!-- /.row -->
+	</div>
 
-			<div class="row" style="text-align: right">
-				<select name="numberOfElements" id="numberOfElements"
-					ng-change="page(0)"
-					ng-options="option.name for option in view.totalPerPage.availableOptions track by option.id"
-					ng-model="view.totalPerPage.selectedOption"></select>
-			</div>
-			<div class="row" style="text-align: center">
-				<ul class="pagination">
-					<li><a href="" aria-label="Voltar" ng-click="previous()">
-							<span aria-hidden="true">&laquo;</span>
-					</a></li>
-					<li ng-class="{ 'active' : $index == view.index }"
-						ng-repeat="a in range(view.totalPages) track by $index"><a
-						href="" ng-hide="hideIndex($index)" ng-click="page($index)">{{$index
-							+ 1}}</a></li>
-					<li><a href="" aria-label="Próximo" ng-click="next()"> <span
-							aria-hidden="true">&raquo;</span>
-					</a></li>
-				</ul>
-			</div>
+	<div ng-include="'private/components/template-data-column'" />
+
+	<div class="panel-body">
+
+		<div class="row" style="text-align: right">
+			<select name="numberOfElements" id="numberOfElements"
+				ng-change="page(0)"
+				ng-options="option.name for option in view.totalPerPage.availableOptions track by option.id"
+				ng-model="view.totalPerPage.selectedOption"></select>
+		</div>
+		<div class="row" style="text-align: center">
+			<ul class="pagination">
+				<li><a href="" aria-label="Voltar" ng-click="previous()"> <span
+						aria-hidden="true">&laquo;</span>
+				</a></li>
+				<li ng-class="{ 'active' : $index == view.index }"
+					ng-repeat="a in range(view.totalPages) track by $index"><a
+					href="" ng-hide="hideIndex($index)" ng-click="page($index)">{{$index
+						+ 1}}</a></li>
+				<li><a href="" aria-label="Próximo" ng-click="next()"> <span
+						aria-hidden="true">&raquo;</span>
+				</a></li>
+			</ul>
 		</div>
 	</div>

@@ -2,6 +2,7 @@ package br.com.brm.scp.api.service.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import org.apache.log4j.Logger;
 import org.bson.types.ObjectId;
@@ -15,6 +16,7 @@ import br.com.brm.scp.api.dto.request.SkuRequestDTO;
 import br.com.brm.scp.api.dto.response.SkuResponseDTO;
 import br.com.brm.scp.api.exceptions.SkuExistenteException;
 import br.com.brm.scp.api.exceptions.SkuNotFoundException;
+import br.com.brm.scp.api.exceptions.TagNotFoundException;
 import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.service.SkuService;
 import br.com.brm.scp.api.service.document.OrigemSkuDocument;
@@ -22,6 +24,7 @@ import br.com.brm.scp.api.service.document.SkuDocument;
 import br.com.brm.scp.api.service.document.TagDocument;
 import br.com.brm.scp.api.service.repositories.SkuRepository;
 import br.com.brm.scp.api.service.status.SkuFiltroEnum;
+import br.com.brm.scp.api.service.status.TagFiltroEnum;
 import br.com.brm.scp.fw.helper.converters.ConverterHelper;
 
 /**
@@ -43,6 +46,7 @@ public class SkuServiceImpl implements SkuService {
 	private static final String SKU_FILTRO = "sku.filtro";
 	private static final String SKU_EXISTENTE = "sku.existente";
 	private static final String SKU_NOTFOUND = "sku.notfound";
+	private static final String SKU_ID = "sku.id";
 
 	
 	@Autowired
@@ -55,14 +59,14 @@ public class SkuServiceImpl implements SkuService {
 		Assert.notNull(request.getItem(), SKU_ITEM);
 		Assert.notNull(request.getTags(), SKU_TAG);
 		Assert.notNull(request.getDescricao(), SKU_DESCRICAO);
-		Assert.notNull(request.getFrequenciaAnalise(), SKU_FREQUENCIA_ANALISE);
+		//Assert.notNull(request.getFrequenciaAnalise(), SKU_FREQUENCIA_ANALISE);
 		Assert.notNull(request.getModelo(), SKU_MODELO);
-		Assert.notNull(request.getOrigens(), SKU_ORIGEM);
+		//Assert.notNull(request.getOrigens(), SKU_ORIGEM);
 		
 		hasSkuRegistered(request);
 		
 		SkuDocument document = (SkuDocument) ConverterHelper.convert(request, SkuDocument.class);
-		
+		document.setDataCriacao(new Date());
 		document = repository.save(document);
 		
 		SkuResponseDTO response = invokeResponse(document);
@@ -92,7 +96,13 @@ public class SkuServiceImpl implements SkuService {
 
 	@Override
 	public SkuResponseDTO find(SkuFiltroEnum filtro, Object value) throws SkuNotFoundException {
-		SkuDocument document = findByFiltro(filtro, value);
+		SkuDocument document = findByFiltro(filtro, value);	
+		if(document.getTags() != null){
+			document.setTags(new ArrayList<TagDocument>(document.getTags()));
+		}
+		if(document.getOrigens() != null){
+			document.setOrigens(new ArrayList<OrigemSkuDocument>(document.getOrigens()));
+		}	
 		return invokeResponse(document);
 	}
 
@@ -127,8 +137,12 @@ public class SkuServiceImpl implements SkuService {
 		
 		//TODO CRIAR SOLUCAO NO CONVERTER
 		for(SkuDocument d : result){
-			d.setTags(new ArrayList<TagDocument>(d.getTags()));
-			d.setOrigens(new ArrayList<OrigemSkuDocument>(d.getOrigens()));
+			if(d.getTags() != null){
+				d.setTags(new ArrayList<TagDocument>(d.getTags()));
+			}
+			if(d.getOrigens() != null){
+				d.setOrigens(new ArrayList<OrigemSkuDocument>(d.getOrigens()));
+			}
 		}
 
 		Collection<SkuResponseDTO> response = invokeResponse(result);
@@ -160,6 +174,47 @@ public class SkuServiceImpl implements SkuService {
 				pageIndex);
 
 	
+	}
+	
+	@Override
+	public void update(SkuRequestDTO request) throws SkuNotFoundException {
+		Assert.notNull(request, SKU_NOTNULL);
+		Assert.notNull(request.getItem(), SKU_ITEM);
+		Assert.notNull(request.getTags(), SKU_TAG);
+		Assert.notNull(request.getDescricao(), SKU_DESCRICAO);
+		//Assert.notNull(request.getFrequenciaAnalise(), SKU_FREQUENCIA_ANALISE);
+		Assert.notNull(request.getModelo(), SKU_MODELO);
+		//Assert.notNull(request.getOrigens(), SKU_ORIGEM);
+	
+		if (find(SkuFiltroEnum.ID, request.getId()) == null) {
+			throw new SkuNotFoundException(SKU_NOTFOUND);
+		}
+
+		SkuDocument document = invokeDocument(request);
+		document.setDataAlteracao(new Date());
+		repository.save(document);
+		
+	}
+
+	private SkuDocument invokeDocument(SkuRequestDTO request) {
+		return (SkuDocument) ConverterHelper.convert(request, SkuDocument.class);
+	}
+
+	@Override
+	public void delete(String id) throws SkuNotFoundException {
+		Assert.notNull(id, SKU_ID);
+
+		if (find(SkuFiltroEnum.ID,id) == null){
+			throw new SkuNotFoundException(SKU_NOTFOUND);
+		}
+				
+		repository.delete(id);			
+	}
+
+	@Override
+	public Collection<SkuResponseDTO> all() {
+		// TODO Auto-generated method stub
+		return invokeResponse(repository.findAll());
 	}
 
 }

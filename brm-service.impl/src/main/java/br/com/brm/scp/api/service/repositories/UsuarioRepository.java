@@ -6,7 +6,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import br.com.brm.scp.api.service.document.GrupoDocument;
 import br.com.brm.scp.api.service.document.UsuarioDocument;
 
 @Repository
@@ -31,5 +30,8 @@ public interface UsuarioRepository extends
 
 	Page<UsuarioDocument> findByNomeCargoEmailGrupos(String searchTerm,
 			Pageable constructPageSpecification);
+
+	@Query("{ 'login' : ?0 }")
+	UsuarioDocument findByLogin(String username);
 
 }

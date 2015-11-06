@@ -1,6 +1,7 @@
 package br.com.brm.scp.api.dto.request;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import br.com.brm.scp.api.annotation.BindingClassMeta;
 import br.com.brm.scp.api.dto.response.UsuarioResponseDTO;
@@ -15,6 +16,21 @@ public class TagRequestDTO implements Serializable {
 	private Integer nivel;
 	@BindingClassMeta("USUARIO")
 	private UsuarioResponseDTO usuarioCriacao;
+	private Date dataCriacao;
+	private Date dataAlteracao;
+	
+	
+	public Date getDataCriacao() {
+		return dataCriacao;
+	}
+
+	public void setDataCriacao(Date dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+
+	public Date getDataAlteracao() {
+		return dataAlteracao;
+	}
 
 	public String getId() {
 		return id;

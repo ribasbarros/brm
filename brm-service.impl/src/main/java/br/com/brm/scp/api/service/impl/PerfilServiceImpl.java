@@ -1,6 +1,7 @@
 package br.com.brm.scp.api.service.impl;
 
 import java.util.Collection;
+import java.util.Date;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +56,7 @@ public class PerfilServiceImpl implements PerfilService {
 		}
 		
 		PerfilDocument document = invokeDocument(request);
-
+		document.setDataCriacao(new Date());
 		document = repository.save(document);
 
 		PerfilResponseDTO response = invokeResponse(document);
@@ -102,7 +103,7 @@ public class PerfilServiceImpl implements PerfilService {
 		}
 
 		PerfilDocument document = invokeDocument(request);
-
+		document.setDataAlteracao(new Date());
 		repository.save(document);
 	}
 
@@ -180,6 +181,11 @@ public class PerfilServiceImpl implements PerfilService {
 
 		return new br.com.brm.scp.api.pages.Pageable<PerfilResponseDTO>(response, numberOfElements, totalPages,
 				pageIndex);
+	}
+
+	@Override
+	public Collection<PerfilResponseDTO> all() throws PerfilNotFoundException {
+		return invokeResponse(repository.findAll());
 	}
 
 }
