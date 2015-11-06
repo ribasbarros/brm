@@ -378,10 +378,12 @@ app
 									$scope.fornecedor
 											.$save(
 													function(response) {
+														console.log(response);
 														$scope.mensagem = 'Cadastro de Fornecedor realizado com sucesso!';
 														$scope.fornecedor = new FornecedorFactory();
 													},
 													function(erro) {
+														console.log(erro);
 														$scope.mensagem = 'Cadastro de Fornecedor não realizado!';
 													});
 								}
@@ -1290,6 +1292,8 @@ app
 
 						} ]);
 
+var userLogado = {};
+
 app.controller('ProfileController', [
 		'$resource',
 		'$http',
@@ -1301,10 +1305,12 @@ app.controller('ProfileController', [
 		function($resource, $http, $window, $scope, $routeParams, $location,
 				UsuarioFactory) {
 
-			$scope.user = {
-				name : 'User'
-			};
+			$scope.user = $resource('usuario/user').get();
+			
+			userLogado = $scope.user;
 
+			console.log($scope.user);
+			
 			$scope.logout = function() {
 				$http.post('auth/logout', {}).success(function() {
 					$window.location.href = "/brm.web/";
@@ -1318,10 +1324,7 @@ app.controller('ProfileController', [
 app.controller('CsrfCtrl', [ '$rootScope', '$scope', '$http', '$cookies',
 		'$window', function($rootScope, $scope, $http, $cookies, $window) {
 
-			$scope.credentials = {
-				username : 'user',
-				password : 'user'
-			};
+			$scope.credentials = {};
 
 			$scope.login = function() {
 
