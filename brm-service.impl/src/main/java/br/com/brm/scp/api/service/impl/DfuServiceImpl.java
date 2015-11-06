@@ -3,6 +3,7 @@ package br.com.brm.scp.api.service.impl;
 import java.awt.List;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,9 +66,9 @@ public class DfuServiceImpl implements DfuService {
 		}
 
 		DfuDocument document = invokeDocument(request);
-
+		document.setDataCriacao(new Date());
 		document = repository.save(document);
-
+		
 		DfuResponseDTO response = invokeResponse(document);
 
 		return response;
@@ -93,7 +94,7 @@ public class DfuServiceImpl implements DfuService {
 		}
 
 		DfuDocument document = invokeDocument(request);
-
+		document.setDataAlteracao(new Date());
 		repository.save(document);
 	}
 
@@ -101,6 +102,10 @@ public class DfuServiceImpl implements DfuService {
 	public DfuResponseDTO find(DfuFiltroEnum filtro, Object value)
 			throws DfuNotFoundException {
 		DfuDocument document = findByFiltro(filtro, value);
+		if (document.getTags() != null) {
+			document.setTags(new ArrayList<TagDocument>(document.getTags()));
+		}
+		
 		return invokeResponse(document);
 	}
 
@@ -170,9 +175,6 @@ public class DfuServiceImpl implements DfuService {
 		for (DfuDocument d : result) {
 			if (d.getTags() != null) {
 				d.setTags(new ArrayList<TagDocument>(d.getTags()));
-			}
-			if (d.getRelacaoSku() != null) {
-				d.setRelacaoSku(new ArrayList<RelacaoSkuDocument>(d.getRelacaoSku()));
 			}
 		}
 

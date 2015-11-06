@@ -23,9 +23,22 @@ public class UsuarioRequestDTO implements Serializable {
 	private UsuarioResponseDTO usuarioCriacao;
 	private String login;
 	private String senha;
+	private Date dataCriacao;
+	private Date dataAlteracao;
+	
+	
+	public Date getDataCriacao() {
+		return dataCriacao;
+	}
 
-	
-	
+	public void setDataCriacao(Date dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+
+	public Date getDataAlteracao() {
+		return dataAlteracao;
+	}
+
 
 	public String getId() {
 		return id;

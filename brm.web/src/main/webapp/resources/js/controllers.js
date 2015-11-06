@@ -175,11 +175,6 @@ app
 								'title' : 'Classe',
 								'field' : 'classe'
 							}, {
-								'title' : 'Origem',
-								'field' : 'origens',
-								'subField' : 'tipo',
-								'isArray' : 'true'
-							}, {
 								'title' : 'Data Maturidade',
 								'field' : 'dataMaturidade',
 								'isDate' : 'true'
@@ -221,6 +216,7 @@ app
 							$scope.item = new ItemFactory();
 							$scope.salvar = function() {
 								if ($scope.formulario.$valid) {
+									console.log($scope.item);
 									$scope.item
 											.$save(
 
@@ -271,34 +267,55 @@ app
 
 						} ]);
 
-app.controller('ItemEditController', [ '$scope', '$resource', '$routeParams',
-		'$location', 'ItemFactory',
-		function($scope, $resource, $routeParams, $location, ItemFactory) {
-			
-			$scope.item = ItemFactory.get({
-				id : $routeParams.id
-			});
 
-			$scope.categorias = $resource('categoria/all').query();
-
-			$scope.listaStatus = [ {
-				'nome' : 'DESCONTINUADO'
-			}, {
-				'nome' : 'CANCELADO'
-			}, {
-				'nome' : 'ATIVO'
-			} ];
-
-			$scope.submeter = function() {
-				if ($scope.formulario.$valid) {
-					$scope.item.$update(function() {
-						$scope.mensagem = 'Item Atualizado com sucesso!';
-					}, function(erro) {
-						$scope.mensagem = 'Alteração de Item não realizada!';
+app
+.controller(
+		'ItemEditController',
+		[
+				'$scope',
+				'$resource',
+				'$routeParams',
+				'$location',
+				'ItemFactory',
+				function($scope,$resource, $routeParams, $location,
+						ItemFactory) {
+					
+					$scope.item = ItemFactory.get({
+						id : $routeParams.id
 					});
-				}
-			};
-		} ]);
+					
+					$scope.categorias = $resource('categoria/all')
+							.query();
+
+					$scope.listaStatus = [ {
+						'nome' : 'DESCONTINUADO'
+					}, {
+						'nome' : 'CANCELADO'
+					}, {
+						'nome' : 'ATIVO'
+					} ];
+
+
+					
+					$scope.submeter = function() {
+						if ($scope.formulario.$valid) {
+							console.log($scope.item);
+							$scope.item
+									.$update(
+											function() {
+												$scope.mensagem = 'Item Atualizado com sucesso!';
+											},
+											function(erro) {
+												$scope.mensagem = 'Alteração de Item não realizada!';
+											});
+						}
+					};
+
+				} ]);
+
+
+
+
 
 app
 		.controller(
@@ -386,6 +403,14 @@ app
 								'field' : 'contatos',
 								'subField' : 'nome',
 								'isArray' : 'true'
+							}, {
+								'title' : 'Criação',
+								'field' : 'dataCriacao',
+								'isDate' : 'true'
+							}, {
+								'title' : 'Alterado',
+								'field' : 'dataAlteracao',
+								'isDate' : 'true'
 							} ];
 
 						} ]);
@@ -472,13 +497,88 @@ app
 
 						} ]);
 
-app.controller('SkuEditController', [ '$scope', '$routeParams', '$location',
-		'SkuFactory', function($scope, $routeParams, $location, SkuFactory) {
+app.controller('SkuEditController', [ '$scope','$resource', '$routeParams', '$location',
+		'SkuFactory', function($scope,$resource, $routeParams, $location, SkuFactory) {
+			$scope.listaItens = $resource('item/all').query();
+			$scope.listaSku = $resource('sku/all').query();
+			$scope.listaFornecedor = $resource('fornecedor/all').query();
 
-			$scope.sku = SkuFactory.get({
-				id : $routeParams.id
-			});
+			$scope.loadTags = function(query) {
+				return $resource('tag/all').query().$promise;
+			};
+	
+			$scope.load = function() {
+				$scope.sku = SkuFactory.get({
+					id : $routeParams.id
+				});
+			};
+			
+			$scope.diasDaSemana = [ {
+				"id" : 2,
+				"value" : "Segunda",
+				"checked" : false
+			}, {
+				"id" : 3,
+				"value" : "Terça",
+				"checked" : false
+			}, {
+				"id" : 4,
+				"value" : "Quarta",
+				"checked" : false
+			}, {
+				"id" : 5,
+				"value" : "Quinta",
+				"checked" : false
+			}, {
+				"id" : 6,
+				"value" : "Sexta",
+				"checked" : false
+			}, {
+				"id" : 7,
+				"value" : "Sábado",
+				"checked" : false
+			}, {
+				"id" : 1,
+				"value" : "Domingo",
+				"checked" : false
+			} ];
 
+			$scope.listaOrigemSku = [ {
+				'nome' : 'SKU'
+			}, {
+				'nome' : 'FORNECEDOR'
+			} ];
+
+			$scope.listaStatus = [ {
+				'nome' : 'A'
+			}, {
+				'nome' : 'B'
+			}, {
+				'nome' : 'C'
+			} ];
+
+			$scope.listaPlanejamentos = [ {
+				'nome' : 'ESTOQUE'
+			}, {
+				'nome' : 'SOB_ENCOMENDA'
+			}, {
+				'nome' : 'PROMOCAO'
+			}, {
+				'nome' : 'NO_LIMITE'
+			} ];
+
+			$scope.listaReposicoes = [ {
+				'nome' : 'RASCUNHO'
+			}, {
+				'nome' : 'DESBLOQUEADA'
+			}, {
+				'nome' : 'BLOQUEADA'
+			}, {
+				'nome' : 'CANCELADA'
+			}, {
+				'nome' : 'FINALIZADA'
+			} ];
+			
 			$scope.submeter = function() {
 				if ($scope.formulario.$valid) {
 					$scope.sku.$update(function() {
@@ -488,7 +588,36 @@ app.controller('SkuEditController', [ '$scope', '$routeParams', '$location',
 					});
 				}
 			};
+			
+			
+			$scope.checkedOrNot = function(id, isChecked, index) {
+				if (isChecked) {
+					$scope.sku.frequenciaAnalise.push(id);
+				} else {
+					var _index = $scope.sku.frequenciaAnalise
+							.indexOf(id);
+					$scope.sku.frequenciaAnalise.splice(_index,
+							1);
+				}
+			};
 
+			$scope.addOrigem = function() {
+				if ($scope.modalOrigem.$valid) {
+					$scope.sku.origens.push($scope.selected);
+					$scope.selected = {};
+					alert("Adicionado com sucesso!");
+				}
+			};
+				
+			$scope.mapColumnsOrigem = [ {
+				'title' : 'Tipo',
+				'field' : 'tipo'
+			}, {
+				'title' : 'ID',
+				'field' : 'id'
+			} ];
+			
+			$scope.load();
 		} ]);
 
 app
@@ -529,6 +658,14 @@ app
 							}, {
 								'title' : 'Usuario Criação',
 								'field' : 'usuarioCriacao'
+							}, {
+								'title' : 'Criação',
+								'field' : 'dataCriacao',
+								'isDate' : 'true'
+							}, {
+								'title' : 'Alterado',
+								'field' : 'dataAlteracao',
+								'isDate' : 'true'
 							} ];
 
 						} ]);
@@ -589,6 +726,14 @@ app
 							}, {
 								'title' : 'Usuario Criação',
 								'field' : 'usuarioCriacao'
+							}, {
+								'title' : 'Criação',
+								'field' : 'dataCriacao',
+								'isDate' : 'true'
+							}, {
+								'title' : 'Alterado',
+								'field' : 'dataAlteracao',
+								'isDate' : 'true'
 							} ];
 
 						} ]);
@@ -678,6 +823,14 @@ app
 								'field' : 'perfis',
 								'subField' : 'nome',
 								'isArray' : 'true'
+							}, {
+								'title' : 'Criação',
+								'field' : 'dataCriacao',
+								'isDate' : 'true'
+							}, {
+								'title' : 'Alterado',
+								'field' : 'dataAlteracao',
+								'isDate' : 'true'
 							} ];
 						} ]);
 
@@ -797,6 +950,14 @@ app
 								'field' : 'grupos',
 								'subField' : 'nome',
 								'isArray' : 'true'
+							}, {
+								'title' : 'Criação',
+								'field' : 'dataCriacao',
+								'isDate' : 'true'
+							}, {
+								'title' : 'Alterado',
+								'field' : 'dataAlteracao',
+								'isDate' : 'true'
 							} ];
 						} ]);
 
@@ -888,6 +1049,14 @@ app
 							}, {
 								'title' : 'Usuario Criação',
 								'field' : 'usuarioCriacao'
+							}, {
+								'title' : 'Criação',
+								'field' : 'dataCriacao',
+								'isDate' : 'true'
+							}, {
+								'title' : 'Alterado',
+								'field' : 'dataAlteracao',
+								'isDate' : 'true'
 							} ];
 
 						} ]);
@@ -1023,9 +1192,73 @@ app
 								'field' : 'dataDescontinuacao',
 								'isDate' : 'true'
 
+							}, {
+								'title' : 'Criação',
+								'field' : 'dataCriacao',
+								'isDate' : 'true'
+							}, {
+								'title' : 'Alterado',
+								'field' : 'dataAlteracao',
+								'isDate' : 'true'
 							} ];
 
 						} ]);
+
+app
+.controller(
+		'DfuEditController',
+		[
+				'$scope',
+				'$resource',
+				'$routeParams',
+				'$location',
+				'DfuFactory',
+				function($scope, $resource,$routeParams, $location,
+						DfuFactory) {
+
+					$scope.dfu = DfuFactory.get({
+						id : $routeParams.id
+					});
+
+					$scope.listaItens = $resource('item/all').query();
+					$scope.listaDfu = $resource('dfu/all').query();
+					$scope.listaSku = $resource('sku/all').query();
+
+					$scope.loadTags = function(query) {
+						return $resource('tag/all').query().$promise;
+					};
+
+					$scope.listaStatus = [ {
+						'nome' : 'A'
+					}, {
+						'nome' : 'B'
+					}, {
+						'nome' : 'C'
+					} ];
+
+					$scope.listaPlanejamentos = [ {
+						'nome' : 'MANUAL'
+					}, {
+						'nome' : 'AUTOMATICO'
+					} ];
+
+					
+					
+					$scope.submeter = function() {
+						if ($scope.formulario.$valid) {
+							$scope.dfu
+									.$update(
+											function() {
+												$scope.mensagem = 'DFU Atualizado com sucesso!';
+											},
+											function(erro) {
+												$scope.mensagem = 'Alteração de DFU não realizada!';
+											});
+						}
+					};
+
+				} ]);
+
 
 app
 		.controller(

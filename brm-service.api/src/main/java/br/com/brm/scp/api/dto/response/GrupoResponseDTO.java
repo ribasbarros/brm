@@ -3,6 +3,7 @@ package br.com.brm.scp.api.dto.response;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import br.com.brm.scp.api.annotation.BindingClassMeta;
 
@@ -17,12 +18,40 @@ public class GrupoResponseDTO implements Serializable {
 	private Collection<PerfilResponseDTO> perfis = new ArrayList<>();
 	@BindingClassMeta("USUARIO")
 	private UsuarioResponseDTO usuarioCriacao;
-	
+	private Date dataCriacao;
+	private Date dataAlteracao;
+
 	
 	
 	public GrupoResponseDTO() {
 		super();
 	}
+	
+	
+
+	public Date getDataCriacao() {
+		return dataCriacao;
+	}
+
+
+
+	public void setDataCriacao(Date dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+
+
+
+	public Date getDataAlteracao() {
+		return dataAlteracao;
+	}
+
+
+
+	public void setDataAlteracao(Date dataAlteracao) {
+		this.dataAlteracao = dataAlteracao;
+	}
+
+
 
 	public String getId() {
 		return id;

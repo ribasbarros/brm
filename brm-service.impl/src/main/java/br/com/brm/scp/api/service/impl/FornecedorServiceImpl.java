@@ -2,6 +2,7 @@ package br.com.brm.scp.api.service.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,9 +91,8 @@ public class FornecedorServiceImpl implements FornecedorService {
 		}
 
 		FornecedorDocument document = (FornecedorDocument) ConverterHelper.convert(request, FornecedorDocument.class);
-
+		document.setDataCriacao(new Date());
 		document = repository.save(document);
-
 		FornecedorResponseDTO response = invokeResponse(document);
 
 		return response;
@@ -191,9 +191,9 @@ public class FornecedorServiceImpl implements FornecedorService {
 		}
 
 		FornecedorDocument document = (FornecedorDocument) ConverterHelper.convert(request, FornecedorDocument.class);
-
+		document.setDataAlteracao(new Date());
+		
 		document = repository.save(document);
-
 		FornecedorResponseDTO response = invokeResponse(document);
 
 		return response;

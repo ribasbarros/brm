@@ -3,9 +3,12 @@ package br.com.brm.scp.api.service.document;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import br.com.brm.scp.api.dto.ContatoDTO;
 import br.com.brm.scp.api.dto.FornecedorCentroDTO;
@@ -28,6 +31,12 @@ public class FornecedorDocument implements Serializable {
 
 	@BindingClass(FornecedorCentroDTO.class)
 	private Collection<FornecedorCentroDocument> centros = new ArrayList<>();
+
+	@DateTimeFormat(iso = ISO.DATE_TIME)
+	private Date dataCriacao;
+
+	@DateTimeFormat(iso = ISO.DATE_TIME)
+	private Date dataAlteracao;
 
 	public String getId() {
 		return id;
@@ -85,4 +94,21 @@ public class FornecedorDocument implements Serializable {
 		this.contatos = contatos;
 	}
 
+	public Date getDataCriacao() {
+		return dataCriacao;
+	}
+
+	public void setDataCriacao(Date dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+
+	public Date getDataAlteracao() {
+		return dataAlteracao;
+	}
+
+	public void setDataAlteracao(Date dataAlteracao) {
+		this.dataAlteracao = dataAlteracao;
+	}
+
+	
 }

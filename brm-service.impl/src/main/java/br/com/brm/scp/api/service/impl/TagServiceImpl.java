@@ -1,6 +1,7 @@
 package br.com.brm.scp.api.service.impl;
 
 import java.util.Collection;
+import java.util.Date;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,8 +57,10 @@ public class TagServiceImpl implements TagService{
 					.format("Tag nao encontrado, pronto para cadastro!"));
 		}
 		
-		TagDocument document = repository.save(invokeDocument(request));
+		TagDocument document =invokeDocument(request);
+		document.setDataCriacao(new Date());
 		
+		document = repository.save(document);
 		return invokeResponse(document);
 	}
 
@@ -80,7 +83,7 @@ public class TagServiceImpl implements TagService{
 		}
 
 		TagDocument document = invokeDocument(request);
-
+		document.setDataAlteracao(new Date());
 		repository.save(document);
 	}
 

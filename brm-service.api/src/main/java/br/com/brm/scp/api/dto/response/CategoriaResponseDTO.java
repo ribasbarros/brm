@@ -1,6 +1,7 @@
 package br.com.brm.scp.api.dto.response;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class CategoriaResponseDTO implements Serializable{
 
@@ -8,6 +9,27 @@ public class CategoriaResponseDTO implements Serializable{
 	
 	private String id;
 	private String nome;
+	private Date dataCriacao;
+
+	private Date dataAlteracao;
+
+	
+
+	public Date getDataCriacao() {
+		return dataCriacao;
+	}
+
+	public void setDataCriacao(Date dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+
+	public Date getDataAlteracao() {
+		return dataAlteracao;
+	}
+
+	public void setDataAlteracao(Date dataAlteracao) {
+		this.dataAlteracao = dataAlteracao;
+	}
 
 	public String getId() {
 		return id;

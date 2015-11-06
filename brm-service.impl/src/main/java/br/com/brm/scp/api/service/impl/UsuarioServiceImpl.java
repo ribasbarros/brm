@@ -2,6 +2,7 @@ package br.com.brm.scp.api.service.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +67,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 					.format("Perfil nao encontrado, pronto para cadastro!"));
 		}
 		UsuarioDocument document = invokeDocument(request);
+		document.setDataCriacao(new Date());
 		document = repository.save(document);
 
 		UsuarioResponseDTO response = invokeResponse(document);
@@ -107,8 +109,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 		if (find(UsuarioFiltroEnum.ID, request.getId()) == null) {
 			throw new UsuarioNotFoundException(USUARIO_NOTFOUND);
 		}
-
-		repository.save(invokeDocument(request));
+		UsuarioDocument document = invokeDocument(request);
+		document.setDataAlteracao(new Date());
+		repository.save(document);
 	}
 
 	@Override

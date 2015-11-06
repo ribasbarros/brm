@@ -2,6 +2,7 @@ package br.com.brm.scp.api.service.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,7 @@ public class GrupoServiceImpl implements GrupoService {
 		}
 				
 		GrupoDocument document = invokeDocument(request);
+		document.setDataCriacao(new Date());
 		document = repository.save(document);
 		GrupoResponseDTO response = invokeResponse(document);
 		
@@ -97,7 +99,7 @@ public class GrupoServiceImpl implements GrupoService {
 		}
 
 		GrupoDocument document = invokeDocument(request);
-
+		document.setDataAlteracao(new Date());
 		repository.save(document);
 	}
 

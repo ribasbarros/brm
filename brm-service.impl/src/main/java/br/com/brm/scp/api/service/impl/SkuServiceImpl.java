@@ -2,6 +2,7 @@ package br.com.brm.scp.api.service.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import org.apache.log4j.Logger;
 import org.bson.types.ObjectId;
@@ -65,7 +66,7 @@ public class SkuServiceImpl implements SkuService {
 		hasSkuRegistered(request);
 		
 		SkuDocument document = (SkuDocument) ConverterHelper.convert(request, SkuDocument.class);
-		
+		document.setDataCriacao(new Date());
 		document = repository.save(document);
 		
 		SkuResponseDTO response = invokeResponse(document);
@@ -95,7 +96,13 @@ public class SkuServiceImpl implements SkuService {
 
 	@Override
 	public SkuResponseDTO find(SkuFiltroEnum filtro, Object value) throws SkuNotFoundException {
-		SkuDocument document = findByFiltro(filtro, value);
+		SkuDocument document = findByFiltro(filtro, value);	
+		if(document.getTags() != null){
+			document.setTags(new ArrayList<TagDocument>(document.getTags()));
+		}
+		if(document.getOrigens() != null){
+			document.setOrigens(new ArrayList<OrigemSkuDocument>(document.getOrigens()));
+		}	
 		return invokeResponse(document);
 	}
 
@@ -132,6 +139,9 @@ public class SkuServiceImpl implements SkuService {
 		for(SkuDocument d : result){
 			if(d.getTags() != null){
 				d.setTags(new ArrayList<TagDocument>(d.getTags()));
+			}
+			if(d.getOrigens() != null){
+				d.setOrigens(new ArrayList<OrigemSkuDocument>(d.getOrigens()));
 			}
 		}
 
@@ -181,7 +191,7 @@ public class SkuServiceImpl implements SkuService {
 		}
 
 		SkuDocument document = invokeDocument(request);
-
+		document.setDataAlteracao(new Date());
 		repository.save(document);
 		
 	}

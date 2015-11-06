@@ -4,4 +4,65 @@
 		ng-submit="submeter()">
 		<div ng-include="'private/sku/sku-form'"></div>
 	</form>
+	
+	<!-- Modal -->
+	<div class="modal fade" id="idModalOrigem" tabindex="-1" role="dialog"
+		aria-labelledby="modalOrigemLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="modalOrigemLabel">Adicionar Origem</h4>
+				</div>
+				<div class="modal-body">
+					<form novalidate name="modalOrigem">
+						<div class="controls form-group has-feedback">
+							<div class="row">
+								<div class="col-md-5">
+									<div class="form-group ">
+										<label>Tipo</label> <select class="form-control" name="origem"
+											id="origem" ng-model="selected.tipo">
+											<option ng-repeat="option in listaOrigemSku"
+												ng-value="option.nome">{{option.nome}}</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="col-md-6">
+									<div class="form-group" ng-show="selected.tipo == 'FORNECEDOR'">
+										<label>Fornecedor</label> <select class="form-control"
+											ng-options="forn.id as forn.razaoSocial for forn in listaFornecedor track by forn.id"
+											ng-model="selected.id"></select>
+									</div>
+
+									<div class="form-group" ng-show="selected.tipo == 'SKU'">
+										<label>Sku</label> <select class="form-control"
+											ng-options="skuOrigem.id as skuOrigem.id for skuOrigem in listaSku track by skuOrigem.id"
+											ng-model="selected.id"></select>
+									</div>
+								</div>
+
+								<div class="col-md-2">
+									<div class="form-group">
+										<label>Padrão</label> <input
+											type="checkbox" class="form-control" id="padrao" name="padrao"
+											ng-model="selected.isDefault">
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+					<button type="button" class="btn btn-primary"
+						ng-click="addOrigem()">Adicionar</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

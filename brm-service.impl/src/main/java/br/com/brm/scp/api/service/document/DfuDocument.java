@@ -85,7 +85,8 @@ public class DfuDocument implements Serializable {
 	 * Intermitência Mensal: Porcentagem de meses no ano que não há venda.
 	 */
 	private double percMesSemVendas;
-
+	
+	//TODO RIBAS REVER ESSA PORRA QUE TA ERRADA
 	@DBRef
 	@BindingClass(RelacionamentoSkuDTO.class)
 	private Collection<RelacaoSkuDocument> relacaoSku;
