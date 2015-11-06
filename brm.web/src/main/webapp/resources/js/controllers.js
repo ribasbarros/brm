@@ -35,11 +35,12 @@ app
 							$scope.sku = new SkuFactory();
 							$scope.sku.frequenciaAnalise = [];
 							$scope.sku.origens = [];
-							$scope.selected = {};						
+							$scope.selected = {};
 							$scope.listaItens = $resource('item/all').query();
 							$scope.listaSku = $resource('sku/all').query();
-							$scope.listaFornecedor = $resource('fornecedor/all').query();
-							
+							$scope.listaFornecedor = $resource('fornecedor/all')
+									.query();
+
 							$scope.loadTags = function(query) {
 								return $resource('tag/all').query().$promise;
 							};
@@ -73,7 +74,7 @@ app
 								"value" : "Domingo",
 								"checked" : false
 							} ];
-							
+
 							$scope.listaOrigemSku = [ {
 								'nome' : 'SKU'
 							}, {
@@ -127,20 +128,20 @@ app
 								if (isChecked) {
 									$scope.sku.frequenciaAnalise.push(id);
 								} else {
-									var _index = $scope.sku.frequenciaAnalise.indexOf(id);
-									$scope.sku.frequenciaAnalise.splice(_index, 1);
+									var _index = $scope.sku.frequenciaAnalise
+											.indexOf(id);
+									$scope.sku.frequenciaAnalise.splice(_index,
+											1);
 								}
 							};
-							
+
 							$scope.addOrigem = function() {
 								if ($scope.modalOrigem.$valid) {
-									$scope.sku.origens
-											.push($scope.selected);
+									$scope.sku.origens.push($scope.selected);
 									$scope.selected = {};
 									alert("Adicionado com sucesso!");
 								}
 							};
-						
 
 							$scope.REST_SEARCH = 'sku/search';
 							$scope.URL_CRUD = 'sku/:id';
@@ -153,8 +154,8 @@ app
 							}, {
 								'title' : 'ID',
 								'field' : 'id'
-							}];
-							
+							} ];
+
 							$scope.map = [ {
 								'title' : 'Item',
 								'field' : 'item',
@@ -225,10 +226,11 @@ app
 
 													function(response) {
 														$scope.mensagem = 'Cadastro de Item realizado com sucesso!';
+														$scope.item = new ItemFactory();
+
 													},
 													function(erro) {
-														console
-																.log($scope.item);
+										
 														$scope.mensagem = 'Cadastro de Item não realizado!';
 													});
 								}
@@ -269,12 +271,23 @@ app
 
 						} ]);
 
-app.controller('ItemEditController', [ '$scope', '$routeParams', '$location',
-		'ItemFactory', function($scope, $routeParams, $location, ItemFactory) {
-
+app.controller('ItemEditController', [ '$scope', '$resource', '$routeParams',
+		'$location', 'ItemFactory',
+		function($scope, $resource, $routeParams, $location, ItemFactory) {
+			
 			$scope.item = ItemFactory.get({
 				id : $routeParams.id
 			});
+
+			$scope.categorias = $resource('categoria/all').query();
+
+			$scope.listaStatus = [ {
+				'nome' : 'DESCONTINUADO'
+			}, {
+				'nome' : 'CANCELADO'
+			}, {
+				'nome' : 'ATIVO'
+			} ];
 
 			$scope.submeter = function() {
 				if ($scope.formulario.$valid) {
@@ -285,7 +298,6 @@ app.controller('ItemEditController', [ '$scope', '$routeParams', '$location',
 					});
 				}
 			};
-
 		} ]);
 
 app
@@ -350,6 +362,7 @@ app
 											.$save(
 													function(response) {
 														$scope.mensagem = 'Cadastro de Fornecedor realizado com sucesso!';
+														$scope.fornecedor = new FornecedorFactory();
 													},
 													function(erro) {
 														$scope.mensagem = 'Cadastro de Fornecedor não realizado!';
@@ -388,6 +401,7 @@ app
 						'FornecedorFactory',
 						function($scope, $routeParams, $location, $route,
 								FornecedorFactory) {
+							$scope.selected = {};
 
 							$scope.mapColumnsContato = [ {
 								'title' : 'Nome',
@@ -555,6 +569,8 @@ app
 											.$save(
 													function(response) {
 														$scope.mensagem = 'Cadastro de Categoria realizado com sucesso!';
+														$scope.categoria = new CategoriaFactory();
+
 													},
 													function(erro) {
 														$scope.mensagem = 'Cadastro de Categoria não realizado!';
@@ -670,14 +686,22 @@ app
 				'GrupoEditController',
 				[
 						'$scope',
+						'$resource',
 						'$routeParams',
 						'$location',
 						'GrupoFactory',
-						function($scope, $routeParams, $location, GrupoFactory) {
+						function($scope, $resource, $routeParams, $location,
+								GrupoFactory) {
 
-							$scope.grupo = GrupoFactory.get({
-								id : $routeParams.id
-							});
+							$scope.listaPerfis = $resource('perfil/all')
+									.query();
+							$scope.selected = {};
+
+							$scope.load = function() {
+								$scope.grupo = GrupoFactory.get({
+									id : $routeParams.id
+								});
+							};
 
 							$scope.submeter = function() {
 								if ($scope.formulario.$valid) {
@@ -687,12 +711,25 @@ app
 														$scope.mensagem = 'Alteração de Grupo realizada com sucesso!';
 													},
 													function(erro) {
-														console
-																.log($scope.usuario);
 														$scope.mensagem = 'Alteração de Grupo não realizada!';
 													});
 								}
 							};
+
+							$scope.addPerfil = function() {
+								if ($scope.modalPerfil.$valid) {
+									$scope.grupo.perfis.push($scope.selected);
+									$scope.selected = {};
+									alert("Adicionado com sucesso!");
+								}
+							};
+
+							$scope.mapColumnsPerfil = [ {
+								'title' : 'Nome',
+								'field' : 'nome'
+							} ];
+
+							$scope.load();
 
 						} ]);
 
@@ -714,9 +751,7 @@ app
 
 							$scope.addGrupo = function() {
 								if ($scope.modalGrupo.$valid) {
-									console.log($scope.usuario.grupos);
-									console.log($scope.selected);
-
+									
 									$scope.usuario.grupos.push($scope.selected);
 									$scope.selected = {};
 									alert("Adicionado com sucesso!");
@@ -729,6 +764,8 @@ app
 											.$save(
 													function(response) {
 														$scope.mensagem = 'Cadastro de Usuario realizado com sucesso!';
+														$scope.usuario = new UsuarioFactory();
+
 													},
 													function(erro) {
 														$scope.mensagem = 'Cadastro de Usuario não realizado!';
@@ -768,16 +805,20 @@ app
 				'UsuarioEditController',
 				[
 						'$scope',
+						'$resource',
 						'$routeParams',
 						'$location',
 						'UsuarioFactory',
-						function($scope, $routeParams, $location,
+						function($scope,$resource, $routeParams, $location,
 								UsuarioFactory) {
+							$scope.selected = {};
+							$scope.listaGrupos = $resource('grupo/all').query();
 
-							$scope.usuario = UsuarioFactory.get({
-								id : $routeParams.id
-							});
-
+							$scope.load = function() {
+								$scope.usuario = UsuarioFactory.get({
+									id : $routeParams.id
+								});
+							};
 							$scope.submeter = function() {
 								if ($scope.formulario.$valid) {
 									$scope.usuario
@@ -792,7 +833,22 @@ app
 													});
 								}
 							};
-
+							
+							$scope.addGrupo = function() {
+								if ($scope.modalGrupo.$valid) {
+									
+									$scope.usuario.grupos.push($scope.selected);
+									$scope.selected = {};
+									alert("Adicionado com sucesso!");
+								}
+							};
+							
+							$scope.mapColumnsGrupo = [ {
+								'title' : 'Nome',
+								'field' : 'nome'
+							} ];
+							
+							$scope.load();
 						} ]);
 
 app
@@ -877,15 +933,15 @@ app
 							$scope.dfu = new DfuFactory();
 							$scope.mensagem = '';
 							$scope.dfu.relacaoSku = [];
-							$scope.selected = {};						
+							$scope.selected = {};
 							$scope.listaItens = $resource('item/all').query();
 							$scope.listaDfu = $resource('dfu/all').query();
 							$scope.listaSku = $resource('sku/all').query();
-							
+
 							$scope.loadTags = function(query) {
 								return $resource('tag/all').query().$promise;
 							};
-							
+
 							$scope.listaStatus = [ {
 								'nome' : 'A'
 							}, {
@@ -900,7 +956,6 @@ app
 								'nome' : 'AUTOMATICO'
 							} ];
 
-							
 							$scope.submeter = function() {
 								if ($scope.formulario.$valid) {
 									$scope.dfu
@@ -914,11 +969,10 @@ app
 													});
 								}
 							};
-							
+
 							$scope.addRelacao = function() {
 								if ($scope.modalRelacao.$valid) {
-									$scope.dfu.relacaoSku
-											.push($scope.selected);
+									$scope.dfu.relacaoSku.push($scope.selected);
 									$scope.selected = {};
 									alert("Adicionado com sucesso!");
 								}
@@ -935,8 +989,8 @@ app
 							}, {
 								'title' : 'ID Dfu',
 								'field' : 'idDfu'
-							}];
-							
+							} ];
+
 							$scope.map = [ {
 								'title' : 'Item',
 								'field' : 'item',

@@ -53,7 +53,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		Assert.notNull(request, USUARIO_NOTNULL);
 		Assert.notNull(request.getNome(), USUARIO_NOME);
 		Assert.notNull(request.getCargo(), USUARIO_CARGO);
-		//Assert.notNull(request.getGrupos(), USUARIO_GRUPO);
+		Assert.notNull(request.getGrupos(), USUARIO_GRUPO);
 		Assert.notNull(request.getEmail(), USUARIO_EMAIL);
 		Assert.isNull(request.getId(), USUARIO_EMAIL);
 		Assert.isTrue(EmailValidator.isEmail(request.getEmail()),
@@ -99,7 +99,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		Assert.notNull(request, USUARIO_NOTNULL);
 		Assert.notNull(request.getNome(), USUARIO_NOME);
 		Assert.notNull(request.getCargo(), USUARIO_CARGO);
-		//Assert.notNull(request.getGrupos(), USUARIO_GRUPO);
+		Assert.notNull(request.getGrupos(), USUARIO_GRUPO);
 		Assert.notNull(request.getEmail(), USUARIO_EMAIL);
 		Assert.isTrue(EmailValidator.isEmail(request.getEmail()),
 				USUARIO_EMAILINVALIDO);
@@ -128,6 +128,11 @@ public class UsuarioServiceImpl implements UsuarioService {
 	public UsuarioResponseDTO find(UsuarioFiltroEnum filtro, Object value)
 			throws UsuarioNotFoundException {
 		UsuarioDocument document = findByFiltro(filtro, value);
+		
+		if(document.getGrupos() != null){
+			document.setGrupos(new ArrayList<GrupoDocument>(document.getGrupos()));							
+		}
+		
 		return invokeResponse(document);
 	}
 

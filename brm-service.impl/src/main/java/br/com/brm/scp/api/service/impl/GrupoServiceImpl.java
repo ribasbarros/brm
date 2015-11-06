@@ -105,6 +105,9 @@ public class GrupoServiceImpl implements GrupoService {
 	public GrupoResponseDTO find(GrupoFiltroEnum filtro, Object value)
 			throws GrupoNotFoundException {
 		GrupoDocument document = findByFiltro(filtro, value);
+		if(document.getPerfis() != null){
+			document.setPerfis(new ArrayList<PerfilDocument>(document.getPerfis()));
+		}
 		return invokeResponse(document);
 	}
 

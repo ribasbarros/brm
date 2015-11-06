@@ -37,6 +37,31 @@
 
 <p ng-show="mensagem.length" class="alert alert-info">{{mensagem}}</p>
 
+
+	<div class="row">
+		<div class="col-md-3">
+			<div class="controls form-group has-feedback">
+				<label class="control-label" for="nome">Login</label> <input
+					class="form-control" id="nome" ng-model="usuario.login" name="login"
+					required /> <span ng-show="formulario.login.$valid"
+					class="glyphicon glyphicon-ok form-control-feedback"></span> <span
+					ng-show="!formulario.login.$valid"
+					class="glyphicon glyphicon-remove form-control-feedback"></span>
+			</div>
+		</div>
+		
+		<div class="col-md-3">
+			<div class="controls form-group has-feedback">
+				<label class="control-label" for="nome">Senha</label> <input
+					class="form-control" id="nome" ng-model="usuario.senha" name="senha"
+					required /> <span ng-show="formulario.senha.$valid"
+					class="glyphicon glyphicon-ok form-control-feedback"></span> <span
+					ng-show="!formulario.senha.$valid"
+					class="glyphicon glyphicon-remove form-control-feedback"></span>
+			</div>
+		</div>
+	</div>
+
 	<div class="row">
 		<div class="col-md-6">
 			<div class="controls form-group has-feedback">
@@ -80,7 +105,7 @@
 
 <div class="row">
 	<div ng-show="usuario.grupos.length > 0">
-		<div class="col-md-4">
+		<div ng-if="usuario.grupos" class="col-md-4">
 			<label>Grupos</label>
 			<div>
 				<brm-show-data column="mapColumnsGrupo" data="usuario.grupos"
