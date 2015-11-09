@@ -28,9 +28,8 @@ public class SkuResponseDTO implements Serializable {
 	@BindingClassMeta("TAGS")
 	private Collection<TagResponseDTO> tags;
 
-	@DateTimeFormat(iso = ISO.DATE_TIME)
 	private Date dataMaturidade;
-	@DateTimeFormat(iso = ISO.DATE_TIME)
+	
 	private Date dataDescontinuacao;
 	private PlanejamentoSku modelo;
 

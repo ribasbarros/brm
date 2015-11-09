@@ -14,27 +14,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import br.com.brm.scp.api.dto.request.DfuRequestDTO;
-import br.com.brm.scp.api.dto.request.DfuRequestDTO;
-import br.com.brm.scp.api.dto.response.DfuResponseDTO;
-import br.com.brm.scp.api.dto.response.DfuResponseDTO;
-import br.com.brm.scp.api.dto.response.DfuResponseDTO;
 import br.com.brm.scp.api.dto.response.DfuResponseDTO;
 import br.com.brm.scp.api.exceptions.DfuExistenteException;
-import br.com.brm.scp.api.exceptions.DfuNotFoundException;
-import br.com.brm.scp.api.exceptions.DfuExistenteException;
-import br.com.brm.scp.api.exceptions.DfuNotFoundException;
-import br.com.brm.scp.api.exceptions.DfuNotFoundException;
 import br.com.brm.scp.api.exceptions.DfuNotFoundException;
 import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.pages.SearchPageableVO;
 import br.com.brm.scp.api.service.DfuService;
 import br.com.brm.scp.api.service.status.DfuFiltroEnum;
-import br.com.brm.scp.api.service.status.DfuFiltroEnum;
 import br.com.brm.scp.controller.exception.DfuExistenteWebException;
-import br.com.brm.scp.controller.exception.DfuNotFoundWebException;
-import br.com.brm.scp.controller.exception.DfuExistenteWebException;
-import br.com.brm.scp.controller.exception.DfuNotFoundWebException;
-import br.com.brm.scp.controller.exception.DfuNotFoundWebException;
 import br.com.brm.scp.controller.exception.DfuNotFoundWebException;
 
 @Controller
