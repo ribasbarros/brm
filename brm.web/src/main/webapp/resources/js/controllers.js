@@ -547,6 +547,8 @@ app
 								}).$promise.then(function(data) {
 									$scope.sku = data;
 									$scope.loadDaysOfWeek();
+									$scope.sku.dataMaturidade = new Date($scope.sku.dataMaturidade);
+									$scope.sku.dataDescontinuacao = new Date($scope.sku.dataDescontinuacao);
 								});
 							};
 
