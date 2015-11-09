@@ -19,10 +19,10 @@
 		</div>
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-3">
-			<button type="submit" class="btn btn-primary btn-sm navbar-btn">
+			<button ng-click="save(false)" class="btn btn-primary btn-sm navbar-btn">
 				<span class="glyphicon glyphicon-check"></span> Salvar
 			</button>
-			<button type="submit" class="btn btn-danger btn-sm navbar-btn">
+			<button ng-click="save(true)" class="btn btn-danger btn-sm navbar-btn">
 				<span class="glyphicon glyphicon-ok"></span> Salvar & Fechar
 			</button>
 		</div>
@@ -40,12 +40,14 @@
 		<div class="controls form-group has-feedback">
 			<label class="control-label" for="nome">Nome</label> <input
 				class="form-control" id="nome" ng-model="categoria.nome" name="nome"
-				required /> <span ng-show="formularioCategoria.nome.$valid"
+				 /> <span ng-show="formulario.nome.$valid"
 				class="glyphicon glyphicon-ok form-control-feedback"></span> <span
-				ng-show="!formularioCategoria.nome.$valid"
+				ng-show="!formulario.nome.$valid"
 				class="glyphicon glyphicon-remove form-control-feedback"></span>
 		</div>
 	</div>
 </div>
+
+<brm-show-message />
 
 

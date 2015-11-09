@@ -15,7 +15,7 @@ public interface CategoriaService {
 
 	CategoriaResponseDTO create(CategoriaRequestDTO request) throws CategoriaExistenteException;
 
-	void update(CategoriaRequestDTO request) throws CategoriaNotFoundException;	
+	CategoriaResponseDTO update(CategoriaRequestDTO request) throws CategoriaNotFoundException;	
 	
 	CategoriaResponseDTO find(CategoriaFiltroEnum filtro, Object value) throws CategoriaNotFoundException;
 

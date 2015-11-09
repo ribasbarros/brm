@@ -80,7 +80,7 @@ public class CategoriaServiceImpl implements CategoriaService {
 	}
 
 	@Override
-	public void update(CategoriaRequestDTO request) throws CategoriaNotFoundException {
+	public CategoriaResponseDTO update(CategoriaRequestDTO request) throws CategoriaNotFoundException {
 		Assert.notNull(request, CATEGORIA_NULL);
 		Assert.notNull(request.getId(), CATEGORIA_ID);
 		Assert.notNull(request.getNome(), CATEGORIA_NOME);
@@ -91,7 +91,7 @@ public class CategoriaServiceImpl implements CategoriaService {
 
 		CategoriaDocument document = invokeDocument(request);
 		document.setDataAlteracao(new Date());
-		repository.save(document);
+		return invokeResponse(repository.save(document));
 	}
 
 	@Override

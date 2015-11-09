@@ -378,9 +378,9 @@ app.controller('FornecedorController', [
 								'title' : 'Alterado',
 								'field' : 'dataAlteracao',
 								'isDate' : 'true'
-							} ];
-
-							$scope.closeMessage = function() {
+							} ];		
+							
+			$scope.closeMessage = function() {
 				$('#idMessage').modal('hide');
 				if ($scope.trtResponse.go != null) {
 					$timeout(function() {
@@ -723,26 +723,43 @@ app
 				[
 						'$scope',
 						'$location',
+						'$timeout',
 						'CategoriaFactory',
-						function($scope, $location, CategoriaFactory) {
+						function($scope, $location,$timeout, CategoriaFactory) {
 							$scope.mensagem = '';
-
 							$scope.categoria = new CategoriaFactory();
-							$scope.submeter = function() {
-								if ($scope.formularioCategoria.$valid) {
-									$scope.categoria
-											.$save(
-													function(response) {
-														$scope.mensagem = 'Cadastro de Categoria realizado com sucesso!';
-														$scope.categoria = new CategoriaFactory();
+							$scope.trtResponse = {};
+							
+							$scope.closeMessage = function() {
+								$('#idMessage').modal('hide');
+								if ($scope.trtResponse.go != null) {
+									$timeout(function() {
+										$location.path($scope.trtResponse.go);
+									}, 700);
+								}
+								;
+							};
 
-													},
-													function(erro) {
-														$scope.mensagem = 'Cadastro de Categoria não realizado!';
-													});
+							$scope.save = function(close) {
+								if ($scope.formulario.$valid) {
+									$scope.categoria.$save(function(response) {
+										$scope.trtResponse = response;
+										var url;
+										if (close) {
+											url = 'private/categoria/categoria-view';
+										} else {
+											url = 'private/categoria/categoria-edit/'
+													+ response.result.id;
+										}
+										$scope.trtResponse.go = url;
+									}, function(response) {
+										$scope.trtResponse = response.data;
+									});
 								}
 							};
 
+							
+							
 							$scope.REST_SEARCH = 'categoria/search';
 							$scope.URL_CRUD = 'categoria/:id';
 							$scope.URL_FORM_CREATE = 'private/categoria/categoria-create';
@@ -773,27 +790,47 @@ app
 				[
 						'$scope',
 						'$routeParams',
+						'$timeout',
 						'$location',
 						'CategoriaFactory',
-						function($scope, $routeParams, $location,
+						function($scope, $routeParams, $timeout, $location,
 								CategoriaFactory) {
+							$scope.trtResponse = {};
 
-							$scope.categoria = CategoriaFactory.get({
-								id : $routeParams.id
-							});
+							$scope.load = function() {
+								$scope.categoria = CategoriaFactory.get({
+									id : $routeParams.id
+								});
+							};
 
-							$scope.submeter = function() {
-								if ($scope.formularioCategoria.$valid) {
-									$scope.categoria
-											.$update(
-													function() {
-														$scope.mensagem = 'Categoria Atualizado com sucesso!';
-													},
-													function(erro) {
-														$scope.mensagem = 'Alteração de Categoria não realizada!';
-													});
+							
+							$scope.closeMessage = function() {
+								$('#idMessage').modal('hide');
+								if ($scope.trtResponse.go != null) {
+									$timeout(function() {
+										$location.path($scope.trtResponse.go);
+									}, 700);
+								}
+								;
+							};
+
+							$scope.save = function(close) {
+								if ($scope.formulario.$valid) {
+									$scope.categoria.$update(function(response) {
+										$scope.trtResponse = response;
+										var url;
+										if (close) {
+											url = 'private/categoria/categoria-view';
+										} 
+										$scope.categoria = response.result;
+										$scope.trtResponse.go = url;
+									}, function(response) {
+										$scope.trtResponse = response.data;
+									});
 								}
 							};
+							
+							$scope.load();
 
 						} ]);
 
@@ -1287,36 +1324,6 @@ app.controller('DfuEditController', [ '$scope', '$resource', '$routeParams',
 			};
 
 		} ]);
-
-app
-		.controller(
-				'CategoriaEditController',
-				[
-						'$scope',
-						'$routeParams',
-						'$location',
-						'CategoriaFactory',
-						function($scope, $routeParams, $location,
-								CategoriaFactory) {
-
-							$scope.categoria = CategoriaFactory.get({
-								id : $routeParams.id
-							});
-
-							$scope.submeter = function() {
-								if ($scope.formularioCategoria.$valid) {
-									$scope.categoria
-											.$update(
-													function() {
-														$scope.mensagem = 'Categoria Atualizado com sucesso!';
-													},
-													function(erro) {
-														$scope.mensagem = 'Alteração de Categoria não realizada!';
-													});
-								}
-							};
-
-						} ]);
 
 var userLogado = {};
 
