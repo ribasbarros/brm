@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import br.com.brm.scp.api.service.document.ContatoDocument;
 import br.com.brm.scp.api.service.document.FornecedorCentroDocument;
+import br.com.brm.scp.api.service.document.UsuarioDocument;
 
 public class FornecedorRequestDTO_META implements Serializable {
 
@@ -11,5 +12,6 @@ public class FornecedorRequestDTO_META implements Serializable {
 	
 	static final Class<?> CONTATO = ContatoDocument.class;
 	static final Class<?> CENTRO = FornecedorCentroDocument.class;
-	
+	static final Class<?> USUARIO = UsuarioDocument.class;
+
 }

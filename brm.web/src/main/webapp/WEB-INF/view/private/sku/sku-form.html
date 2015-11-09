@@ -160,14 +160,17 @@
 		</div>
 	</div>
 </div>
+
+<label>Frequência de análise</label>
 <div class="row">
-	<div class="col-md-1">
-		<div ng-repeat="dia in diasDaSemana">
-			<label>{{dia.value}}</label> <input type="checkbox"
+		<div class="form-group">
+			<div class="col-md-1" ng-repeat="dia in diasDaSemana">
+					<label>{{dia.value}}</label>
+					 <input type="checkbox"
 				ng-model="dia.checked"
 				ng-change="checkedOrNot(dia.id, dia.checked, $index)" />
+			</div>
 		</div>
-	</div>
 </div>
 
 <div class="row">

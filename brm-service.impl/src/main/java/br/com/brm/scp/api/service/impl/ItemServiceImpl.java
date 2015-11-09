@@ -19,8 +19,10 @@ import br.com.brm.scp.api.exceptions.ItemExistenteException;
 import br.com.brm.scp.api.exceptions.ItemNotFoundException;
 import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.service.ItemService;
+import br.com.brm.scp.api.service.UsuarioService;
 import br.com.brm.scp.api.service.document.CategoriaDocument;
 import br.com.brm.scp.api.service.document.ItemDocument;
+import br.com.brm.scp.api.service.document.UsuarioDocument;
 import br.com.brm.scp.api.service.repositories.CategoriaRepository;
 import br.com.brm.scp.api.service.repositories.ItemRepository;
 import br.com.brm.scp.api.service.status.ItemFiltroEnum;
@@ -54,6 +56,9 @@ public class ItemServiceImpl implements ItemService {
 
 	@Autowired
 	private CategoriaRepository categoriaRepository;
+	
+	@Autowired
+	private UsuarioService usuarioService; 
 
 	/*
 	 * (non-Javadoc)
@@ -86,10 +91,8 @@ public class ItemServiceImpl implements ItemService {
 
 		ItemDocument document = (ItemDocument) ConverterHelper.convert(request, ItemDocument.class);
 
-		Date current = new Date();
-
-		document.setDataCriacao(current);
-		document.setDataAlteracao(current);
+		document.setDataCriacao(new Date());
+		document.setUsuarioCriacao((UsuarioDocument) ConverterHelper.convert(usuarioService.getUsuarioLogado(),UsuarioDocument.class));
 
 		document = repository.save(document);
 

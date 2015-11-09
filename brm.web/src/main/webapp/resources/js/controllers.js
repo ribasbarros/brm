@@ -179,6 +179,10 @@ app
 								'field' : 'dataMaturidade',
 								'isDate' : 'true'
 							}, {
+								'title' : 'Criado por',
+								'field' : 'usuarioCriacao',
+								'subField' : 'nome'
+							},{
 								'title' : 'Criação',
 								'field' : 'dataCriacao',
 								'isDate' : 'true'
@@ -256,6 +260,10 @@ app
 								'subField' : 'nome'
 
 							}, {
+								'title' : 'Criado por',
+								'field' : 'usuarioCriacao',
+								'subField' : 'nome'
+							},{
 								'title' : 'Criação',
 								'field' : 'dataCriacao',
 								'isDate' : 'true'
@@ -406,6 +414,10 @@ app
 								'subField' : 'nome',
 								'isArray' : 'true'
 							}, {
+								'title' : 'Criado por',
+								'field' : 'usuarioCriacao',
+								'subField' : 'nome'
+							}, {
 								'title' : 'Criação',
 								'field' : 'dataCriacao',
 								'isDate' : 'true'
@@ -504,46 +516,51 @@ app.controller('SkuEditController', [ '$scope','$resource', '$routeParams', '$lo
 			$scope.listaItens = $resource('item/all').query();
 			$scope.listaSku = $resource('sku/all').query();
 			$scope.listaFornecedor = $resource('fornecedor/all').query();
-
 			$scope.loadTags = function(query) {
 				return $resource('tag/all').query().$promise;
 			};
-	
+		
 			$scope.load = function() {
-				$scope.sku = SkuFactory.get({
+				SkuFactory.get({
 					id : $routeParams.id
+				}).$promise.then(function(data){
+					$scope.sku = data;
+					$scope.loadDaysOfWeek();
 				});
 			};
 			
-			$scope.diasDaSemana = [ {
-				"id" : 2,
-				"value" : "Segunda",
-				"checked" : false
-			}, {
-				"id" : 3,
-				"value" : "Terça",
-				"checked" : false
-			}, {
-				"id" : 4,
-				"value" : "Quarta",
-				"checked" : false
-			}, {
-				"id" : 5,
-				"value" : "Quinta",
-				"checked" : false
-			}, {
-				"id" : 6,
-				"value" : "Sexta",
-				"checked" : false
-			}, {
-				"id" : 7,
-				"value" : "Sábado",
-				"checked" : false
-			}, {
-				"id" : 1,
-				"value" : "Domingo",
-				"checked" : false
-			} ];
+			$scope.diasDaSemana = [];
+			$scope.loadDaysOfWeek = function(){
+				$scope.diasDaSemana = [ {
+					"id" : 2,
+					"value" : "Segunda",
+					"checked" : $scope.sku.frequenciaAnalise.indexOf(2) != -1 ? true : false
+				}, {
+					"id" : 3,
+					"value" : "Terça",
+					"checked" : $scope.sku.frequenciaAnalise.indexOf(3) != -1 ? true : false
+				}, {
+					"id" : 4,
+					"value" : "Quarta",
+					"checked" : $scope.sku.frequenciaAnalise.indexOf(4) != -1 ? true : false
+				}, {
+					"id" : 5,
+					"value" : "Quinta",
+					"checked" : $scope.sku.frequenciaAnalise.indexOf(5) != -1 ? true : false
+				}, {
+					"id" : 6,
+					"value" : "Sexta",
+					"checked" : $scope.sku.frequenciaAnalise.indexOf(6) != -1 ? true : false
+				}, {
+					"id" : 7,
+					"value" : "Sábado",
+					"checked" : $scope.sku.frequenciaAnalise.indexOf(7) != -1 ? true : false
+				}, {
+					"id" : 1,
+					"value" : "Domingo",
+					"checked" : $scope.sku.frequenciaAnalise.indexOf(1) != -1 ? true : false
+				} ];
+			};
 
 			$scope.listaOrigemSku = [ {
 				'nome' : 'SKU'
@@ -658,8 +675,9 @@ app
 								'title' : 'Nível',
 								'field' : 'nivel'
 							}, {
-								'title' : 'Usuario Criação',
-								'field' : 'usuarioCriacao'
+								'title' : 'Criado por',
+								'field' : 'usuarioCriacao',
+								'subField' : 'nome'
 							}, {
 								'title' : 'Criação',
 								'field' : 'dataCriacao',
@@ -726,8 +744,9 @@ app
 								'title' : 'Nome',
 								'field' : 'nome'
 							}, {
-								'title' : 'Usuario Criação',
-								'field' : 'usuarioCriacao'
+								'title' : 'Criado por',
+								'field' : 'usuarioCriacao',
+								'subField' : 'nome'
 							}, {
 								'title' : 'Criação',
 								'field' : 'dataCriacao',
@@ -825,6 +844,10 @@ app
 								'field' : 'perfis',
 								'subField' : 'nome',
 								'isArray' : 'true'
+							}, {
+								'title' : 'Criado por',
+								'field' : 'usuarioCriacao',
+								'subField' : 'nome'
 							}, {
 								'title' : 'Criação',
 								'field' : 'dataCriacao',
@@ -953,6 +976,10 @@ app
 								'subField' : 'nome',
 								'isArray' : 'true'
 							}, {
+								'title' : 'Criado por',
+								'field' : 'usuarioCriacao',
+								'subField' : 'nome'
+							},{
 								'title' : 'Criação',
 								'field' : 'dataCriacao',
 								'isDate' : 'true'
@@ -1049,8 +1076,9 @@ app
 								'title' : 'Nome',
 								'field' : 'nome'
 							}, {
-								'title' : 'Usuario Criação',
-								'field' : 'usuarioCriacao'
+								'title' : 'Criado por',
+								'field' : 'usuarioCriacao',
+								'subField' : 'nome'
 							}, {
 								'title' : 'Criação',
 								'field' : 'dataCriacao',
@@ -1195,6 +1223,10 @@ app
 								'isDate' : 'true'
 
 							}, {
+								'title' : 'Criado por',
+								'field' : 'usuarioCriacao',
+								'subField' : 'nome'
+							},{
 								'title' : 'Criação',
 								'field' : 'dataCriacao',
 								'isDate' : 'true'

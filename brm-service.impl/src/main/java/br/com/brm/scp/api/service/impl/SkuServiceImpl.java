@@ -19,9 +19,11 @@ import br.com.brm.scp.api.exceptions.SkuNotFoundException;
 import br.com.brm.scp.api.exceptions.TagNotFoundException;
 import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.service.SkuService;
+import br.com.brm.scp.api.service.UsuarioService;
 import br.com.brm.scp.api.service.document.OrigemSkuDocument;
 import br.com.brm.scp.api.service.document.SkuDocument;
 import br.com.brm.scp.api.service.document.TagDocument;
+import br.com.brm.scp.api.service.document.UsuarioDocument;
 import br.com.brm.scp.api.service.repositories.SkuRepository;
 import br.com.brm.scp.api.service.status.SkuFiltroEnum;
 import br.com.brm.scp.api.service.status.TagFiltroEnum;
@@ -51,7 +53,9 @@ public class SkuServiceImpl implements SkuService {
 	
 	@Autowired
 	private SkuRepository repository;
-
+	@Autowired
+	UsuarioService usuarioService;
+	
 	@Override
 	public SkuResponseDTO create(SkuRequestDTO request) throws SkuExistenteException {
 		
@@ -67,6 +71,8 @@ public class SkuServiceImpl implements SkuService {
 		
 		SkuDocument document = (SkuDocument) ConverterHelper.convert(request, SkuDocument.class);
 		document.setDataCriacao(new Date());
+		document.setUsuarioCriacao((UsuarioDocument) ConverterHelper.convert(usuarioService.getUsuarioLogado(),UsuarioDocument.class));
+
 		document = repository.save(document);
 		
 		SkuResponseDTO response = invokeResponse(document);

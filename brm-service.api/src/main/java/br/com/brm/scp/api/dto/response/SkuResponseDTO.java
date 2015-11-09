@@ -54,6 +54,18 @@ public class SkuResponseDTO implements Serializable {
 
 	@BindingClassMeta("ORIGEM")
 	private Collection<OrigemSkuResponseDTO> origens;
+	
+	@BindingClassMeta("USUARIO")
+	private UsuarioResponseDTO usuarioCriacao;
+
+	
+	public UsuarioResponseDTO getUsuarioCriacao() {
+		return usuarioCriacao;
+	}
+
+	public void setUsuarioCriacao(UsuarioResponseDTO usuarioCriacao) {
+		this.usuarioCriacao = usuarioCriacao;
+	}
 
 	public String getId() {
 		return id;

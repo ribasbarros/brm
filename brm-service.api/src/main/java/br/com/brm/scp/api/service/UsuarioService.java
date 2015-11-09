@@ -20,5 +20,7 @@ public interface UsuarioService {
 	Pageable<UsuarioResponseDTO> search(String searchTerm, int pageIndex, int size) throws UsuarioNotFoundException;
 	
 	Pageable<UsuarioResponseDTO> all(int pageIndex, int size) throws UsuarioNotFoundException;
-
+	
+	UsuarioResponseDTO getUsuarioLogado();
+	
 }

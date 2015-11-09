@@ -16,7 +16,9 @@ import br.com.brm.scp.api.exceptions.CategoriaExistenteException;
 import br.com.brm.scp.api.exceptions.CategoriaNotFoundException;
 import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.service.CategoriaService;
+import br.com.brm.scp.api.service.UsuarioService;
 import br.com.brm.scp.api.service.document.CategoriaDocument;
+import br.com.brm.scp.api.service.document.UsuarioDocument;
 import br.com.brm.scp.api.service.repositories.CategoriaRepository;
 import br.com.brm.scp.api.service.status.CategoriaFiltroEnum;
 import br.com.brm.scp.fw.helper.converters.ConverterHelper;
@@ -26,7 +28,9 @@ public class CategoriaServiceImpl implements CategoriaService {
 
 	@Autowired
 	private CategoriaRepository repository;
-
+	@Autowired
+	UsuarioService usuarioService;
+	
 	private static Logger logger = Logger.getLogger(CategoriaServiceImpl.class);
 	private static final String CATEGORIA_NOME = "categoria.nome";
 	private static final String CATEGORIA_ID = "categoria.id";
@@ -49,7 +53,8 @@ public class CategoriaServiceImpl implements CategoriaService {
 
 		CategoriaDocument document = invokeDocument(request);
 		document.setDataCriacao(new Date());
-		
+		document.setUsuarioCriacao((UsuarioDocument) ConverterHelper.convert(usuarioService.getUsuarioLogado(),UsuarioDocument.class));
+
 		document = repository.save(document);
 
 		return invokeResponse(document);

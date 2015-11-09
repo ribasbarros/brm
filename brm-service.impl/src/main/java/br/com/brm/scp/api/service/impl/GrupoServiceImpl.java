@@ -17,8 +17,10 @@ import br.com.brm.scp.api.exceptions.GrupoExistenteException;
 import br.com.brm.scp.api.exceptions.GrupoNotFoundException;
 import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.service.GrupoService;
+import br.com.brm.scp.api.service.UsuarioService;
 import br.com.brm.scp.api.service.document.GrupoDocument;
 import br.com.brm.scp.api.service.document.PerfilDocument;
+import br.com.brm.scp.api.service.document.UsuarioDocument;
 import br.com.brm.scp.api.service.repositories.GrupoRepository;
 import br.com.brm.scp.api.service.status.GrupoFiltroEnum;
 import br.com.brm.scp.fw.helper.converters.ConverterHelper;
@@ -27,7 +29,9 @@ import br.com.brm.scp.fw.helper.converters.ConverterHelper;
 public class GrupoServiceImpl implements GrupoService {
 	@Autowired
 	GrupoRepository repository;
-
+	@Autowired
+	UsuarioService usuarioService;
+	
 	private static Logger logger = Logger.getLogger(GrupoServiceImpl.class);
 	private static final String GRUPO_NOME = "grupo.nome";
 	private static final String GRUPO_ID = "grupo.id";
@@ -52,6 +56,7 @@ public class GrupoServiceImpl implements GrupoService {
 				
 		GrupoDocument document = invokeDocument(request);
 		document.setDataCriacao(new Date());
+		document.setUsuarioCriacao((UsuarioDocument) ConverterHelper.convert(usuarioService.getUsuarioLogado(),UsuarioDocument.class));
 		document = repository.save(document);
 		GrupoResponseDTO response = invokeResponse(document);
 		

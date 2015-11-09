@@ -12,6 +12,7 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 import br.com.brm.scp.api.annotation.BindingClassMeta;
 import br.com.brm.scp.api.dto.response.ItemResponseDTO;
 import br.com.brm.scp.api.dto.response.TagResponseDTO;
+import br.com.brm.scp.api.dto.response.UsuarioResponseDTO;
 import br.com.brm.scp.api.service.status.ClasseEnum;
 import br.com.brm.scp.api.service.status.PlanejamentoSku;
 import br.com.brm.scp.api.service.status.StatusReposicaoEnum;
@@ -56,6 +57,18 @@ public class SkuRequestDTO implements Serializable {
 
 	@BindingClassMeta("ORIGEM")
 	private Collection<OrigemSkuResponseDTO> origens;
+
+	@BindingClassMeta("USUARIO")
+	private UsuarioResponseDTO usuarioCriacao;
+
+	
+	public UsuarioResponseDTO getUsuarioCriacao() {
+		return usuarioCriacao;
+	}
+
+	public void setUsuarioCriacao(UsuarioResponseDTO usuarioCriacao) {
+		this.usuarioCriacao = usuarioCriacao;
+	}
 
 	public String getId() {
 		return id;

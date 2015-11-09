@@ -11,6 +11,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import br.com.brm.scp.api.dto.response.CategoriaResponseDTO;
+import br.com.brm.scp.api.dto.response.UsuarioResponseDTO;
 import br.com.brm.scp.api.service.status.ItemStatus;
 import br.com.brm.scp.fw.annotations.BindingClass;
 
@@ -37,6 +38,18 @@ public class ItemDocument implements Serializable {
 
 	@DateTimeFormat(iso = ISO.DATE_TIME)
 	private Date dataAlteracao;
+
+	@BindingClass(UsuarioResponseDTO.class)
+	private UsuarioDocument usuarioCriacao;
+	
+		
+	public UsuarioDocument getUsuarioCriacao() {
+		return usuarioCriacao;
+	}
+
+	public void setUsuarioCriacao(UsuarioDocument usuarioCriacao) {
+		this.usuarioCriacao = usuarioCriacao;
+	}
 
 	public String getId() {
 		return id;

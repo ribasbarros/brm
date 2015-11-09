@@ -16,7 +16,9 @@ import br.com.brm.scp.api.exceptions.TagExistenteException;
 import br.com.brm.scp.api.exceptions.TagNotFoundException;
 import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.service.TagService;
+import br.com.brm.scp.api.service.UsuarioService;
 import br.com.brm.scp.api.service.document.TagDocument;
+import br.com.brm.scp.api.service.document.UsuarioDocument;
 import br.com.brm.scp.api.service.repositories.TagRepository;
 import br.com.brm.scp.api.service.status.TagFiltroEnum;
 import br.com.brm.scp.fw.helper.converters.ConverterHelper;
@@ -25,6 +27,8 @@ import br.com.brm.scp.fw.helper.converters.ConverterHelper;
 public class TagServiceImpl implements TagService{
 	@Autowired
 	TagRepository repository;
+	@Autowired
+	UsuarioService usuarioService;
 	
 	private static Logger logger = Logger.getLogger(TagServiceImpl.class);
 	private static final String TAG_NOME = "tag.nome";
@@ -59,7 +63,8 @@ public class TagServiceImpl implements TagService{
 		
 		TagDocument document =invokeDocument(request);
 		document.setDataCriacao(new Date());
-		
+		document.setUsuarioCriacao((UsuarioDocument) ConverterHelper.convert(usuarioService.getUsuarioLogado(),UsuarioDocument.class));
+
 		document = repository.save(document);
 		return invokeResponse(document);
 	}

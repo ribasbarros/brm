@@ -18,10 +18,12 @@ import br.com.brm.scp.api.exceptions.FornecedorCentroExistenteException;
 import br.com.brm.scp.api.exceptions.FornecedorExistenteException;
 import br.com.brm.scp.api.exceptions.FornecedorNotFoundException;
 import br.com.brm.scp.api.service.FornecedorService;
+import br.com.brm.scp.api.service.UsuarioService;
 import br.com.brm.scp.api.service.document.ContatoDocument;
 import br.com.brm.scp.api.service.document.FornecedorCentroDocument;
 import br.com.brm.scp.api.service.document.FornecedorDocument;
 import br.com.brm.scp.api.service.document.OrigemSkuDocument;
+import br.com.brm.scp.api.service.document.UsuarioDocument;
 import br.com.brm.scp.api.service.repositories.FornecedorRepository;
 import br.com.brm.scp.api.service.status.FornecedorFiltroEnum;
 import br.com.brm.scp.fw.helper.converters.ConverterHelper;
@@ -65,7 +67,9 @@ public class FornecedorServiceImpl implements FornecedorService {
 
 	@Autowired
 	private FornecedorRepository repository;
-
+	@Autowired
+	UsuarioService usuarioService;
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -92,6 +96,8 @@ public class FornecedorServiceImpl implements FornecedorService {
 
 		FornecedorDocument document = (FornecedorDocument) ConverterHelper.convert(request, FornecedorDocument.class);
 		document.setDataCriacao(new Date());
+		document.setUsuarioCriacao((UsuarioDocument) ConverterHelper.convert(usuarioService.getUsuarioLogado(),UsuarioDocument.class));
+
 		document = repository.save(document);
 		FornecedorResponseDTO response = invokeResponse(document);
 

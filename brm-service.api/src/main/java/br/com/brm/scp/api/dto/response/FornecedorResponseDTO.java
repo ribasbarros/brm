@@ -27,7 +27,17 @@ public class FornecedorResponseDTO extends ReturnMessage implements Serializable
 	private Date dataCriacao;
 	private Date dataAlteracao;
 	
+	@BindingClassMeta("USUARIO")
+	private UsuarioResponseDTO usuarioCriacao;
 	
+	public UsuarioResponseDTO getUsuarioCriacao() {
+		return usuarioCriacao;
+	}
+
+	public void setUsuarioCriacao(UsuarioResponseDTO usuarioCriacao) {
+		this.usuarioCriacao = usuarioCriacao;
+	}
+
 	public Date getDataCriacao() {
 		return dataCriacao;
 	}
