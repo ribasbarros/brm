@@ -35,3 +35,18 @@ app.directive('brmShowData', function() {
 		templateUrl : 'private/components/template-show-data'
 	};
 });
+
+app.directive('brmShowMessage', function() {
+
+	return {
+		restrict : 'E',
+		templateUrl : 'private/components/template-message',
+		link : function($scope) {
+			$scope.$watch("trtResponse", function handleFooChange(newValue, oldValue) {
+				if(!angular.isUndefined(newValue.httpMensagem)){
+					$('#idMessage').modal();
+				}
+			});
+		}
+	};
+});

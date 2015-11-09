@@ -9,7 +9,7 @@ import br.com.brm.scp.api.annotation.BindingClassMeta;
 import br.com.brm.scp.api.dto.ContatoDTO;
 import br.com.brm.scp.api.dto.FornecedorCentroDTO;
 
-public class FornecedorResponseDTO extends ReturnMessage implements Serializable {
+public class FornecedorResponseDTO implements Serializable {
 
 	private static final long serialVersionUID = -9082309408255141102L;
 

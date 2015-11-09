@@ -189,6 +189,7 @@ app.controller('DataTableController', [
 			};
 
 			$scope.edit = function(id) {
+				console.log("editando: %s", $scope.urlFormEdit + "/" + id);
 				$location.path($scope.urlFormEdit + "/" + id);
 				
 			};
