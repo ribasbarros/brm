@@ -1,10 +1,12 @@
 package br.com.brm.scp.api.dto.response;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.data.annotation.Id;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import br.com.brm.scp.api.annotation.BindingClassMeta;
 import br.com.brm.scp.api.dto.request.RelacaoSkuResponseDTO;

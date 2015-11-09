@@ -22,7 +22,6 @@ import br.com.brm.scp.api.service.UsuarioService;
 import br.com.brm.scp.api.service.document.ContatoDocument;
 import br.com.brm.scp.api.service.document.FornecedorCentroDocument;
 import br.com.brm.scp.api.service.document.FornecedorDocument;
-import br.com.brm.scp.api.service.document.OrigemSkuDocument;
 import br.com.brm.scp.api.service.document.UsuarioDocument;
 import br.com.brm.scp.api.service.repositories.FornecedorRepository;
 import br.com.brm.scp.api.service.status.FornecedorFiltroEnum;
@@ -64,6 +63,8 @@ public class FornecedorServiceImpl implements FornecedorService {
 	private static final String FORNECEDOR_CENTRONRO = "fornecedor.centro.nro";
 
 	private static final String FORNECEDOR_CENTROEXISTENTE = "fornecedor.centroexistente";
+	
+	private static final String FORNECEDOR_CENTROCNPJ = "fornecedor.centrocnpj";
 
 	private static final String FORNECEDOR_CENTRO = "fornecedor.centro";
 
@@ -88,10 +89,15 @@ public class FornecedorServiceImpl implements FornecedorService {
 		Assert.notNull(request.getNomeFantasia(), FORNECEDOR_NOMEFANTASIA);
 		Assert.notNull(request.getRazaoSocial(), FORNECEDOR_RAZAOSOCIAL);
 		Assert.notNull(request.getCentros(), FORNECEDOR_CENTRO);
-		Assert.isTrue(request.getCentros().isEmpty(), FORNECEDOR_CENTRO);
+		Assert.isTrue(!request.getCentros().isEmpty(), FORNECEDOR_CENTRO);
 		Assert.isTrue(NumberHelper.isNumber(request.getCnpj()), FORNECEDOR_CNPJINVALIDO);
 		Assert.isTrue(CNPJValidator.isCNPJ(request.getCnpj()), FORNECEDOR_CNPJINVALIDO);
 
+		for(FornecedorCentroDTO centro : request.getCentros() ){
+			Assert.isTrue(NumberHelper.isNumber(centro.getCnpj()), FORNECEDOR_CENTROCNPJ);
+			Assert.isTrue(CNPJValidator.isCNPJ(centro.getCnpj()), FORNECEDOR_CENTROCNPJ);
+		}
+		
 		try {
 			hasRegister(request);
 		} catch (FornecedorNotFoundException e) {
@@ -191,9 +197,16 @@ public class FornecedorServiceImpl implements FornecedorService {
 		Assert.notNull(request.getDescricao(), FORNECEDOR_DESCRICAO);
 		Assert.notNull(request.getNomeFantasia(), FORNECEDOR_NOMEFANTASIA);
 		Assert.notNull(request.getRazaoSocial(), FORNECEDOR_RAZAOSOCIAL);
+		Assert.notNull(request.getCentros(), FORNECEDOR_CENTRO);
+		Assert.isTrue(!request.getCentros().isEmpty(), FORNECEDOR_CENTRO);
 		Assert.isTrue(NumberHelper.isNumber(request.getCnpj()), FORNECEDOR_CNPJINVALIDO);
 		Assert.isTrue(CNPJValidator.isCNPJ(request.getCnpj()), FORNECEDOR_CNPJINVALIDO);
 
+		for(FornecedorCentroDTO centro : request.getCentros() ){
+			Assert.isTrue(NumberHelper.isNumber(centro.getCnpj()), FORNECEDOR_CENTROCNPJ);
+			Assert.isTrue(CNPJValidator.isCNPJ(centro.getCnpj()), FORNECEDOR_CENTROCNPJ);
+		}
+		
 		try {
 			hasRegister(request);
 		} catch (FornecedorExistenteException e) {
