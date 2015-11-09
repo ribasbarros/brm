@@ -63,6 +63,8 @@ public class FornecedorServiceImpl implements FornecedorService {
 
 	private static final String FORNECEDOR_CENTROEXISTENTE = "fornecedor.centroexistente";
 
+	private static final String FORNECEDOR_CENTRO = "fornecedor.centro";
+
 	@Autowired
 	private FornecedorRepository repository;
 
@@ -81,6 +83,8 @@ public class FornecedorServiceImpl implements FornecedorService {
 		Assert.notNull(request.getDescricao(), FORNECEDOR_DESCRICAO);
 		Assert.notNull(request.getNomeFantasia(), FORNECEDOR_NOMEFANTASIA);
 		Assert.notNull(request.getRazaoSocial(), FORNECEDOR_RAZAOSOCIAL);
+		Assert.notNull(request.getCentros(), FORNECEDOR_CENTRO);
+		Assert.isTrue(request.getCentros().isEmpty(), FORNECEDOR_CENTRO);
 		Assert.isTrue(NumberHelper.isNumber(request.getCnpj()), FORNECEDOR_CNPJINVALIDO);
 		Assert.isTrue(CNPJValidator.isCNPJ(request.getCnpj()), FORNECEDOR_CNPJINVALIDO);
 

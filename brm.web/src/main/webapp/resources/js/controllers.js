@@ -226,7 +226,7 @@ app
 
 													},
 													function(erro) {
-										
+
 														$scope.mensagem = 'Cadastro de Item não realizado!';
 													});
 								}
@@ -267,240 +267,229 @@ app
 
 						} ]);
 
+app.controller('ItemEditController', [ '$scope', '$resource', '$routeParams',
+		'$location', 'ItemFactory',
+		function($scope, $resource, $routeParams, $location, ItemFactory) {
 
-app
-.controller(
-		'ItemEditController',
-		[
-				'$scope',
-				'$resource',
-				'$routeParams',
-				'$location',
-				'ItemFactory',
-				function($scope,$resource, $routeParams, $location,
-						ItemFactory) {
-					
-					$scope.item = ItemFactory.get({
-						id : $routeParams.id
+			$scope.item = ItemFactory.get({
+				id : $routeParams.id
+			});
+
+			$scope.categorias = $resource('categoria/all').query();
+
+			$scope.listaStatus = [ {
+				'nome' : 'DESCONTINUADO'
+			}, {
+				'nome' : 'CANCELADO'
+			}, {
+				'nome' : 'ATIVO'
+			} ];
+
+			$scope.submeter = function() {
+				if ($scope.formulario.$valid) {
+					console.log($scope.item);
+					$scope.item.$update(function() {
+						$scope.mensagem = 'Item Atualizado com sucesso!';
+					}, function(erro) {
+						$scope.mensagem = 'Alteração de Item não realizada!';
 					});
-					
-					$scope.categorias = $resource('categoria/all')
-							.query();
+				}
+			};
 
-					$scope.listaStatus = [ {
-						'nome' : 'DESCONTINUADO'
-					}, {
-						'nome' : 'CANCELADO'
-					}, {
-						'nome' : 'ATIVO'
-					} ];
+		} ]);
 
+app.controller('FornecedorController', [
+		'$scope',
+		'$location',
+		'$timeout',
+		'FornecedorFactory',
+		function($scope, $location, $timeout, FornecedorFactory) {
 
-					
-					$scope.submeter = function() {
-						if ($scope.formulario.$valid) {
-							console.log($scope.item);
-							$scope.item
-									.$update(
-											function() {
-												$scope.mensagem = 'Item Atualizado com sucesso!';
-											},
-											function(erro) {
-												$scope.mensagem = 'Alteração de Item não realizada!';
-											});
+			$scope.selected = {};
+
+			$scope.mapColumnsContato = [ {
+				'title' : 'Nome',
+				'field' : 'nome'
+			}, {
+				'title' : 'Telefone',
+				'field' : 'telefone',
+				'subField' : 'numero'
+			} ];
+
+			$scope.mapColumnsCentro = [ {
+				'title' : 'CNPJ',
+				'field' : 'cnpj'
+			}, {
+				'title' : 'CEP',
+				'field' : 'cep',
+			}, {
+				'title' : 'Centro',
+				'field' : 'centro',
+			} ];
+
+			$scope.fornecedor = new FornecedorFactory();
+			$scope.fornecedor.contatos = [];
+			$scope.fornecedor.centros = [];
+
+			$scope.addContato = function() {
+				if ($scope.modalContato.$valid) {
+					$scope.fornecedor.contatos.push($scope.selected);
+					$scope.selected = {};
+					alert("Adicionado com sucesso!");
+				}
+			};
+
+			$scope.addCentro = function() {
+				if ($scope.modalCentro.$valid) {
+					$scope.fornecedor.centros.push($scope.selected);
+					$scope.selected = {};
+					alert("Adicionado com sucesso!");
+				}
+			};
+
+			$scope.closeMessage = function() {
+				$('#idMessage').modal('hide');
+				if ($scope.trtResponse.go != null) {
+					$timeout(function() {
+						$location.path($scope.trtResponse.go);
+					}, 700);
+				}
+				;
+			};
+
+			$scope.trtResponse = {};
+			$scope.save = function(close) {
+				if ($scope.formulario.$valid) {
+					$scope.fornecedor.$save(function(response) {
+						$scope.trtResponse = response;
+						var url;
+						if (close) {
+							url = 'private/fornecedor/fornecedor-view';
+						} else {
+							url = 'private/fornecedor/fornecedor-edit/'
+									+ response.result.id;
 						}
-					};
+						$scope.trtResponse.go = url;
+					}, function(response) {
+						$scope.trtResponse = response.data;
+					});
+				}
+			};
 
-				} ]);
+			$scope.REST_SEARCH = 'fornecedor/search';
+			$scope.URL_CRUD = 'fornecedor/:id';
+			$scope.URL_FORM_CREATE = 'private/fornecedor/fornecedor-create';
+			$scope.URL_FORM_EDIT = 'private/fornecedor/fornecedor-edit';
 
+			$scope.map = [ {
+				'title' : 'Nome Fantasia',
+				'field' : 'nomeFantasia'
+			}, {
+				'title' : 'CNPJ',
+				'field' : 'cnpj'
+			}, {
+				'title' : 'Contato',
+				'field' : 'contatos',
+				'subField' : 'nome',
+				'isArray' : 'true'
+			}, {
+				'title' : 'Criação',
+				'field' : 'dataCriacao',
+				'isDate' : 'true'
+			}, {
+				'title' : 'Alterado',
+				'field' : 'dataAlteracao',
+				'isDate' : 'true'
+			} ];
 
+		} ]);
 
+app.controller('FornecedorEditController', [
+		'$scope',
+		'$routeParams',
+		'$location',
+		'$route',
+		'$timeout',
+		'FornecedorFactory',
+		function($scope, $routeParams, $location, $route, $timeout, FornecedorFactory) {
+			$scope.selected = {};
 
+			$scope.mapColumnsContato = [ {
+				'title' : 'Nome',
+				'field' : 'nome'
+			}, {
+				'title' : 'Telefone',
+				'field' : 'telefone',
+				'subField' : 'numero'
+			} ];
 
-app
-		.controller(
-				'FornecedorController',
-				[
-						'$scope',
-						'$location',
-						'FornecedorFactory',
-						function($scope, $location, FornecedorFactory) {
+			$scope.mapColumnsCentro = [ {
+				'title' : 'CNPJ',
+				'field' : 'cnpj'
+			}, {
+				'title' : 'CEP',
+				'field' : 'cep',
+			}, {
+				'title' : 'Centro',
+				'field' : 'centro',
+			} ];
 
-							$scope.selected = {};
+			$scope.addContato = function() {
+				if ($scope.modalContato.$valid) {
+					$scope.fornecedor.contatos.push($scope.selected);
+					$scope.selected = {};
+					alert("Adicionado com sucesso!");
+				}
+			};
 
-							$scope.mensagem = '';
+			$scope.addCentro = function() {
+				if ($scope.modalCentro.$valid) {
+					$scope.fornecedor.centros.push($scope.selected);
+					$scope.selected = {};
+					alert("Adicionado com sucesso!");
+				}
+			};
 
-							$scope.mapColumnsContato = [ {
-								'title' : 'Nome',
-								'field' : 'nome'
-							}, {
-								'title' : 'Telefone',
-								'field' : 'telefone',
-								'subField' : 'numero'
-							} ];
+			$scope.load = function() {
+				$scope.fornecedor = FornecedorFactory.get({
+					id : $routeParams.id
+				});
+			};
 
-							$scope.mapColumnsCentro = [ {
-								'title' : 'CNPJ',
-								'field' : 'cnpj'
-							}, {
-								'title' : 'CEP',
-								'field' : 'cep',
-							}, {
-								'title' : 'Centro',
-								'field' : 'centro',
-							} ];
+			$scope.closeMessage = function() {
+				$('#idMessage').modal('hide');
+				if ($scope.trtResponse.go != null) {
+					$timeout(function() {
+						$location.path($scope.trtResponse.go);
+					}, 700);
+				}
+				;
+			};
 
-							$scope.fornecedor = new FornecedorFactory();
-							$scope.fornecedor.contatos = [];
-							$scope.fornecedor.centros = [];
+			$scope.trtResponse = {};
+			$scope.save = function(close) {
+				if ($scope.formulario.$valid) {
+					$scope.fornecedor.$update(function(response) {
+						$scope.trtResponse = response;
+						var url;
+						if (close) {
+							url = 'private/fornecedor/fornecedor-view';
+						} 
+						$scope.fornecedor = response.result;
+						$scope.trtResponse.go = url;
+					}, function(response) {
+						$scope.trtResponse = response.data;
+					});
+				}
+			};
 
-							$scope.addContato = function() {
-								if ($scope.modalContato.$valid) {
-									$scope.fornecedor.contatos
-											.push($scope.selected);
-									$scope.selected = {};
-									alert("Adicionado com sucesso!");
-								}
-							};
+			$scope.load();
 
-							$scope.addCentro = function() {
-								if ($scope.modalCentro.$valid) {
-									$scope.fornecedor.centros
-											.push($scope.selected);
-									$scope.selected = {};
-									alert("Adicionado com sucesso!");
-								}
-							};
+		} ]);
 
-							$scope.submeter = function() {
-								if ($scope.formulario.$valid) {
-									console.log($scope.fornecedor);
-									$scope.fornecedor
-											.$save(
-													function(response) {
-														console.log(response);
-														$scope.mensagem = 'Cadastro de Fornecedor realizado com sucesso!';
-														$scope.fornecedor = new FornecedorFactory();
-													},
-													function(erro) {
-														console.log(erro);
-														$scope.mensagem = 'Cadastro de Fornecedor não realizado!';
-													});
-								}
-							};
-
-							$scope.REST_SEARCH = 'fornecedor/search';
-							$scope.URL_CRUD = 'fornecedor/:id';
-							$scope.URL_FORM_CREATE = 'private/fornecedor/fornecedor-create';
-							$scope.URL_FORM_EDIT = 'private/fornecedor/fornecedor-edit';
-
-							$scope.map = [ {
-								'title' : 'Nome Fantasia',
-								'field' : 'nomeFantasia'
-							}, {
-								'title' : 'CNPJ',
-								'field' : 'cnpj'
-							}, {
-								'title' : 'Contato',
-								'field' : 'contatos',
-								'subField' : 'nome',
-								'isArray' : 'true'
-							}, {
-								'title' : 'Criação',
-								'field' : 'dataCriacao',
-								'isDate' : 'true'
-							}, {
-								'title' : 'Alterado',
-								'field' : 'dataAlteracao',
-								'isDate' : 'true'
-							} ];
-
-						} ]);
-
-app
-		.controller(
-				'FornecedorEditController',
-				[
-						'$scope',
-						'$routeParams',
-						'$location',
-						'$route',
-						'FornecedorFactory',
-						function($scope, $routeParams, $location, $route,
-								FornecedorFactory) {
-							$scope.selected = {};
-
-							$scope.mapColumnsContato = [ {
-								'title' : 'Nome',
-								'field' : 'nome'
-							}, {
-								'title' : 'Telefone',
-								'field' : 'telefone',
-								'subField' : 'numero'
-							} ];
-
-							$scope.mapColumnsCentro = [ {
-								'title' : 'CNPJ',
-								'field' : 'cnpj'
-							}, {
-								'title' : 'CEP',
-								'field' : 'cep',
-							}, {
-								'title' : 'Centro',
-								'field' : 'centro',
-							} ];
-
-							$scope.addContato = function() {
-								if ($scope.modalContato.$valid) {
-									$scope.fornecedor.contatos
-											.push($scope.selected);
-									$scope.selected = {};
-									alert("Adicionado com sucesso!");
-								}
-							};
-
-							$scope.addCentro = function() {
-								if ($scope.modalCentro.$valid) {
-									$scope.fornecedor.centros
-											.push($scope.selected);
-									$scope.selected = {};
-									alert("Adicionado com sucesso!");
-								}
-							};
-
-							$scope.load = function() {
-
-								$scope.fornecedor = FornecedorFactory.get({
-									id : $routeParams.id
-								});
-
-							};
-
-							$scope.saveAndClose = function() {
-								$scope.save();
-								$location
-										.path("#/private/fornecedor/fornecedor-view");
-							};
-
-							$scope.save = function() {
-								if ($scope.formulario.$valid) {
-									$scope.fornecedor
-											.$update(
-													function() {
-														$scope.mensagem = 'Alteração de Fornecedor realizado com sucesso!';
-													},
-													function(erro) {
-														$scope.mensagem = 'Alteração de Fornecedor não realizado!';
-													});
-								}
-							};
-
-							$scope.load();
-
-						} ]);
-
-app.controller('SkuEditController', [ '$scope','$resource', '$routeParams', '$location',
-		'SkuFactory', function($scope,$resource, $routeParams, $location, SkuFactory) {
+app.controller('SkuEditController', [ '$scope', '$resource', '$routeParams',
+		'$location', 'SkuFactory',
+		function($scope, $resource, $routeParams, $location, SkuFactory) {
 			$scope.listaItens = $resource('item/all').query();
 			$scope.listaSku = $resource('sku/all').query();
 			$scope.listaFornecedor = $resource('fornecedor/all').query();
@@ -508,13 +497,13 @@ app.controller('SkuEditController', [ '$scope','$resource', '$routeParams', '$lo
 			$scope.loadTags = function(query) {
 				return $resource('tag/all').query().$promise;
 			};
-	
+
 			$scope.load = function() {
 				$scope.sku = SkuFactory.get({
 					id : $routeParams.id
 				});
 			};
-			
+
 			$scope.diasDaSemana = [ {
 				"id" : 2,
 				"value" : "Segunda",
@@ -580,7 +569,7 @@ app.controller('SkuEditController', [ '$scope','$resource', '$routeParams', '$lo
 			}, {
 				'nome' : 'FINALIZADA'
 			} ];
-			
+
 			$scope.submeter = function() {
 				if ($scope.formulario.$valid) {
 					$scope.sku.$update(function() {
@@ -590,16 +579,13 @@ app.controller('SkuEditController', [ '$scope','$resource', '$routeParams', '$lo
 					});
 				}
 			};
-			
-			
+
 			$scope.checkedOrNot = function(id, isChecked, index) {
 				if (isChecked) {
 					$scope.sku.frequenciaAnalise.push(id);
 				} else {
-					var _index = $scope.sku.frequenciaAnalise
-							.indexOf(id);
-					$scope.sku.frequenciaAnalise.splice(_index,
-							1);
+					var _index = $scope.sku.frequenciaAnalise.indexOf(id);
+					$scope.sku.frequenciaAnalise.splice(_index, 1);
 				}
 			};
 
@@ -610,7 +596,7 @@ app.controller('SkuEditController', [ '$scope','$resource', '$routeParams', '$lo
 					alert("Adicionado com sucesso!");
 				}
 			};
-				
+
 			$scope.mapColumnsOrigem = [ {
 				'title' : 'Tipo',
 				'field' : 'tipo'
@@ -618,7 +604,7 @@ app.controller('SkuEditController', [ '$scope','$resource', '$routeParams', '$lo
 				'title' : 'ID',
 				'field' : 'id'
 			} ];
-			
+
 			$scope.load();
 		} ]);
 
@@ -906,7 +892,7 @@ app
 
 							$scope.addGrupo = function() {
 								if ($scope.modalGrupo.$valid) {
-									
+
 									$scope.usuario.grupos.push($scope.selected);
 									$scope.selected = {};
 									alert("Adicionado com sucesso!");
@@ -972,7 +958,7 @@ app
 						'$routeParams',
 						'$location',
 						'UsuarioFactory',
-						function($scope,$resource, $routeParams, $location,
+						function($scope, $resource, $routeParams, $location,
 								UsuarioFactory) {
 							$scope.selected = {};
 							$scope.listaGrupos = $resource('grupo/all').query();
@@ -996,21 +982,21 @@ app
 													});
 								}
 							};
-							
+
 							$scope.addGrupo = function() {
 								if ($scope.modalGrupo.$valid) {
-									
+
 									$scope.usuario.grupos.push($scope.selected);
 									$scope.selected = {};
 									alert("Adicionado com sucesso!");
 								}
 							};
-							
+
 							$scope.mapColumnsGrupo = [ {
 								'title' : 'Nome',
 								'field' : 'nome'
 							} ];
-							
+
 							$scope.load();
 						} ]);
 
@@ -1206,61 +1192,47 @@ app
 
 						} ]);
 
-app
-.controller(
-		'DfuEditController',
-		[
-				'$scope',
-				'$resource',
-				'$routeParams',
-				'$location',
-				'DfuFactory',
-				function($scope, $resource,$routeParams, $location,
-						DfuFactory) {
+app.controller('DfuEditController', [ '$scope', '$resource', '$routeParams',
+		'$location', 'DfuFactory',
+		function($scope, $resource, $routeParams, $location, DfuFactory) {
 
-					$scope.dfu = DfuFactory.get({
-						id : $routeParams.id
+			$scope.dfu = DfuFactory.get({
+				id : $routeParams.id
+			});
+
+			$scope.listaItens = $resource('item/all').query();
+			$scope.listaDfu = $resource('dfu/all').query();
+			$scope.listaSku = $resource('sku/all').query();
+
+			$scope.loadTags = function(query) {
+				return $resource('tag/all').query().$promise;
+			};
+
+			$scope.listaStatus = [ {
+				'nome' : 'A'
+			}, {
+				'nome' : 'B'
+			}, {
+				'nome' : 'C'
+			} ];
+
+			$scope.listaPlanejamentos = [ {
+				'nome' : 'MANUAL'
+			}, {
+				'nome' : 'AUTOMATICO'
+			} ];
+
+			$scope.submeter = function() {
+				if ($scope.formulario.$valid) {
+					$scope.dfu.$update(function() {
+						$scope.mensagem = 'DFU Atualizado com sucesso!';
+					}, function(erro) {
+						$scope.mensagem = 'Alteração de DFU não realizada!';
 					});
+				}
+			};
 
-					$scope.listaItens = $resource('item/all').query();
-					$scope.listaDfu = $resource('dfu/all').query();
-					$scope.listaSku = $resource('sku/all').query();
-
-					$scope.loadTags = function(query) {
-						return $resource('tag/all').query().$promise;
-					};
-
-					$scope.listaStatus = [ {
-						'nome' : 'A'
-					}, {
-						'nome' : 'B'
-					}, {
-						'nome' : 'C'
-					} ];
-
-					$scope.listaPlanejamentos = [ {
-						'nome' : 'MANUAL'
-					}, {
-						'nome' : 'AUTOMATICO'
-					} ];
-
-					
-					
-					$scope.submeter = function() {
-						if ($scope.formulario.$valid) {
-							$scope.dfu
-									.$update(
-											function() {
-												$scope.mensagem = 'DFU Atualizado com sucesso!';
-											},
-											function(erro) {
-												$scope.mensagem = 'Alteração de DFU não realizada!';
-											});
-						}
-					};
-
-				} ]);
-
+		} ]);
 
 app
 		.controller(
@@ -1306,11 +1278,11 @@ app.controller('ProfileController', [
 				UsuarioFactory) {
 
 			$scope.user = $resource('usuario/user').get();
-			
+
 			userLogado = $scope.user;
 
 			console.log($scope.user);
-			
+
 			$scope.logout = function() {
 				$http.post('auth/logout', {}).success(function() {
 					$window.location.href = "/brm.web/";
