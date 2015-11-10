@@ -23,193 +23,182 @@ app.controller('CompanyCtrl',
 
 		} ]);
 
-app
-		.controller(
-				'SkuController',
-				[
-						'$scope',
-						'$resource',
-						'$location',
-						'$timeout',
-						'SkuFactory',
-						function($scope, $resource, $location, $timeout,SkuFactory) {
-							$scope.sku = new SkuFactory();
-							$scope.sku.frequenciaAnalise = [];
-							$scope.sku.origens = [];
-							$scope.selected = {};
-							$scope.listaItens = $resource('item/all').query();
-							$scope.listaSku = $resource('sku/all').query();
-							$scope.listaFornecedor = $resource('fornecedor/all')
-									.query();
+app.controller('SkuController', [ '$scope', '$resource', '$location',
+		'$timeout', 'SkuFactory',
+		function($scope, $resource, $location, $timeout, SkuFactory) {
+			$scope.sku = new SkuFactory();
+			$scope.sku.frequenciaAnalise = [];
+			$scope.sku.origens = [];
+			$scope.selected = {};
+			$scope.listaItens = $resource('item/all').query();
+			$scope.listaSku = $resource('sku/all').query();
+			$scope.listaFornecedor = $resource('fornecedor/all').query();
 
-							$scope.loadTags = function(query) {
-								return $resource('tag/all').query().$promise;
-							};
+			$scope.loadTags = function(query) {
+				return $resource('tag/all').query().$promise;
+			};
 
-							$scope.diasDaSemana = [ {
-								"id" : 2,
-								"value" : "Segunda",
-								"checked" : false
-							}, {
-								"id" : 3,
-								"value" : "Terça",
-								"checked" : false
-							}, {
-								"id" : 4,
-								"value" : "Quarta",
-								"checked" : false
-							}, {
-								"id" : 5,
-								"value" : "Quinta",
-								"checked" : false
-							}, {
-								"id" : 6,
-								"value" : "Sexta",
-								"checked" : false
-							}, {
-								"id" : 7,
-								"value" : "Sábado",
-								"checked" : false
-							}, {
-								"id" : 1,
-								"value" : "Domingo",
-								"checked" : false
-							} ];
+			$scope.diasDaSemana = [ {
+				"id" : 2,
+				"value" : "Segunda",
+				"checked" : false
+			}, {
+				"id" : 3,
+				"value" : "Terça",
+				"checked" : false
+			}, {
+				"id" : 4,
+				"value" : "Quarta",
+				"checked" : false
+			}, {
+				"id" : 5,
+				"value" : "Quinta",
+				"checked" : false
+			}, {
+				"id" : 6,
+				"value" : "Sexta",
+				"checked" : false
+			}, {
+				"id" : 7,
+				"value" : "Sábado",
+				"checked" : false
+			}, {
+				"id" : 1,
+				"value" : "Domingo",
+				"checked" : false
+			} ];
 
-							$scope.listaOrigemSku = [ {
-								'nome' : 'SKU'
-							}, {
-								'nome' : 'FORNECEDOR'
-							} ];
+			$scope.listaOrigemSku = [ {
+				'nome' : 'SKU'
+			}, {
+				'nome' : 'FORNECEDOR'
+			} ];
 
-							$scope.listaStatus = [ {
-								'nome' : 'A'
-							}, {
-								'nome' : 'B'
-							}, {
-								'nome' : 'C'
-							} ];
+			$scope.listaStatus = [ {
+				'nome' : 'A'
+			}, {
+				'nome' : 'B'
+			}, {
+				'nome' : 'C'
+			} ];
 
-							$scope.listaPlanejamentos = [ {
-								'nome' : 'ESTOQUE'
-							}, {
-								'nome' : 'SOB_ENCOMENDA'
-							}, {
-								'nome' : 'PROMOCAO'
-							}, {
-								'nome' : 'NO_LIMITE'
-							} ];
+			$scope.listaPlanejamentos = [ {
+				'nome' : 'ESTOQUE'
+			}, {
+				'nome' : 'SOB_ENCOMENDA'
+			}, {
+				'nome' : 'PROMOCAO'
+			}, {
+				'nome' : 'NO_LIMITE'
+			} ];
 
-							$scope.listaReposicoes = [ {
-								'nome' : 'RASCUNHO'
-							}, {
-								'nome' : 'DESBLOQUEADA'
-							}, {
-								'nome' : 'BLOQUEADA'
-							}, {
-								'nome' : 'CANCELADA'
-							}, {
-								'nome' : 'FINALIZADA'
-							} ];
+			$scope.listaReposicoes = [ {
+				'nome' : 'RASCUNHO'
+			}, {
+				'nome' : 'DESBLOQUEADA'
+			}, {
+				'nome' : 'BLOQUEADA'
+			}, {
+				'nome' : 'CANCELADA'
+			}, {
+				'nome' : 'FINALIZADA'
+			} ];
 
-							$scope.closeMessage = function() {
-								$('#idMessage').modal('hide');
-								if ($scope.trtResponse.go != null) {
-									$timeout(function() {
-										$location.path($scope.trtResponse.go);
-									}, 700);
-								}
-								;
-							};
+			$scope.closeMessage = function() {
+				$('#idMessage').modal('hide');
+				if ($scope.trtResponse.go != null) {
+					$timeout(function() {
+						$location.path($scope.trtResponse.go);
+					}, 700);
+				}
+				;
+			};
 
-							$scope.trtResponse = {};
-							$scope.save = function(close) {
-								if ($scope.formulario.$valid) {
-									$scope.sku.$save(function(response) {
-										$scope.trtResponse = response;
-										var url;
-										if (close) {
-											url = 'private/sku/sku-view';
-										} else {
-											url = 'private/sku/sku-edit/'
-													+ response.result.id;
-										}
-										$scope.trtResponse.go = url;
-									}, function(response) {
-										$scope.trtResponse = response.data;
-									});
-								}
-							};
+			$scope.trtResponse = {};
+			$scope.save = function(close) {
+				if ($scope.formulario.$valid) {
+					$scope.sku.$save(function(response) {
+						$scope.trtResponse = response;
+						var url;
+						if (close) {
+							url = 'private/sku/sku-view';
+						} else {
+							url = 'private/sku/sku-edit/' + response.result.id;
+						}
+						$scope.trtResponse.go = url;
+					}, function(response) {
+						$scope.trtResponse = response.data;
+					});
+				}
+			};
 
-							$scope.checkedOrNot = function(id, isChecked, index) {
-								if (isChecked) {
-									$scope.sku.frequenciaAnalise.push(id);
-								} else {
-									var _index = $scope.sku.frequenciaAnalise
-											.indexOf(id);
-									$scope.sku.frequenciaAnalise.splice(_index,
-											1);
-								}
-							};
+			$scope.checkedOrNot = function(id, isChecked, index) {
+				if (isChecked) {
+					$scope.sku.frequenciaAnalise.push(id);
+				} else {
+					var _index = $scope.sku.frequenciaAnalise.indexOf(id);
+					$scope.sku.frequenciaAnalise.splice(_index, 1);
+				}
+			};
 
-							$scope.addOrigem = function() {
-								if ($scope.modalOrigem.$valid) {
-									$scope.sku.origens.push($scope.selected);
-									$scope.selected = {};
-									alert("Adicionado com sucesso!");
-								}
-							};
+			$scope.addOrigem = function() {
+				if ($scope.modalOrigem.$valid) {
+					$scope.sku.origens.push($scope.selected);
+					$scope.selected = {};
+					alert("Adicionado com sucesso!");
+				}
+			};
 
-							$scope.REST_SEARCH = 'sku/search';
-							$scope.URL_CRUD = 'sku/:id';
-							$scope.URL_FORM_CREATE = 'private/sku/sku-create';
-							$scope.URL_FORM_EDIT = 'private/sku/sku-edit';
+			$scope.REST_SEARCH = 'sku/search';
+			$scope.URL_CRUD = 'sku/:id';
+			$scope.URL_FORM_CREATE = 'private/sku/sku-create';
+			$scope.URL_FORM_EDIT = 'private/sku/sku-edit';
 
-							$scope.mapColumnsOrigem = [ {
-								'title' : 'Tipo',
-								'field' : 'tipo'
-							}, {
-								'title' : 'ID',
-								'field' : 'id'
-							} ];
+			$scope.mapColumnsOrigem = [ {
+				'title' : 'Tipo',
+				'field' : 'tipo'
+			}, {
+				'title' : 'ID',
+				'field' : 'id'
+			} ];
 
-							$scope.map = [ {
-								'title' : 'Item',
-								'field' : 'item',
-								'subField' : 'nome'
-							}, {
-								'title' : 'Tags',
-								'field' : 'tags',
-								'subField' : 'nome',
-								'isArray' : 'true'
-							}, {
-								'title' : 'Situação',
-								'field' : 'status'
-							}, {
-								'title' : 'Planejamento',
-								'field' : 'modelo'
-							}, {
-								'title' : 'Classe',
-								'field' : 'classe'
-							}, {
-								'title' : 'Data Maturidade',
-								'field' : 'dataMaturidade',
-								'isDate' : 'true'
-							}, {
-								'title' : 'Criado por',
-								'field' : 'usuarioCriacao',
-								'subField' : 'nome'
-							}, {
-								'title' : 'Criação',
-								'field' : 'dataCriacao',
-								'isDate' : 'true'
-							}, {
-								'title' : 'Alteração',
-								'field' : 'dataAlteracao',
-								'isDate' : 'true'
-							} ];
+			$scope.map = [ {
+				'title' : 'Item',
+				'field' : 'item',
+				'subField' : 'nome'
+			}, {
+				'title' : 'Tags',
+				'field' : 'tags',
+				'subField' : 'nome',
+				'isArray' : 'true'
+			}, {
+				'title' : 'Situação',
+				'field' : 'status'
+			}, {
+				'title' : 'Planejamento',
+				'field' : 'modelo'
+			}, {
+				'title' : 'Classe',
+				'field' : 'classe'
+			}, {
+				'title' : 'Data Maturidade',
+				'field' : 'dataMaturidade',
+				'isDate' : 'true'
+			}, {
+				'title' : 'Criado por',
+				'field' : 'usuarioCriacao',
+				'subField' : 'nome'
+			}, {
+				'title' : 'Criação',
+				'field' : 'dataCriacao',
+				'isDate' : 'true'
+			}, {
+				'title' : 'Alteração',
+				'field' : 'dataAlteracao',
+				'isDate' : 'true'
+			} ];
 
-						} ]);
+		} ]);
 
 app.controller('ItemController', [
 		'$scope',
@@ -552,187 +541,176 @@ app.controller('FornecedorEditController', [
 
 		} ]);
 
-app
-		.controller(
-				'SkuEditController',
-				[
-						'$scope',
-						'$resource',
-						'$routeParams',
-						'$location',
-						'$timeout',
-						'SkuFactory',
-						function($scope, $resource, $routeParams, $location,$timeout,
-								SkuFactory) {
-							$scope.listaItens = $resource('item/all').query();
-							$scope.listaSku = $resource('sku/all').query();
-							$scope.listaFornecedor = $resource('fornecedor/all')
-									.query();
-							$scope.loadTags = function(query) {
-								return $resource('tag/all').query().$promise;
-							};
+app.controller('SkuEditController',
+		[
+				'$scope',
+				'$resource',
+				'$routeParams',
+				'$location',
+				'$timeout',
+				'SkuFactory',
+				function($scope, $resource, $routeParams, $location, $timeout,
+						SkuFactory) {
+					$scope.listaItens = $resource('item/all').query();
+					$scope.listaSku = $resource('sku/all').query();
+					$scope.listaFornecedor = $resource('fornecedor/all')
+							.query();
+					$scope.loadTags = function(query) {
+						return $resource('tag/all').query().$promise;
+					};
 
-							$scope.load = function() {
-								SkuFactory.get({
-									id : $routeParams.id
-								}).$promise.then(function(data) {
-									$scope.sku = data;
-									$scope.loadDaysOfWeek();
-									$scope.sku.dataMaturidade = new Date(
-											$scope.sku.dataMaturidade);
-									$scope.sku.dataDescontinuacao = new Date(
-											$scope.sku.dataDescontinuacao);
-								});
-							};
+					$scope.load = function() {
+						SkuFactory.get({
+							id : $routeParams.id
+						}).$promise.then(function(data) {
+							$scope.sku = data;
+							$scope.loadDaysOfWeek();
+							$scope.sku.dataMaturidade = new Date(
+									$scope.sku.dataMaturidade);
+							$scope.sku.dataDescontinuacao = new Date(
+									$scope.sku.dataDescontinuacao);
+						});
+					};
 
-							$scope.diasDaSemana = [];
-							$scope.loadDaysOfWeek = function() {
-								$scope.diasDaSemana = [
-										{
-											"id" : 2,
-											"value" : "Segunda",
-											"checked" : $scope.sku.frequenciaAnalise
-													.indexOf(2) != -1 ? true
-													: false
-										},
-										{
-											"id" : 3,
-											"value" : "Terça",
-											"checked" : $scope.sku.frequenciaAnalise
-													.indexOf(3) != -1 ? true
-													: false
-										},
-										{
-											"id" : 4,
-											"value" : "Quarta",
-											"checked" : $scope.sku.frequenciaAnalise
-													.indexOf(4) != -1 ? true
-													: false
-										},
-										{
-											"id" : 5,
-											"value" : "Quinta",
-											"checked" : $scope.sku.frequenciaAnalise
-													.indexOf(5) != -1 ? true
-													: false
-										},
-										{
-											"id" : 6,
-											"value" : "Sexta",
-											"checked" : $scope.sku.frequenciaAnalise
-													.indexOf(6) != -1 ? true
-													: false
-										},
-										{
-											"id" : 7,
-											"value" : "Sábado",
-											"checked" : $scope.sku.frequenciaAnalise
-													.indexOf(7) != -1 ? true
-													: false
-										},
-										{
-											"id" : 1,
-											"value" : "Domingo",
-											"checked" : $scope.sku.frequenciaAnalise
-													.indexOf(1) != -1 ? true
-													: false
-										} ];
-							};
+					$scope.diasDaSemana = [];
+					$scope.loadDaysOfWeek = function() {
+						$scope.diasDaSemana = [
+								{
+									"id" : 2,
+									"value" : "Segunda",
+									"checked" : $scope.sku.frequenciaAnalise
+											.indexOf(2) != -1 ? true : false
+								},
+								{
+									"id" : 3,
+									"value" : "Terça",
+									"checked" : $scope.sku.frequenciaAnalise
+											.indexOf(3) != -1 ? true : false
+								},
+								{
+									"id" : 4,
+									"value" : "Quarta",
+									"checked" : $scope.sku.frequenciaAnalise
+											.indexOf(4) != -1 ? true : false
+								},
+								{
+									"id" : 5,
+									"value" : "Quinta",
+									"checked" : $scope.sku.frequenciaAnalise
+											.indexOf(5) != -1 ? true : false
+								},
+								{
+									"id" : 6,
+									"value" : "Sexta",
+									"checked" : $scope.sku.frequenciaAnalise
+											.indexOf(6) != -1 ? true : false
+								},
+								{
+									"id" : 7,
+									"value" : "Sábado",
+									"checked" : $scope.sku.frequenciaAnalise
+											.indexOf(7) != -1 ? true : false
+								},
+								{
+									"id" : 1,
+									"value" : "Domingo",
+									"checked" : $scope.sku.frequenciaAnalise
+											.indexOf(1) != -1 ? true : false
+								} ];
+					};
 
-							$scope.listaOrigemSku = [ {
-								'nome' : 'SKU'
-							}, {
-								'nome' : 'FORNECEDOR'
-							} ];
+					$scope.listaOrigemSku = [ {
+						'nome' : 'SKU'
+					}, {
+						'nome' : 'FORNECEDOR'
+					} ];
 
-							$scope.listaStatus = [ {
-								'nome' : 'A'
-							}, {
-								'nome' : 'B'
-							}, {
-								'nome' : 'C'
-							} ];
+					$scope.listaStatus = [ {
+						'nome' : 'A'
+					}, {
+						'nome' : 'B'
+					}, {
+						'nome' : 'C'
+					} ];
 
-							$scope.listaPlanejamentos = [ {
-								'nome' : 'ESTOQUE'
-							}, {
-								'nome' : 'SOB_ENCOMENDA'
-							}, {
-								'nome' : 'PROMOCAO'
-							}, {
-								'nome' : 'NO_LIMITE'
-							} ];
+					$scope.listaPlanejamentos = [ {
+						'nome' : 'ESTOQUE'
+					}, {
+						'nome' : 'SOB_ENCOMENDA'
+					}, {
+						'nome' : 'PROMOCAO'
+					}, {
+						'nome' : 'NO_LIMITE'
+					} ];
 
-							$scope.listaReposicoes = [ {
-								'nome' : 'RASCUNHO'
-							}, {
-								'nome' : 'DESBLOQUEADA'
-							}, {
-								'nome' : 'BLOQUEADA'
-							}, {
-								'nome' : 'CANCELADA'
-							}, {
-								'nome' : 'FINALIZADA'
-							} ];
+					$scope.listaReposicoes = [ {
+						'nome' : 'RASCUNHO'
+					}, {
+						'nome' : 'DESBLOQUEADA'
+					}, {
+						'nome' : 'BLOQUEADA'
+					}, {
+						'nome' : 'CANCELADA'
+					}, {
+						'nome' : 'FINALIZADA'
+					} ];
 
-							$scope.closeMessage = function() {
-								$('#idMessage').modal('hide');
-								if ($scope.trtResponse.go != null) {
-									$timeout(function() {
-										$location.path($scope.trtResponse.go);
-									}, 700);
-								}
-								;
-							};
+					$scope.closeMessage = function() {
+						$('#idMessage').modal('hide');
+						if ($scope.trtResponse.go != null) {
+							$timeout(function() {
+								$location.path($scope.trtResponse.go);
+							}, 700);
+						}
+						;
+					};
 
-							$scope.trtResponse = {};
-							$scope.save = function(close) {
-								if ($scope.formulario.$valid) {
-									$scope.sku.$update(function(response) {
-										$scope.trtResponse = response;
-										var url;
-										if (close) {
-											url = 'private/sku/sku-view';
-										} else {
-											$scope.load();
-										}
-										$scope.trtResponse.go = url;
-									}, function(response) {
-										$scope.trtResponse = response.data;
-									});
-								}
-							};
-
-
-							$scope.checkedOrNot = function(id, isChecked, index) {
-								if (isChecked) {
-									$scope.sku.frequenciaAnalise.push(id);
+					$scope.trtResponse = {};
+					$scope.save = function(close) {
+						if ($scope.formulario.$valid) {
+							$scope.sku.$update(function(response) {
+								$scope.trtResponse = response;
+								var url;
+								if (close) {
+									url = 'private/sku/sku-view';
 								} else {
-									var _index = $scope.sku.frequenciaAnalise
-											.indexOf(id);
-									$scope.sku.frequenciaAnalise.splice(_index,
-											1);
+									$scope.load();
 								}
-							};
+								$scope.trtResponse.go = url;
+							}, function(response) {
+								$scope.trtResponse = response.data;
+							});
+						}
+					};
 
-							$scope.addOrigem = function() {
-								if ($scope.modalOrigem.$valid) {
-									$scope.sku.origens.push($scope.selected);
-									$scope.selected = {};
-									alert("Adicionado com sucesso!");
-								}
-							};
+					$scope.checkedOrNot = function(id, isChecked, index) {
+						if (isChecked) {
+							$scope.sku.frequenciaAnalise.push(id);
+						} else {
+							var _index = $scope.sku.frequenciaAnalise
+									.indexOf(id);
+							$scope.sku.frequenciaAnalise.splice(_index, 1);
+						}
+					};
 
-							$scope.mapColumnsOrigem = [ {
-								'title' : 'Tipo',
-								'field' : 'tipo'
-							}, {
-								'title' : 'ID',
-								'field' : 'id'
-							} ];
+					$scope.addOrigem = function() {
+						if ($scope.modalOrigem.$valid) {
+							$scope.sku.origens.push($scope.selected);
+							$scope.selected = {};
+							alert("Adicionado com sucesso!");
+						}
+					};
 
-							$scope.load();
-						} ]);
+					$scope.mapColumnsOrigem = [ {
+						'title' : 'Tipo',
+						'field' : 'tipo'
+					}, {
+						'title' : 'ID',
+						'field' : 'id'
+					} ];
+
+					$scope.load();
+				} ]);
 
 app.controller('TagController', [ '$scope', '$location', '$timeout',
 		'TagFactory', function($scope, $location, $timeout, TagFactory) {
@@ -1093,7 +1071,7 @@ app.controller('UsuarioController', [
 		'$location',
 		'$timeout',
 		'UsuarioFactory',
-		function($scope, $resource, $location,$timeout ,UsuarioFactory) {
+		function($scope, $resource, $location, $timeout, UsuarioFactory) {
 			$scope.listaGrupos = $resource('grupo/all').query();
 			$scope.mensagem = '';
 			$scope.selected = {};
@@ -1178,9 +1156,15 @@ app.controller('UsuarioController', [
 			} ];
 		} ]);
 
-app.controller('UsuarioEditController', [ '$scope', '$resource',
-		'$routeParams', '$location','$timeout', 'UsuarioFactory',
-		function($scope, $resource, $routeParams, $location,$timeout, UsuarioFactory) {
+app.controller('UsuarioEditController', [
+		'$scope',
+		'$resource',
+		'$routeParams',
+		'$location',
+		'$timeout',
+		'UsuarioFactory',
+		function($scope, $resource, $routeParams, $location, $timeout,
+				UsuarioFactory) {
 			$scope.selected = {};
 			$scope.listaGrupos = $resource('grupo/all').query();
 
@@ -1340,132 +1324,141 @@ app.controller('PerfilEditController', [ '$scope', '$routeParams', '$location',
 
 		} ]);
 
-app
-		.controller(
-				'DfuController',
-				[
-						'$scope',
-						'$resource',
-						'$location',
-						'DfuFactory',
-						function($scope, $resource, $location, DfuFactory) {
-							$scope.dfu = new DfuFactory();
-							$scope.mensagem = '';
-							$scope.dfu.relacaoSku = [];
-							$scope.selected = {};
-							$scope.listaItens = $resource('item/all').query();
-							$scope.listaDfu = $resource('dfu/all').query();
-							$scope.listaSku = $resource('sku/all').query();
+app.controller('DfuController', [ '$scope', '$resource', '$location',
+		'$timeout', 'DfuFactory',
+		function($scope, $resource, $location, $timeout, DfuFactory) {
+			$scope.dfu = new DfuFactory();
+			$scope.mensagem = '';
+			$scope.dfu.relacaoSku = [];
+			$scope.selected = {};
+			$scope.listaItens = $resource('item/all').query();
+			$scope.listaDfu = $resource('dfu/all').query();
+			$scope.listaSku = $resource('sku/all').query();
 
-							$scope.loadTags = function(query) {
-								return $resource('tag/all').query().$promise;
-							};
+			$scope.loadTags = function(query) {
+				return $resource('tag/all').query().$promise;
+			};
 
-							$scope.listaStatus = [ {
-								'nome' : 'A'
-							}, {
-								'nome' : 'B'
-							}, {
-								'nome' : 'C'
-							} ];
+			$scope.listaStatus = [ {
+				'nome' : 'A'
+			}, {
+				'nome' : 'B'
+			}, {
+				'nome' : 'C'
+			} ];
 
-							$scope.listaPlanejamentos = [ {
-								'nome' : 'MANUAL'
-							}, {
-								'nome' : 'AUTOMATICO'
-							} ];
+			$scope.listaPlanejamentos = [ {
+				'nome' : 'MANUAL'
+			}, {
+				'nome' : 'AUTOMATICO'
+			} ];
 
-							$scope.submeter = function() {
-								if ($scope.formulario.$valid) {
-									console.log($scope.dfu);
-									$scope.dfu
-											.$save(
-													function(response) {
-														$scope.mensagem = 'Cadastro de Dfu realizado com sucesso!';
-														$scope.dfu = new DfuFactory();
-													},
-													function(erro) {
-														$scope.mensagem = 'Cadastro de Dfu não realizado!';
-													});
-								}
-							};
+			$scope.closeMessage = function() {
+				$('#idMessage').modal('hide');
+				if ($scope.trtResponse.go != null) {
+					$timeout(function() {
+						$location.path($scope.trtResponse.go);
+					}, 700);
+				}
+				;
+			};
 
-							$scope.addRelacao = function() {
-								if ($scope.modalRelacao.$valid) {
-									$scope.dfu.relacaoSku.push($scope.selected);
-									$scope.selected = {};
-									alert("Adicionado com sucesso!");
-								}
-							};
+			$scope.trtResponse = {};
+			$scope.save = function(close) {
+				if ($scope.formulario.$valid) {
+					$scope.dfu.$save(function(response) {
+						$scope.trtResponse = response;
+						var url;
+						if (close) {
+							url = 'private/dfu/dfu-view';
+						} else {
+							url = 'private/dfu/dfu-edit/' + response.result.id;
+						}
+						$scope.trtResponse.go = url;
+					}, function(response) {
+						$scope.trtResponse = response.data;
+					});
+				}
+			};
 
-							$scope.REST_SEARCH = 'dfu/search';
-							$scope.URL_CRUD = 'dfu/:id';
-							$scope.URL_FORM_CREATE = 'private/dfu/dfu-create';
-							$scope.URL_FORM_EDIT = 'private/dfu/dfu-edit';
+			$scope.addRelacao = function() {
+				if ($scope.modalRelacao.$valid) {
+					$scope.dfu.relacaoSku.push($scope.selected);
+					$scope.selected = {};
+					alert("Adicionado com sucesso!");
+				}
+			};
 
-							$scope.mapColumnsRelacao = [ {
-								'title' : 'ID Sku',
-								'field' : 'idSku'
-							}, {
-								'title' : 'ID Dfu',
-								'field' : 'idDfu'
-							} ];
+			$scope.REST_SEARCH = 'dfu/search';
+			$scope.URL_CRUD = 'dfu/:id';
+			$scope.URL_FORM_CREATE = 'private/dfu/dfu-create';
+			$scope.URL_FORM_EDIT = 'private/dfu/dfu-edit';
 
-							$scope.map = [ {
-								'title' : 'Item',
-								'field' : 'item',
-								'subField' : 'nome'
+			$scope.mapColumnsRelacao = [ {
+				'title' : 'ID Sku',
+				'field' : 'idSku'
+			}, {
+				'title' : 'ID Dfu',
+				'field' : 'idDfu'
+			} ];
 
-							}, {
-								'title' : 'Tags',
-								'field' : 'tags',
-								'subField' : 'nome',
-								'isArray' : 'true'
+			$scope.map = [ {
+				'title' : 'Item',
+				'field' : 'item',
+				'subField' : 'nome'
 
-							}, {
-								'title' : 'Classe',
-								'field' : 'classe'
-							}, {
-								'title' : 'Planejamento Dfu',
-								'field' : 'modelo'
-							}, {
-								'title' : 'Data de Maturidade',
-								'field' : 'dataMaturidade',
-								'isDate' : 'true'
+			}, {
+				'title' : 'Tags',
+				'field' : 'tags',
+				'subField' : 'nome',
+				'isArray' : 'true'
 
-							}, {
-								'title' : 'Data de Lançamento',
-								'field' : 'dataLancamento',
-								'isDate' : 'true'
+			}, {
+				'title' : 'Classe',
+				'field' : 'classe'
+			}, {
+				'title' : 'Planejamento Dfu',
+				'field' : 'modelo'
+			}, {
+				'title' : 'Data de Maturidade',
+				'field' : 'dataMaturidade',
+				'isDate' : 'true'
 
-							}, {
-								'title' : 'Data de Descontinuação',
-								'field' : 'dataDescontinuacao',
-								'isDate' : 'true'
+			}, {
+				'title' : 'Data de Lançamento',
+				'field' : 'dataLancamento',
+				'isDate' : 'true'
 
-							}, {
-								'title' : 'Criado por',
-								'field' : 'usuarioCriacao',
-								'subField' : 'nome'
-							}, {
-								'title' : 'Criação',
-								'field' : 'dataCriacao',
-								'isDate' : 'true'
-							}, {
-								'title' : 'Alterado',
-								'field' : 'dataAlteracao',
-								'isDate' : 'true'
-							} ];
+			}, {
+				'title' : 'Data de Descontinuação',
+				'field' : 'dataDescontinuacao',
+				'isDate' : 'true'
 
-						} ]);
+			}, {
+				'title' : 'Criado por',
+				'field' : 'usuarioCriacao',
+				'subField' : 'nome'
+			}, {
+				'title' : 'Criação',
+				'field' : 'dataCriacao',
+				'isDate' : 'true'
+			}, {
+				'title' : 'Alterado',
+				'field' : 'dataAlteracao',
+				'isDate' : 'true'
+			} ];
+
+		} ]);
 
 app.controller('DfuEditController', [
 		'$scope',
 		'$resource',
 		'$routeParams',
 		'$location',
+		'$timeout',
 		'DfuFactory',
-		function($scope, $resource, $routeParams, $location, DfuFactory) {
+		function($scope, $resource, $routeParams, $location, $timeout,
+				DfuFactory) {
 
 			$scope.load = function() {
 				DfuFactory.get({
@@ -1473,17 +1466,28 @@ app.controller('DfuEditController', [
 				}, function(response) {
 
 					$scope.dfu = response;
+					if ($scope.dfu.dataMaturidade != null) {
+						console.log($scope.dfu.dataMaturidade);
+						$scope.dfu.dataMaturidade = new Date(
+								$scope.dfu.dataMaturidade);
+					}
 
-					$scope.dfu.dataMaturidade = new Date(
-							$scope.dfu.dataMaturidade);
-					$scope.dfu.dataLancamento = new Date(
-							$scope.dfu.dataLancamento);
-					$scope.dfu.dataDescontinuacao = new Date(
-							$scope.dfu.dataDescontinuacao);
-					$scope.dfu.validadeModelo = new Date(
-							$scope.dfu.validadeModelo);
-					$scope.dfu.validadePrimeiraSaida = new Date(
-							$scope.dfu.validadePrimeiraSaida);
+					if ($scope.dfu.dataLancamento != null) {
+						$scope.dfu.dataLancamento = new Date(
+								$scope.dfu.dataLancamento);
+					}
+					if ($scope.dfu.dataDescontinuacao != null) {
+						$scope.dfu.dataDescontinuacao = new Date(
+								$scope.dfu.dataDescontinuacao);
+					}
+					if ($scope.dfu.validadeModelo != null) {
+						$scope.dfu.validadeModelo = new Date(
+								$scope.dfu.validadeModelo);
+					}
+					if ($scope.dfu.validadePrimeiraSaida != null) {
+						$scope.dfu.validadePrimeiraSaida = new Date(
+								$scope.dfu.validadePrimeiraSaida);
+					}
 				});
 
 			};
@@ -1510,12 +1514,30 @@ app.controller('DfuEditController', [
 				'nome' : 'AUTOMATICO'
 			} ];
 
-			$scope.submeter = function() {
+			$scope.closeMessage = function() {
+				$('#idMessage').modal('hide');
+				if ($scope.trtResponse.go != null) {
+					$timeout(function() {
+						$location.path($scope.trtResponse.go);
+					}, 700);
+				}
+				;
+			};
+
+			$scope.trtResponse = {};
+			$scope.save = function(close) {
 				if ($scope.formulario.$valid) {
-					$scope.dfu.$update(function() {
-						$scope.mensagem = 'DFU Atualizado com sucesso!';
-					}, function(erro) {
-						$scope.mensagem = 'Alteração de DFU não realizada!';
+					$scope.dfu.$update(function(response) {
+						$scope.trtResponse = response;
+						var url;
+						if (close) {
+							url = 'private/dfu/dfu-view';
+						} else {
+							$scope.load();
+						}
+						$scope.trtResponse.go = url;
+					}, function(response) {
+						$scope.trtResponse = response.data;
 					});
 				}
 			};

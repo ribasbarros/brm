@@ -90,7 +90,7 @@ public class DfuServiceImpl implements DfuService {
 	}
 
 	@Override
-	public void update(DfuRequestDTO request) throws DfuNotFoundException {
+	public DfuResponseDTO update(DfuRequestDTO request) throws DfuNotFoundException {
 		Assert.notNull(request, DFU_NULL);
 		Assert.notNull(request.getId(), DFU_ID);
 
@@ -100,7 +100,7 @@ public class DfuServiceImpl implements DfuService {
 
 		DfuDocument document = invokeDocument(request);
 		document.setDataAlteracao(new Date());
-		repository.save(document);
+		return invokeResponse(repository.save(document));
 	}
 
 	@Override
