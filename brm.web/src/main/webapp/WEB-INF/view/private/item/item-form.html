@@ -18,10 +18,11 @@
 		</div>
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-3">
-			<button type="submit" class="btn btn-primary btn-sm navbar-btn">
+			<button ng-click="save(false)" class="btn btn-primary btn-sm navbar-btn">
 				<span class="glyphicon glyphicon-check"></span> Salvar
 			</button>
-			<button type="submit" class="btn btn-danger btn-sm navbar-btn">
+			<button ng-click="save(true)"
+				class="btn btn-danger btn-sm navbar-btn">
 				<span class="glyphicon glyphicon-ok"></span> Salvar & Fechar
 			</button>
 		</div>
@@ -100,3 +101,5 @@
 	</div>
 
 </div>
+
+<brm-show-message />

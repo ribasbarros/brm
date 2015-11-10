@@ -13,7 +13,7 @@ public interface SkuService {
 
 	SkuResponseDTO create(SkuRequestDTO request) throws SkuExistenteException;
 
-	void update(SkuRequestDTO request) throws SkuNotFoundException;
+	SkuResponseDTO update(SkuRequestDTO request) throws SkuNotFoundException;
 
 	void delete(String id) throws SkuNotFoundException;
 

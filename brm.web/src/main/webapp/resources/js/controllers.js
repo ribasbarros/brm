@@ -30,8 +30,9 @@ app
 						'$scope',
 						'$resource',
 						'$location',
+						'$timeout',
 						'SkuFactory',
-						function($scope, $resource, $location, SkuFactory) {
+						function($scope, $resource, $location, $timeout,SkuFactory) {
 							$scope.sku = new SkuFactory();
 							$scope.sku.frequenciaAnalise = [];
 							$scope.sku.origens = [];
@@ -111,16 +112,32 @@ app
 								'nome' : 'FINALIZADA'
 							} ];
 
-							$scope.submeter = function() {
+							$scope.closeMessage = function() {
+								$('#idMessage').modal('hide');
+								if ($scope.trtResponse.go != null) {
+									$timeout(function() {
+										$location.path($scope.trtResponse.go);
+									}, 700);
+								}
+								;
+							};
+
+							$scope.trtResponse = {};
+							$scope.save = function(close) {
 								if ($scope.formulario.$valid) {
-									$scope.sku
-											.$save(
-													function(response) {
-														$scope.mensagem = 'Cadastro de Sku realizado com sucesso!';
-													},
-													function(erro) {
-														$scope.mensagem = 'Cadastro de Sku não realizado!';
-													});
+									$scope.sku.$save(function(response) {
+										$scope.trtResponse = response;
+										var url;
+										if (close) {
+											url = 'private/sku/sku-view';
+										} else {
+											url = 'private/sku/sku-edit/'
+													+ response.result.id;
+										}
+										$scope.trtResponse.go = url;
+									}, function(response) {
+										$scope.trtResponse = response.data;
+									});
 								}
 							};
 
@@ -194,95 +211,16 @@ app
 
 						} ]);
 
-app
-		.controller(
-				'ItemController',
-				[
-						'$scope',
-						'$resource',
-						'$location',
-						'ItemFactory',
-						function($scope, $resource, $location, ItemFactory) {
+app.controller('ItemController', [
+		'$scope',
+		'$resource',
+		'$location',
+		'$timeout',
+		'ItemFactory',
+		function($scope, $resource, $location, $timeout, ItemFactory) {
+			$scope.item = new ItemFactory();
 
-							$scope.categorias = $resource('categoria/all')
-									.query();
-
-							$scope.listaStatus = [ {
-								'nome' : 'DESCONTINUADO'
-							}, {
-								'nome' : 'CANCELADO'
-							}, {
-								'nome' : 'ATIVO'
-							} ];
-
-							$scope.mensagem = '';
-
-							$scope.item = new ItemFactory();
-							$scope.salvar = function() {
-								if ($scope.formulario.$valid) {
-									console.log($scope.item);
-									$scope.item
-											.$save(
-
-													function(response) {
-														$scope.mensagem = 'Cadastro de Item realizado com sucesso!';
-														$scope.item = new ItemFactory();
-
-													},
-													function(erro) {
-
-														$scope.mensagem = 'Cadastro de Item não realizado!';
-													});
-								}
-							};
-
-							$scope.REST_SEARCH = 'item/search';
-							$scope.URL_CRUD = 'item/:id';
-							$scope.URL_FORM_CREATE = 'private/item/item-create';
-							$scope.URL_FORM_EDIT = 'private/item/item-edit';
-
-							$scope.map = [ {
-								'title' : 'Nome',
-								'field' : 'nome'
-							}, {
-								'title' : 'Situação',
-								'field' : 'status'
-							}, {
-								'title' : 'Valor Unitário',
-								'field' : 'valorUnitario',
-								'isCurrency' : 'true'
-							}, {
-								'title' : 'Unitilização',
-								'field' : 'unitizacao'
-							}, {
-								'title' : 'Categoria',
-								'field' : 'categoria',
-								'subField' : 'nome'
-
-							}, {
-								'title' : 'Criado por',
-								'field' : 'usuarioCriacao',
-								'subField' : 'nome'
-							}, {
-								'title' : 'Criação',
-								'field' : 'dataCriacao',
-								'isDate' : 'true'
-							}, {
-								'title' : 'Alteração',
-								'field' : 'dataAlteracao',
-								'isDate' : 'true'
-							} ];
-
-						} ]);
-
-app.controller('ItemEditController', [ '$scope', '$resource', '$routeParams',
-		'$location', 'ItemFactory',
-		function($scope, $resource, $routeParams, $location, ItemFactory) {
-
-			$scope.item = ItemFactory.get({
-				id : $routeParams.id
-			});
-
+			$scope.trtResponse = {};
 			$scope.categorias = $resource('categoria/all').query();
 
 			$scope.listaStatus = [ {
@@ -293,16 +231,129 @@ app.controller('ItemEditController', [ '$scope', '$resource', '$routeParams',
 				'nome' : 'ATIVO'
 			} ];
 
-			$scope.submeter = function() {
+			$scope.mensagem = '';
+
+			$scope.closeMessage = function() {
+				$('#idMessage').modal('hide');
+				if ($scope.trtResponse.go != null) {
+					$timeout(function() {
+						$location.path($scope.trtResponse.go);
+					}, 700);
+				}
+				;
+			};
+
+			$scope.save = function(close) {
 				if ($scope.formulario.$valid) {
-					console.log($scope.item);
-					$scope.item.$update(function() {
-						$scope.mensagem = 'Item Atualizado com sucesso!';
-					}, function(erro) {
-						$scope.mensagem = 'Alteração de Item não realizada!';
+					$scope.item.$save(function(response) {
+						$scope.trtResponse = response;
+						var url;
+						if (close) {
+							url = 'private/item/item-view';
+						} else {
+							url = 'private/item/item-edit/'
+									+ response.result.id;
+						}
+						$scope.trtResponse.go = url;
+					}, function(response) {
+						$scope.trtResponse = response.data;
 					});
 				}
 			};
+
+			$scope.REST_SEARCH = 'item/search';
+			$scope.URL_CRUD = 'item/:id';
+			$scope.URL_FORM_CREATE = 'private/item/item-create';
+			$scope.URL_FORM_EDIT = 'private/item/item-edit';
+
+			$scope.map = [ {
+				'title' : 'Nome',
+				'field' : 'nome'
+			}, {
+				'title' : 'Situação',
+				'field' : 'status'
+			}, {
+				'title' : 'Valor Unitário',
+				'field' : 'valorUnitario',
+				'isCurrency' : 'true'
+			}, {
+				'title' : 'Unitilização',
+				'field' : 'unitizacao'
+			}, {
+				'title' : 'Categoria',
+				'field' : 'categoria',
+				'subField' : 'nome'
+
+			}, {
+				'title' : 'Criado por',
+				'field' : 'usuarioCriacao',
+				'subField' : 'nome'
+			}, {
+				'title' : 'Criação',
+				'field' : 'dataCriacao',
+				'isDate' : 'true'
+			}, {
+				'title' : 'Alteração',
+				'field' : 'dataAlteracao',
+				'isDate' : 'true'
+			} ];
+
+		} ]);
+
+app.controller('ItemEditController', [
+		'$scope',
+		'$resource',
+		'$routeParams',
+		'$location',
+		'$timeout',
+		'ItemFactory',
+		function($scope, $resource, $routeParams, $location, $timeout,
+				ItemFactory) {
+			$scope.trtResponse = {};
+			$scope.categorias = $resource('categoria/all').query();
+
+			$scope.listaStatus = [ {
+				'nome' : 'DESCONTINUADO'
+			}, {
+				'nome' : 'CANCELADO'
+			}, {
+				'nome' : 'ATIVO'
+			} ];
+
+			$scope.load = function() {
+				$scope.item = ItemFactory.get({
+					id : $routeParams.id
+				});
+			};
+
+			$scope.closeMessage = function() {
+				$('#idMessage').modal('hide');
+				if ($scope.trtResponse.go != null) {
+					$timeout(function() {
+						$location.path($scope.trtResponse.go);
+					}, 700);
+				}
+				;
+			};
+
+			$scope.save = function(close) {
+				if ($scope.formulario.$valid) {
+					$scope.item.$update(function(response) {
+						$scope.trtResponse = response;
+						var url;
+						if (close) {
+							url = 'private/item/item-view';
+						} else {
+							$scope.load();
+						}
+						$scope.trtResponse.go = url;
+					}, function(response) {
+						$scope.trtResponse = response.data;
+					});
+				}
+			};
+
+			$scope.load();
 
 		} ]);
 
@@ -354,7 +405,6 @@ app.controller('FornecedorController', [
 					alert("Adicionado com sucesso!");
 				}
 			};
-
 
 			$scope.map = [ {
 				'title' : 'Nome Fantasia',
@@ -414,7 +464,6 @@ app.controller('FornecedorController', [
 			$scope.URL_CRUD = 'fornecedor/:id';
 			$scope.URL_FORM_CREATE = 'private/fornecedor/fornecedor-create';
 			$scope.URL_FORM_EDIT = 'private/fornecedor/fornecedor-edit';
-
 
 		} ]);
 
@@ -511,8 +560,9 @@ app
 						'$resource',
 						'$routeParams',
 						'$location',
+						'$timeout',
 						'SkuFactory',
-						function($scope, $resource, $routeParams, $location,
+						function($scope, $resource, $routeParams, $location,$timeout,
 								SkuFactory) {
 							$scope.listaItens = $resource('item/all').query();
 							$scope.listaSku = $resource('sku/all').query();
@@ -528,8 +578,10 @@ app
 								}).$promise.then(function(data) {
 									$scope.sku = data;
 									$scope.loadDaysOfWeek();
-									$scope.sku.dataMaturidade = new Date($scope.sku.dataMaturidade);
-									$scope.sku.dataDescontinuacao = new Date($scope.sku.dataDescontinuacao);
+									$scope.sku.dataMaturidade = new Date(
+											$scope.sku.dataMaturidade);
+									$scope.sku.dataDescontinuacao = new Date(
+											$scope.sku.dataDescontinuacao);
 								});
 							};
 
@@ -623,18 +675,34 @@ app
 								'nome' : 'FINALIZADA'
 							} ];
 
-							$scope.submeter = function() {
+							$scope.closeMessage = function() {
+								$('#idMessage').modal('hide');
+								if ($scope.trtResponse.go != null) {
+									$timeout(function() {
+										$location.path($scope.trtResponse.go);
+									}, 700);
+								}
+								;
+							};
+
+							$scope.trtResponse = {};
+							$scope.save = function(close) {
 								if ($scope.formulario.$valid) {
-									$scope.sku
-											.$update(
-													function() {
-														$scope.mensagem = 'Sku Atualizado com sucesso!';
-													},
-													function(erro) {
-														$scope.mensagem = 'Alteração de Sku não realizada!';
-													});
+									$scope.sku.$update(function(response) {
+										$scope.trtResponse = response;
+										var url;
+										if (close) {
+											url = 'private/sku/sku-view';
+										} else {
+											$scope.load();
+										}
+										$scope.trtResponse.go = url;
+									}, function(response) {
+										$scope.trtResponse = response.data;
+									});
 								}
 							};
+
 
 							$scope.checkedOrNot = function(id, isChecked, index) {
 								if (isChecked) {
@@ -666,523 +734,611 @@ app
 							$scope.load();
 						} ]);
 
-app
-		.controller(
-				'TagController',
-				[
-						'$scope',
-						'$location',
-						'TagFactory',
-						function($scope, $location, TagFactory) {
-							$scope.mensagem = '';
+app.controller('TagController', [ '$scope', '$location', '$timeout',
+		'TagFactory', function($scope, $location, $timeout, TagFactory) {
+			$scope.mensagem = '';
+			$scope.trtResponse = {};
+			$scope.tag = new TagFactory();
 
-							$scope.tag = new TagFactory();
-							$scope.submeter = function() {
-								if ($scope.formulario.$valid) {
-									$scope.tag
-											.$save(
-													function(response) {
-														$scope.mensagem = 'Cadastro de Tag realizado com sucesso!';
-													},
-													function(erro) {
-														$scope.mensagem = 'Cadastro de Tag não realizado!';
-													});
-								}
-							};
+			$scope.closeMessage = function() {
+				$('#idMessage').modal('hide');
+				if ($scope.trtResponse.go != null) {
+					$timeout(function() {
+						$location.path($scope.trtResponse.go);
+					}, 700);
+				}
+				;
+			};
 
-							$scope.REST_SEARCH = 'tag/search';
-							$scope.URL_CRUD = 'tag/:id';
-							$scope.URL_FORM_CREATE = 'private/tag/tag-create';
-							$scope.URL_FORM_EDIT = 'private/tag/tag-edit';
-
-							$scope.map = [ {
-								'title' : 'Nome',
-								'field' : 'nome'
-							}, {
-								'title' : 'Nível',
-								'field' : 'nivel'
-							}, {
-								'title' : 'Criado por',
-								'field' : 'usuarioCriacao',
-								'subField' : 'nome'
-							}, {
-								'title' : 'Criação',
-								'field' : 'dataCriacao',
-								'isDate' : 'true'
-							}, {
-								'title' : 'Alterado',
-								'field' : 'dataAlteracao',
-								'isDate' : 'true'
-							} ];
-
-						} ]);
-
-app.controller('TagEditController', [ '$scope', '$routeParams', '$location',
-		'TagFactory', function($scope, $routeParams, $location, TagFactory) {
-
-			$scope.tag = TagFactory.get({
-				id : $routeParams.id
-			});
-
-			$scope.submeter = function() {
+			$scope.save = function(close) {
 				if ($scope.formulario.$valid) {
-					$scope.tag.$update(function() {
-						$scope.mensagem = 'Tag Atualizado com sucesso!';
-					}, function(erro) {
-						$scope.mensagem = 'Alteração de Tag não realizada!';
+					$scope.tag.$save(function(response) {
+						$scope.trtResponse = response;
+						var url;
+						if (close) {
+							url = 'private/tag/tag-view';
+						} else {
+							url = 'private/tag/tag-edit/' + response.result.id;
+						}
+						$scope.trtResponse.go = url;
+					}, function(response) {
+						$scope.trtResponse = response.data;
 					});
 				}
 			};
 
+			$scope.REST_SEARCH = 'tag/search';
+			$scope.URL_CRUD = 'tag/:id';
+			$scope.URL_FORM_CREATE = 'private/tag/tag-create';
+			$scope.URL_FORM_EDIT = 'private/tag/tag-edit';
+
+			$scope.map = [ {
+				'title' : 'Nome',
+				'field' : 'nome'
+			}, {
+				'title' : 'Nível',
+				'field' : 'nivel'
+			}, {
+				'title' : 'Criado por',
+				'field' : 'usuarioCriacao',
+				'subField' : 'nome'
+			}, {
+				'title' : 'Criação',
+				'field' : 'dataCriacao',
+				'isDate' : 'true'
+			}, {
+				'title' : 'Alterado',
+				'field' : 'dataAlteracao',
+				'isDate' : 'true'
+			} ];
+
 		} ]);
 
-app
-		.controller(
-				'CategoriaController',
-				[
-						'$scope',
-						'$location',
-						'$timeout',
-						'CategoriaFactory',
-						function($scope, $location,$timeout, CategoriaFactory) {
-							$scope.mensagem = '';
-							$scope.categoria = new CategoriaFactory();
-							$scope.trtResponse = {};
-							
-							$scope.closeMessage = function() {
-								$('#idMessage').modal('hide');
-								if ($scope.trtResponse.go != null) {
-									$timeout(function() {
-										$location.path($scope.trtResponse.go);
-									}, 700);
-								}
-								;
-							};
+app.controller('TagEditController', [ '$scope', '$routeParams', '$location',
+		'$timeout', 'TagFactory',
+		function($scope, $routeParams, $location, $timeout, TagFactory) {
 
-							$scope.save = function(close) {
-								if ($scope.formulario.$valid) {
-									$scope.categoria.$save(function(response) {
-										$scope.trtResponse = response;
-										var url;
-										if (close) {
-											url = 'private/categoria/categoria-view';
-										} else {
-											url = 'private/categoria/categoria-edit/'
-													+ response.result.id;
-										}
-										$scope.trtResponse.go = url;
-									}, function(response) {
-										$scope.trtResponse = response.data;
-									});
-								}
-							};
+			$scope.load = function() {
+				$scope.tag = TagFactory.get({
+					id : $routeParams.id
+				});
+			};
 
-							
-							
-							$scope.REST_SEARCH = 'categoria/search';
-							$scope.URL_CRUD = 'categoria/:id';
-							$scope.URL_FORM_CREATE = 'private/categoria/categoria-create';
-							$scope.URL_FORM_EDIT = 'private/categoria/categoria-edit';
+			$scope.closeMessage = function() {
+				$('#idMessage').modal('hide');
+				if ($scope.trtResponse.go != null) {
+					$timeout(function() {
+						$location.path($scope.trtResponse.go);
+					}, 700);
+				}
+				;
+			};
 
-							$scope.map = [ {
-								'title' : 'Nome',
-								'field' : 'nome'
-							}, {
-								'title' : 'Criado por',
-								'field' : 'usuarioCriacao',
-								'subField' : 'nome'
-							}, {
-								'title' : 'Criação',
-								'field' : 'dataCriacao',
-								'isDate' : 'true'
-							}, {
-								'title' : 'Alterado',
-								'field' : 'dataAlteracao',
-								'isDate' : 'true'
-							} ];
-
-						} ]);
-
-app
-		.controller(
-				'CategoriaEditController',
-				[
-						'$scope',
-						'$routeParams',
-						'$timeout',
-						'$location',
-						'CategoriaFactory',
-						function($scope, $routeParams, $timeout, $location,
-								CategoriaFactory) {
-							$scope.trtResponse = {};
-
-							$scope.load = function() {
-								$scope.categoria = CategoriaFactory.get({
-									id : $routeParams.id
-								});
-							};
-
-							
-							$scope.closeMessage = function() {
-								$('#idMessage').modal('hide');
-								if ($scope.trtResponse.go != null) {
-									$timeout(function() {
-										$location.path($scope.trtResponse.go);
-									}, 700);
-								}
-								;
-							};
-
-							$scope.save = function(close) {
-								if ($scope.formulario.$valid) {
-									$scope.categoria.$update(function(response) {
-										$scope.trtResponse = response;
-										var url;
-										if (close) {
-											url = 'private/categoria/categoria-view';
-										} 
-										$scope.categoria = response.result;
-										$scope.trtResponse.go = url;
-									}, function(response) {
-										$scope.trtResponse = response.data;
-									});
-								}
-							};
-							
+			$scope.trtResponse = {};
+			$scope.save = function(close) {
+				if ($scope.formulario.$valid) {
+					$scope.tag.$update(function(response) {
+						$scope.trtResponse = response;
+						var url;
+						if (close) {
+							url = 'private/tag/tag-view';
+						} else {
 							$scope.load();
+						}
+						$scope.trtResponse.go = url;
+					}, function(response) {
+						$scope.trtResponse = response.data;
+					});
+				}
+			};
 
-						} ]);
+			$scope.load();
 
-app
-		.controller(
-				'GrupoController',
-				[
-						'$scope',
-						'$resource',
-						'$location',
-						'GrupoFactory',
-						function($scope, $resource, $location, GrupoFactory) {
+		} ]);
 
-							$scope.mensagem = '';
-							$scope.grupo = new GrupoFactory();
-							$scope.selected = {};
-							$scope.grupo.perfis = [];
-							$scope.listaPerfis = $resource('perfil/all')
-									.query();
-							$scope.addPerfil = function() {
-								if ($scope.modalPerfil.$valid) {
-									$scope.grupo.perfis.push($scope.selected);
-									$scope.selected = {};
-									alert("Adicionado com sucesso!");
-								}
-							};
+app.controller('CategoriaController', [
+		'$scope',
+		'$location',
+		'$timeout',
+		'CategoriaFactory',
+		function($scope, $location, $timeout, CategoriaFactory) {
+			$scope.mensagem = '';
+			$scope.categoria = new CategoriaFactory();
+			$scope.trtResponse = {};
 
-							$scope.submeter = function() {
-								if ($scope.formulario.$valid) {
-									$scope.grupo
-											.$save(
-													function(response) {
-														$scope.mensagem = 'Cadastro de Grupo realizado com sucesso!';
-													},
-													function(erro) {
-														$scope.mensagem = 'Cadastro de Grupo não realizado!';
-													});
-								}
-							};
+			$scope.closeMessage = function() {
+				$('#idMessage').modal('hide');
+				if ($scope.trtResponse.go != null) {
+					$timeout(function() {
+						$location.path($scope.trtResponse.go);
+					}, 700);
+				}
+				;
+			};
 
-							$scope.REST_SEARCH = 'grupo/search';
-							$scope.URL_CRUD = 'grupo/:id';
-							$scope.URL_FORM_CREATE = 'private/grupo/grupo-create';
-							$scope.URL_FORM_EDIT = 'private/grupo/grupo-edit';
+			$scope.save = function(close) {
+				if ($scope.formulario.$valid) {
+					$scope.categoria.$save(function(response) {
+						$scope.trtResponse = response;
+						var url;
+						if (close) {
+							url = 'private/categoria/categoria-view';
+						} else {
+							url = 'private/categoria/categoria-edit/'
+									+ response.result.id;
+						}
+						$scope.trtResponse.go = url;
+					}, function(response) {
+						$scope.trtResponse = response.data;
+					});
+				}
+			};
 
-							$scope.mapColumnsPerfil = [ {
-								'title' : 'Nome',
-								'field' : 'nome'
-							} ];
+			$scope.REST_SEARCH = 'categoria/search';
+			$scope.URL_CRUD = 'categoria/:id';
+			$scope.URL_FORM_CREATE = 'private/categoria/categoria-create';
+			$scope.URL_FORM_EDIT = 'private/categoria/categoria-edit';
 
-							$scope.map = [ {
-								'title' : 'Nome',
-								'field' : 'nome'
-							}, {
-								'title' : 'Perfis',
-								'field' : 'perfis',
-								'subField' : 'nome',
-								'isArray' : 'true'
-							}, {
-								'title' : 'Criado por',
-								'field' : 'usuarioCriacao',
-								'subField' : 'nome'
-							}, {
-								'title' : 'Criação',
-								'field' : 'dataCriacao',
-								'isDate' : 'true'
-							}, {
-								'title' : 'Alterado',
-								'field' : 'dataAlteracao',
-								'isDate' : 'true'
-							} ];
-						} ]);
+			$scope.map = [ {
+				'title' : 'Nome',
+				'field' : 'nome'
+			}, {
+				'title' : 'Criado por',
+				'field' : 'usuarioCriacao',
+				'subField' : 'nome'
+			}, {
+				'title' : 'Criação',
+				'field' : 'dataCriacao',
+				'isDate' : 'true'
+			}, {
+				'title' : 'Alterado',
+				'field' : 'dataAlteracao',
+				'isDate' : 'true'
+			} ];
 
-app
-		.controller(
-				'GrupoEditController',
-				[
-						'$scope',
-						'$resource',
-						'$routeParams',
-						'$location',
-						'GrupoFactory',
-						function($scope, $resource, $routeParams, $location,
-								GrupoFactory) {
+		} ]);
 
-							$scope.listaPerfis = $resource('perfil/all')
-									.query();
-							$scope.selected = {};
+app.controller('CategoriaEditController', [ '$scope', '$routeParams',
+		'$timeout', '$location', 'CategoriaFactory',
+		function($scope, $routeParams, $timeout, $location, CategoriaFactory) {
+			$scope.trtResponse = {};
 
-							$scope.load = function() {
-								$scope.grupo = GrupoFactory.get({
-									id : $routeParams.id
-								});
-							};
+			$scope.load = function() {
+				$scope.categoria = CategoriaFactory.get({
+					id : $routeParams.id
+				});
+			};
 
-							$scope.submeter = function() {
-								if ($scope.formulario.$valid) {
-									$scope.grupo
-											.$update(
-													function() {
-														$scope.mensagem = 'Alteração de Grupo realizada com sucesso!';
-													},
-													function(erro) {
-														$scope.mensagem = 'Alteração de Grupo não realizada!';
-													});
-								}
-							};
+			$scope.closeMessage = function() {
+				$('#idMessage').modal('hide');
+				if ($scope.trtResponse.go != null) {
+					$timeout(function() {
+						$location.path($scope.trtResponse.go);
+					}, 700);
+				}
+				;
+			};
 
-							$scope.addPerfil = function() {
-								if ($scope.modalPerfil.$valid) {
-									$scope.grupo.perfis.push($scope.selected);
-									$scope.selected = {};
-									alert("Adicionado com sucesso!");
-								}
-							};
+			$scope.save = function(close) {
+				if ($scope.formulario.$valid) {
+					$scope.categoria.$update(function(response) {
+						$scope.trtResponse = response;
+						var url;
+						if (close) {
+							url = 'private/categoria/categoria-view';
+						}
+						$scope.categoria = response.result;
+						$scope.trtResponse.go = url;
+					}, function(response) {
+						$scope.trtResponse = response.data;
+					});
+				}
+			};
 
-							$scope.mapColumnsPerfil = [ {
-								'title' : 'Nome',
-								'field' : 'nome'
-							} ];
+			$scope.load();
 
+		} ]);
+
+app.controller('GrupoController', [
+		'$scope',
+		'$resource',
+		'$location',
+		'$timeout',
+		'GrupoFactory',
+		function($scope, $resource, $location, $timeout, GrupoFactory) {
+
+			$scope.mensagem = '';
+			$scope.grupo = new GrupoFactory();
+			$scope.selected = {};
+			$scope.grupo.perfis = [];
+			$scope.listaPerfis = $resource('perfil/all').query();
+
+			$scope.addPerfil = function() {
+				if ($scope.modalPerfil.$valid) {
+					$scope.grupo.perfis.push($scope.selected);
+					$scope.selected = {};
+					alert("Adicionado com sucesso!");
+				}
+			};
+
+			$scope.closeMessage = function() {
+				$('#idMessage').modal('hide');
+				if ($scope.trtResponse.go != null) {
+					$timeout(function() {
+						$location.path($scope.trtResponse.go);
+					}, 700);
+				}
+				;
+			};
+
+			$scope.trtResponse = {};
+			$scope.save = function(close) {
+				if ($scope.formulario.$valid) {
+					$scope.grupo.$save(function(response) {
+						$scope.trtResponse = response;
+						var url;
+						if (close) {
+							url = 'private/grupo/grupo-view';
+						} else {
+							url = 'private/grupo/grupo-edit/'
+									+ response.result.id;
+						}
+						$scope.trtResponse.go = url;
+					}, function(response) {
+						$scope.trtResponse = response.data;
+					});
+				}
+			};
+
+			$scope.REST_SEARCH = 'grupo/search';
+			$scope.URL_CRUD = 'grupo/:id';
+			$scope.URL_FORM_CREATE = 'private/grupo/grupo-create';
+			$scope.URL_FORM_EDIT = 'private/grupo/grupo-edit';
+
+			$scope.mapColumnsPerfil = [ {
+				'title' : 'Nome',
+				'field' : 'nome'
+			} ];
+
+			$scope.map = [ {
+				'title' : 'Nome',
+				'field' : 'nome'
+			}, {
+				'title' : 'Perfis',
+				'field' : 'perfis',
+				'subField' : 'nome',
+				'isArray' : 'true'
+			}, {
+				'title' : 'Criado por',
+				'field' : 'usuarioCriacao',
+				'subField' : 'nome'
+			}, {
+				'title' : 'Criação',
+				'field' : 'dataCriacao',
+				'isDate' : 'true'
+			}, {
+				'title' : 'Alterado',
+				'field' : 'dataAlteracao',
+				'isDate' : 'true'
+			} ];
+		} ]);
+
+app.controller('GrupoEditController', [
+		'$scope',
+		'$resource',
+		'$routeParams',
+		'$location',
+		'$timeout',
+		'GrupoFactory',
+		function($scope, $resource, $routeParams, $location, $timeout,
+				GrupoFactory) {
+
+			$scope.listaPerfis = $resource('perfil/all').query();
+			$scope.selected = {};
+
+			$scope.load = function() {
+				$scope.grupo = GrupoFactory.get({
+					id : $routeParams.id
+				});
+			};
+
+			$scope.closeMessage = function() {
+				$('#idMessage').modal('hide');
+				if ($scope.trtResponse.go != null) {
+					$timeout(function() {
+						$location.path($scope.trtResponse.go);
+					}, 700);
+				}
+				;
+			};
+
+			$scope.trtResponse = {};
+			$scope.save = function(close) {
+				if ($scope.formulario.$valid) {
+					$scope.grupo.$update(function(response) {
+						$scope.trtResponse = response;
+						var url;
+						if (close) {
+							url = 'private/grupo/grupo-view';
+						} else {
 							$scope.load();
+						}
+						$scope.trtResponse.go = url;
+					}, function(response) {
+						$scope.trtResponse = response.data;
+					});
+				}
+			};
 
-						} ]);
+			$scope.addPerfil = function() {
+				if ($scope.modalPerfil.$valid) {
+					$scope.grupo.perfis.push($scope.selected);
+					$scope.selected = {};
+					alert("Adicionado com sucesso!");
+				}
+			};
 
-app
-		.controller(
-				'UsuarioController',
-				[
-						'$scope',
-						'$resource',
-						'$location',
-						'UsuarioFactory',
-						function($scope, $resource, $location, UsuarioFactory) {
-							$scope.listaGrupos = $resource('grupo/all').query();
-							$scope.mensagem = '';
-							$scope.selected = {};
+			$scope.mapColumnsPerfil = [ {
+				'title' : 'Nome',
+				'field' : 'nome'
+			} ];
 
-							$scope.usuario = new UsuarioFactory();
-							$scope.usuario.grupos = [];
+			$scope.load();
 
-							$scope.addGrupo = function() {
-								if ($scope.modalGrupo.$valid) {
+		} ]);
 
-									$scope.usuario.grupos.push($scope.selected);
-									$scope.selected = {};
-									alert("Adicionado com sucesso!");
-								}
-							};
+app.controller('UsuarioController', [
+		'$scope',
+		'$resource',
+		'$location',
+		'$timeout',
+		'UsuarioFactory',
+		function($scope, $resource, $location,$timeout ,UsuarioFactory) {
+			$scope.listaGrupos = $resource('grupo/all').query();
+			$scope.mensagem = '';
+			$scope.selected = {};
 
-							$scope.submeter = function() {
-								if ($scope.formulario.$valid) {
-									$scope.usuario
-											.$save(
-													function(response) {
-														$scope.mensagem = 'Cadastro de Usuario realizado com sucesso!';
-														$scope.usuario = new UsuarioFactory();
+			$scope.usuario = new UsuarioFactory();
+			$scope.usuario.grupos = [];
 
-													},
-													function(erro) {
-														$scope.mensagem = 'Cadastro de Usuario não realizado!';
-													});
-								}
-							};
+			$scope.addGrupo = function() {
+				if ($scope.modalGrupo.$valid) {
 
-							$scope.REST_SEARCH = 'usuario/search';
-							$scope.URL_CRUD = 'usuario/:id';
-							$scope.URL_FORM_CREATE = 'private/usuario/usuario-create';
-							$scope.URL_FORM_EDIT = 'private/usuario/usuario-edit';
+					$scope.usuario.grupos.push($scope.selected);
+					$scope.selected = {};
+					alert("Adicionado com sucesso!");
+				}
+			};
 
-							$scope.mapColumnsGrupo = [ {
-								'title' : 'Nome',
-								'field' : 'nome'
-							} ];
+			$scope.closeMessage = function() {
+				$('#idMessage').modal('hide');
+				if ($scope.trtResponse.go != null) {
+					$timeout(function() {
+						$location.path($scope.trtResponse.go);
+					}, 700);
+				}
+				;
+			};
 
-							$scope.map = [ {
-								'title' : 'Nome',
-								'field' : 'nome'
-							}, {
-								'title' : 'Cargo',
-								'field' : 'cargo'
-							}, {
-								'title' : 'Email',
-								'field' : 'email'
-							}, {
-								'title' : 'Grupos',
-								'field' : 'grupos',
-								'subField' : 'nome',
-								'isArray' : 'true'
-							}, {
-								'title' : 'Criado por',
-								'field' : 'usuarioCriacao',
-								'subField' : 'nome'
-							}, {
-								'title' : 'Criação',
-								'field' : 'dataCriacao',
-								'isDate' : 'true'
-							}, {
-								'title' : 'Alterado',
-								'field' : 'dataAlteracao',
-								'isDate' : 'true'
-							} ];
-						} ]);
+			$scope.trtResponse = {};
+			$scope.save = function(close) {
+				if ($scope.formulario.$valid) {
+					$scope.usuario.$save(function(response) {
+						$scope.trtResponse = response;
+						var url;
+						if (close) {
+							url = 'private/usuario/usuario-view';
+						} else {
+							url = 'private/usuario/usuario-edit/'
+									+ response.result.id;
+						}
+						$scope.trtResponse.go = url;
+					}, function(response) {
+						$scope.trtResponse = response.data;
+					});
+				}
+			};
 
-app
-		.controller(
-				'UsuarioEditController',
-				[
-						'$scope',
-						'$resource',
-						'$routeParams',
-						'$location',
-						'UsuarioFactory',
-						function($scope, $resource, $routeParams, $location,
-								UsuarioFactory) {
-							$scope.selected = {};
-							$scope.listaGrupos = $resource('grupo/all').query();
+			$scope.REST_SEARCH = 'usuario/search';
+			$scope.URL_CRUD = 'usuario/:id';
+			$scope.URL_FORM_CREATE = 'private/usuario/usuario-create';
+			$scope.URL_FORM_EDIT = 'private/usuario/usuario-edit';
 
-							$scope.load = function() {
-								$scope.usuario = UsuarioFactory.get({
-									id : $routeParams.id
-								});
-							};
-							$scope.submeter = function() {
-								if ($scope.formulario.$valid) {
-									$scope.usuario
-											.$update(
-													function() {
-														$scope.mensagem = 'Alteração de Usuário realizada com sucesso!';
-													},
-													function(erro) {
-														console
-																.log($scope.usuario);
-														$scope.mensagem = 'Alteração de Usuário não realizada';
-													});
-								}
-							};
+			$scope.mapColumnsGrupo = [ {
+				'title' : 'Nome',
+				'field' : 'nome'
+			} ];
 
-							$scope.addGrupo = function() {
-								if ($scope.modalGrupo.$valid) {
+			$scope.map = [ {
+				'title' : 'Nome',
+				'field' : 'nome'
+			}, {
+				'title' : 'Cargo',
+				'field' : 'cargo'
+			}, {
+				'title' : 'Email',
+				'field' : 'email'
+			}, {
+				'title' : 'Grupos',
+				'field' : 'grupos',
+				'subField' : 'nome',
+				'isArray' : 'true'
+			}, {
+				'title' : 'Criado por',
+				'field' : 'usuarioCriacao',
+				'subField' : 'nome'
+			}, {
+				'title' : 'Criação',
+				'field' : 'dataCriacao',
+				'isDate' : 'true'
+			}, {
+				'title' : 'Alterado',
+				'field' : 'dataAlteracao',
+				'isDate' : 'true'
+			} ];
+		} ]);
 
-									$scope.usuario.grupos.push($scope.selected);
-									$scope.selected = {};
-									alert("Adicionado com sucesso!");
-								}
-							};
+app.controller('UsuarioEditController', [ '$scope', '$resource',
+		'$routeParams', '$location','$timeout', 'UsuarioFactory',
+		function($scope, $resource, $routeParams, $location,$timeout, UsuarioFactory) {
+			$scope.selected = {};
+			$scope.listaGrupos = $resource('grupo/all').query();
 
-							$scope.mapColumnsGrupo = [ {
-								'title' : 'Nome',
-								'field' : 'nome'
-							} ];
+			$scope.load = function() {
+				$scope.usuario = UsuarioFactory.get({
+					id : $routeParams.id
+				});
+			};
 
+			$scope.closeMessage = function() {
+				$('#idMessage').modal('hide');
+				if ($scope.trtResponse.go != null) {
+					$timeout(function() {
+						$location.path($scope.trtResponse.go);
+					}, 700);
+				}
+				;
+			};
+
+			$scope.trtResponse = {};
+			$scope.save = function(close) {
+				if ($scope.formulario.$valid) {
+					$scope.usuario.$update(function(response) {
+						$scope.trtResponse = response;
+						var url;
+						if (close) {
+							url = 'private/usuario/usuario-view';
+						} else {
 							$scope.load();
-						} ]);
+						}
+						$scope.trtResponse.go = url;
+					}, function(response) {
+						$scope.trtResponse = response.data;
+					});
+				}
+			};
 
-app
-		.controller(
-				'PerfilController',
-				[
-						'$scope',
-						'$location',
-						'PerfilFactory',
-						function($scope, $location, PerfilFactory) {
-							$scope.mensagem = '';
+			$scope.addGrupo = function() {
+				if ($scope.modalGrupo.$valid) {
 
-							$scope.perfil = new PerfilFactory();
-							$scope.submeter = function() {
-								if ($scope.formulario.$valid) {
-									$scope.perfil
-											.$save(
-													function(response) {
-														$scope.mensagem = 'Cadastro de Perfil realizado com sucesso!';
-													},
-													function(erro) {
-														console
-																.log($scope.perfil);
-														$scope.mensagem = 'Cadastro de Perfil não realizado!';
-													});
-								}
-							};
+					$scope.usuario.grupos.push($scope.selected);
+					$scope.selected = {};
+					alert("Adicionado com sucesso!");
+				}
+			};
 
-							$scope.REST_SEARCH = 'perfil/search';
-							$scope.URL_CRUD = 'perfil/:id';
-							$scope.URL_FORM_CREATE = 'private/perfil/perfil-create';
-							$scope.URL_FORM_EDIT = 'private/perfil/perfil-edit';
+			$scope.mapColumnsGrupo = [ {
+				'title' : 'Nome',
+				'field' : 'nome'
+			} ];
 
-							$scope.map = [ {
-								'title' : 'Nome',
-								'field' : 'nome'
-							}, {
-								'title' : 'Criado por',
-								'field' : 'usuarioCriacao',
-								'subField' : 'nome'
-							}, {
-								'title' : 'Criação',
-								'field' : 'dataCriacao',
-								'isDate' : 'true'
-							}, {
-								'title' : 'Alterado',
-								'field' : 'dataAlteracao',
-								'isDate' : 'true'
-							} ];
+			$scope.load();
+		} ]);
 
-						} ]);
+app.controller('PerfilController', [
+		'$scope',
+		'$location',
+		'$timeout',
+		'PerfilFactory',
+		function($scope, $location, $timeout, PerfilFactory) {
+			$scope.mensagem = '';
 
-app
-		.controller(
-				'PerfilEditController',
-				[
-						'$scope',
-						'$routeParams',
-						'$location',
-						'PerfilFactory',
-						function($scope, $routeParams, $location, PerfilFactory) {
+			$scope.perfil = new PerfilFactory();
 
-							$scope.perfil = PerfilFactory.get({
-								id : $routeParams.id
-							});
+			$scope.closeMessage = function() {
+				$('#idMessage').modal('hide');
+				if ($scope.trtResponse.go != null) {
+					$timeout(function() {
+						$location.path($scope.trtResponse.go);
+					}, 700);
+				}
+				;
+			};
 
-							$scope.submeter = function() {
-								if ($scope.formulario.$valid) {
-									$scope.perfil
-											.$update(
-													function() {
-														$scope.mensagem = 'Alteração de Perfil realizada com sucesso!';
-													},
-													function(erro) {
-														$scope.mensagem = 'Alteração de Perfil não realizada!';
-													});
-								}
-							};
+			$scope.trtResponse = {};
+			$scope.save = function(close) {
+				if ($scope.formulario.$valid) {
+					$scope.perfil.$save(function(response) {
+						$scope.trtResponse = response;
+						var url;
+						if (close) {
+							url = 'private/perfil/perfil-view';
+						} else {
+							url = 'private/perfil/perfil-edit/'
+									+ response.result.id;
+						}
+						$scope.trtResponse.go = url;
+					}, function(response) {
+						$scope.trtResponse = response.data;
+					});
+				}
+			};
 
-						} ]);
+			$scope.REST_SEARCH = 'perfil/search';
+			$scope.URL_CRUD = 'perfil/:id';
+			$scope.URL_FORM_CREATE = 'private/perfil/perfil-create';
+			$scope.URL_FORM_EDIT = 'private/perfil/perfil-edit';
+
+			$scope.map = [ {
+				'title' : 'Nome',
+				'field' : 'nome'
+			}, {
+				'title' : 'Criado por',
+				'field' : 'usuarioCriacao',
+				'subField' : 'nome'
+			}, {
+				'title' : 'Criação',
+				'field' : 'dataCriacao',
+				'isDate' : 'true'
+			}, {
+				'title' : 'Alterado',
+				'field' : 'dataAlteracao',
+				'isDate' : 'true'
+			} ];
+
+		} ]);
+
+app.controller('PerfilEditController', [ '$scope', '$routeParams', '$location',
+		'$timeout', 'PerfilFactory',
+		function($scope, $routeParams, $location, $timeout, PerfilFactory) {
+
+			$scope.load = function() {
+				$scope.perfil = PerfilFactory.get({
+					id : $routeParams.id
+				});
+			};
+
+			$scope.closeMessage = function() {
+				$('#idMessage').modal('hide');
+				if ($scope.trtResponse.go != null) {
+					$timeout(function() {
+						$location.path($scope.trtResponse.go);
+					}, 700);
+				}
+				;
+			};
+
+			$scope.trtResponse = {};
+			$scope.save = function(close) {
+				if ($scope.formulario.$valid) {
+					$scope.perfil.$update(function(response) {
+						$scope.trtResponse = response;
+						var url;
+						if (close) {
+							url = 'private/perfil/perfil-view';
+						} else {
+							$scope.load();
+						}
+						$scope.trtResponse.go = url;
+					}, function(response) {
+						$scope.trtResponse = response.data;
+					});
+				}
+			};
+
+			$scope.load();
+
+		} ]);
 
 app
 		.controller(
@@ -1303,24 +1459,33 @@ app
 
 						} ]);
 
-app.controller('DfuEditController', [ '$scope', '$resource', '$routeParams',
-		'$location', 'DfuFactory',
+app.controller('DfuEditController', [
+		'$scope',
+		'$resource',
+		'$routeParams',
+		'$location',
+		'DfuFactory',
 		function($scope, $resource, $routeParams, $location, DfuFactory) {
 
 			$scope.load = function() {
 				DfuFactory.get({
 					id : $routeParams.id
-				}, function(response){
-					
+				}, function(response) {
+
 					$scope.dfu = response;
-					
-					$scope.dfu.dataMaturidade = new Date($scope.dfu.dataMaturidade);
-					$scope.dfu.dataLancamento = new Date($scope.dfu.dataLancamento);
-					$scope.dfu.dataDescontinuacao = new Date($scope.dfu.dataDescontinuacao);
-					$scope.dfu.validadeModelo = new Date($scope.dfu.validadeModelo);
-					$scope.dfu.validadePrimeiraSaida = new Date($scope.dfu.validadePrimeiraSaida);
+
+					$scope.dfu.dataMaturidade = new Date(
+							$scope.dfu.dataMaturidade);
+					$scope.dfu.dataLancamento = new Date(
+							$scope.dfu.dataLancamento);
+					$scope.dfu.dataDescontinuacao = new Date(
+							$scope.dfu.dataDescontinuacao);
+					$scope.dfu.validadeModelo = new Date(
+							$scope.dfu.validadeModelo);
+					$scope.dfu.validadePrimeiraSaida = new Date(
+							$scope.dfu.validadePrimeiraSaida);
 				});
-				
+
 			};
 
 			$scope.listaItens = $resource('item/all').query();
@@ -1354,7 +1519,7 @@ app.controller('DfuEditController', [ '$scope', '$resource', '$routeParams',
 					});
 				}
 			};
-			
+
 			$scope.load();
 
 		} ]);

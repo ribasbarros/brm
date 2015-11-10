@@ -11,7 +11,7 @@ public interface UsuarioService {
 
 	UsuarioResponseDTO create(UsuarioRequestDTO request) throws UsuarioExistentException;
 
-	void update(UsuarioRequestDTO request) throws UsuarioNotFoundException;
+	UsuarioResponseDTO update(UsuarioRequestDTO request) throws UsuarioNotFoundException;
 
 	void delete(String id) throws UsuarioNotFoundException;
 	

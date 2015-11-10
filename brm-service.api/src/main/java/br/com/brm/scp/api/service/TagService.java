@@ -18,7 +18,7 @@ public interface TagService {
 	
 	TagResponseDTO create(TagRequestDTO request) throws TagExistenteException;
 
-	void update(TagRequestDTO request) throws TagNotFoundException;	
+	TagResponseDTO update(TagRequestDTO request) throws TagNotFoundException;	
 	
 	TagResponseDTO find(TagFiltroEnum filtro, Object value) throws TagNotFoundException;
 

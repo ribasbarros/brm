@@ -14,7 +14,7 @@ public interface GrupoService {
 
 	void delete(String id) throws GrupoNotFoundException;
 
-	void update(GrupoRequestDTO request) throws GrupoNotFoundException;
+	GrupoResponseDTO update(GrupoRequestDTO request) throws GrupoNotFoundException;
 	
 	GrupoResponseDTO find(GrupoFiltroEnum filtro, Object value) throws GrupoNotFoundException;
 	

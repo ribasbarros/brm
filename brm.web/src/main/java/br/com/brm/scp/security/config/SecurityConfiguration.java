@@ -61,7 +61,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		// in the order they are configured below. So /** (anyRequest()) should
 		// always be at the bottom of the list.
 				.authorizeRequests().antMatchers("/login*").permitAll()
-				.antMatchers("/private/grupo/**").hasAuthority("ADMIN")
+				//.antMatchers("/private/grupo/**").hasAuthority("ROLE_ADMIN")
 				.anyRequest().authenticated()
 				.and()
 

@@ -78,7 +78,7 @@ public class TagServiceImpl implements TagService{
 	}
 	
 	@Override
-	public void update(TagRequestDTO request) throws TagNotFoundException {
+	public TagResponseDTO update(TagRequestDTO request) throws TagNotFoundException {
 		Assert.notNull(request, TAG_NULL);
 		Assert.notNull(request.getId(), TAG_ID);
 		Assert.notNull(request.getNome(), TAG_NOME);
@@ -89,7 +89,7 @@ public class TagServiceImpl implements TagService{
 
 		TagDocument document = invokeDocument(request);
 		document.setDataAlteracao(new Date());
-		repository.save(document);
+		return invokeResponse(repository.save(document));
 	}
 
 	@Override

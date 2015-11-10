@@ -94,7 +94,7 @@ public class GrupoServiceImpl implements GrupoService {
 	}
 
 	@Override
-	public void update(GrupoRequestDTO request) throws GrupoNotFoundException {
+	public GrupoResponseDTO update(GrupoRequestDTO request) throws GrupoNotFoundException {
 		Assert.notNull(request, GRUPO_NULL);
 		Assert.notNull(request.getId(), GRUPO_ID);
 		Assert.notNull(request.getNome(), GRUPO_NOME);
@@ -105,7 +105,7 @@ public class GrupoServiceImpl implements GrupoService {
 
 		GrupoDocument document = invokeDocument(request);
 		document.setDataAlteracao(new Date());
-		repository.save(document);
+		return invokeResponse(repository.save(document));
 	}
 
 	@Override

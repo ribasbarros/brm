@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,57 +16,75 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import br.com.brm.scp.api.dto.request.PerfilRequestDTO;
 import br.com.brm.scp.api.dto.response.PerfilResponseDTO;
-import br.com.brm.scp.api.dto.response.PerfilResponseDTO;
-import br.com.brm.scp.api.dto.response.PerfilResponseDTO;
-import br.com.brm.scp.api.dto.response.PerfilResponseDTO;
-import br.com.brm.scp.api.exceptions.PerfilNotFoundException;
-import br.com.brm.scp.api.exceptions.PerfilNotFoundException;
-import br.com.brm.scp.api.exceptions.PerfilNotFoundException;
-import br.com.brm.scp.api.exceptions.PerfilExistenteException;
+import br.com.brm.scp.api.dto.response.ReturnMessage;
 import br.com.brm.scp.api.exceptions.PerfilNotFoundException;
 import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.pages.SearchPageableVO;
 import br.com.brm.scp.api.service.PerfilService;
+import br.com.brm.scp.api.service.status.MessageBootstrap;
 import br.com.brm.scp.api.service.status.PerfilFiltroEnum;
-import br.com.brm.scp.api.service.status.PerfilFiltroEnum;
 import br.com.brm.scp.controller.exception.PerfilNotFoundWebException;
-import br.com.brm.scp.controller.exception.PerfilNotFoundWebException;
-import br.com.brm.scp.controller.exception.PerfilNotFoundWebException;
-import br.com.brm.scp.controller.exception.PerfilExistenteWebException;
-import br.com.brm.scp.controller.exception.PerfilNotFoundWebException;
+import br.com.brm.scp.fw.helper.ExceptionHelper;
+import br.com.brm.scp.fw.helper.RestHelper;
 
 @Controller
 @RequestMapping("perfil")
-public class PerfilController implements Serializable {
+public class PerfilController extends RestHelper implements Serializable {
 	@Autowired
 	PerfilService service;
 	
 	private static final long serialVersionUID = -9005186692408166650L;
-	
+
+	private static final String PERFIL_CRIADO_COM_SUCESSO = "fornecedor.savesuccess";
+
+	private static final String PERFIL_ALTERADO_COM_SUCESSO = "fornecedor.updatesuccess";
+
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.POST)
-	@ResponseStatus(HttpStatus.CREATED)
-	PerfilResponseDTO create(@RequestBody PerfilRequestDTO request) {
-		PerfilResponseDTO response = null;
+	ResponseEntity<ReturnMessage<PerfilResponseDTO>> create(@RequestBody PerfilRequestDTO request) {
+		ReturnMessage<PerfilResponseDTO> restResponse = new ReturnMessage<>();
+		HttpStatus status = HttpStatus.CREATED;
+
 		try {
-			response = service.create(request);
-		} catch (PerfilExistenteException e) {
-			throw new PerfilExistenteWebException();
+			PerfilResponseDTO response = service.create(request);
+
+			restResponse.setResult(response);
+			restResponse.setHttpMensagem(getLabel(PERFIL_CRIADO_COM_SUCESSO));
+
+		} catch (Exception e) {
+			status = HttpStatus.BAD_REQUEST;
+
+			restResponse.setHttpMensagem(getLabel(e.getMessage()));
+			restResponse.setIco(MessageBootstrap.DANGER);
+			
+			restResponse.setDetalhe(ExceptionHelper.toString(e));
+
 		}
 
-		return response;
+		return new ResponseEntity<>(restResponse, status);
 	}
 
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.PUT)
-	@ResponseStatus(HttpStatus.OK)
-	void update(@RequestBody PerfilRequestDTO request) {
+	ResponseEntity<ReturnMessage<PerfilResponseDTO>> update(@RequestBody PerfilRequestDTO request) {
+		ReturnMessage<PerfilResponseDTO> restResponse = new ReturnMessage<>();
+		HttpStatus status = HttpStatus.CREATED;
 		try {
-			service.update(request);
-		} catch (PerfilNotFoundException e) {
-			throw new PerfilNotFoundWebException(e.getMessage());
+			PerfilResponseDTO response = service.update(request);
+
+			restResponse.setResult(response);
+			restResponse.setHttpMensagem(getLabel(PERFIL_ALTERADO_COM_SUCESSO));
+		} catch (Exception e) {
+			status = HttpStatus.BAD_REQUEST;
+
+			restResponse.setHttpMensagem(getLabel(e.getMessage()));
+			restResponse.setIco(MessageBootstrap.DANGER);
+			
+			restResponse.setDetalhe(ExceptionHelper.toString(e));
 		}
+		return new ResponseEntity<>(restResponse, status);
 	}
+
 	
 	@ResponseBody
 	@RequestMapping(value= "{id}", method = RequestMethod.DELETE)

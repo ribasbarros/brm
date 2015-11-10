@@ -5,8 +5,7 @@ import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,49 +16,72 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import br.com.brm.scp.api.dto.request.GrupoRequestDTO;
 import br.com.brm.scp.api.dto.response.GrupoResponseDTO;
-import br.com.brm.scp.api.dto.response.GrupoResponseDTO;
-import br.com.brm.scp.api.exceptions.GrupoExistenteException;
-import br.com.brm.scp.api.exceptions.GrupoNotFoundException;
+import br.com.brm.scp.api.dto.response.ReturnMessage;
 import br.com.brm.scp.api.exceptions.GrupoNotFoundException;
 import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.pages.SearchPageableVO;
 import br.com.brm.scp.api.service.GrupoService;
 import br.com.brm.scp.api.service.status.GrupoFiltroEnum;
-import br.com.brm.scp.controller.exception.GrupoExistenteWebException;
+import br.com.brm.scp.api.service.status.MessageBootstrap;
 import br.com.brm.scp.controller.exception.GrupoNotFoundWebException;
-import br.com.brm.scp.controller.exception.GrupoNotFoundWebException;
+import br.com.brm.scp.fw.helper.ExceptionHelper;
+import br.com.brm.scp.fw.helper.RestHelper;
 
 @Controller
 @RequestMapping("grupo")
-public class GrupoController implements Serializable {
+public class GrupoController extends RestHelper implements Serializable {
 	@Autowired
 	GrupoService service;
 		
 	private static final long serialVersionUID = 6720018258769444944L;
-	
+	private static final String GRUPO_CRIADO_COM_SUCESSO = "fornecedor.savesuccess";
+
+	private static final String GRUPO_ALTERADO_COM_SUCESSO = "fornecedor.updatesuccess";
+
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.POST)
-	@ResponseStatus(HttpStatus.CREATED)
-	GrupoResponseDTO create(@RequestBody GrupoRequestDTO request) {
-		GrupoResponseDTO response = null;
+	ResponseEntity<ReturnMessage<GrupoResponseDTO>> create(@RequestBody GrupoRequestDTO request) {
+		ReturnMessage<GrupoResponseDTO> restResponse = new ReturnMessage<>();
+		HttpStatus status = HttpStatus.CREATED;
+
 		try {
-			response = service.create(request);
-		} catch (GrupoExistenteException e) {
-			throw new GrupoExistenteWebException();
+			GrupoResponseDTO response = service.create(request);
+
+			restResponse.setResult(response);
+			restResponse.setHttpMensagem(getLabel(GRUPO_CRIADO_COM_SUCESSO));
+
+		} catch (Exception e) {
+			status = HttpStatus.BAD_REQUEST;
+
+			restResponse.setHttpMensagem(getLabel(e.getMessage()));
+			restResponse.setIco(MessageBootstrap.DANGER);
+			
+			restResponse.setDetalhe(ExceptionHelper.toString(e));
+
 		}
 
-		return response;
+		return new ResponseEntity<>(restResponse, status);
 	}
 
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.PUT)
-	@ResponseStatus(HttpStatus.OK)
-	void update(@RequestBody GrupoRequestDTO request) {
+	ResponseEntity<ReturnMessage<GrupoResponseDTO>> update(@RequestBody GrupoRequestDTO request) {
+		ReturnMessage<GrupoResponseDTO> restResponse = new ReturnMessage<>();
+		HttpStatus status = HttpStatus.CREATED;
 		try {
-			service.update(request);
-		} catch (GrupoNotFoundException e) {
-			throw new GrupoNotFoundWebException(e.getMessage());
+			GrupoResponseDTO response = service.update(request);
+
+			restResponse.setResult(response);
+			restResponse.setHttpMensagem(getLabel(GRUPO_ALTERADO_COM_SUCESSO));
+		} catch (Exception e) {
+			status = HttpStatus.BAD_REQUEST;
+
+			restResponse.setHttpMensagem(getLabel(e.getMessage()));
+			restResponse.setIco(MessageBootstrap.DANGER);
+			
+			restResponse.setDetalhe(ExceptionHelper.toString(e));
 		}
+		return new ResponseEntity<>(restResponse, status);
 	}
 	
 	@ResponseBody

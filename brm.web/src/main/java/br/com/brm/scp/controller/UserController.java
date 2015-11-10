@@ -8,6 +8,7 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,27 +18,29 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import br.com.brm.scp.api.dto.request.UsuarioRequestDTO;
+import br.com.brm.scp.api.dto.response.ReturnMessage;
 import br.com.brm.scp.api.dto.response.UsuarioResponseDTO;
-import br.com.brm.scp.api.dto.response.UsuarioResponseDTO;
-import br.com.brm.scp.api.exceptions.UsuarioNotFoundException;
-import br.com.brm.scp.api.exceptions.UsuarioExistentException;
 import br.com.brm.scp.api.exceptions.UsuarioNotFoundException;
 import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.pages.SearchPageableVO;
 import br.com.brm.scp.api.service.UsuarioService;
-import br.com.brm.scp.api.service.status.UsuarioFiltroEnum;
+import br.com.brm.scp.api.service.status.MessageBootstrap;
 import br.com.brm.scp.api.service.status.UsuarioFiltroEnum;
 import br.com.brm.scp.controller.exception.UsuarioNotFoundWebException;
-import br.com.brm.scp.controller.exception.UsuarioExistenteWebException;
-import br.com.brm.scp.controller.exception.UsuarioNotFoundWebException;
+import br.com.brm.scp.fw.helper.ExceptionHelper;
+import br.com.brm.scp.fw.helper.RestHelper;
 
 @Controller
 @RequestMapping("usuario")
-public class UserController implements Serializable {
+public class UserController extends RestHelper implements Serializable {
 	@Autowired
 	UsuarioService service;
 	private static final long serialVersionUID = -1334399509544544618L;
-	
+	private static final String USUARIO_CRIADO_COM_SUCESSO = "tag.savesuccess";
+
+	private static final String USUARIO_ALTERADO_COM_SUCESSO = "tag.updatesuccess";
+
+
 	private static final String FORMAT_DATE = "dd/MM/yyyy";
 
 	@RequestMapping(value = "user", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -55,27 +58,48 @@ public class UserController implements Serializable {
 	
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.POST)
-	@ResponseStatus(HttpStatus.CREATED)
-	UsuarioResponseDTO create(@RequestBody UsuarioRequestDTO request) {
-		UsuarioResponseDTO response = null;
+	ResponseEntity<ReturnMessage<UsuarioResponseDTO>> create(@RequestBody UsuarioRequestDTO request) {
+		ReturnMessage<UsuarioResponseDTO> restResponse = new ReturnMessage<>();
+		HttpStatus status = HttpStatus.CREATED;
+
 		try {
-			response = service.create(request);
-		} catch (UsuarioExistentException e) {
-			throw new UsuarioExistenteWebException();
+			UsuarioResponseDTO response = service.create(request);
+
+			restResponse.setResult(response);
+			restResponse.setHttpMensagem(getLabel(USUARIO_CRIADO_COM_SUCESSO));
+
+		} catch (Exception e) {
+			status = HttpStatus.BAD_REQUEST;
+
+			restResponse.setHttpMensagem(getLabel(e.getMessage()));
+			restResponse.setIco(MessageBootstrap.DANGER);
+			
+			restResponse.setDetalhe(ExceptionHelper.toString(e));
+
 		}
 
-		return response;
+		return new ResponseEntity<>(restResponse, status);
 	}
 
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.PUT)
-	@ResponseStatus(HttpStatus.OK)
-	void update(@RequestBody UsuarioRequestDTO request) {
+	ResponseEntity<ReturnMessage<UsuarioResponseDTO>> update(@RequestBody UsuarioRequestDTO request) {
+		ReturnMessage<UsuarioResponseDTO> restResponse = new ReturnMessage<>();
+		HttpStatus status = HttpStatus.CREATED;
 		try {
-			service.update(request);
-		} catch (UsuarioNotFoundException e) {
-			throw new UsuarioNotFoundWebException(e.getMessage());
+			UsuarioResponseDTO response = service.update(request);
+
+			restResponse.setResult(response);
+			restResponse.setHttpMensagem(getLabel(USUARIO_ALTERADO_COM_SUCESSO));
+		} catch (Exception e) {
+			status = HttpStatus.BAD_REQUEST;
+
+			restResponse.setHttpMensagem(getLabel(e.getMessage()));
+			restResponse.setIco(MessageBootstrap.DANGER);
+			
+			restResponse.setDetalhe(ExceptionHelper.toString(e));
 		}
+		return new ResponseEntity<>(restResponse, status);
 	}
 	
 	@ResponseBody

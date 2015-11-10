@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,51 +15,74 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import br.com.brm.scp.api.dto.request.SkuRequestDTO;
+import br.com.brm.scp.api.dto.response.ReturnMessage;
 import br.com.brm.scp.api.dto.response.SkuResponseDTO;
-import br.com.brm.scp.api.dto.response.SkuResponseDTO;
-import br.com.brm.scp.api.exceptions.SkuNotFoundException;
-import br.com.brm.scp.api.exceptions.SkuExistenteException;
 import br.com.brm.scp.api.exceptions.SkuNotFoundException;
 import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.pages.SearchPageableVO;
 import br.com.brm.scp.api.service.SkuService;
+import br.com.brm.scp.api.service.status.MessageBootstrap;
 import br.com.brm.scp.api.service.status.SkuFiltroEnum;
 import br.com.brm.scp.controller.exception.SkuNotFoundWebException;
-import br.com.brm.scp.controller.exception.SkuExistenteWebException;
-import br.com.brm.scp.controller.exception.SkuNotFoundWebException;
+import br.com.brm.scp.fw.helper.ExceptionHelper;
+import br.com.brm.scp.fw.helper.RestHelper;
 
 @Controller
 @RequestMapping("sku")
-public class SkuController implements Serializable {
+public class SkuController extends RestHelper implements Serializable {
 
 	private static final long serialVersionUID = 9119085167667772244L;
-	
+	private static final String SKU_CRIADO_COM_SUCESSO = "sku.savesuccess";
+
+	private static final String SKU_ALTERADO_COM_SUCESSO = "sku.updatesuccess";
+
 	@Autowired
 	private SkuService service;
 
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.POST)
-	@ResponseStatus(HttpStatus.CREATED)
-	SkuResponseDTO create(@RequestBody SkuRequestDTO request) {
-		SkuResponseDTO response = null;
+	ResponseEntity<ReturnMessage<SkuResponseDTO>> create(@RequestBody SkuRequestDTO request) {
+		ReturnMessage<SkuResponseDTO> restResponse = new ReturnMessage<>();
+		HttpStatus status = HttpStatus.CREATED;
+
 		try {
-			response = service.create(request);
-		} catch (SkuExistenteException e) {
-			throw new SkuExistenteWebException();
+			SkuResponseDTO response = service.create(request);
+
+			restResponse.setResult(response);
+			restResponse.setHttpMensagem(getLabel(SKU_CRIADO_COM_SUCESSO));
+
+		} catch (Exception e) {
+			status = HttpStatus.BAD_REQUEST;
+
+			restResponse.setHttpMensagem(getLabel(e.getMessage()));
+			restResponse.setIco(MessageBootstrap.DANGER);
+			
+			restResponse.setDetalhe(ExceptionHelper.toString(e));
+
 		}
 
-		return response;
+		return new ResponseEntity<>(restResponse, status);
 	}
 
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.PUT)
-	@ResponseStatus(HttpStatus.OK)
-	void update(@RequestBody SkuRequestDTO request) {
+	ResponseEntity<ReturnMessage<SkuResponseDTO>> update(@RequestBody SkuRequestDTO request) {
+		ReturnMessage<SkuResponseDTO> restResponse = new ReturnMessage<>();
+		HttpStatus status = HttpStatus.CREATED;
 		try {
-			service.update(request);
-		} catch (SkuNotFoundException e) {
-			throw new SkuNotFoundWebException(e.getMessage());
+			SkuResponseDTO response = service.update(request);
+
+			restResponse.setResult(response);
+			restResponse.setHttpMensagem(getLabel(SKU_ALTERADO_COM_SUCESSO));
+		} catch (Exception e) {
+			status = HttpStatus.BAD_REQUEST;
+
+			restResponse.setHttpMensagem(getLabel(e.getMessage()));
+			restResponse.setIco(MessageBootstrap.DANGER);
+			
+			restResponse.setDetalhe(ExceptionHelper.toString(e));
 		}
+		return new ResponseEntity<>(restResponse, status);
 	}
 	
 	@ResponseBody

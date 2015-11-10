@@ -92,7 +92,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 	}
 
 	@Override
-	public void update(UsuarioRequestDTO request)
+	public UsuarioResponseDTO update(UsuarioRequestDTO request)
 			throws UsuarioNotFoundException {
 		Assert.notNull(request.getId(), USUARIO_ID);
 		Assert.notNull(request, USUARIO_NOTNULL);
@@ -108,7 +108,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		}
 		UsuarioDocument document = invokeDocument(request);
 		document.setDataAlteracao(new Date());
-		repository.save(document);
+		return invokeResponse(repository.save(document));
 	}
 
 	@Override
