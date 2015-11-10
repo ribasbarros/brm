@@ -38,187 +38,31 @@
 		<li role="presentation" class="active"><a data-target="#detalhe"
 			id="detalhe-tab" role="tab" data-toggle="tab" aria-controls="detalhe"
 			aria-expanded="true">Detalhe</a></li>
-		<li role="presentation" class=""><a data-target="#origem" role="tab"
-			id="origem-tab" data-toggle="tab" aria-controls="origem"
+		<li role="presentation" class=""><a data-target="#origem"
+			role="tab" id="origem-tab" data-toggle="tab" aria-controls="origem"
 			aria-expanded="false">Origem</a></li>
-		<li role="presentation" class=""><a data-target="#pedidos" role="tab"
-			id="pedidos-tab" data-toggle="tab" aria-controls="pedidos"
+		<li role="presentation" class=""><a data-target="#pedidos"
+			role="tab" id="pedidos-tab" data-toggle="tab" aria-controls="pedidos"
 			aria-expanded="false">Pedidos</a></li>
 	</ul>
 	<div id="myTabContent" class="tab-content">
 		<div role="tabpanel" class="tab-pane fade active in" id="detalhe"
-			aria-labelledby="detalhe-tab"  style="margin: 30px">
-			<div class="row">
-				<div class="col-md-6">
-					<div class="form-group ">
-						<label>Tags</label>
-						<tags-input ng-model="sku.tags" display-property="nome"
-							placeholder="Adicionar Tag" add-from-autocomplete-only="true">
-						<auto-complete source="loadTags($query)"></auto-complete> </tags-input>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-3">
-					<div class="form-group ">
-						<label>Classe</label> <select class="form-control" name="classe"
-							id="classe" ng-model="sku.classe">
-							<option ng-repeat="option in listaStatus" ng-value="option.nome">{{option.nome}}</option>
-						</select>
-					</div>
-				</div>
+			aria-labelledby="detalhe-tab" style="margin: 30px">
 
-				<div class="col-md-3">
-					<div class="form-group ">
-						<label>Item</label> <select class="form-control"
-							ng-options="item as item.nome for item in listaItens track by item.id"
-							ng-model="sku.item"></select>
-					</div>
-				</div>
-			</div>
+			<div ng-include="'private/sku/sku-tab-detalhe'" />
 
-			<div class="row">
-				<div class="col-md-2">
-					<div class="form-group">
-						<label>Data de maturidade</label> <input type="date"
-							class="form-control" ng-model="sku.dataMaturidade"
-							name="dataMaturidade" />
-					</div>
-				</div>
-
-				<div class="col-md-2">
-					<div class="form-group">
-						<label>Data de Descontinuação</label> <input type="date"
-							class="form-control" ng-model="sku.dataDescontinuacao"
-							name="dataDescontinuacao" />
-					</div>
-				</div>
-
-				<div class="col-md-1">
-					<div class="form-group">
-						<label>Automática</label> <input type="checkbox"
-							class="form-control" ng-model="sku.automatica" name="automatica" />
-					</div>
-				</div>
-			</div>
-
-			<div class="row">
-
-				<div class="col-md-3">
-					<div class="form-group ">
-						<label>Tipos de Planejamento</label> <select class="form-control"
-							name="modelo" id="modelo" ng-model="sku.modelo">
-							<option ng-repeat="option in listaPlanejamentos"
-								ng-value="option.nome">{{option.nome}}</option>
-						</select>
-					</div>
-				</div>
-
-				<div class="col-md-3">
-					<div class="form-group large-padded-row">
-						<label>Tipos de Reposição</label> <select class="form-control"
-							name="status" id="status" ng-model="sku.status">
-							<option ng-repeat="option in listaReposicoes"
-								ng-value="option.nome">{{option.nome}}</option>
-						</select>
-
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6">
-					<div class="form-group">
-						<label>Descrição</label> <input name="descricao"
-							class="form-control" ng-model="sku.descricao">
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-3">
-
-					<div class="form-group">
-						<label>Estoque Máximo</label> <input type="number"
-							name="estoqueMaximo" class="form-control"
-							ng-model="sku.estoqueMaximo">
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="form-group">
-						<label>Estoque Minimo</label> <input type="number"
-							name="estoqueMinimo" class="form-control"
-							ng-model="sku.estoqueMinimo">
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-2">
-
-					<div class="form-group">
-						<label>Estoque Ideal</label> <input type="number"
-							name="estoqueIdeal" class="form-control"
-							ng-model="sku.estoqueIdeal">
-					</div>
-				</div>
-				<div class="col-md-2">
-					<div class="form-group">
-						<label>Estoque Atual</label> <input type="number"
-							name="estoqueAtual" class="form-control"
-							ng-model="sku.estoqueAtual">
-					</div>
-				</div>
-				<div class="col-md-2">
-					<div class="form-group">
-						<label>Custo Unitário</label> <input type="number"
-							name="custoUnitario" class="form-control"
-							ng-model="sku.custoUnitario">
-					</div>
-				</div>
-			</div>
-
-			<label>Frequência de análise</label>
-			<div class="row">
-				<div class="form-group">
-					<div class="col-md-1" ng-repeat="dia in diasDaSemana">
-						<label>{{dia.value}}</label> <input type="checkbox"
-							ng-model="dia.checked"
-							ng-change="checkedOrNot(dia.id, dia.checked, $index)" />
-					</div>
-				</div>
-			</div>
 		</div>
 		<div role="tabpanel" class="tab-pane fade" id="origem"
-			aria-labelledby="origem-tab"  style="margin: 30px">
-			<div class="row">
-				<div ng-show="sku.origens.length > 0">
-					<div ng-if="sku.origens" class="col-md-4">
-						<label>Origem</label>
-						<div>
-							<brm-show-data column="mapColumnsOrigem" data="sku.origens"
-								is-delete="true" />
-						</div>
-					</div>
-				</div>
-			</div>
+			aria-labelledby="origem-tab" style="margin: 30px">
+
+			<div ng-include="'private/sku/sku-tab-origem'" />
+
 		</div>
 		<div role="tabpanel" class="tab-pane fade" id="pedidos"
-			aria-labelledby="pedidos-tab"  style="margin: 30px">
-			<div class="row">
-				<div class="col-md-12">
-					<h3>Pedidos Futuros</h3>
-				</div>
-			</div>
+			aria-labelledby="pedidos-tab" style="margin: 30px">
 
-			<div class="row">
-				<div class="col-md-12">
-					<h3>Pedidos Presentes</h3>
-				</div>
-			</div>
+			<div ng-include="'private/sku/sku-tab-pedidos'" />
 
-			<div class="row">
-				<div class="col-md-12">
-					<h3>Pedidos Históricos</h3>
-				</div>
-			</div>
 		</div>
 	</div>
 </div>

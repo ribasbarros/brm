@@ -1,142 +1,148 @@
-.page-header{
+.page-header {
 	margin: 0px 0 0px !important;
 }
 
 .angucomplete-holder {
-    position: relative;
+	position: relative;
 }
 
 .angucomplete-dropdown {
-    border-color: #ececec;
-    border-width: 1px;
-    border-style: solid;
-    border-radius: 2px;
-    width: 250px;
-    padding: 6px;
-    cursor: pointer;
-    z-index: 9999;
-    position: absolute;
-    /*top: 32px;
+	border-color: #ececec;
+	border-width: 1px;
+	border-style: solid;
+	border-radius: 2px;
+	width: 250px;
+	padding: 6px;
+	cursor: pointer;
+	z-index: 9999;
+	position: absolute;
+	/*top: 32px;
     left: 0px;
     */
-    margin-top: -6px;
-    background-color: #ffffff;
+	margin-top: -6px;
+	background-color: #ffffff;
 }
 
 .angucomplete-searching {
-    color: #acacac;
-    font-size: 14px;
+	color: #acacac;
+	font-size: 14px;
 }
 
 .angucomplete-description {
-    font-size: 14px;
+	font-size: 14px;
 }
 
 .angucomplete-row {
-    padding: 5px;
-    color: #000000;
-    margin-bottom: 4px;
-
+	padding: 5px;
+	color: #000000;
+	margin-bottom: 4px;
 }
 
 .angucomplete-selected-row, .angucomplete-row:hover {
-    background-color: lightblue;
-    color: #ffffff;
+	background-color: lightblue;
+	color: #ffffff;
 }
 
 .angucomplete-image-holder {
-    padding-top: 2px;
-    float: left;
-    margin-right: 10px;
-    margin-left: 5px;
+	padding-top: 2px;
+	float: left;
+	margin-right: 10px;
+	margin-left: 5px;
 }
 
 .angucomplete-image {
-    height: 34px;
-    width: 34px;
-    border-radius: 50%;
-    border-color: #ececec;
-    border-style: solid;
-    border-width: 1px;
+	height: 34px;
+	width: 34px;
+	border-radius: 50%;
+	border-color: #ececec;
+	border-style: solid;
+	border-width: 1px;
 }
 
 .angucomplete-image-default {
-    /* Add your own default image here
+	/* Add your own default image here
      background-image: url('/assets/default.png');
     */
-    background-position: center;
-    background-size: contain;
-    height: 34px;
-    width: 34px;
+	background-position: center;
+	background-size: contain;
+	height: 34px;
+	width: 34px;
 }
 
-
 #footer {
-	width:100%;
-	height:50px;
+	width: 100%;
+	height: 50px;
 	margin-bottom: 0px;
-	bottom:0;
-	left:0;
+	bottom: 0;
+	left: 0;
 }
 
 .features {
-    float: right;
-    width: 300px;
-    padding-left: 20px;
+	float: right;
+	width: 300px;
+	padding-left: 20px;
 }
+
 .features .heading {
-    font-size: 14px;
-    font-weight: bold;
+	font-size: 14px;
+	font-weight: bold;
 }
 
 .drop {
-    padding: 15px;
-    border: 2px #f1f1f1 dashed;
-    border-radius: 5px;
-    line-height: 34px;
+	padding: 15px;
+	border: 2px #f1f1f1 dashed;
+	border-radius: 5px;
+	line-height: 34px;
 }
+
 .drop.drag-over {
-    background: #5CB85C;
-    color: #fff
+	background: #5CB85C;
+	color: #fff
 }
+
 .transfer-box {
-    margin-bottom: 5px;
+	margin-bottom: 5px;
 }
+
 .transfer-box .progress {
-    margin-bottom: 0;
+	margin-bottom: 0;
 }
 
 .thumbnail {
-    line-height: 20px;
-    margin-bottom: 5px;
-    overflow: hidden;
-    word-break: normal;
+	line-height: 20px;
+	margin-bottom: 5px;
+	overflow: hidden;
+	word-break: normal;
 }
+
 .thumbnail img {
-    max-width: 200px;
-    max-height: 150px;
+	max-width: 200px;
+	max-height: 150px;
 }
 
 .gallery-box {
-    width: 200px;
-    padding: 5px;
-    margin: 7px;
-    float: left;
-    min-height: 200px;
-    border: 1px solid #ddd;
-    overflow: hidden;
+	width: 200px;
+	padding: 5px;
+	margin: 7px;
+	float: left;
+	min-height: 200px;
+	border: 1px solid #ddd;
+	overflow: hidden;
 }
+
 .gallery-box .progress {
-    margin-bottom: 0;
+	margin-bottom: 0;
 }
+
 .gallery-box .thumbnail {
-    height: 188px;
-    width: 188px;
+	height: 188px;
+	width: 188px;
 }
+
 .gallery-box .title {
-    height: 22px;
-    overflow: hidden;
-    display: block;
+	height: 22px;
+	overflow: hidden;
+	display: block;
 }
 
 .brokenText {
@@ -227,4 +233,68 @@
 
 .noShow {
 	display: none !important;
+}
+
+input[type="checkbox"] {
+	display: none;
+}
+
+input[type="checkbox"]+label span {
+	display: inline-block;
+	width: 19px;
+	height: 19px;
+	margin: -1px 4px 0 0;
+	vertical-align: middle;
+	background: url(../images/check_radio_sheet.png) left top no-repeat;
+	cursor: pointer;
+}
+
+input[type="checkbox"]:checked+label span {
+	background: url(../images/check_radio_sheet.png) -19px top no-repeat;
+}
+
+label input[type="checkbox"]+span {
+	display: inline-block;
+	width: 19px;
+	height: 19px;
+	margin: -1px 4px 0 0;
+	vertical-align: middle;
+	background: url(../images/check_radio_sheet.png) left top no-repeat;
+	cursor: pointer;
+}
+
+label input[type="checkbox"]:checked+span {
+	background: url(../images/check_radio_sheet.png) -19px top no-repeat;
+}
+
+input[type="radio"] {
+	display: none;
+}
+
+input[type="radio"]+label span {
+	display: inline-block;
+	width: 19px;
+	height: 19px;
+	margin: -1px 4px 0 0;
+	vertical-align: middle;
+	background: url(../images/check_radio_sheet.png) -38px top no-repeat;
+	cursor: pointer;
+}
+
+input[type="radio"]:checked+label span {
+	background: url(../images/check_radio_sheet.png) -57px top no-repeat;
+}
+
+label input[type="radio"]+span {
+	display: inline-block;
+	width: 19px;
+	height: 19px;
+	margin: -1px 4px 0 0;
+	vertical-align: middle;
+	background: url(../images/check_radio_sheet.png) -38px top no-repeat;
+	cursor: pointer;
+}
+
+label input[type="radio"]:checked+span {
+	background: url(../images/check_radio_sheet.png) -57px top no-repeat;
 }

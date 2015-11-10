@@ -1,0 +1,11 @@
+<div class="row">
+	<div ng-show="sku.origens.length > 0">
+		<div ng-if="sku.origens" class="col-md-4">
+			<label>Origem</label>
+			<div>
+				<brm-show-data column="mapColumnsOrigem" data="sku.origens"
+					is-delete="true" />
+			</div>
+		</div>
+	</div>
+</div>
