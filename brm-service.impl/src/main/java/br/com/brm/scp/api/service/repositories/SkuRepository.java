@@ -17,6 +17,10 @@ public interface SkuRepository extends MongoRepository<SkuDocument, String> {
 	@Query("{ item : {'$ref' : 'itemDocument' , '$id' : ?0}}")
 	Collection<SkuDocument> findSkuByItem(String id);
 	
+	@Query("{ tags : {'$ref' : 'tagDocument' , '$id' : ?0}}")
+	Collection<SkuDocument> findSkuByTag(String id);
+	
+	
 	@Query("{ 'item' : {'$ref' : 'itemDocument' , '$id' : ?0}, "
 			+ " 'tags.$id' : { '$all' : ?1 } , "
 			+ " 'tags' : { '$exists' : true}, "
@@ -26,5 +30,6 @@ public interface SkuRepository extends MongoRepository<SkuDocument, String> {
 	//TODO Pesquisar por mais atributos!
 	@Query("{ $or: [ { 'descricao': {'$regex': ?0 , $options: 'i'} } ] }")
 	Page<SkuDocument> findByDescricao(String searchTerm, Pageable pageable);
+	
 	
 }

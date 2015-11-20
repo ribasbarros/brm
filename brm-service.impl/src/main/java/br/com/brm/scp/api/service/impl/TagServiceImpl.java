@@ -13,12 +13,14 @@ import org.springframework.util.Assert;
 import br.com.brm.scp.api.dto.request.TagRequestDTO;
 import br.com.brm.scp.api.dto.response.TagResponseDTO;
 import br.com.brm.scp.api.exceptions.TagExistenteException;
+import br.com.brm.scp.api.exceptions.TagIsUsedException;
 import br.com.brm.scp.api.exceptions.TagNotFoundException;
 import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.service.TagService;
 import br.com.brm.scp.api.service.UsuarioService;
 import br.com.brm.scp.api.service.document.TagDocument;
 import br.com.brm.scp.api.service.document.UsuarioDocument;
+import br.com.brm.scp.api.service.repositories.SkuRepository;
 import br.com.brm.scp.api.service.repositories.TagRepository;
 import br.com.brm.scp.api.service.status.TagFiltroEnum;
 import br.com.brm.scp.fw.helper.converters.ConverterHelper;
@@ -29,6 +31,8 @@ public class TagServiceImpl implements TagService{
 	TagRepository repository;
 	@Autowired
 	UsuarioService usuarioService;
+	@Autowired
+	SkuRepository skuRepository;
 	
 	private static Logger logger = Logger.getLogger(TagServiceImpl.class);
 	private static final String TAG_NOME = "tag.nome";
@@ -38,6 +42,8 @@ public class TagServiceImpl implements TagService{
 	private static final String TAG_EXISTENTE = "tag.existente";
 	private static final String TAG_NOTFOUND = "tag.notfound";
 	private static final String TAG_FILTRO = "tag.filtro";
+	private static final String TAG_SENDOUSADA = "tag.sendousada";
+	
 	
 	@Override
 	public Collection<TagResponseDTO> selecionar(TagResponseDTO tag,
@@ -100,11 +106,15 @@ public class TagServiceImpl implements TagService{
 	}
 
 	@Override
-	public void delete(String id) throws TagNotFoundException {
+	public void delete(String id) throws TagNotFoundException, TagIsUsedException {
 		Assert.notNull(id, TAG_ID);
 
 		if (find(TagFiltroEnum.ID,id) == null){
 			throw new TagNotFoundException(TAG_NOTFOUND);
+		}else{
+			if(!skuRepository.findSkuByTag(id).isEmpty()){
+				throw new TagIsUsedException(TAG_SENDOUSADA);
+			}
 		}
 				
 		repository.delete(id);	
@@ -168,7 +178,7 @@ public class TagServiceImpl implements TagService{
 	@Override
 	public Pageable<TagResponseDTO> search(String searchTerm, int pageIndex, int size)
 			throws TagNotFoundException {
-		Page<TagDocument> requestedPage = repository.findByName(searchTerm,
+		Page<TagDocument> requestedPage = repository.findByAttrs(searchTerm,
 				ServiceUtil.constructPageSpecification(pageIndex, size, new Sort(Sort.Direction.ASC, "id")));
 
 		Collection<TagDocument> result = requestedPage.getContent();

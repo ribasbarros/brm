@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import br.com.brm.scp.api.dto.request.TagRequestDTO;
 import br.com.brm.scp.api.dto.response.ReturnMessage;
 import br.com.brm.scp.api.dto.response.TagResponseDTO;
+import br.com.brm.scp.api.exceptions.TagIsUsedException;
 import br.com.brm.scp.api.exceptions.TagNotFoundException;
 import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.pages.SearchPageableVO;
@@ -92,7 +93,7 @@ public class TagController extends RestHelper implements Serializable {
 	void delete(@PathVariable("id") String id) {
 		try {
 			service.delete(id);
-		} catch (TagNotFoundException e) {
+		} catch (Exception e) {
 			throw new TagNotFoundWebException(e.getMessage());
 		}
 	}

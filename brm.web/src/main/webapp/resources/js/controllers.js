@@ -565,10 +565,15 @@ app.controller('SkuEditController',
 						}).$promise.then(function(data) {
 							$scope.sku = data;
 							$scope.loadDaysOfWeek();
-							$scope.sku.dataMaturidade = new Date(
-									$scope.sku.dataMaturidade);
-							$scope.sku.dataDescontinuacao = new Date(
-									$scope.sku.dataDescontinuacao);
+							if($scope.sku.dataMaturidade != null){
+								$scope.sku.dataMaturidade = new Date(
+										$scope.sku.dataMaturidade);
+							}
+							if($scope.sku.dataDescontinuacao != null){
+								$scope.sku.dataDescontinuacao = new Date(
+										$scope.sku.dataDescontinuacao);		
+							}
+						
 						});
 					};
 

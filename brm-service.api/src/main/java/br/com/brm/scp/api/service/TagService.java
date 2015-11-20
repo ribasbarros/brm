@@ -5,6 +5,7 @@ import java.util.Collection;
 import br.com.brm.scp.api.dto.request.TagRequestDTO;
 import br.com.brm.scp.api.dto.response.TagResponseDTO;
 import br.com.brm.scp.api.dto.response.TagResponseDTO;
+import br.com.brm.scp.api.exceptions.TagIsUsedException;
 import br.com.brm.scp.api.exceptions.TagNotFoundException;
 import br.com.brm.scp.api.exceptions.TagExistenteException;
 import br.com.brm.scp.api.exceptions.TagNotFoundException;
@@ -22,7 +23,7 @@ public interface TagService {
 	
 	TagResponseDTO find(TagFiltroEnum filtro, Object value) throws TagNotFoundException;
 
-	void delete(String id) throws TagNotFoundException;
+	void delete(String id) throws TagNotFoundException, TagIsUsedException;
 	
 	Pageable<TagResponseDTO> all(int pageIndex, int size) throws TagNotFoundException;
 	
