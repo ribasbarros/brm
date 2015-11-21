@@ -28,4 +28,6 @@ public interface SkuService {
 
 	Collection<SkuResponseDTO> all();
 
+	Collection<SkuResponseDTO> chain(String idItem) throws SkuNotFoundException;
+
 }

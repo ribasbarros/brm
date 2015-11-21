@@ -30,6 +30,4 @@ public interface SkuRepository extends MongoRepository<SkuDocument, String> {
 	//TODO Pesquisar por mais atributos!
 	@Query("{ $or: [ { 'descricao': {'$regex': ?0 , $options: 'i'} } ] }")
 	Page<SkuDocument> findByDescricao(String searchTerm, Pageable pageable);
-	
-	
 }

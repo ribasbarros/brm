@@ -42,11 +42,52 @@ app.directive('brmShowMessage', function() {
 		restrict : 'E',
 		templateUrl : 'private/components/template-message',
 		link : function($scope) {
-			$scope.$watch("trtResponse", function handleFooChange(newValue, oldValue) {
-				if(!angular.isUndefined(newValue.httpMensagem)){
+			$scope.$watch("trtResponse", function handleFooChange(newValue,
+					oldValue) {
+				if (!angular.isUndefined(newValue.httpMensagem)) {
 					$('#idMessage').modal();
 				}
 			});
 		}
 	};
 });
+
+app.directive('brmShowInfo', [ 'FornecedorFactory', 'SkuFactory',
+		function(FornecedorFactory, SkuFactory) {
+
+			return {
+				restrict : 'E',
+				scope : {
+					tipo : '=',
+					id : '='
+				},
+				template : '<span ng-show="isFornecedor()">{{result}}</span><span ng-hide="isFornecedor()"><ol class="breadcrumb"><li ng-repeat="l in result track by $index">{{l.nome}}</li></ol></span>',
+				link : function($scope) {
+
+					$scope.isFornecedor = function(){
+						return $scope.tipo == 'FORNECEDOR';
+					};
+					
+					if ($scope.tipo == 'FORNECEDOR') {
+
+						FornecedorFactory.get({
+							id : $scope.id
+						}, function(response) {
+							$scope.result = response.nomeFantasia;
+						});
+
+					} else if ($scope.tipo == 'SKU') {
+
+						$scope.sku = SkuFactory.get({
+							id : $scope.id
+						}, function(response) {
+							$scope.result = response.tags;
+						});
+						
+
+					} else {
+						$scope.result = "ERROR!";
+					}
+				}
+			};
+		} ]);

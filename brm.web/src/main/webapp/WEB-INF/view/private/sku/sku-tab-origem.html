@@ -1,10 +1,30 @@
+<meta charset="UTF-8">
 <div class="row">
 	<div ng-show="sku.origens.length > 0">
 		<div ng-if="sku.origens" class="col-md-4">
 			<label>Origem</label>
 			<div>
-				<brm-show-data column="mapColumnsOrigem" data="sku.origens"
-					is-delete="true" />
+
+				<table class="table table-hover data-table">
+					<thead>
+						<tr>
+							<td><label>Tipo</label></td>
+							<td><label>Name</label></td>
+							<td><label>Padrão</label></td>
+							<td><label></label></td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="entry in sku.origens">
+							<td>{{entry.tipo}}</td>
+							<td><brm-show-info tipo="entry.tipo" id="entry.id" /></td>
+							<td ng-show="entry.padrao">Padrão</td>
+							<td ng-hide="entry.padrao"><a ng-click="definir(entry.id)"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span> </a></td>
+							<td><a href="" ng-click="deleteLine(entry)"> 
+								<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>

@@ -56,7 +56,11 @@ public class ConverterHelper {
 
 					try {
 
-						String methodGetterNameOrigem = "get" + StringHelper.toFirstProperCase(f.getName());
+						String methodGetterNameOrigem = "get";
+						if(f.getType().equals(boolean.class) ){
+							methodGetterNameOrigem = "is";
+						}
+						methodGetterNameOrigem += StringHelper.toFirstProperCase(f.getName());
 						String methodSetterNameDestine = "set" + StringHelper.toFirstProperCase(f.getName());
 
 						Method getterMethodFrom = fromClass.getDeclaredMethod(methodGetterNameOrigem);

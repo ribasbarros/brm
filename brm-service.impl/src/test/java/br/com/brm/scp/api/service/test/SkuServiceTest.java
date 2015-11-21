@@ -214,7 +214,7 @@ public class SkuServiceTest extends CargaTestSku {
 		OrigemSkuResponseDTO origem = new OrigemSkuResponseDTO();
 		origem.setTipo(tipo);
 		origem.setId(id);
-		origem.setIsDefault(Boolean.TRUE);
+		origem.setPadrao(Boolean.TRUE);
 		return origem;
 	}
 

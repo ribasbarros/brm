@@ -10,7 +10,7 @@ public class OrigemSkuResponseDTO implements Serializable {
 
 	private OrigemTipoEnum tipo;
 	private String id;
-	private Boolean isDefault;
+	private boolean padrao;
 
 	public OrigemTipoEnum getTipo() {
 		return tipo;
@@ -28,12 +28,12 @@ public class OrigemSkuResponseDTO implements Serializable {
 		this.id = id;
 	}
 
-	public Boolean getIsDefault() {
-		return isDefault;
+	public boolean isPadrao() {
+		return padrao;
 	}
 
-	public void setIsDefault(Boolean isDefault) {
-		this.isDefault = isDefault;
+	public void setPadrao(boolean padrao) {
+		this.padrao = padrao;
 	}
 
 }

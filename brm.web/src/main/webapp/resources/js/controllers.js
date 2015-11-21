@@ -92,6 +92,9 @@ app.controller('SkuController', [ '$scope', '$resource', '$location',
 				'nome' : 'NO_LIMITE'
 			} ];
 
+			$scope.sku.modelo = {};
+			$scope.sku.modelo = $scope.listaPlanejamentos[0].nome;
+
 			$scope.listaReposicoes = [ {
 				'nome' : 'RASCUNHO'
 			}, {
@@ -112,6 +115,12 @@ app.controller('SkuController', [ '$scope', '$resource', '$location',
 					}, 700);
 				}
 				;
+			};
+
+			$scope.getInfo = function(tipo, id) {
+				console.log(tipo);
+				console.log(id);
+				return "EM DESENV";
 			};
 
 			$scope.trtResponse = {};
@@ -551,10 +560,68 @@ app.controller('SkuEditController',
 				'SkuFactory',
 				function($scope, $resource, $routeParams, $location, $timeout,
 						SkuFactory) {
+
+					$scope.listaSku = [];
+					$scope.loadListaFornecedor = [];
+
+					$scope.loadListaSku = function() {
+
+						var sku = $resource('sku/list/:idItem', {
+							idItem : '@idItem'
+						});
+						
+						sku.query({
+							idItem : $scope.sku.item.id
+						}).$promise.then(function(data) {
+							$scope.listaSku = [];
+							angular.forEach(data, function(value, key) {
+								if ($scope.sku.id != value.id && !$scope.hasOrigem(value.id)) {
+									value.showTags = "";
+									var sep = "";
+									angular.forEach(value.tags , function(val, keySub) {
+										value.showTags += sep + val.nome;
+										sep = "/";
+									});
+									$scope.listaSku.push(value);
+								}
+							});
+						});
+					}
+					
+					$scope.hasOrigem = function(id){
+						var existe = false;
+						angular.forEach($scope.sku.origens , function(val, keySub) {
+							if(val.id == id){
+								existe = true;
+							}
+						});
+						return existe;
+					};
+
+					$scope.loadListaFornecedor = function() {
+						$scope.loadListaFornecedor = [];
+						$scope.listaFornecedor = $resource('fornecedor/all')
+								.query().$promise.then(function(data) {
+									if(!$scope.hasOrigem(value.id)){
+										$scope.loadListaFornecedor.push(data);
+									}
+								});
+					}
+
+					$scope.selected = {
+						tipo : ''
+					};
+
+					$scope.checkType = function() {
+						if ($scope.selected.tipo == 'SKU') {
+							$scope.loadListaSku();
+						} else {
+							$scope.loadListaFornecedor();
+						}
+					};
+
 					$scope.listaItens = $resource('item/all').query();
-					$scope.listaSku = $resource('sku/all').query();
-					$scope.listaFornecedor = $resource('fornecedor/all')
-							.query();
+
 					$scope.loadTags = function(query) {
 						return $resource('tag/all').query().$promise;
 					};
@@ -688,6 +755,29 @@ app.controller('SkuEditController',
 						}
 					};
 
+					$scope.definir = function(id) {
+						angular.forEach($scope.sku.origens,
+								function(value, key) {
+									if (id == value.id) {
+										value.padrao = true;
+									} else {
+										value.padrao = false;
+									}
+								});
+					};
+
+					$scope.deleteLine = function(entry) {
+
+						if (!confirm("Deseja excluir o registro?")) {
+							return;
+						}
+
+						var index = $scope.sku.origens.indexOf(entry);
+
+						$scope.sku.origens.splice(index, 1);
+
+					};
+
 					$scope.checkedOrNot = function(id, isChecked, index) {
 						if (isChecked) {
 							$scope.sku.frequenciaAnalise.push(id);
@@ -701,19 +791,12 @@ app.controller('SkuEditController',
 					$scope.addOrigem = function() {
 						if ($scope.modalOrigem.$valid) {
 							$scope.sku.origens.push($scope.selected);
-							$scope.selected = {};
+							$scope.selected = {
+									tipo : ''
+								};
 							alert("Adicionado com sucesso!");
 						}
 					};
-
-					$scope.mapColumnsOrigem = [ {
-						'title' : 'Tipo',
-						'field' : 'tipo'
-					}, {
-						'title' : 'ID',
-						'field' : 'id'
-					} ];
-
 					$scope.load();
 				} ]);
 

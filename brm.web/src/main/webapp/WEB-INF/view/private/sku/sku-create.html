@@ -27,7 +27,7 @@
 								<div class="col-md-5">
 									<div class="form-group ">
 										<label>Tipo</label> <select class="form-control" name="origem"
-											id="origem" ng-model="selected.tipo">
+											id="origem" ng-model="selected.tipo" ng-change="checkType()">
 											<option ng-repeat="option in listaOrigemSku"
 												ng-value="option.nome">{{option.nome}}</option>
 										</select>
@@ -48,13 +48,6 @@
 									</div>
 								</div>
 
-								<div class="col-md-2">
-									<div class="form-group">
-										<label>Padrão</label> <input
-											type="checkbox" class="form-control" id="padrao" name="padrao"
-											ng-model="selected.isDefault">
-									</div>
-								</div>
 							</div>
 						</div>
 

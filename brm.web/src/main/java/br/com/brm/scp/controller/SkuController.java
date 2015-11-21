@@ -1,8 +1,10 @@
 package br.com.brm.scp.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +38,8 @@ public class SkuController extends RestHelper implements Serializable {
 
 	private static final String SKU_ALTERADO_COM_SUCESSO = "sku.updatesuccess";
 
+	private static Logger logger = Logger.getLogger(SkuController.class);
+	
 	@Autowired
 	private SkuService service;
 
@@ -56,7 +60,7 @@ public class SkuController extends RestHelper implements Serializable {
 
 			restResponse.setHttpMensagem(getLabel(e.getMessage()));
 			restResponse.setIco(MessageBootstrap.DANGER);
-			
+
 			restResponse.setDetalhe(ExceptionHelper.toString(e));
 
 		}
@@ -79,14 +83,14 @@ public class SkuController extends RestHelper implements Serializable {
 
 			restResponse.setHttpMensagem(getLabel(e.getMessage()));
 			restResponse.setIco(MessageBootstrap.DANGER);
-			
+
 			restResponse.setDetalhe(ExceptionHelper.toString(e));
 		}
 		return new ResponseEntity<>(restResponse, status);
 	}
-	
+
 	@ResponseBody
-	@RequestMapping(value= "{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
 	@ResponseStatus(HttpStatus.OK)
 	void delete(@PathVariable("id") String id) {
 		try {
@@ -96,7 +100,6 @@ public class SkuController extends RestHelper implements Serializable {
 		}
 	}
 
-		
 	@ResponseBody
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
@@ -133,12 +136,25 @@ public class SkuController extends RestHelper implements Serializable {
 		}
 		return result;
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "all", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
 	Collection<SkuResponseDTO> all() {
-			return service.all();
+		return service.all();
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "list/{idItem}", method = RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+	Collection<SkuResponseDTO> all(@PathVariable("idItem") String idItem) {
+		Collection<SkuResponseDTO> chain = new ArrayList<>();
+		try {
+			chain = service.chain(idItem);
+		} catch (SkuNotFoundException e) {
+			logger.info(getLabel(e.getMessage()));
+		}
+		return chain;
 	}
 
 }
