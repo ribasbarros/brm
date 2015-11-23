@@ -17,7 +17,8 @@
 						aria-hidden="true"></span> {{trtResponse.httpMensagem}}
 				</div>
 				<div ng-if="trtResponse.detalhe">
-					<input type="checkbox" ng-model="showDetalhe" value="true" /> Detalhar
+					<input type="checkbox" id="idDetail" class="form-control"
+						ng-model="showDetalhe" name="automatica" value="true" /><label for="idDetail"><span></span>Detalhar</label>
 					<textarea style="width: 100%;" rows="8" ng-show="showDetalhe" ng-model="trtResponse.detalhe" />
 				</div>
 			</div>

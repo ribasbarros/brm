@@ -68,7 +68,6 @@ public class SkuDocument implements Serializable {
 	@BindingClass(UsuarioResponseDTO.class)
 	private UsuarioDocument usuarioCriacao;
 	
-	
 	public UsuarioDocument getUsuarioCriacao() {
 		return usuarioCriacao;
 	}

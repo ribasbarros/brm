@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import br.com.brm.scp.api.dto.request.OrigemSkuResponseDTO;
 import br.com.brm.scp.api.dto.request.SkuRequestDTO;
 import br.com.brm.scp.api.dto.response.SkuResponseDTO;
 import br.com.brm.scp.api.exceptions.SkuExistenteException;
@@ -26,6 +27,7 @@ import br.com.brm.scp.api.service.document.UsuarioDocument;
 import br.com.brm.scp.api.service.repositories.SkuRepository;
 import br.com.brm.scp.api.service.status.SkuFiltroEnum;
 import br.com.brm.scp.fw.helper.converters.ConverterHelper;
+import br.com.brm.scp.fw.helper.validators.CNPJValidator;
 
 /**
  * @author Ribas
@@ -48,6 +50,7 @@ public class SkuServiceImpl implements SkuService {
 	private static final String SKU_NOTFOUND = "sku.notfound";
 	private static final String SKU_ID = "sku.id";
 	private static final String SKU_ITEM_NOTFOUND_IN_CHAIN = "sku.chain.notfound";
+	private static final String SKU_ORIGEM_DEFAULT = "sku.set.default";
 
 	@Autowired
 	private SkuRepository repository;
@@ -64,6 +67,7 @@ public class SkuServiceImpl implements SkuService {
 		Assert.notNull(request.getFrequenciaAnalise(), SKU_FREQUENCIA_ANALISE);
 		Assert.notNull(request.getModelo(), SKU_MODELO);
 		Assert.notNull(request.getOrigens(), SKU_ORIGEM);
+		Assert.isTrue(isDefaultOrigem(request.getOrigens()), SKU_ORIGEM_DEFAULT);
 
 		hasSkuRegistered(request);
 
@@ -78,6 +82,14 @@ public class SkuServiceImpl implements SkuService {
 
 		return response;
 
+	}
+
+	private boolean isDefaultOrigem(Collection<OrigemSkuResponseDTO> origens) {
+		for(OrigemSkuResponseDTO dto : origens)
+			if(dto.isPadrao())
+				return true;
+		
+		return false;
 	}
 
 	private void hasSkuRegistered(SkuRequestDTO request) throws SkuExistenteException {
@@ -188,7 +200,8 @@ public class SkuServiceImpl implements SkuService {
 		Assert.notNull(request.getFrequenciaAnalise(), SKU_FREQUENCIA_ANALISE);
 		Assert.notNull(request.getModelo(), SKU_MODELO);
 		Assert.notNull(request.getOrigens(), SKU_ORIGEM);
-
+		Assert.isTrue(isDefaultOrigem(request.getOrigens()), SKU_ORIGEM_DEFAULT);
+		
 		if (find(SkuFiltroEnum.ID, request.getId()) == null) {
 			logger.info("SKU nao encontrado");
 			throw new SkuNotFoundException(SKU_NOTFOUND);
@@ -202,10 +215,6 @@ public class SkuServiceImpl implements SkuService {
 
 	private SkuDocument invokeDocument(SkuRequestDTO request) {
 		return (SkuDocument) ConverterHelper.convert(request, SkuDocument.class);
-	}
-
-	private Collection<SkuResponseDTO> invokeDocument(Collection<SkuDocument> request) {
-		return ConverterHelper.convert(request, SkuResponseDTO.class);
 	}
 
 	@Override
@@ -244,7 +253,7 @@ public class SkuServiceImpl implements SkuService {
 			}*/
 		}
 
-		return invokeDocument(skus);
+		return ConverterHelper.convert(skus, SkuResponseDTO.class);
 	}
 
 }

@@ -1,4 +1,4 @@
-package br.com.brm.scp.api.dto.response;
+package br.com.brm.scp.api.dto.request;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -8,11 +8,13 @@ import java.util.Date;
 import org.springframework.data.annotation.Id;
 
 import br.com.brm.scp.api.annotation.BindingClassMeta;
+import br.com.brm.scp.api.dto.response.SkuResponseDTO;
+import br.com.brm.scp.api.dto.response.UsuarioResponseDTO;
 import br.com.brm.scp.api.service.status.PedidoStatus;
 
-public class PedidoResponseDTO implements Serializable {
+public class PedidoRequestDTO implements Serializable {
 
-	private static final long serialVersionUID = 1523733837080681498L;
+	private static final long serialVersionUID = -7450117899499419643L;
 
 	@Id
 	private String id;

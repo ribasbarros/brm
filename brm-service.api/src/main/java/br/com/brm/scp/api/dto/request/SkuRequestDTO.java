@@ -6,8 +6,6 @@ import java.util.Collection;
 import java.util.Date;
 
 import org.bson.types.ObjectId;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import br.com.brm.scp.api.annotation.BindingClassMeta;
 import br.com.brm.scp.api.dto.response.ItemResponseDTO;
@@ -31,9 +29,7 @@ public class SkuRequestDTO implements Serializable {
 	@BindingClassMeta("TAGS")
 	private Collection<TagResponseDTO> tags;
 
-	@DateTimeFormat(iso = ISO.DATE_TIME)
 	private Date dataMaturidade;
-	@DateTimeFormat(iso = ISO.DATE_TIME)
 	private Date dataDescontinuacao;
 	private PlanejamentoSku modelo;
 
@@ -49,10 +45,8 @@ public class SkuRequestDTO implements Serializable {
 
 	private BigDecimal custoUnitario;
 
-	@DateTimeFormat(iso = ISO.DATE_TIME)
 	private Date dataCriacao;
 
-	@DateTimeFormat(iso = ISO.DATE_TIME)
 	private Date dataAlteracao;
 
 	@BindingClassMeta("ORIGEM")

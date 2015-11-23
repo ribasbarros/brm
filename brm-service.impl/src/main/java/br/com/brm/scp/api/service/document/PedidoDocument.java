@@ -1,4 +1,4 @@
-package br.com.brm.scp.api.dto.response;
+package br.com.brm.scp.api.service.document;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -6,35 +6,48 @@ import java.util.Collection;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
-import br.com.brm.scp.api.annotation.BindingClassMeta;
+import br.com.brm.scp.api.dto.response.SkuResponseDTO;
+import br.com.brm.scp.api.dto.response.UsuarioResponseDTO;
 import br.com.brm.scp.api.service.status.PedidoStatus;
+import br.com.brm.scp.fw.annotations.BindingClass;
 
-public class PedidoResponseDTO implements Serializable {
+@Document
+public class PedidoDocument implements Serializable {
 
-	private static final long serialVersionUID = 1523733837080681498L;
+	private static final long serialVersionUID = 3615630367809302751L;
 
 	@Id
 	private String id;
 
-	@BindingClassMeta("SKU")
-	private SkuResponseDTO origem;
+	@DBRef
+	@BindingClass(SkuResponseDTO.class)
+	private SkuDocument origem;
 
-	@BindingClassMeta("SKU")
-	private SkuResponseDTO destino;
+	@DBRef
+	@BindingClass(SkuResponseDTO.class)
+	private SkuDocument destino;
 
 	private Integer quantidade;
 
 	private PedidoStatus status;
 
+	@DateTimeFormat(iso = ISO.DATE_TIME)
 	private Date dataCriacao;
 
+	@DateTimeFormat(iso = ISO.DATE_TIME)
 	private Date dataSolicitacao;
 
+	@DateTimeFormat(iso = ISO.DATE_TIME)
 	private Date dataFinalizacao;
 
-	@BindingClassMeta("USUARIO")
-	private UsuarioResponseDTO usuarioCriacao;
+	@DBRef
+	@BindingClass(UsuarioResponseDTO.class)
+	private UsuarioDocument usuarioCriacao;
 
 	private String descricao;
 
@@ -48,19 +61,19 @@ public class PedidoResponseDTO implements Serializable {
 		this.id = id;
 	}
 
-	public SkuResponseDTO getOrigem() {
+	public SkuDocument getOrigem() {
 		return origem;
 	}
 
-	public void setOrigem(SkuResponseDTO origem) {
+	public void setOrigem(SkuDocument origem) {
 		this.origem = origem;
 	}
 
-	public SkuResponseDTO getDestino() {
+	public SkuDocument getDestino() {
 		return destino;
 	}
 
-	public void setDestino(SkuResponseDTO destino) {
+	public void setDestino(SkuDocument destino) {
 		this.destino = destino;
 	}
 
@@ -96,11 +109,11 @@ public class PedidoResponseDTO implements Serializable {
 		this.dataFinalizacao = dataFinalizacao;
 	}
 
-	public UsuarioResponseDTO getUsuarioCriacao() {
+	public UsuarioDocument getUsuarioCriacao() {
 		return usuarioCriacao;
 	}
 
-	public void setUsuarioCriacao(UsuarioResponseDTO usuarioCriacao) {
+	public void setUsuarioCriacao(UsuarioDocument usuarioCriacao) {
 		this.usuarioCriacao = usuarioCriacao;
 	}
 

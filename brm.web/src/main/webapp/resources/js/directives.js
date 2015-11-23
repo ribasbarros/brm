@@ -52,6 +52,14 @@ app.directive('brmShowMessage', function() {
 	};
 });
 
+app.directive('brmPedido', function() {
+	return {
+		restrict : 'E',
+		templateUrl : 'private/components/template-pedido',
+	};
+});
+
+
 app.directive('brmShowInfo', [ 'FornecedorFactory', 'SkuFactory',
 		function(FornecedorFactory, SkuFactory) {
 
@@ -83,7 +91,6 @@ app.directive('brmShowInfo', [ 'FornecedorFactory', 'SkuFactory',
 						}, function(response) {
 							$scope.result = response.tags;
 						});
-						
 
 					} else {
 						$scope.result = "ERROR!";

@@ -28,11 +28,13 @@
 				data-toggle="modal" data-target="#idModalOrigem" >
 				<span class="glyphicon glyphicon-book"></span> Adicionar Origem
 			</button>
-
+			<button ng-disabled="!sku.automatica || sku.id == null" type="button" class="btn btn-info btn-sm navbar-btn"
+				data-toggle="modal" data-target="#idModalPedido" >
+				<span class="glyphicon glyphicon-euro"></span> Criar Pedido
+			</button>
 		</div>
 	</div>
 </nav>
-<p ng-show="mensagem.length" class="alert alert-info">{{mensagem}}</p>
 <div class="bs-example bs-example-tabs" data-example-id="togglable-tabs">
 	<ul id="myTabs" class="nav nav-tabs" role="tablist">
 		<li role="presentation" class="active"><a data-target="#detalhe"

@@ -31,8 +31,77 @@ app.controller('SkuController', [ '$scope', '$resource', '$location',
 			$scope.sku.origens = [];
 			$scope.selected = {};
 			$scope.listaItens = $resource('item/all').query();
-			$scope.listaSku = $resource('sku/all').query();
-			$scope.listaFornecedor = $resource('fornecedor/all').query();
+
+			$scope.listaSku = [];
+			$scope.listaFornecedor = [];
+
+			$scope.loadListaSku = function() {
+
+				var sku = $resource('sku/list/:idItem', {
+					idItem : '@idItem'
+				});
+
+				sku.query({
+					idItem : $scope.sku.item.id
+				}).$promise.then(function(data) {
+					$scope.listaSku = [];
+					angular.forEach(data, function(value, key) {
+						if (!$scope.hasOrigem(value.id)) {
+							value.showTags = "";
+							var sep = "";
+							angular.forEach(value.tags, function(val, keySub) {
+								value.showTags += sep + val.nome;
+								sep = "/";
+							});
+							$scope.listaSku.push(value);
+						}
+					});
+				});
+			}
+
+			$scope.hasOrigem = function(id) {
+				var existe = false;
+				angular.forEach($scope.sku.origens, function(val, keySub) {
+					if (val.id == id) {
+						existe = true;
+					}
+				});
+				return existe;
+			};
+
+			$scope.loadListaFornecedor = function() {
+				var sku = $resource('fornecedor/all');
+				sku.query().$promise.then(function(data) {
+					$scope.listaFornecedor = [];
+					angular.forEach(data, function(value, key) {
+						if (!$scope.hasOrigem(value.id)) {
+							$scope.listaFornecedor.push(value);
+						}
+					});
+				});
+			}
+
+			$scope.selected = {
+				tipo : ''
+			};
+
+			$scope.checkType = function() {
+				if ($scope.selected.tipo == 'SKU') {
+					$scope.loadListaSku();
+				} else {
+					$scope.loadListaFornecedor();
+				}
+			};
+
+			$scope.definir = function(id) {
+				angular.forEach($scope.sku.origens, function(value, key) {
+					if (id == value.id) {
+						value.padrao = true;
+					} else {
+						value.padrao = false;
+					}
+				});
+			};
 
 			$scope.loadTags = function(query) {
 				return $resource('tag/all').query().$promise;
@@ -153,7 +222,9 @@ app.controller('SkuController', [ '$scope', '$resource', '$location',
 			$scope.addOrigem = function() {
 				if ($scope.modalOrigem.$valid) {
 					$scope.sku.origens.push($scope.selected);
-					$scope.selected = {};
+					$scope.selected = {
+						tipo : ''
+					};
 					alert("Adicionado com sucesso!");
 				}
 			};
@@ -558,27 +629,62 @@ app.controller('SkuEditController',
 				'$location',
 				'$timeout',
 				'SkuFactory',
+				'PedidoFactory',
 				function($scope, $resource, $routeParams, $location, $timeout,
-						SkuFactory) {
+						SkuFactory, PedidoFactory) {
 
 					$scope.listaSku = [];
-					$scope.loadListaFornecedor = [];
+					$scope.listaFornecedor = [];
+					$scope.listaPedidos = [];
+
+					$scope.loadPedidos = function() {
+						PedidoFactory.query({
+							id : $routeParams.id
+						}).$promise.then(function(data) {
+							console.log(data);
+							$scope.listaPedidos = data;
+						});
+					};
+					
+					$scope.loadPedidos();
+
+					$scope.createOrder = function() {
+						$scope.pedido.$save(function(response) {
+							$scope.trtResponse = response;
+						}, function(response) {
+							$scope.trtResponse = response.data;
+						});
+						$('#idModalPedido').modal('hide');
+						$scope.resetPedido();
+					};
+
+					$scope.resetPedido = function() {
+						$scope.pedido = new PedidoFactory();
+						$scope.pedido.dataSolicitacao = new Date();
+						$scope.pedido.origem = {
+							id : $routeParams.id
+						};
+					};
+
+					$scope.resetPedido();
 
 					$scope.loadListaSku = function() {
 
 						var sku = $resource('sku/list/:idItem', {
 							idItem : '@idItem'
 						});
-						
+
 						sku.query({
 							idItem : $scope.sku.item.id
 						}).$promise.then(function(data) {
 							$scope.listaSku = [];
 							angular.forEach(data, function(value, key) {
-								if ($scope.sku.id != value.id && !$scope.hasOrigem(value.id)) {
+								if ($scope.sku.id != value.id
+										&& !$scope.hasOrigem(value.id)) {
 									value.showTags = "";
 									var sep = "";
-									angular.forEach(value.tags , function(val, keySub) {
+									angular.forEach(value.tags, function(val,
+											keySub) {
 										value.showTags += sep + val.nome;
 										sep = "/";
 									});
@@ -587,11 +693,12 @@ app.controller('SkuEditController',
 							});
 						});
 					}
-					
-					$scope.hasOrigem = function(id){
+
+					$scope.hasOrigem = function(id) {
 						var existe = false;
-						angular.forEach($scope.sku.origens , function(val, keySub) {
-							if(val.id == id){
+						angular.forEach($scope.sku.origens, function(val,
+								keySub) {
+							if (val.id == id) {
 								existe = true;
 							}
 						});
@@ -599,13 +706,15 @@ app.controller('SkuEditController',
 					};
 
 					$scope.loadListaFornecedor = function() {
-						$scope.loadListaFornecedor = [];
-						$scope.listaFornecedor = $resource('fornecedor/all')
-								.query().$promise.then(function(data) {
-									if(!$scope.hasOrigem(value.id)){
-										$scope.loadListaFornecedor.push(data);
-									}
-								});
+						var sku = $resource('fornecedor/all');
+						sku.query().$promise.then(function(data) {
+							$scope.listaFornecedor = [];
+							angular.forEach(data, function(value, key) {
+								if (!$scope.hasOrigem(value.id)) {
+									$scope.listaFornecedor.push(value);
+								}
+							});
+						});
 					}
 
 					$scope.selected = {
@@ -632,15 +741,15 @@ app.controller('SkuEditController',
 						}).$promise.then(function(data) {
 							$scope.sku = data;
 							$scope.loadDaysOfWeek();
-							if($scope.sku.dataMaturidade != null){
+							if ($scope.sku.dataMaturidade != null) {
 								$scope.sku.dataMaturidade = new Date(
 										$scope.sku.dataMaturidade);
 							}
-							if($scope.sku.dataDescontinuacao != null){
+							if ($scope.sku.dataDescontinuacao != null) {
 								$scope.sku.dataDescontinuacao = new Date(
-										$scope.sku.dataDescontinuacao);		
+										$scope.sku.dataDescontinuacao);
 							}
-						
+
 						});
 					};
 
@@ -792,8 +901,8 @@ app.controller('SkuEditController',
 						if ($scope.modalOrigem.$valid) {
 							$scope.sku.origens.push($scope.selected);
 							$scope.selected = {
-									tipo : ''
-								};
+								tipo : ''
+							};
 							alert("Adicionado com sucesso!");
 						}
 					};
