@@ -89,13 +89,22 @@ public class TagController extends RestHelper implements Serializable {
 	
 	@ResponseBody
 	@RequestMapping(value= "{id}", method = RequestMethod.DELETE)
-	@ResponseStatus(HttpStatus.OK)
-	void delete(@PathVariable("id") String id) {
+	ResponseEntity<ReturnMessage<TagResponseDTO>> delete(@PathVariable("id") String id) {
+		ReturnMessage<TagResponseDTO> restResponse = new ReturnMessage<>();
+		HttpStatus status = HttpStatus.OK;
 		try {
 			service.delete(id);
+			restResponse.setHttpMensagem(getLabel(TAG_ALTERADO_COM_SUCESSO));
 		} catch (Exception e) {
-			throw new TagNotFoundWebException(e.getMessage());
+			status = HttpStatus.BAD_REQUEST;
+
+			restResponse.setHttpMensagem(getLabel(e.getMessage()));
+			restResponse.setIco(MessageBootstrap.DANGER);
+			
+			restResponse.setDetalhe(ExceptionHelper.toString(e));
 		}
+		
+		return new ResponseEntity<>(restResponse, status);
 	}
 	
 	@ResponseBody

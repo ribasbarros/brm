@@ -194,6 +194,7 @@ app.controller('DataTableController', [
 				
 			};
 
+			$scope.trtResponse = {};
 			$scope.deleteRegister = function(entry) {
 
 				if (!confirm("Deseja excluir o registro?")) {
@@ -208,11 +209,14 @@ app.controller('DataTableController', [
 					id : entry.id
 				}, function(response) {
 					response.$delete(function(u) {
+						$scope.trtResponse = u;
 						$scope.view.searchTerm = '';
 						if ($scope.view.size == 1) {
 							$scope.view.index--;
 						}
 						$scope.page($scope.view.index);
+					}, function(error) {
+						$scope.trtResponse = error.data;
 					});
 				});
 			};
