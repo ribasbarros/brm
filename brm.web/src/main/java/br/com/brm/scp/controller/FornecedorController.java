@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import br.com.brm.scp.api.dto.request.FornecedorRequestDTO;
 import br.com.brm.scp.api.dto.response.FornecedorResponseDTO;
+import br.com.brm.scp.api.dto.response.FornecedorResponseDTO;
 import br.com.brm.scp.api.dto.response.ReturnMessage;
 import br.com.brm.scp.api.exceptions.FornecedorNotFoundException;
 import br.com.brm.scp.api.pages.Pageable;
@@ -35,6 +36,8 @@ public class FornecedorController extends RestHelper {
 	private static final String FORNECEDOR_CRIADO_COM_SUCESSO = "fornecedor.savesuccess";
 
 	private static final String FORNECEDOR_ALTERADO_COM_SUCESSO = "fornecedor.updatesuccess";
+
+	private static final String FORNECEDOR_DELETADO_COM_SUCESSO = "fornecedor.deletesucess";
 
 	@Autowired
 	private FornecedorService service;
@@ -86,14 +89,23 @@ public class FornecedorController extends RestHelper {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-	@ResponseStatus(HttpStatus.OK)
-	void delete(@PathVariable("id") String id) {
+	@RequestMapping(value= "{id}", method = RequestMethod.DELETE)
+	ResponseEntity<ReturnMessage<FornecedorResponseDTO>> delete(@PathVariable("id") String id) {
+		ReturnMessage<FornecedorResponseDTO> restResponse = new ReturnMessage<>();
+		HttpStatus status = HttpStatus.OK;
 		try {
 			service.delete(id);
-		} catch (FornecedorNotFoundException e) {
-			throw new FornecedorNotFoundWebException(e.getMessage());
+			restResponse.setHttpMensagem(getLabel(FORNECEDOR_DELETADO_COM_SUCESSO));
+		} catch (Exception e) {
+			status = HttpStatus.BAD_REQUEST;
+
+			restResponse.setHttpMensagem(getLabel(e.getMessage()));
+			restResponse.setIco(MessageBootstrap.DANGER);
+			
+			restResponse.setDetalhe(ExceptionHelper.toString(e));
 		}
+		
+		return new ResponseEntity<>(restResponse, status);
 	}
 
 	@ResponseBody

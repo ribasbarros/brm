@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import br.com.brm.scp.api.dto.request.CategoriaRequestDTO;
 import br.com.brm.scp.api.dto.response.CategoriaResponseDTO;
 import br.com.brm.scp.api.dto.response.ReturnMessage;
+import br.com.brm.scp.api.dto.response.CategoriaResponseDTO;
 import br.com.brm.scp.api.exceptions.CategoriaNotFoundException;
 import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.pages.SearchPageableVO;
@@ -35,6 +36,7 @@ public class CategoriaController extends RestHelper implements Serializable {
 	
 	private static final String CATEGORIA_CRIADO_COM_SUCESSO = "categoria.savesuccess";
 	private static final String CATEGORIA_ALTERADO_COM_SUCESSO = "categoria.updatesuccess";
+	private static final String CATEGORIA_DELETADO_COM_SUCESSO = "categoria.deletesuccess";
 
 	@Autowired
 	private CategoriaService service;
@@ -87,15 +89,25 @@ public class CategoriaController extends RestHelper implements Serializable {
 		return new ResponseEntity<>(restResponse, status);
 	}
 
+	
 	@ResponseBody
-	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-	@ResponseStatus(HttpStatus.OK)
-	void delete(@PathVariable("id") String id) {
+	@RequestMapping(value= "{id}", method = RequestMethod.DELETE)
+	ResponseEntity<ReturnMessage<CategoriaResponseDTO>> delete(@PathVariable("id") String id) {
+		ReturnMessage<CategoriaResponseDTO> restResponse = new ReturnMessage<>();
+		HttpStatus status = HttpStatus.OK;
 		try {
 			service.delete(id);
-		} catch (CategoriaNotFoundException e) {
-			throw new CategoriaNotFoundWebException(e.getMessage());
+			restResponse.setHttpMensagem(getLabel(CATEGORIA_DELETADO_COM_SUCESSO));
+		} catch (Exception e) {
+			status = HttpStatus.BAD_REQUEST;
+
+			restResponse.setHttpMensagem(getLabel(e.getMessage()));
+			restResponse.setIco(MessageBootstrap.DANGER);
+			
+			restResponse.setDetalhe(ExceptionHelper.toString(e));
 		}
+		
+		return new ResponseEntity<>(restResponse, status);
 	}
 	
 	

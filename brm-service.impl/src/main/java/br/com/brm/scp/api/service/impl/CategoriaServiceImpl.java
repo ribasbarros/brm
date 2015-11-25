@@ -13,13 +13,16 @@ import org.springframework.util.Assert;
 import br.com.brm.scp.api.dto.request.CategoriaRequestDTO;
 import br.com.brm.scp.api.dto.response.CategoriaResponseDTO;
 import br.com.brm.scp.api.exceptions.CategoriaExistenteException;
+import br.com.brm.scp.api.exceptions.CategoriaIsUsedException;
 import br.com.brm.scp.api.exceptions.CategoriaNotFoundException;
 import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.service.CategoriaService;
+import br.com.brm.scp.api.service.ItemService;
 import br.com.brm.scp.api.service.UsuarioService;
 import br.com.brm.scp.api.service.document.CategoriaDocument;
 import br.com.brm.scp.api.service.document.UsuarioDocument;
 import br.com.brm.scp.api.service.repositories.CategoriaRepository;
+import br.com.brm.scp.api.service.repositories.ItemRepository;
 import br.com.brm.scp.api.service.status.CategoriaFiltroEnum;
 import br.com.brm.scp.fw.helper.converters.ConverterHelper;
 
@@ -30,6 +33,8 @@ public class CategoriaServiceImpl implements CategoriaService {
 	private CategoriaRepository repository;
 	@Autowired
 	UsuarioService usuarioService;
+	@Autowired
+	ItemRepository itemRepository;
 	
 	private static Logger logger = Logger.getLogger(CategoriaServiceImpl.class);
 	private static final String CATEGORIA_NOME = "categoria.nome";
@@ -38,7 +43,9 @@ public class CategoriaServiceImpl implements CategoriaService {
 	private static final String CATEGORIA_EXISTENTE = "categoria.existente";
 	private static final String CATEGORIA_NOTFOUND = "categoria.notfound";
 	private static final String CATEGORIA_FILTRO = "categoria.filtro";
+	private static final String CATEGORIA_SENDOUSADA = "categoria.sendousada";
 
+	
 	@Override
 	public CategoriaResponseDTO create(CategoriaRequestDTO request) throws CategoriaExistenteException {
 		Assert.notNull(request, CATEGORIA_NULL);
@@ -69,11 +76,15 @@ public class CategoriaServiceImpl implements CategoriaService {
 	}
 
 	@Override
-	public void delete(String id) throws CategoriaNotFoundException {
+	public void delete(String id) throws CategoriaNotFoundException, CategoriaIsUsedException {
 		Assert.notNull(id, CATEGORIA_ID);
 
 		if (find(CategoriaFiltroEnum.ID, id) == null) {
 			throw new CategoriaNotFoundException(CATEGORIA_NOTFOUND);
+		}else{
+			if(!itemRepository.findItemByCategoria(id).isEmpty()){
+				throw new CategoriaIsUsedException(CATEGORIA_SENDOUSADA);				
+			}			
 		}
 
 		repository.delete(id);

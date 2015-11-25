@@ -16,6 +16,7 @@ import br.com.brm.scp.api.dto.request.FornecedorRequestDTO;
 import br.com.brm.scp.api.dto.response.FornecedorResponseDTO;
 import br.com.brm.scp.api.exceptions.FornecedorCentroExistenteException;
 import br.com.brm.scp.api.exceptions.FornecedorExistenteException;
+import br.com.brm.scp.api.exceptions.FornecedorIsUsedException;
 import br.com.brm.scp.api.exceptions.FornecedorNotFoundException;
 import br.com.brm.scp.api.service.FornecedorService;
 import br.com.brm.scp.api.service.UsuarioService;
@@ -24,6 +25,7 @@ import br.com.brm.scp.api.service.document.FornecedorCentroDocument;
 import br.com.brm.scp.api.service.document.FornecedorDocument;
 import br.com.brm.scp.api.service.document.UsuarioDocument;
 import br.com.brm.scp.api.service.repositories.FornecedorRepository;
+import br.com.brm.scp.api.service.repositories.SkuRepository;
 import br.com.brm.scp.api.service.status.FornecedorFiltroEnum;
 import br.com.brm.scp.fw.helper.converters.ConverterHelper;
 import br.com.brm.scp.fw.helper.validators.CNPJValidator;
@@ -68,8 +70,12 @@ public class FornecedorServiceImpl implements FornecedorService {
 
 	private static final String FORNECEDOR_CENTRO = "fornecedor.centro";
 
+	private static final String FORNECEDOR_SENDOUSADO = "fornecedor.sendousado";
+
 	@Autowired
 	private FornecedorRepository repository;
+	@Autowired
+	private SkuRepository skuRepository;
 	@Autowired
 	UsuarioService usuarioService;
 	
@@ -97,7 +103,6 @@ public class FornecedorServiceImpl implements FornecedorService {
 			Assert.isTrue(NumberHelper.isNumber(centro.getCnpj()), FORNECEDOR_CENTROCNPJ);
 			Assert.isTrue(CNPJValidator.isCNPJ(centro.getCnpj()), FORNECEDOR_CENTROCNPJ);
 		}
-		
 		try {
 			hasRegister(request);
 		} catch (FornecedorNotFoundException e) {
@@ -169,12 +174,16 @@ public class FornecedorServiceImpl implements FornecedorService {
 	 * br.com.brm.scp.api.service.FornecedorService#delete(java.lang.String)
 	 */
 	@Override
-	public void delete(String id) throws FornecedorNotFoundException {
+	public void delete(String id) throws FornecedorNotFoundException, FornecedorIsUsedException {
 
 		Assert.notNull(id, FORNECEDOR_ID);
 
 		if (findByFiltro(FornecedorFiltroEnum.ID, id) == null) {
 			throw new FornecedorNotFoundException(FORNECEDOR_ID);
+		}else{
+			if(!skuRepository.findSkuByFornecedor(id).isEmpty()){
+				throw new FornecedorIsUsedException(FORNECEDOR_SENDOUSADO);
+			}			
 		}
 
 		repository.delete(id);

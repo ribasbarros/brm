@@ -5,6 +5,7 @@ import java.util.Collection;
 import org.bson.types.ObjectId;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.mongodb.core.MongoActionOperation;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -20,6 +21,8 @@ public interface SkuRepository extends MongoRepository<SkuDocument, String> {
 	@Query("{ tags : {'$ref' : 'tagDocument' , '$id' : ?0}}")
 	Collection<SkuDocument> findSkuByTag(String id);
 	
+	@Query("{origens :{ $elemMatch: {'_id' : ?0 }}}")
+	Collection<SkuDocument> findSkuByFornecedor(String id);
 	
 	@Query("{ 'item' : {'$ref' : 'itemDocument' , '$id' : ?0}, "
 			+ " 'tags.$id' : { '$all' : ?1 } , "

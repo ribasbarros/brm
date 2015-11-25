@@ -36,8 +36,8 @@ public class TagController extends RestHelper implements Serializable {
 	private static final long serialVersionUID = -2800018523116809156L;
 
 	private static final String TAG_CRIADO_COM_SUCESSO = "tag.savesuccess";
-
 	private static final String TAG_ALTERADO_COM_SUCESSO = "tag.updatesuccess";
+	private static final String TAG_DELETADO_COM_SUCESSO = "tag.deletesucess";
 
 
 	@ResponseBody
@@ -94,7 +94,7 @@ public class TagController extends RestHelper implements Serializable {
 		HttpStatus status = HttpStatus.OK;
 		try {
 			service.delete(id);
-			restResponse.setHttpMensagem(getLabel(TAG_ALTERADO_COM_SUCESSO));
+			restResponse.setHttpMensagem(getLabel(TAG_DELETADO_COM_SUCESSO));
 		} catch (Exception e) {
 			status = HttpStatus.BAD_REQUEST;
 

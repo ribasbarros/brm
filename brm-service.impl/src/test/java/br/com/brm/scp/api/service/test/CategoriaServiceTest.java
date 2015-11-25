@@ -14,6 +14,7 @@ import org.testng.annotations.Test;
 
 import br.com.brm.scp.api.dto.request.CategoriaRequestDTO;
 import br.com.brm.scp.api.exceptions.CategoriaExistenteException;
+import br.com.brm.scp.api.exceptions.CategoriaIsUsedException;
 import br.com.brm.scp.api.exceptions.CategoriaNotFoundException;
 import br.com.brm.scp.api.service.CategoriaService;
 import br.com.brm.scp.api.service.repositories.CategoriaRepository;
@@ -72,13 +73,13 @@ public class CategoriaServiceTest extends AbstractTestNGSpringContextTests{
 	
 	
 	@org.testng.annotations.Test(enabled = TEST_CRUD && DELETE_TEST, groups = "CRUD", priority = 5, dataProvider = "novoCategoriaAlterado")
-	public void delete(CategoriaRequestDTO request) throws CategoriaNotFoundException {
+	public void delete(CategoriaRequestDTO request) throws CategoriaNotFoundException, CategoriaIsUsedException {
 		assertNotNull(request);
 		service.delete(request.getId());		
 	}
 	
 	@org.testng.annotations.Test(enabled = TEST_CRUD, groups = "CRUD",expectedExceptions=CategoriaNotFoundException.class, priority = 6, dataProvider = "novoCategoriaAlterado")
-	public void deleteCategoriaNotFoundException(CategoriaRequestDTO request) throws CategoriaNotFoundException {
+	public void deleteCategoriaNotFoundException(CategoriaRequestDTO request) throws CategoriaNotFoundException, CategoriaIsUsedException {
 		assertNotNull(request);
 		request.setId(ID_INVALIDO);
 		service.delete(request.getId());		
