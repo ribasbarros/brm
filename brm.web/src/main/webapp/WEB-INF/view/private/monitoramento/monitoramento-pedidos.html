@@ -1,0 +1,24 @@
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<div ng-controller="MonitoramentoPedidoController">
+	<div class="row">
+		<div ng-repeat="entry in pedidos | orderBy : '-quantidade'">
+			<div class="col-sm-3">
+				<div class="thumbnail">
+					<div class="caption">
+						<div style="font-weight: bold; color: red; float: right;">{{entry.quantidade | number}}</div>
+						<h3>{{entry.skuOrigem.item.nome}}</h3>
+						<p>
+							<brm-show-info tipo="'SKU'" id="entry.origem" />
+						</p>
+						<p>
+							<a href="#/private/sku/sku-edit/{{entry.origem}}" class="btn btn-primary" role="button">SKU</a> <a
+								href="#" class="btn btn-default" role="button">Button</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -19,11 +19,9 @@ public class PedidoRequestDTO implements Serializable {
 	@Id
 	private String id;
 
-	@BindingClassMeta("SKU")
-	private SkuResponseDTO origem;
+	private String origem;
 
-	@BindingClassMeta("SKU")
-	private SkuResponseDTO destino;
+	private String destino;
 
 	private Integer quantidade;
 
@@ -50,19 +48,19 @@ public class PedidoRequestDTO implements Serializable {
 		this.id = id;
 	}
 
-	public SkuResponseDTO getOrigem() {
+	public String getOrigem() {
 		return origem;
 	}
 
-	public void setOrigem(SkuResponseDTO origem) {
+	public void setOrigem(String origem) {
 		this.origem = origem;
 	}
 
-	public SkuResponseDTO getDestino() {
+	public String getDestino() {
 		return destino;
 	}
 
-	public void setDestino(SkuResponseDTO destino) {
+	public void setDestino(String destino) {
 		this.destino = destino;
 	}
 

@@ -24,6 +24,7 @@ import br.com.brm.scp.api.exceptions.PedidoNotFoundException;
 import br.com.brm.scp.api.exceptions.SkuNotFoundException;
 import br.com.brm.scp.api.service.PedidoService;
 import br.com.brm.scp.api.service.status.MessageBootstrap;
+import br.com.brm.scp.api.vo.PedidoVO;
 import br.com.brm.scp.fw.helper.ExceptionHelper;
 import br.com.brm.scp.fw.helper.RestHelper;
 
@@ -49,7 +50,7 @@ public class PedidoController extends RestHelper implements Serializable {
 		HttpStatus status = HttpStatus.CREATED;
 		
 		try {
-			PedidoResponseDTO response = service.request(request.getOrigem().getId(), request.getQuantidade(), request.getDescricao());
+			PedidoResponseDTO response = service.request(request.getOrigem(), request.getQuantidade(), request.getDataSolicitacao(), request.getDescricao());
 			
 			restResponse.setResult(response);
 			restResponse.setHttpMensagem(getLabel(PEDIDO_CRIADO_COM_SUCESSO));
@@ -83,6 +84,13 @@ public class PedidoController extends RestHelper implements Serializable {
 			logger.info(e);
 		}
 		return list;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "monitoramento", method = RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+	Collection<PedidoVO> monitoramento(){
+		return service.monitoramento();
 	}
 	
 }

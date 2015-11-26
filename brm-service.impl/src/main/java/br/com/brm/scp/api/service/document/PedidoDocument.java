@@ -24,13 +24,9 @@ public class PedidoDocument implements Serializable {
 	@Id
 	private String id;
 
-	@DBRef
-	@BindingClass(SkuResponseDTO.class)
-	private SkuDocument origem;
+	private String origem; // ID SKU ORIGEM
 
-	@DBRef
-	@BindingClass(SkuResponseDTO.class)
-	private SkuDocument destino;
+	private String destino; // ID SKU ORIGEM
 
 	private Integer quantidade;
 
@@ -61,19 +57,19 @@ public class PedidoDocument implements Serializable {
 		this.id = id;
 	}
 
-	public SkuDocument getOrigem() {
+	public String getOrigem() {
 		return origem;
 	}
 
-	public void setOrigem(SkuDocument origem) {
+	public void setOrigem(String origem) {
 		this.origem = origem;
 	}
 
-	public SkuDocument getDestino() {
+	public String getDestino() {
 		return destino;
 	}
 
-	public void setDestino(SkuDocument destino) {
+	public void setDestino(String destino) {
 		this.destino = destino;
 	}
 

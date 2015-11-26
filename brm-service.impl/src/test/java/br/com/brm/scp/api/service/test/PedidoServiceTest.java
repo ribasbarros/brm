@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +29,13 @@ import br.com.brm.scp.api.service.status.ClasseEnum;
 import br.com.brm.scp.api.service.status.OrigemTipoEnum;
 import br.com.brm.scp.api.service.status.PlanejamentoSku;
 import br.com.brm.scp.api.service.status.StatusReposicaoEnum;
+import br.com.brm.scp.api.vo.PedidoVO;
 import br.com.brm.scp.security.config.AppConfigurationTest;
 
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class, classes = AppConfigurationTest.class)
 public class PedidoServiceTest extends CargaTestSku{
 
-	private static final boolean ENABLE_TEST = true;
+	private static final boolean ENABLE_TEST = false;
 
 	private static final boolean EXCLUIR_TESTS = true;
 
@@ -76,12 +78,28 @@ public class PedidoServiceTest extends CargaTestSku{
 		
 		SkuDocument skuDocument = skuRepository.findOne(sku);
 		
-		PedidoResponseDTO response = service.request(skuDocument.getId(), quantidade, descricao);
+		PedidoResponseDTO response = service.request(skuDocument.getId(), quantidade, new Date(), descricao);
 		assertNotNull(response);
 		assertNotNull(response.getId());
 		
 		PedidoDocument document = pedidoRepository.findOne(response.getId());
 		assertNotNull(document);
+	}
+	
+	@Test(enabled = true, groups = "MONITORAMENTO", priority = 2)
+	public void testMonitoramento(){
+		
+		Collection<PedidoVO> monitoramento = service.monitoramento();
+		
+		for(PedidoVO r : monitoramento){
+			System.out.println("***** ");
+			System.out.println(String.format("SKU: %s", r.getOrigem()));
+			System.out.println(String.format("QUANTIDADE: %s", r.getQuantidade()));
+			System.out.println("***** ");
+		}
+		
+		assertNotNull(monitoramento);
+		
 	}
 	
 	

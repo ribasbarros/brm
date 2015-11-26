@@ -13,6 +13,5 @@ public interface PedidoRepository extends MongoRepository<PedidoDocument, String
 
 	@Query("{ 'origem' : ?0 }")
 	Collection<PedidoDocument> listByOrigem(String sku);
-	
-	
+
 }
