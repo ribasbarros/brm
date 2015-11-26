@@ -36,9 +36,9 @@ public class UserController extends RestHelper implements Serializable {
 	@Autowired
 	UsuarioService service;
 	private static final long serialVersionUID = -1334399509544544618L;
-	private static final String USUARIO_CRIADO_COM_SUCESSO = "tag.savesuccess";
+	private static final String USUARIO_CRIADO_COM_SUCESSO = "usuario.savesuccess";
 
-	private static final String USUARIO_ALTERADO_COM_SUCESSO = "tag.updatesuccess";
+	private static final String USUARIO_ALTERADO_COM_SUCESSO = "usuario.updatesuccess";
 
 
 	private static final String FORMAT_DATE = "dd/MM/yyyy";

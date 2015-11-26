@@ -34,9 +34,9 @@ public class GrupoController extends RestHelper implements Serializable {
 	GrupoService service;
 		
 	private static final long serialVersionUID = 6720018258769444944L;
-	private static final String GRUPO_CRIADO_COM_SUCESSO = "fornecedor.savesuccess";
+	private static final String GRUPO_CRIADO_COM_SUCESSO = "grupo.savesuccess";
 
-	private static final String GRUPO_ALTERADO_COM_SUCESSO = "fornecedor.updatesuccess";
+	private static final String GRUPO_ALTERADO_COM_SUCESSO = "grupo.updatesuccess";
 
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.POST)

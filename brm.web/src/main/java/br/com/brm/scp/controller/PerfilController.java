@@ -35,9 +35,9 @@ public class PerfilController extends RestHelper implements Serializable {
 	
 	private static final long serialVersionUID = -9005186692408166650L;
 
-	private static final String PERFIL_CRIADO_COM_SUCESSO = "fornecedor.savesuccess";
+	private static final String PERFIL_CRIADO_COM_SUCESSO = "perfil.savesuccess";
 
-	private static final String PERFIL_ALTERADO_COM_SUCESSO = "fornecedor.updatesuccess";
+	private static final String PERFIL_ALTERADO_COM_SUCESSO = "perfil.updatesuccess";
 
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.POST)

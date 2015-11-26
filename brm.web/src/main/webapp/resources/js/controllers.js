@@ -288,10 +288,11 @@ app.controller('ItemController', [
 		'ItemFactory',
 		function($scope, $resource, $location, $timeout, ItemFactory) {
 			$scope.item = new ItemFactory();
-
+			
 			$scope.trtResponse = {};
 			$scope.categorias = $resource('categoria/all').query();
-
+			$scope.item.status = 'ATIVO';
+			
 			$scope.listaStatus = [ {
 				'nome' : 'DESCONTINUADO'
 			}, {
@@ -645,7 +646,7 @@ app.controller('SkuEditController',
 							$scope.listaPedidos = data;
 						});
 					};
-					
+
 					$scope.loadPedidos();
 
 					$scope.createOrder = function() {
@@ -1771,6 +1772,7 @@ app.controller('ProfileController', [
 			};
 
 		} ]);
+
 
 app.controller('CsrfCtrl', [ '$rootScope', '$scope', '$http', '$cookies',
 		'$window', function($rootScope, $scope, $http, $cookies, $window) {
