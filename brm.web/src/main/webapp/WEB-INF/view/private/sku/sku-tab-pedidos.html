@@ -20,12 +20,12 @@
 					<tbody>
 						<tr
 							ng-repeat="entry in listaPedidosFuturos | orderBy: 'dataSolicitacao' | limitTo: 20">
-							<td><brm-show-info tipo="'SKU'" id="entry.destino.id" /></td>
+							<td><brm-show-info tipo="'SKU'" id="entry.destino" /></td>
 							<td>{{entry.quantidade}}</td>
 							<td>{{entry.dataSolicitacao | date:'dd/MM/yyyy HH:mm:ss'}}</td>
 							<td>{{entry.usuarioCriacao.login}}</td>
 							<td>{{entry.status}}</td>
-							<td><button type="button" class="btn btn-danger btn-xs">
+							<td><button type="button" ng-click="cancelarPedido(entry.id)" class="btn btn-danger btn-xs">
 									<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 									Cancelar
 								</button></td>
@@ -61,16 +61,16 @@
 					<tbody>
 						<tr
 							ng-repeat="entry in listaPedidosPresentes | orderBy: 'dataSolicitacao' | limitTo: 20">
-							<td><brm-show-info tipo="'SKU'" id="entry.destino.id" /></td>
+							<td><brm-show-info tipo="'SKU'" id="entry.destino" /></td>
 							<td>{{entry.quantidade}}</td>
 							<td>{{entry.dataSolicitacao | date:'dd/MM/yyyy HH:mm:ss'}}</td>
 							<td>{{entry.usuarioCriacao.login}}</td>
 							<td>{{entry.status}}</td>
-							<td><button type="button" class="btn btn-danger btn-xs">
+							<td><button type="button" ng-click="cancelarPedido(entry.id)" class="btn btn-danger btn-xs">
 									<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 									Cancelar
 								</button></td>
-								<td><button type="button" ng-click="cancelarPedido(entry.id)" class="btn btn-info btn-xs">
+								<td><button type="button" class="btn btn-info btn-xs">
 									<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
 								</button></td>
 						</tr>
@@ -100,7 +100,7 @@
 					<tbody>
 						<tr
 							ng-repeat="entry in listaPedidos | orderBy: 'dataSolicitacao' | limitTo: 20">
-							<td><brm-show-info tipo="'SKU'" id="entry.destino.id" /></td>
+							<td><brm-show-info tipo="'SKU'" id="entry.destino" /></td>
 							<td>{{entry.quantidade}}</td>
 							<td>{{entry.dataSolicitacao | date:'dd/MM/yyyy HH:mm:ss'}}</td>
 							<td>{{entry.usuarioCriacao.login}}</td>

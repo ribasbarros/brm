@@ -288,11 +288,11 @@ app.controller('ItemController', [
 		'ItemFactory',
 		function($scope, $resource, $location, $timeout, ItemFactory) {
 			$scope.item = new ItemFactory();
-			
+
 			$scope.trtResponse = {};
 			$scope.categorias = $resource('categoria/all').query();
 			$scope.item.status = 'ATIVO';
-			
+
 			$scope.listaStatus = [ {
 				'nome' : 'DESCONTINUADO'
 			}, {
@@ -644,7 +644,13 @@ app
 							$scope.listaPedidosPresentes = [];
 
 							$scope.loadPedidos = function() {
-								PedidoFactory.query({
+
+								var pedidoController = $resource(
+										'pedido/sku/:id', {
+											idItem : '@idItem'
+										});
+
+								pedidoController.query({
 									id : $routeParams.id
 								}).$promise
 										.then(function(data) {
@@ -715,6 +721,7 @@ app
 							$scope.createOrder = function() {
 								$scope.pedido.$save(function(response) {
 									$scope.trtResponse = response;
+									$scope.loadPedidos();
 								}, function(response) {
 									$scope.trtResponse = response.data;
 								});
@@ -722,24 +729,25 @@ app
 								$scope.resetPedido();
 							};
 
-							$scope.cancelarPedido = function(id){
-								
+							$scope.cancelarPedido = function(idPedido) {
+
 								if (!confirm("Deseja CANCELAR este pedido?")) {
 									return;
 								}
-								
+
 								PedidoFactory.get({
-									id : id
+									id : idPedido
 								}, function(response) {
 									response.$delete(function(u) {
 										$scope.trtResponse = u;
+										$scope.loadPedidos();
 									}, function(error) {
 										$scope.trtResponse = error.data;
 									});
 								});
-								
+
 							};
-							
+
 							$scope.resetPedido = function() {
 								$scope.pedido = new PedidoFactory();
 								$scope.pedido.dataSolicitacao = new Date();
@@ -784,7 +792,7 @@ app
 															});
 										});
 							}
-							
+
 							$scope.hasOrigem = function(id) {
 								var existe = false;
 								angular.forEach($scope.sku.origens, function(
@@ -1891,14 +1899,15 @@ app.controller('MonitoramentoPedidoController', [
 						$scope.pedidos = data;
 					}
 					angular.forEach($scope.pedidos, function(value, key) {
-						
+
 						angular.forEach(data, function(v, k) {
-							if(v.origem == value.origem){
-								console.log("atualizando para %s ", v.quantidade);
+							if (v.origem == value.origem) {
+								console.log("atualizando para %s ",
+										v.quantidade);
 								value.quantidade = parseFloat(v.quantidade)
 							}
 						});
-						
+
 						SkuFactory.get({
 							id : value.origem
 						}).$promise.then(function(sku) {
@@ -1910,7 +1919,7 @@ app.controller('MonitoramentoPedidoController', [
 			};
 
 			$scope.load();
-			
+
 			$interval(function() {
 				$scope.load();
 			}, 5000);

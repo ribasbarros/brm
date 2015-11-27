@@ -19,12 +19,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import br.com.brm.scp.api.dto.request.PedidoRequestDTO;
 import br.com.brm.scp.api.dto.response.PedidoResponseDTO;
 import br.com.brm.scp.api.dto.response.ReturnMessage;
-import br.com.brm.scp.api.dto.response.SkuResponseDTO;
 import br.com.brm.scp.api.exceptions.PedidoNotFoundException;
-import br.com.brm.scp.api.exceptions.SkuNotFoundException;
 import br.com.brm.scp.api.service.PedidoService;
 import br.com.brm.scp.api.service.status.MessageBootstrap;
 import br.com.brm.scp.api.vo.PedidoVO;
+import br.com.brm.scp.controller.exception.PedidoNotFoundWebException;
 import br.com.brm.scp.fw.helper.ExceptionHelper;
 import br.com.brm.scp.fw.helper.RestHelper;
 
@@ -35,6 +34,8 @@ public class PedidoController extends RestHelper implements Serializable {
 	private static final long serialVersionUID = 3060454714771179088L;
 
 	private static final String PEDIDO_CRIADO_COM_SUCESSO = "pedido.criado";
+
+	private static final String PEDIDO_CANCELADO_COM_SUCESSO = "pedido.cancelado";
 
 	private static Logger logger = Logger.getLogger(PedidoController.class);
 	
@@ -76,6 +77,17 @@ public class PedidoController extends RestHelper implements Serializable {
 	@ResponseBody
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
+	PedidoResponseDTO get(@PathVariable("id") String id) {
+		try {
+			return service.find(id);
+		} catch (PedidoNotFoundException e) {
+			throw new PedidoNotFoundWebException(e.getMessage());
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "sku/{id}", method = RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
 	Collection<PedidoResponseDTO> list(@PathVariable("id") String id) {
 		Collection<PedidoResponseDTO> list = new ArrayList<>();
 		try {
@@ -84,6 +96,26 @@ public class PedidoController extends RestHelper implements Serializable {
 			logger.info(e);
 		}
 		return list;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value= "{id}", method = RequestMethod.DELETE)
+	ResponseEntity<ReturnMessage<PedidoResponseDTO>> delete(@PathVariable("id") String id) {
+		ReturnMessage<PedidoResponseDTO> restResponse = new ReturnMessage<>();
+		HttpStatus status = HttpStatus.OK;
+		try {
+			service.delete(id);
+			restResponse.setHttpMensagem(getLabel(PEDIDO_CANCELADO_COM_SUCESSO));
+		} catch (Exception e) {
+			status = HttpStatus.BAD_REQUEST;
+
+			restResponse.setHttpMensagem(getLabel(e.getMessage()));
+			restResponse.setIco(MessageBootstrap.DANGER);
+			
+			restResponse.setDetalhe(ExceptionHelper.toString(e));
+		}
+		
+		return new ResponseEntity<>(restResponse, status);
 	}
 	
 	@ResponseBody

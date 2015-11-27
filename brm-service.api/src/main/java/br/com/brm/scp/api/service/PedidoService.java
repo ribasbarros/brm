@@ -16,4 +16,8 @@ public interface PedidoService {
 
 	Collection<PedidoVO> monitoramento();
 
+	void delete(String id) throws PedidoNotFoundException;
+
+	PedidoResponseDTO find(String id) throws PedidoNotFoundException;
+
 }

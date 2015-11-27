@@ -1,9 +1,8 @@
 package br.com.brm.scp.api.service.impl;
 
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.group;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.match;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.previousOperation;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.sort;
 
 import java.text.SimpleDateFormat;
@@ -32,8 +31,6 @@ import br.com.brm.scp.api.service.status.OrigemTipoEnum;
 import br.com.brm.scp.api.service.status.PedidoStatus;
 import br.com.brm.scp.api.vo.PedidoVO;
 import br.com.brm.scp.fw.helper.converters.ConverterHelper;
-import net.wimpi.telnetd.io.terminal.ansi;
-import scala.annotation.meta.field;
 
 /**
  * @author Ribas
@@ -132,6 +129,29 @@ public class PedidoServiceImpl implements PedidoService {
 		Collection<PedidoVO> groups = result.getMappedResults();
 		
 		return groups;
+		
+	}
+
+	@Override
+	public void delete(String id) throws PedidoNotFoundException {
+
+		PedidoDocument document = repository.findOne(id);
+		if( null == document )
+			throw new PedidoNotFoundException(PEDIDO_NENHUM_PEDIDO_ENCONTRADO);
+		
+		document.setStatus(PedidoStatus.CANCELADO);
+		
+		repository.save(document);
+	}
+
+	@Override
+	public PedidoResponseDTO find(String id) throws PedidoNotFoundException {
+		
+		PedidoDocument document = repository.findOne(id);
+		if( null == document )
+			throw new PedidoNotFoundException(PEDIDO_NENHUM_PEDIDO_ENCONTRADO);
+		
+		return (PedidoResponseDTO) ConverterHelper.convert(document, PedidoResponseDTO.class);
 		
 	}
 	

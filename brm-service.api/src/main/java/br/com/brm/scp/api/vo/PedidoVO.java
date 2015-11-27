@@ -1,7 +1,5 @@
 package br.com.brm.scp.api.vo;
 
-import br.com.brm.scp.api.dto.response.SkuResponseDTO;
-
 public class PedidoVO {
 
 	private String origem;;
