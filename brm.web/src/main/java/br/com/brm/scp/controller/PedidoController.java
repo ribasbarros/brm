@@ -37,6 +37,10 @@ public class PedidoController extends RestHelper implements Serializable {
 
 	private static final String PEDIDO_CANCELADO_COM_SUCESSO = "pedido.cancelado";
 
+	private static final String PEDIDO_ESCALONADO_COM_SUCESSO = "pedido.escalonado";
+
+	private static final String PEDIDO_LIBERADO_COM_SUCESSO = "pedido.liberado";
+
 	private static Logger logger = Logger.getLogger(PedidoController.class);
 	
 	@Autowired
@@ -51,7 +55,7 @@ public class PedidoController extends RestHelper implements Serializable {
 		HttpStatus status = HttpStatus.CREATED;
 		
 		try {
-			PedidoResponseDTO response = service.request(request.getOrigem(), request.getQuantidade(), request.getDataSolicitacao(), request.getDescricao());
+			PedidoResponseDTO response = service.request(request.getOrigem(), request.getQuantidade(), request.getDataSolicitacao(), request.getDescricao(), request.isEscalonada());
 			
 			restResponse.setResult(response);
 			restResponse.setHttpMensagem(getLabel(PEDIDO_CRIADO_COM_SUCESSO));
@@ -84,6 +88,49 @@ public class PedidoController extends RestHelper implements Serializable {
 			throw new PedidoNotFoundWebException(e.getMessage());
 		}
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="escalonar/{id}", method = RequestMethod.POST)
+	ResponseEntity<ReturnMessage<PedidoResponseDTO>> escalonar(@PathVariable("id") String id) {
+		ReturnMessage<PedidoResponseDTO> restResponse = new ReturnMessage<>();
+		HttpStatus status = HttpStatus.CREATED;
+		try {
+			PedidoResponseDTO response = service.escalonar(id);
+
+			restResponse.setResult(response);
+			restResponse.setHttpMensagem(getLabel(PEDIDO_ESCALONADO_COM_SUCESSO));
+		} catch (Exception e) {
+			status = HttpStatus.BAD_REQUEST;
+
+			restResponse.setHttpMensagem(getLabel(e.getMessage()));
+			restResponse.setIco(MessageBootstrap.DANGER);
+			
+			restResponse.setDetalhe(ExceptionHelper.toString(e));
+		}
+		return new ResponseEntity<>(restResponse, status);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="liberar/{id}", method = RequestMethod.POST)
+	ResponseEntity<ReturnMessage<PedidoResponseDTO>> liberar(@PathVariable("id") String id) {
+		ReturnMessage<PedidoResponseDTO> restResponse = new ReturnMessage<>();
+		HttpStatus status = HttpStatus.CREATED;
+		try {
+			PedidoResponseDTO response = service.liberar(id);
+
+			restResponse.setResult(response);
+			restResponse.setHttpMensagem(getLabel(PEDIDO_LIBERADO_COM_SUCESSO));
+		} catch (Exception e) {
+			status = HttpStatus.BAD_REQUEST;
+
+			restResponse.setHttpMensagem(getLabel(e.getMessage()));
+			restResponse.setIco(MessageBootstrap.DANGER);
+			
+			restResponse.setDetalhe(ExceptionHelper.toString(e));
+		}
+		return new ResponseEntity<>(restResponse, status);
+	}
+	
 	
 	@ResponseBody
 	@RequestMapping(value = "sku/{id}", method = RequestMethod.GET)

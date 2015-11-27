@@ -30,4 +30,6 @@ public interface SkuService {
 
 	Collection<SkuResponseDTO> chain(String idItem) throws SkuNotFoundException;
 
+	void addEstoque(String id, Integer quantidade) throws SkuNotFoundException;
+
 }

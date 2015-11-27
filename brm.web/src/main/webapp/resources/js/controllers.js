@@ -260,6 +260,9 @@ app.controller('SkuController', [ '$scope', '$resource', '$location',
 			}, {
 				'title' : 'Classe',
 				'field' : 'classe'
+			},{
+				'title' : 'E. Atual',
+				'field' : 'estoqueAtual'
 			}, {
 				'title' : 'Data Maturidade',
 				'field' : 'dataMaturidade',
@@ -674,8 +677,6 @@ app
 																		&& dSolicitacao
 																				.getYear() == dataAtual
 																				.getYear()) {
-																	console
-																			.log("DEBUG 1");
 																	$scope.listaPedidosPresentes
 																			.push(value);
 																} else {
@@ -698,16 +699,9 @@ app
 																			.setDate(myDate
 																					.getDate() + 1);
 
-																	console
-																			.log(
-																					"%s     -     %s",
-																					dSolicitacao,
-																					nextDay);
 																	if (dSolicitacao
 																			.getTime() >= nextDay
 																			.getTime()) {
-																		console
-																				.log("DEBUG 3");
 																		$scope.listaPedidosFuturos
 																				.push(value);
 																	}
@@ -718,6 +712,40 @@ app
 
 							$scope.loadPedidos();
 
+							$scope.liberarPedido = function(id){
+								var obj = $resource('pedido/liberar/:id', {
+									id : '@id'
+								}, null, {'save': { method:'POST' }});
+								
+								obj.save({id: id}, function(data){
+									$scope.loadPedidos();
+									$scope.trtResponse = data;
+								}, function(response) {
+									$scope.trtResponse = response.data;
+								});
+							};
+							
+							$scope.sendOrder = function(entry){
+								
+								$scope.pedido = new PedidoFactory();
+								
+								var obj = $resource('pedido/escalonar/:id', {
+									id : '@id'
+								}, null, {'save': { method:'POST' }});
+
+								
+								obj.save({id: entry.id}, function(data){
+									$scope.trtResponse = response;
+								});
+								
+								$scope.pedido.dataSolicitacao = new Date(entry.dataSolicitacao);
+								$scope.pedido.quantidade = -entry.quantidade;
+								$scope.pedido.descricao = entry.descricao;
+								$scope.pedido.origem = $routeParams.id;
+								$scope.pedido.escalonada = 'true';
+								$scope.createOrder();
+							};
+							
 							$scope.createOrder = function() {
 								$scope.pedido.$save(function(response) {
 									$scope.trtResponse = response;
@@ -735,10 +763,14 @@ app
 									return;
 								}
 
-								PedidoFactory.get({
+								var obj = $resource('pedido/:id', {
+									id : '@id'
+								});
+
+								var pedido = obj.get({
 									id : idPedido
-								}, function(response) {
-									response.$delete(function(u) {
+								}, function() {
+									pedido.$delete(function(u) {
 										$scope.trtResponse = u;
 										$scope.loadPedidos();
 									}, function(error) {
@@ -1902,8 +1934,6 @@ app.controller('MonitoramentoPedidoController', [
 
 						angular.forEach(data, function(v, k) {
 							if (v.origem == value.origem) {
-								console.log("atualizando para %s ",
-										v.quantidade);
 								value.quantidade = parseFloat(v.quantidade)
 							}
 						});
@@ -1920,10 +1950,14 @@ app.controller('MonitoramentoPedidoController', [
 
 			$scope.load();
 
-			$interval(function() {
+			var play = $interval(function() {
 				$scope.load();
 			}, 5000);
 
+			$scope.$on("$destroy", function() {
+				$interval.cancel(play);
+		    });
+			
 		} ]);
 
 app.controller('CsrfCtrl', [ '$rootScope', '$scope', '$http', '$cookies',

@@ -1,88 +1,6 @@
 <meta charset="UTF-8">
 <div class="row">
-	<h3>Pedidos Futuros</h3>
-	<hr>
-	<div class="row">
-		<div ng-if="listaPedidosFuturos" class="col-md-7">
-			<div>
-				<table class="table table-hover data-table">
-					<thead>
-						<tr>
-							<td><label>Destino</label></td>
-							<td><label>Quantidade</label></td>
-							<td><label>Pedido Para</label></td>
-							<td><label>Por</label></td>
-							<td><label>Status</label></td>
-							<td><label></label></td>
-							<td><label></label></td>
-						</tr>
-					</thead>
-					<tbody>
-						<tr
-							ng-repeat="entry in listaPedidosFuturos | orderBy: 'dataSolicitacao' | limitTo: 20">
-							<td><brm-show-info tipo="'SKU'" id="entry.destino" /></td>
-							<td>{{entry.quantidade}}</td>
-							<td>{{entry.dataSolicitacao | date:'dd/MM/yyyy HH:mm:ss'}}</td>
-							<td>{{entry.usuarioCriacao.login}}</td>
-							<td>{{entry.status}}</td>
-							<td><button type="button" ng-click="cancelarPedido(entry.id)" class="btn btn-danger btn-xs">
-									<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-									Cancelar
-								</button></td>
-								<td><button type="button" class="btn btn-info btn-xs">
-									<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-								</button></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="row">
-	<h3>Pedidos Presentes</h3>
-	<hr>
-	<div class="row">
-		<div ng-if="listaPedidosPresentes" class="col-md-7">
-			<div>
-				<table class="table table-hover data-table">
-					<thead>
-						<tr>
-							<td><label>Destino</label></td>
-							<td><label>Quantidade</label></td>
-							<td><label>Pedido Para</label></td>
-							<td><label>Por</label></td>
-							<td><label>Status</label></td>
-							<td><label></label></td>
-							<td><label></label></td>
-						</tr>
-					</thead>
-					<tbody>
-						<tr
-							ng-repeat="entry in listaPedidosPresentes | orderBy: 'dataSolicitacao' | limitTo: 20">
-							<td><brm-show-info tipo="'SKU'" id="entry.destino" /></td>
-							<td>{{entry.quantidade}}</td>
-							<td>{{entry.dataSolicitacao | date:'dd/MM/yyyy HH:mm:ss'}}</td>
-							<td>{{entry.usuarioCriacao.login}}</td>
-							<td>{{entry.status}}</td>
-							<td><button type="button" ng-click="cancelarPedido(entry.id)" class="btn btn-danger btn-xs">
-									<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-									Cancelar
-								</button></td>
-								<td><button type="button" class="btn btn-info btn-xs">
-									<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-								</button></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="row">
-	<h3>Pedidos Históricos</h3>
+	<h3>Pedidos</h3>
 	<hr>
 	<div class="row">
 		<div ng-if="listaPedidos" class="col-md-7">
@@ -95,16 +13,32 @@
 							<td><label>Pedido Para</label></td>
 							<td><label>Por</label></td>
 							<td><label>Status</label></td>
+							<td><label></label></td>
+							<td><label></label></td>
 						</tr>
 					</thead>
 					<tbody>
 						<tr
 							ng-repeat="entry in listaPedidos | orderBy: 'dataSolicitacao' | limitTo: 20">
-							<td><brm-show-info tipo="'SKU'" id="entry.destino" /></td>
-							<td>{{entry.quantidade}}</td>
+							<td><div ng-if="!entry.destino">FORNECEDOR</div><div ng-if="entry.destino"><brm-show-info tipo="'SKU'" id="entry.destino" /></div></td>
+							<td>{{entry.quantidade | number}}</td>
 							<td>{{entry.dataSolicitacao | date:'dd/MM/yyyy HH:mm:ss'}}</td>
 							<td>{{entry.usuarioCriacao.login}}</td>
 							<td>{{entry.status}}</td>
+							<td>
+								<button type="button" ng-hide="entry.status == 'CANCELADO' || entry.status == 'CONCLUIDO'" ng-click="cancelarPedido(entry.id)" class="btn btn-danger btn-xs">
+									<span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+								</button>
+								<button type="button" ng-hide="entry.status == 'CONCLUIDO' || entry.quantidade > 0 || (entry.quantidade < 0 && sku.estoqueAtual < (-entry.quantidade))" ng-click="liberarPedido(entry.id)" class="btn btn-success btn-xs">
+									<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+								</button>
+								<button type="button" ng-hide="entry.status == 'CONCLUIDO' || entry.escalonada || entry.quantidade > 0 || (entry.quantidade < 0 && sku.estoqueAtual >= (-entry.quantidade))" ng-click="sendOrder(entry)" class="btn btn-warning btn-xs">
+									<span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+								</button>
+								<button type="button" ng-show="entry.status == 'AGUARDANDO_FORNECEDOR'" ng-click="liberarPedido(entry.id)" class="btn btn-success btn-xs">
+									<span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+								</button>
+							</td>
 						</tr>
 					</tbody>
 				</table>

@@ -10,7 +10,7 @@ import br.com.brm.scp.api.vo.PedidoVO;
 
 public interface PedidoService {
 
-	PedidoResponseDTO request(String sku, int quantidade, Date dateSolicitacao, String descricao) throws PedidoOrigemNotFoundException;
+	PedidoResponseDTO request(String sku, int quantidade, Date dateSolicitacao, String descricao, boolean escalonado) throws PedidoOrigemNotFoundException;
 
 	Collection<PedidoResponseDTO> listByOrigem(String sku) throws PedidoNotFoundException;
 
@@ -19,5 +19,9 @@ public interface PedidoService {
 	void delete(String id) throws PedidoNotFoundException;
 
 	PedidoResponseDTO find(String id) throws PedidoNotFoundException;
+
+	PedidoResponseDTO escalonar(String id) throws PedidoNotFoundException;
+
+	PedidoResponseDTO liberar(String id) throws PedidoNotFoundException;
 
 }

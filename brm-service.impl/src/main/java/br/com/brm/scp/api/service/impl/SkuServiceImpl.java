@@ -72,6 +72,10 @@ public class SkuServiceImpl implements SkuService {
 		hasSkuRegistered(request);
 
 		SkuDocument document = (SkuDocument) ConverterHelper.convert(request, SkuDocument.class);
+		document.setEstoqueAtual(0);
+		document.setEstoqueIdeal(0);
+		document.setEstoqueMaximo(0);
+		document.setEstoqueMinimo(0);
 		document.setDataCriacao(new Date());
 		document.setUsuarioCriacao(
 				(UsuarioDocument) ConverterHelper.convert(usuarioService.getUsuarioLogado(), UsuarioDocument.class));
@@ -254,6 +258,21 @@ public class SkuServiceImpl implements SkuService {
 		}
 
 		return ConverterHelper.convert(skus, SkuResponseDTO.class);
+	}
+
+	@Override
+	public synchronized void addEstoque(String id, Integer quantidade) throws SkuNotFoundException {
+		SkuDocument document = repository.findOne(id);
+
+		if (document == null)
+			throw new SkuNotFoundException(SKU_NOTFOUND);
+
+		Integer estoqueAtual = document.getEstoqueAtual();
+		
+		document.setEstoqueAtual(Integer.sum(estoqueAtual, quantidade));
+		
+		repository.save(document);
+
 	}
 
 }

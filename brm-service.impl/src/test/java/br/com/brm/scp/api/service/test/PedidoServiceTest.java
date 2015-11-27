@@ -78,7 +78,7 @@ public class PedidoServiceTest extends CargaTestSku{
 		
 		SkuDocument skuDocument = skuRepository.findOne(sku);
 		
-		PedidoResponseDTO response = service.request(skuDocument.getId(), quantidade, new Date(), descricao);
+		PedidoResponseDTO response = service.request(skuDocument.getId(), quantidade, new Date(), descricao, false);
 		assertNotNull(response);
 		assertNotNull(response.getId());
 		

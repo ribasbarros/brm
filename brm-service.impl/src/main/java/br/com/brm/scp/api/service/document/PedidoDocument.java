@@ -32,6 +32,13 @@ public class PedidoDocument implements Serializable {
 
 	private PedidoStatus status;
 
+	/*
+	 * INDICA QUE UMA SKU NAO TINHA A QUANTIDADE NECESSARIA EM ESTOQUE PARA LIBERAR, ENTÃO FOI CRIADA
+	 * UM NOVO PEDIDO PARA CIMA. ex: SKU1 solicita 1000 -> SKU2 não tem 1000, entao ela pede para o de cima
+	 * OBS: BASICAMENTE SERVE PARA ESCONDER O BOTAO SEND DA DATABLE PEDIDOS
+	 */
+	private boolean escalonada = false;
+
 	@DateTimeFormat(iso = ISO.DATE_TIME)
 	private Date dataCriacao;
 
@@ -46,6 +53,8 @@ public class PedidoDocument implements Serializable {
 	private UsuarioDocument usuarioCriacao;
 
 	private String descricao;
+	
+	private String idPedidoDestino;
 
 	private Collection<String> log = new ArrayList<>();
 
@@ -137,4 +146,20 @@ public class PedidoDocument implements Serializable {
 		this.dataCriacao = dataCriacao;
 	}
 
+	public boolean isEscalonada() {
+		return escalonada;
+	}
+
+	public void setEscalonada(boolean escalonada) {
+		this.escalonada = escalonada;
+	}
+
+	public String getIdPedidoDestino() {
+		return idPedidoDestino;
+	}
+
+	public void setIdPedidoDestino(String idPedidoDestino) {
+		this.idPedidoDestino = idPedidoDestino;
+	}
+	
 }
