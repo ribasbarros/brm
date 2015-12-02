@@ -79,9 +79,9 @@ public class SkuServiceImpl implements SkuService {
 		hasSkuRegistered(request);
 
 		SkuDocument document = (SkuDocument) ConverterHelper.convert(request, SkuDocument.class);
-		document.setEstoqueAtual(0);
-		document.setEstoqueSeguranca(0);
-		document.setEstoqueMaximo(0);
+		document.setEstoqueAtual(0L);
+		document.setEstoqueSeguranca(0L);
+		document.setEstoqueMaximo(0L);
 		document.setDataCriacao(new Date());
 		document.setUsuarioCriacao(
 				(UsuarioDocument) ConverterHelper.convert(usuarioService.getUsuarioLogado(), UsuarioDocument.class));
@@ -279,21 +279,21 @@ public class SkuServiceImpl implements SkuService {
 	}
 
 	@Override
-	public synchronized void addEstoque(String id, Integer quantidade)
+	public synchronized void addEstoque(String id, Long quantidade)
 			throws SkuNotFoundException, SkuNotSuchMuchQuantityException {
 		SkuDocument document = repository.findOne(id);
 
 		if (document == null)
 			throw new SkuNotFoundException(SKU_NOTFOUND);
 
-		Integer estoqueAtual = document.getEstoqueAtual();
+		Long estoqueAtual = document.getEstoqueAtual();
 
 		if (quantidade > 0) {
-			document.setEstoqueAtual(Integer.sum(estoqueAtual, quantidade));
+			document.setEstoqueAtual(Long.sum(estoqueAtual, quantidade));
 		} else {
 			if (document.getEstoqueAtual() < Math.abs(quantidade))
 				throw new SkuNotSuchMuchQuantityException(SKU_NOTSUCHMUCH);
-			document.setEstoqueAtual(Integer.sum(estoqueAtual, quantidade));
+			document.setEstoqueAtual(Long.sum(estoqueAtual, quantidade));
 		}
 		repository.save(document);
 
@@ -307,7 +307,7 @@ public class SkuServiceImpl implements SkuService {
 		if (null == document)
 			throw new SkuNotFoundException(SKU_NOTFOUND);
 
-		document.setEstoqueSeguranca(Double.valueOf(Math.ceil(es)).intValue());
+		document.setEstoqueSeguranca(Double.valueOf(Math.ceil(es)).longValue());
 		repository.save(document);
 	}
 
@@ -318,7 +318,7 @@ public class SkuServiceImpl implements SkuService {
 		if (null == document)
 			throw new SkuNotFoundException(SKU_NOTFOUND);
 
-		document.setEstoqueMaximo(Double.valueOf(Math.ceil(em)).intValue());
+		document.setEstoqueMaximo(Double.valueOf(Math.ceil(em)).longValue());
 		repository.save(document);
 	}
 

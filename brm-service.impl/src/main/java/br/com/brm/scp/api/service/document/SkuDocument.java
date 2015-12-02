@@ -51,9 +51,9 @@ public class SkuDocument implements Serializable {
 
 	private double nivelServico;
 
-	private Integer estoqueMaximo;
-	private Integer estoqueSeguranca;
-	private Integer estoqueAtual;
+	private Long estoqueMaximo;
+	private Long estoqueSeguranca;
+	private Long estoqueAtual;
 
 	private BigDecimal custoUnitario;
 
@@ -159,27 +159,27 @@ public class SkuDocument implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public Integer getEstoqueMaximo() {
+	public Long getEstoqueMaximo() {
 		return estoqueMaximo;
 	}
 
-	public void setEstoqueMaximo(Integer estoqueMaximo) {
+	public void setEstoqueMaximo(Long estoqueMaximo) {
 		this.estoqueMaximo = estoqueMaximo;
 	}
 
-	public Integer getEstoqueSeguranca() {
+	public Long getEstoqueSeguranca() {
 		return estoqueSeguranca;
 	}
 
-	public void setEstoqueSeguranca(Integer estoqueSeguranca) {
+	public void setEstoqueSeguranca(Long estoqueSeguranca) {
 		this.estoqueSeguranca = estoqueSeguranca;
 	}
 
-	public Integer getEstoqueAtual() {
+	public Long getEstoqueAtual() {
 		return estoqueAtual;
 	}
 
-	public void setEstoqueAtual(Integer estoqueAtual) {
+	public void setEstoqueAtual(Long estoqueAtual) {
 		this.estoqueAtual = estoqueAtual;
 	}
 

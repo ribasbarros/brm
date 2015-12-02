@@ -664,6 +664,8 @@ app
 													.forEach(
 															$scope.listaPedidos,
 															function(value, key) {
+																
+																value.dataSolicitacao = new Date(value.dataSolicitacao);
 
 																var dSolicitacao = new Date(
 																		value.dataSolicitacao);
@@ -711,7 +713,7 @@ app
 							};
 
 							$scope.loadPedidos();
-
+							
 							$scope.liberarPedido = function(id) {
 								var obj = $resource('pedido/liberar/:id', {
 									id : '@id'
@@ -724,11 +726,14 @@ app
 								obj.save({
 									id : id
 								}, function(data) {
-									$scope.loadPedidos();
 									$scope.trtResponse = data;
+									
+									$scope.loadPedidos();
+									$scope.load();
 								}, function(response) {
 									$scope.trtResponse = response.data;
 								});
+								
 							};
 
 							$scope.sendOrder = function(entry) {
@@ -756,6 +761,9 @@ app
 								$scope.pedido.origem = $routeParams.id;
 								$scope.pedido.escalonada = 'true';
 								$scope.createOrder();
+								
+								$scope.loadPedidos();
+								$scope.load();
 							};
 
 							$scope.createOrder = function() {
@@ -765,7 +773,9 @@ app
 								}, function(response) {
 									$scope.trtResponse = response.data;
 								});
+								
 								$('#idModalPedido').modal('hide');
+								
 								$scope.resetPedido();
 							};
 
@@ -789,6 +799,9 @@ app
 										$scope.trtResponse = error.data;
 									});
 								});
+								
+								$scope.loadPedidos();
+								$scope.load();
 
 							};
 
@@ -1932,8 +1945,6 @@ app.controller('MonitoramentoSkuController', [
 
 			$scope.selected = {};
 			
-			$scope.data = [{"key":"Nescal - Mercadinho","mean":49,"values":[[1417399200000,290],[1420077600000,310],[1422756000000,280],[1425178800000,310],[1427857200000,300],[1430449200000,310],[1433127600000,300],[1435719600000,310],[1438398000000,310],[1441076400000,300],[1443668400000,310],[1446343200000,300]]}];
-
 			$scope.loadListaSku = function() {
 				var sku = $resource('sku/all');
 				sku.query().$promise.then(function(data) {
@@ -1969,21 +1980,19 @@ app.controller('MonitoramentoSkuController', [
 					
 					var temp = [];
 					angular.forEach(data.demanda, function(value, key) {
-						var data = Date.parse(new Date(value.year+'-'+value.month+'-'+value.day));
-						temp.push([data, -value.quantidade]);
+						temp.push({ x : new Date(value.year, (value.month+1), 1), y: value.quantidade});
 					});
 					
 					var tempData = [];
 					tempData.push({key : data.response.showTags, 
-						mean : data.response.estoqueSeguranca, 
-						values : temp});
+						values : temp, 
+						mean : data.response.estoqueSeguranca});
 					
-					console.log(angular.toJson(tempData));
-					
-					$scope.data = angular.toJson(tempData);
+					$scope.data = tempData;
 					
 				});
 			}
+			
 
 		} ]);
 

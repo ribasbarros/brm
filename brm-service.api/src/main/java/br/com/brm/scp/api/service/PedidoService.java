@@ -11,7 +11,7 @@ import br.com.brm.scp.api.vo.PedidoVO;
 
 public interface PedidoService {
 
-	PedidoResponseDTO request(String sku, int quantidade, Date dateSolicitacao, String descricao, boolean escalonado) throws PedidoOrigemNotFoundException;
+	PedidoResponseDTO request(String sku, Long quantidade, Date dateSolicitacao, String descricao, boolean escalonado) throws PedidoOrigemNotFoundException;
 
 	Collection<PedidoResponseDTO> listByOrigem(String sku) throws PedidoNotFoundException;
 
@@ -25,7 +25,7 @@ public interface PedidoService {
 
 	PedidoResponseDTO liberar(String id) throws PedidoNotFoundException;
 
-	PedidoResponseDTO ordemVenda(PedidoType externo, String sku, int quantidade, Date dataSolicitacao, String descricao, boolean escalonado) throws PedidoOrigemNotFoundException;
+	PedidoResponseDTO ordemVenda(PedidoType externo, String sku, Long quantidade, Date dataSolicitacao, String descricao, boolean escalonado) throws PedidoOrigemNotFoundException;
 
 	@Deprecated
 	PedidoResponseDTO liberar(String id, Date time) throws PedidoNotFoundException;

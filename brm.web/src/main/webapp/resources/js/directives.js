@@ -70,44 +70,63 @@ app.directive('brmSkuChart', function() {
 		
 			$scope.options = {
 		            chart: {
-		                type: 'cumulativeLineChart',
+		                type: 'lineChart',
 		                height: 450,
 		                margin : {
 		                    top: 20,
 		                    right: 20,
-		                    bottom: 50,
-		                    left: 65
+		                    bottom: 40,
+		                    left: 55
 		                },
-		                x: function(d){ return d[0]; },
-		                y: function(d){ return d[1]/100; },
-		                average: function(d) { return d.mean/100; },
-
-		                color: d3.scale.category10().range(),
-		                duration: 300,
+		                x: function(d){ return d.x; },
+		                y: function(d){ return d.y; },
 		                useInteractiveGuideline: true,
-		                clipVoronoi: false,
-
-		                xAxis: {
-		                    axisLabel: 'Período',
-		                    tickFormat: function(d) {
-		                        return d3.time.format('%d/%m/%y')(new Date(d))
-		                    },
-		                    showMaxMin: false,
-		                    staggerLabels: true
+		                dispatch: {
+		                    stateChange: function(e){ console.log("stateChange"); },
+		                    changeState: function(e){ console.log("changeState"); },
+		                    tooltipShow: function(e){ console.log("tooltipShow"); },
+		                    tooltipHide: function(e){ console.log("tooltipHide"); }
 		                },
-
+		                xAxis: {
+		                    axisLabel: 'Data', 
+		                    tickFormat: function(d){
+		                        return d3.time.format('%m/%y')(new Date(d))
+		                    },
+		                },
 		                yAxis: {
 		                    axisLabel: 'Demanda',
 		                    tickFormat: function(d){
-		                        return Number(d);
+		                    	return d;
 		                    },
-		                    axisLabelDistance: 0
+		                    axisLabelDistance: -10
+		                },
+		                callback: function(chart){
+		                    console.log("!!! lineChart callback !!!");
+		                }
+		            },
+		            title: {
+		                enable: true,
+		                text: 'Saúde Histórica da SKU'
+		            },
+		            subtitle: {
+		                enable: true,
+		                text: '',
+		                css: {
+		                    'text-align': 'center',
+		                    'margin': '10px 13px 0px 7px'
+		                }
+		            },
+		            caption: {
+		                enable: true,
+		                html: '<b>Dados Históricos da SKU</b>',
+		                css: {
+		                    'text-align': 'justify',
+		                    'margin': '10px 13px 0px 7px'
 		                }
 		            }
-		        };
 		}
-	};
-});
+	}
+}});
 
 
 app.directive('brmShowInfo', [ 'FornecedorFactory', 'SkuFactory',

@@ -18,18 +18,21 @@
 		</div>
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-3">
-			<button ng-click="save(false)" class="btn btn-primary btn-sm navbar-btn">
+			<button ng-click="save(false)"
+				class="btn btn-primary btn-sm navbar-btn">
 				<span class="glyphicon glyphicon-check"></span> Salvar
 			</button>
-			<button ng-click="save(true)" class="btn btn-danger btn-sm navbar-btn">
+			<button ng-click="save(true)"
+				class="btn btn-danger btn-sm navbar-btn">
 				<span class="glyphicon glyphicon-ok"></span> Salvar & Fechar
 			</button>
 			<button type="button" class="btn btn-success btn-sm navbar-btn"
-				data-toggle="modal" data-target="#idModalOrigem" >
+				data-toggle="modal" data-target="#idModalOrigem">
 				<span class="glyphicon glyphicon-book"></span> Adicionar Origem
 			</button>
-			<button ng-disabled="!sku.automatica || sku.id == null" type="button" class="btn btn-info btn-sm navbar-btn"
-				data-toggle="modal" data-target="#idModalPedido" >
+			<button ng-disabled="sku.automatica || sku.id == null" type="button"
+				class="btn btn-info btn-sm navbar-btn" data-toggle="modal"
+				data-target="#idModalPedido">
 				<span class="glyphicon glyphicon-euro"></span> Criar Pedido
 			</button>
 		</div>
@@ -65,6 +68,77 @@
 
 			<div ng-include="'private/sku/sku-tab-pedidos'" />
 
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="idModalNS" tabindex="-1" role="dialog"
+	aria-labelledby="idModalNSLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="idModalNSLabel">Nível de Serviço</h4>
+			</div>
+			<div class="modal-body">
+				<table style="width: 250px">
+					<thead>
+						<tr>
+							<td><label>Nível de Serviço</label></td>
+							<td><label>x</label></td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>60,00%</td>
+							<td>0,25</td>
+						</tr>
+						<tr>
+							<td>70,00%</td>
+							<td>0,52</td>
+						</tr>
+						<tr>
+							<td>80,00%</td>
+							<td>0,84</td>
+						</tr>
+						<tr>
+							<td>85,00%</td>
+							<td>1,04</td>
+						</tr>
+						<tr>
+							<td>90,00%</td>
+							<td>1,28</td>
+						</tr>
+						<tr>
+							<td>95,00%</td>
+							<td>1,64</td>
+						</tr>
+						<tr>
+							<td>98,00%</td>
+							<td>2,05</td>
+						</tr>
+						<tr>
+							<td>99,00%</td>
+							<td>2,33</td>
+						</tr>
+						<tr>
+							<td>99,90%</td>
+							<td>3,09</td>
+						</tr>
+						<tr>
+							<td>99,99%</td>
+							<td>3,72</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+			</div>
 		</div>
 	</div>
 </div>

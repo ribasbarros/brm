@@ -1,61 +1,87 @@
 <meta charset="UTF-8">
 
 <style>
-	.redValue{
-		font-weight: bold;
-		color: red;
-	}
-	.greenValue{
-		font-weight: bold;
-		color: green;
-	}
-	.blueValue{
-		font-weight: bold;
-		color: blue;
-	}
+.redValue {
+	font-weight: bold;
+	color: red;
+}
+
+.greenValue {
+	font-weight: bold;
+	color: green;
+}
+
+.blueValue {
+	font-weight: bold;
+	color: blue;
+}
 </style>
 <div class="row">
 	<h3>Pedidos</h3>
 	<hr>
 	<div class="row">
-		<div ng-if="listaPedidos" class="col-md-7">
+		<div ng-if="listaPedidos" class="col-md-10">
 			<div>
 				<table class="table table-hover data-table">
 					<thead>
 						<tr>
 							<td><label>#</label></td>
-							<td><label>Destino</label></td>
+							<td style="width: 450px !important"><label>Destino</label></td>
 							<td><label>Quantidade</label></td>
 							<td><label>Inicio</label></td>
 							<td><label>Fim</label></td>
 							<td><label>Por</label></td>
 							<td><label>Status</label></td>
 							<td><label></label></td>
-							<td><label></label></td>
+							<td>
+								<button type="button" ng-click="loadPedidos()"
+									class="btn btn-default btn-xs">
+									<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+								</button>
+							</td>
 						</tr>
 					</thead>
 					<tbody>
 						<tr
-							ng-repeat="entry in listaPedidos | orderBy: 'dataSolicitacao' : reverse">
+							ng-repeat="entry in listaPedidos | orderBy: 'dataSolicitacao' : true| limitTo : 100">
 							<td>{{$index+1}}</td>
-							<td><div ng-if="!entry.destino">FORNECEDOR</div><div ng-if="entry.destino"><brm-show-info tipo="'SKU'" id="entry.destino" /></div></td>
-							<td ng-class="[{redValue : entry.quantidade < 0}, {greenValue : entry.quantidade > 0}]">{{entry.quantidade | number}}</td>
+							<td><div ng-if="!entry.destino">FORNECEDOR</div>
+								<div ng-if="entry.destino">
+									<brm-show-info tipo="'SKU'" id="entry.destino" />
+								</div></td>
+							<td
+								ng-class="[{redValue : entry.quantidade < 0}, {greenValue : entry.quantidade > 0}]">{{entry.quantidade
+								| number}}</td>
 							<td>{{entry.dataSolicitacao | date:'dd/MM/yyyy HH:mm:ss'}}</td>
 							<td>{{entry.dataFinalizacao | date:'dd/MM/yyyy HH:mm:ss'}}</td>
 							<td>{{entry.usuarioCriacao.login}}</td>
-							<td ng-class="[{redValue : entry.status == 'RUPTURA_ESTOQUE'}, {blueValue : entry.status == 'CONCLUIDO'}]">{{entry.status}}</td>
+							<td
+								ng-class="[{redValue : entry.status == 'RUPTURA_ESTOQUE'}, {blueValue : entry.status == 'CONCLUIDO'}]">{{entry.status}}</td>
 							<td>
-								<button type="button" ng-hide="(entry.status == 'CANCELADO' || entry.status == 'RUPTURA_ESTOQUE' ) || entry.status == 'CONCLUIDO'" ng-click="cancelarPedido(entry.id)" class="btn btn-danger btn-xs">
-									<span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+								<button type="button"
+									ng-hide="(entry.status == 'CANCELADO' || entry.status == 'RUPTURA_ESTOQUE' ) || entry.status == 'CONCLUIDO'"
+									ng-click="cancelarPedido(entry.id)"
+									class="btn btn-danger btn-xs">
+									<span class="glyphicon glyphicon-thumbs-down"
+										aria-hidden="true"></span>
 								</button>
-								<button type="button" ng-hide="(entry.status == 'CONCLUIDO' || entry.status == 'RUPTURA_ESTOQUE' ) || entry.quantidade > 0 || (entry.quantidade < 0 && sku.estoqueAtual < (-entry.quantidade))" ng-click="liberarPedido(entry.id)" class="btn btn-success btn-xs">
+								<button type="button"
+									ng-hide="(entry.status == 'CONCLUIDO' || entry.status == 'RUPTURA_ESTOQUE' ) || entry.quantidade > 0 || (entry.quantidade < 0 && sku.estoqueAtual < (-entry.quantidade))"
+									ng-click="liberarPedido(entry.id)"
+									class="btn btn-success btn-xs">
 									<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
 								</button>
-								<button type="button" ng-hide="entry.status == 'CONCLUIDO' || entry.escalonada || entry.quantidade > 0 || (entry.quantidade < 0 && sku.estoqueAtual >= (-entry.quantidade))" ng-click="sendOrder(entry)" class="btn btn-warning btn-xs">
+								<button type="button"
+									ng-hide="(entry.status == 'CONCLUIDO' || entry.status == 'RUPTURA_ESTOQUE' ) || entry.escalonada || entry.quantidade > 0 || (entry.quantidade < 0 && sku.estoqueAtual >= (-entry.quantidade))"
+									ng-click="sendOrder(entry)" class="btn btn-warning btn-xs">
 									<span class="glyphicon glyphicon-send" aria-hidden="true"></span>
 								</button>
-								<button type="button" ng-show="entry.status == 'AGUARDANDO_FORNECEDOR'" ng-click="liberarPedido(entry.id)" class="btn btn-success btn-xs">
-									<span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+								<button type="button"
+									ng-show="entry.status == 'AGUARDANDO_FORNECEDOR'"
+									ng-click="liberarPedido(entry.id)"
+									class="btn btn-success btn-xs">
+									<span class="glyphicon glyphicon-shopping-cart"
+										aria-hidden="true"></span>
 								</button>
 							</td>
 						</tr>

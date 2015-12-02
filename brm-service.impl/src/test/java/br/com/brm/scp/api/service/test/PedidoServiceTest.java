@@ -74,7 +74,7 @@ public class PedidoServiceTest extends CargaTestSku{
 	}
 
 	@Test(enabled = ENABLE_TEST, groups = "CRUD", priority = 1, dataProvider = "CreateSimpleRequest")
-	public void testCreate(String sku, int quantidade, String descricao) throws PedidoOrigemNotFoundException{
+	public void testCreate(String sku, Long quantidade, String descricao) throws PedidoOrigemNotFoundException{
 		
 		SkuDocument skuDocument = skuRepository.findOne(sku);
 		
@@ -159,9 +159,9 @@ public class PedidoServiceTest extends CargaTestSku{
 		document.setAutomatica(Boolean.TRUE);
 		document.setStatus(StatusReposicaoEnum.DESBLOQUEADA);
 		document.setDescricao("Sku 0 teste de modelo de dados (CD)");
-		document.setEstoqueMaximo(0);
-		document.setEstoqueSeguranca(0);
-		document.setEstoqueAtual(0);
+		document.setEstoqueMaximo(0L);
+		document.setEstoqueSeguranca(0L);
+		document.setEstoqueAtual(0L);
 		document.setCustoUnitario(new BigDecimal(PRECO_UNITARIO));
 		document.setClasse(ClasseEnum.A);
 		
@@ -189,9 +189,9 @@ public class PedidoServiceTest extends CargaTestSku{
 		document.setAutomatica(Boolean.TRUE);
 		document.setStatus(StatusReposicaoEnum.DESBLOQUEADA);
 		document.setDescricao("Sku 1 teste de modelo de dados (SP)");
-		document.setEstoqueMaximo(0);
-		document.setEstoqueSeguranca(0);
-		document.setEstoqueAtual(0);
+		document.setEstoqueMaximo(0L);
+		document.setEstoqueSeguranca(0L);
+		document.setEstoqueAtual(0L);
 		document.setCustoUnitario(new BigDecimal(PRECO_UNITARIO));
 		document.setClasse(ClasseEnum.A);
 		
@@ -219,9 +219,9 @@ public class PedidoServiceTest extends CargaTestSku{
 		document.setAutomatica(Boolean.TRUE);
 		document.setStatus(StatusReposicaoEnum.DESBLOQUEADA);
 		document.setDescricao("Sku 2 teste de modelo de dados (SP)");
-		document.setEstoqueMaximo(0);
-		document.setEstoqueSeguranca(0);
-		document.setEstoqueAtual(0);
+		document.setEstoqueMaximo(0L);
+		document.setEstoqueSeguranca(0L);
+		document.setEstoqueAtual(0L);
 		document.setCustoUnitario(new BigDecimal(PRECO_UNITARIO));
 		document.setClasse(ClasseEnum.A);
 		

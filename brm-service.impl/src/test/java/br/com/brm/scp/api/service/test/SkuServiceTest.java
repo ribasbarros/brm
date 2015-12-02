@@ -127,9 +127,9 @@ public class SkuServiceTest extends CargaTestSku {
 		request.setAutomatica(Boolean.TRUE);
 		request.setStatus(StatusReposicaoEnum.DESBLOQUEADA);
 		request.setDescricao("Sku 1 teste de modelo de dados (CD)");
-		request.setEstoqueMaximo(0);
-		request.setEstoqueSeguranca(0);
-		request.setEstoqueAtual(0);
+		request.setEstoqueMaximo(0L);
+		request.setEstoqueSeguranca(0L);
+		request.setEstoqueAtual(0L);
 		request.setCustoUnitario(new BigDecimal(PRECO_UNITARIO));
 		request.setClasse(ClasseEnum.A);
 		
@@ -159,9 +159,9 @@ public class SkuServiceTest extends CargaTestSku {
 		request.setAutomatica(Boolean.TRUE);
 		request.setStatus(StatusReposicaoEnum.DESBLOQUEADA);
 		request.setDescricao("Sku 2 teste de modelo de dados");
-		request.setEstoqueMaximo(0);
-		request.setEstoqueSeguranca(0);
-		request.setEstoqueAtual(0);
+		request.setEstoqueMaximo(0L);
+		request.setEstoqueSeguranca(0L);
+		request.setEstoqueAtual(0L);
 		request.setCustoUnitario(new BigDecimal(PRECO_UNITARIO));
 		request.setClasse(ClasseEnum.A);
 		
@@ -191,9 +191,9 @@ public class SkuServiceTest extends CargaTestSku {
 		request.setAutomatica(Boolean.TRUE);
 		request.setStatus(StatusReposicaoEnum.DESBLOQUEADA);
 		request.setDescricao("Sku 3 teste de modelo de dados");
-		request.setEstoqueMaximo(0);
-		request.setEstoqueSeguranca(0);
-		request.setEstoqueAtual(0);
+		request.setEstoqueMaximo(0L);
+		request.setEstoqueSeguranca(0L);
+		request.setEstoqueAtual(0L);
 		request.setCustoUnitario(new BigDecimal(PRECO_UNITARIO));
 		request.setClasse(ClasseEnum.A);
 

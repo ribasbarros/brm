@@ -13,6 +13,7 @@ public class PagesController implements Serializable {
 	private static final long serialVersionUID = -5696101938250014714L;
 	
 	private static final Object PRIVATE_DOMAIN = "private";
+	private static final Object PUBLIC_DOMAIN = "public";
 
 	@RequestMapping(value="/")
 	public String index() {
@@ -52,6 +53,16 @@ public class PagesController implements Serializable {
 	@RequestMapping(value = "/private/{type}/{typePage}/{id}", method = RequestMethod.GET)
 	public String doPrivateEdit(@PathVariable("type") String type, @PathVariable("typePage") String typePage, @PathVariable("typePage") String id) {
 		return String.format("%s/%s/%s" , PRIVATE_DOMAIN, type, typePage);
+	}
+	
+	/**
+	 * @param type
+	 * @param typePage
+	 * @return url destino
+	 */
+	@RequestMapping(value = "/public/{type}/{typePage}", method = RequestMethod.GET)
+	public String doPublic(@PathVariable("type") String type, @PathVariable("typePage") String typePage) {
+		return String.format("%s/%s/%s" , PUBLIC_DOMAIN, type, typePage);
 	}
 	
 }

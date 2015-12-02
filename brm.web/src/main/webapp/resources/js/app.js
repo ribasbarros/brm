@@ -8,6 +8,8 @@ app.config(function($routeProvider) {
 		templateUrl : 'dummy.html'
 	}).when('/company', {
 		templateUrl : 'company.html'
+	}).when('/public/:type/:typePage', {
+		templateUrl : buildPathPub
 	}).when('/private/:type/:typePage', {
 		templateUrl : buildPath
 	}).when('/private/:type/:typePage/:id', {
@@ -18,6 +20,11 @@ app.config(function($routeProvider) {
 
 	function buildPath(path) {
 		var url = 'private/' + path.type + '/' + path.typePage + '.html';
+		return url;
+	}
+	
+	function buildPathPub(path) {
+		var url = 'public/' + path.type + '/' + path.typePage + '.html';
 		return url;
 	}
 

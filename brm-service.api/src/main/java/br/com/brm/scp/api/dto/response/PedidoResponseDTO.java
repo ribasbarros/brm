@@ -24,7 +24,7 @@ public class PedidoResponseDTO implements Serializable {
 
 	private String destino;
 
-	private Integer quantidade;
+	private Long quantidade;
 
 	private PedidoStatus status;
 	
@@ -74,11 +74,11 @@ public class PedidoResponseDTO implements Serializable {
 		this.destino = destino;
 	}
 
-	public Integer getQuantidade() {
+	public Long getQuantidade() {
 		return quantidade;
 	}
 
-	public void setQuantidade(Integer quantidade) {
+	public void setQuantidade(Long quantidade) {
 		this.quantidade = quantidade;
 	}
 

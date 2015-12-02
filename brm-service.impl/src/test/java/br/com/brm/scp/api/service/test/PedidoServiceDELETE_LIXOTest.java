@@ -30,10 +30,10 @@ public class PedidoServiceDELETE_LIXOTest extends AbstractTestNGSpringContextTes
 				skuRepository.delete(document);
 			}else{
 				document.setNivelServico(0D);
-				document.setEstoqueAtual(0);
-				document.setEstoqueSeguranca(0);
-				document.setEstoqueMaximo(0);
-				document.setNivelServico(2.05);
+				document.setEstoqueAtual(0L);
+				document.setEstoqueSeguranca(0L);
+				document.setEstoqueMaximo(0L);
+				document.setNivelServico(0.25);
 				document.setLoteReposicao(7);
 				skuRepository.save(document);
 			}

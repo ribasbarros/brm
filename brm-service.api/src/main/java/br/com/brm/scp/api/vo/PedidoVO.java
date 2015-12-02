@@ -3,7 +3,7 @@ package br.com.brm.scp.api.vo;
 public class PedidoVO {
 
 	private String origem;;
-	private Integer quantidade;
+	private Long quantidade;
 
 	private int day;
 	private int month;
@@ -19,11 +19,11 @@ public class PedidoVO {
 		this.origem = origem;
 	}
 
-	public Integer getQuantidade() {
+	public Long getQuantidade() {
 		return quantidade;
 	}
 
-	public void setQuantidade(Integer quantidade) {
+	public void setQuantidade(Long quantidade) {
 		this.quantidade = quantidade;
 	}
 

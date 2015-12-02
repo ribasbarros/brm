@@ -76,20 +76,24 @@
 
 				</div>
 			</div>
-			
+
 			<div class="col-md-2">
 				<div class="form-group large-padded-row">
-					<label>Nível de Serviço</label> 
-					<input type="number" max="3.72" min="0.25"
-						class="form-control" ng-model="sku.nivelServico"
-						name="nivelServico" />
+					<label>Nível de Serviço
+
+						<a href="" data-toggle="modal"
+							data-target="#idModalNS">
+							<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+						</a>
+
+					</label> <input type="number" max="3.72" min="0.25" class="form-control"
+						ng-model="sku.nivelServico" name="nivelServico" />
 				</div>
 			</div>
-			
+
 			<div class="col-md-2">
 				<div class="form-group large-padded-row">
-					<label>Lote de Reposição (ddv)</label> 
-					<input type="number" 
+					<label>Lote de Reposição (ddv)</label> <input type="number"
 						class="form-control" ng-model="sku.loteReposicao"
 						name="loteReposicao" />
 				</div>

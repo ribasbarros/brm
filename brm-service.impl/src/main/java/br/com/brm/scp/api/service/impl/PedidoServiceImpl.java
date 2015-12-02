@@ -69,7 +69,7 @@ public class PedidoServiceImpl implements PedidoService {
 	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 
 	@Override
-	public PedidoResponseDTO request(String sku, int quantidade, Date dataSolicitacao, String descricao,
+	public PedidoResponseDTO request(String sku, Long quantidade, Date dataSolicitacao, String descricao,
 			boolean escalonado) throws PedidoOrigemNotFoundException {
 
 		/** VALIDACAO **/
@@ -100,7 +100,7 @@ public class PedidoServiceImpl implements PedidoService {
 		document.setOrigem(skuOrigem.getId());
 		document.setDestino(skuDestino != null ? skuDestino.getId() : null);
 		if (escalonado) {
-			int dif;
+			Long dif;
 			if (skuOrigem.getEstoqueAtual() > quantidade) {
 				dif = skuOrigem.getEstoqueAtual() - quantidade;
 			} else {
@@ -275,7 +275,7 @@ public class PedidoServiceImpl implements PedidoService {
 	}
 
 	@Override
-	public PedidoResponseDTO ordemVenda(PedidoType externo, String sku, int quantidade, Date dataSolicitacao, String descricao,
+	public PedidoResponseDTO ordemVenda(PedidoType externo, String sku, Long quantidade, Date dataSolicitacao, String descricao,
 			boolean escalonado) throws PedidoOrigemNotFoundException {
 		/** VALIDACAO **/
 		Assert.notNull(sku, PEDIDO_SKU);
@@ -349,22 +349,20 @@ public class PedidoServiceImpl implements PedidoService {
 	public Collection<PedidoVO> findFaturamentoByMonth(String sku, int monthAgo) {
 		Aggregation agg = newAggregation(
 				
-				match(Criteria.where("status").is(PedidoStatus.CONCLUIDO.name()).and("quantidade").lt(0).
+				match(Criteria.where("status").is(PedidoStatus.CONCLUIDO.name()).
 						and("origem").is(sku)),
-				
 				project("quantidade")
 	            .andExpression("dayOfMonth(dataSolicitacao)").as("day")
 	            .andExpression("month(dataSolicitacao)").as("month")
 	            .andExpression("year(dataSolicitacao)").as("year"),
 				
-	            group(fields().and("year").and("month").and("day"))
+	            group(fields().and("year").and("month"))
 	            .sum("quantidade").as("quantidade").
 	            avg("quantidade").as("ddv"),
 	            
 	            sort(Sort.Direction.ASC, "year", "month")
 				
 				);
-
 		AggregationResults<PedidoVO> result = mongoTemplate.aggregate(agg, PedidoDocument.class, PedidoVO.class);
 
 		Collection<PedidoVO> groups = result.getMappedResults();
