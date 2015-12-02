@@ -9,6 +9,7 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
 
 import br.com.brm.scp.api.service.document.SkuDocument;
+import br.com.brm.scp.api.service.repositories.PedidoRepository;
 import br.com.brm.scp.api.service.repositories.SkuRepository;
 import br.com.brm.scp.security.config.AppConfigurationTest;
 
@@ -17,6 +18,9 @@ public class PedidoServiceDELETE_LIXOTest extends AbstractTestNGSpringContextTes
 
 	@Autowired
 	private SkuRepository skuRepository;
+	
+	@Autowired
+	private PedidoRepository pedidoRepository;
 
 	@Test(groups = "CRUD", priority = 1)
 	public void test(){
@@ -25,13 +29,19 @@ public class PedidoServiceDELETE_LIXOTest extends AbstractTestNGSpringContextTes
 			if( null == document.getUsuarioCriacao() ){
 				skuRepository.delete(document);
 			}else{
+				document.setNivelServico(0D);
 				document.setEstoqueAtual(0);
-				document.setEstoqueIdeal(0);
+				document.setEstoqueSeguranca(0);
 				document.setEstoqueMaximo(0);
-				document.setEstoqueMinimo(0);
+				document.setNivelServico(2.05);
+				document.setLoteReposicao(7);
 				skuRepository.save(document);
 			}
 		}
+		
+		pedidoRepository.deleteAll();
+		
+		
 	}
 	
 	

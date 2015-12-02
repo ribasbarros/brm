@@ -260,7 +260,7 @@ app.controller('SkuController', [ '$scope', '$resource', '$location',
 			}, {
 				'title' : 'Classe',
 				'field' : 'classe'
-			},{
+			}, {
 				'title' : 'E. Atual',
 				'field' : 'estoqueAtual'
 			}, {
@@ -712,40 +712,52 @@ app
 
 							$scope.loadPedidos();
 
-							$scope.liberarPedido = function(id){
+							$scope.liberarPedido = function(id) {
 								var obj = $resource('pedido/liberar/:id', {
 									id : '@id'
-								}, null, {'save': { method:'POST' }});
-								
-								obj.save({id: id}, function(data){
+								}, null, {
+									'save' : {
+										method : 'POST'
+									}
+								});
+
+								obj.save({
+									id : id
+								}, function(data) {
 									$scope.loadPedidos();
 									$scope.trtResponse = data;
 								}, function(response) {
 									$scope.trtResponse = response.data;
 								});
 							};
-							
-							$scope.sendOrder = function(entry){
-								
+
+							$scope.sendOrder = function(entry) {
+
 								$scope.pedido = new PedidoFactory();
-								
+
 								var obj = $resource('pedido/escalonar/:id', {
 									id : '@id'
-								}, null, {'save': { method:'POST' }});
+								}, null, {
+									'save' : {
+										method : 'POST'
+									}
+								});
 
-								
-								obj.save({id: entry.id}, function(data){
+								obj.save({
+									id : entry.id
+								}, function(data) {
 									$scope.trtResponse = response;
 								});
-								
-								$scope.pedido.dataSolicitacao = new Date(entry.dataSolicitacao);
+
+								$scope.pedido.dataSolicitacao = new Date(
+										entry.dataSolicitacao);
 								$scope.pedido.quantidade = -entry.quantidade;
 								$scope.pedido.descricao = entry.descricao;
 								$scope.pedido.origem = $routeParams.id;
 								$scope.pedido.escalonada = 'true';
 								$scope.createOrder();
 							};
-							
+
 							$scope.createOrder = function() {
 								$scope.pedido.$save(function(response) {
 									$scope.trtResponse = response;
@@ -1910,6 +1922,71 @@ app.controller('ProfileController', [
 
 		} ]);
 
+app.controller('MonitoramentoSkuController', [
+		'$scope',
+		'$resource',
+		'$routeParams',
+		'$location',
+		'$interval',
+		function($scope, $resource, $routeParams, $location, $interval) {
+
+			$scope.selected = {};
+			
+			$scope.data = [{"key":"Nescal - Mercadinho","mean":49,"values":[[1417399200000,290],[1420077600000,310],[1422756000000,280],[1425178800000,310],[1427857200000,300],[1430449200000,310],[1433127600000,300],[1435719600000,310],[1438398000000,310],[1441076400000,300],[1443668400000,310],[1446343200000,300]]}];
+
+			$scope.loadListaSku = function() {
+				var sku = $resource('sku/all');
+				sku.query().$promise.then(function(data) {
+					$scope.listaSku = [];
+					angular.forEach(data, function(value, key) {
+						value.showTags = value.item.nome;
+						var sep = " - ";
+						angular.forEach(value.tags, function(val, keySub) {
+							value.showTags += sep + val.nome;
+							sep = "/";
+						});
+						$scope.listaSku.push(value);
+					});
+				});
+			};
+
+			$scope.loadListaSku();
+			
+			$scope.doChart = function() {
+				var pedidoBySku = $resource('sku/chart/:id', {
+					id : '@id'
+				});
+				pedidoBySku.get({
+					id : $scope.selected.id
+				}).$promise.then(function(data) {
+					
+						data.response.showTags = data.response.item.nome;
+						var sep = " - ";
+						angular.forEach(data.response.tags, function(val, keySub) {
+							data.response.showTags += sep + val.nome;
+							sep = "/";
+						});
+					
+					var temp = [];
+					angular.forEach(data.demanda, function(value, key) {
+						var data = Date.parse(new Date(value.year+'-'+value.month+'-'+value.day));
+						temp.push([data, -value.quantidade]);
+					});
+					
+					var tempData = [];
+					tempData.push({key : data.response.showTags, 
+						mean : data.response.estoqueSeguranca, 
+						values : temp});
+					
+					console.log(angular.toJson(tempData));
+					
+					$scope.data = angular.toJson(tempData);
+					
+				});
+			}
+
+		} ]);
+
 app.controller('MonitoramentoPedidoController', [
 		'$scope',
 		'$resource',
@@ -1956,8 +2033,8 @@ app.controller('MonitoramentoPedidoController', [
 
 			$scope.$on("$destroy", function() {
 				$interval.cancel(play);
-		    });
-			
+			});
+
 		} ]);
 
 app.controller('CsrfCtrl', [ '$rootScope', '$scope', '$http', '$cookies',

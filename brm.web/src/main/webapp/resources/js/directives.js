@@ -59,6 +59,56 @@ app.directive('brmPedido', function() {
 	};
 });
 
+app.directive('brmSkuChart', function() {
+	return {
+		restrict : 'E',
+		scope : {
+			data : '='
+		},
+		template : '<nvd3 options="options" data="data"></nvd3>',
+		link : function($scope){
+		
+			$scope.options = {
+		            chart: {
+		                type: 'cumulativeLineChart',
+		                height: 450,
+		                margin : {
+		                    top: 20,
+		                    right: 20,
+		                    bottom: 50,
+		                    left: 65
+		                },
+		                x: function(d){ return d[0]; },
+		                y: function(d){ return d[1]/100; },
+		                average: function(d) { return d.mean/100; },
+
+		                color: d3.scale.category10().range(),
+		                duration: 300,
+		                useInteractiveGuideline: true,
+		                clipVoronoi: false,
+
+		                xAxis: {
+		                    axisLabel: 'Período',
+		                    tickFormat: function(d) {
+		                        return d3.time.format('%d/%m/%y')(new Date(d))
+		                    },
+		                    showMaxMin: false,
+		                    staggerLabels: true
+		                },
+
+		                yAxis: {
+		                    axisLabel: 'Demanda',
+		                    tickFormat: function(d){
+		                        return Number(d);
+		                    },
+		                    axisLabelDistance: 0
+		                }
+		            }
+		        };
+		}
+	};
+});
+
 
 app.directive('brmShowInfo', [ 'FornecedorFactory', 'SkuFactory',
 		function(FornecedorFactory, SkuFactory) {

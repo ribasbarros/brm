@@ -49,9 +49,10 @@ public class SkuDocument implements Serializable {
 	private StatusReposicaoEnum status;
 	private String descricao;
 
+	private double nivelServico;
+
 	private Integer estoqueMaximo;
-	private Integer estoqueMinimo;
-	private Integer estoqueIdeal;
+	private Integer estoqueSeguranca;
 	private Integer estoqueAtual;
 
 	private BigDecimal custoUnitario;
@@ -64,10 +65,12 @@ public class SkuDocument implements Serializable {
 
 	@BindingClass(OrigemSkuResponseDTO.class)
 	private Collection<OrigemSkuDocument> origens;
-	
+
 	@BindingClass(UsuarioResponseDTO.class)
 	private UsuarioDocument usuarioCriacao;
-	
+
+	private Integer loteReposicao;
+
 	public UsuarioDocument getUsuarioCriacao() {
 		return usuarioCriacao;
 	}
@@ -75,7 +78,6 @@ public class SkuDocument implements Serializable {
 	public void setUsuarioCriacao(UsuarioDocument usuarioCriacao) {
 		this.usuarioCriacao = usuarioCriacao;
 	}
-
 
 	public String getId() {
 		return id;
@@ -165,20 +167,12 @@ public class SkuDocument implements Serializable {
 		this.estoqueMaximo = estoqueMaximo;
 	}
 
-	public Integer getEstoqueMinimo() {
-		return estoqueMinimo;
+	public Integer getEstoqueSeguranca() {
+		return estoqueSeguranca;
 	}
 
-	public void setEstoqueMinimo(Integer estoqueMinimo) {
-		this.estoqueMinimo = estoqueMinimo;
-	}
-
-	public Integer getEstoqueIdeal() {
-		return estoqueIdeal;
-	}
-
-	public void setEstoqueIdeal(Integer estoqueIdeal) {
-		this.estoqueIdeal = estoqueIdeal;
+	public void setEstoqueSeguranca(Integer estoqueSeguranca) {
+		this.estoqueSeguranca = estoqueSeguranca;
 	}
 
 	public Integer getEstoqueAtual() {
@@ -227,6 +221,22 @@ public class SkuDocument implements Serializable {
 
 	public void setClasse(ClasseEnum classe) {
 		this.classe = classe;
+	}
+
+	public double getNivelServico() {
+		return nivelServico;
+	}
+
+	public void setNivelServico(double nivelServico) {
+		this.nivelServico = nivelServico;
+	}
+
+	public Integer getLoteReposicao() {
+		return loteReposicao;
+	}
+
+	public void setLoteReposicao(Integer loteReposicao) {
+		this.loteReposicao = loteReposicao;
 	}
 
 }

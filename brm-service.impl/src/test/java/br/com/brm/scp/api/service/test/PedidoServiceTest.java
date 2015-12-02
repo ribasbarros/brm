@@ -160,8 +160,7 @@ public class PedidoServiceTest extends CargaTestSku{
 		document.setStatus(StatusReposicaoEnum.DESBLOQUEADA);
 		document.setDescricao("Sku 0 teste de modelo de dados (CD)");
 		document.setEstoqueMaximo(0);
-		document.setEstoqueMinimo(0);
-		document.setEstoqueIdeal(0);
+		document.setEstoqueSeguranca(0);
 		document.setEstoqueAtual(0);
 		document.setCustoUnitario(new BigDecimal(PRECO_UNITARIO));
 		document.setClasse(ClasseEnum.A);
@@ -191,8 +190,7 @@ public class PedidoServiceTest extends CargaTestSku{
 		document.setStatus(StatusReposicaoEnum.DESBLOQUEADA);
 		document.setDescricao("Sku 1 teste de modelo de dados (SP)");
 		document.setEstoqueMaximo(0);
-		document.setEstoqueMinimo(0);
-		document.setEstoqueIdeal(0);
+		document.setEstoqueSeguranca(0);
 		document.setEstoqueAtual(0);
 		document.setCustoUnitario(new BigDecimal(PRECO_UNITARIO));
 		document.setClasse(ClasseEnum.A);
@@ -222,8 +220,7 @@ public class PedidoServiceTest extends CargaTestSku{
 		document.setStatus(StatusReposicaoEnum.DESBLOQUEADA);
 		document.setDescricao("Sku 2 teste de modelo de dados (SP)");
 		document.setEstoqueMaximo(0);
-		document.setEstoqueMinimo(0);
-		document.setEstoqueIdeal(0);
+		document.setEstoqueSeguranca(0);
 		document.setEstoqueAtual(0);
 		document.setCustoUnitario(new BigDecimal(PRECO_UNITARIO));
 		document.setClasse(ClasseEnum.A);

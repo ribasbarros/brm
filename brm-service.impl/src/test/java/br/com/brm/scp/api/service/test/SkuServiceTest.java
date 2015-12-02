@@ -128,8 +128,7 @@ public class SkuServiceTest extends CargaTestSku {
 		request.setStatus(StatusReposicaoEnum.DESBLOQUEADA);
 		request.setDescricao("Sku 1 teste de modelo de dados (CD)");
 		request.setEstoqueMaximo(0);
-		request.setEstoqueMinimo(0);
-		request.setEstoqueIdeal(0);
+		request.setEstoqueSeguranca(0);
 		request.setEstoqueAtual(0);
 		request.setCustoUnitario(new BigDecimal(PRECO_UNITARIO));
 		request.setClasse(ClasseEnum.A);
@@ -161,8 +160,7 @@ public class SkuServiceTest extends CargaTestSku {
 		request.setStatus(StatusReposicaoEnum.DESBLOQUEADA);
 		request.setDescricao("Sku 2 teste de modelo de dados");
 		request.setEstoqueMaximo(0);
-		request.setEstoqueMinimo(0);
-		request.setEstoqueIdeal(0);
+		request.setEstoqueSeguranca(0);
 		request.setEstoqueAtual(0);
 		request.setCustoUnitario(new BigDecimal(PRECO_UNITARIO));
 		request.setClasse(ClasseEnum.A);
@@ -194,8 +192,7 @@ public class SkuServiceTest extends CargaTestSku {
 		request.setStatus(StatusReposicaoEnum.DESBLOQUEADA);
 		request.setDescricao("Sku 3 teste de modelo de dados");
 		request.setEstoqueMaximo(0);
-		request.setEstoqueMinimo(0);
-		request.setEstoqueIdeal(0);
+		request.setEstoqueSeguranca(0);
 		request.setEstoqueAtual(0);
 		request.setCustoUnitario(new BigDecimal(PRECO_UNITARIO));
 		request.setClasse(ClasseEnum.A);

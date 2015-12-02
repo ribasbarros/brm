@@ -22,9 +22,12 @@ import br.com.brm.scp.api.dto.response.SkuResponseDTO;
 import br.com.brm.scp.api.exceptions.SkuNotFoundException;
 import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.pages.SearchPageableVO;
+import br.com.brm.scp.api.service.PedidoService;
 import br.com.brm.scp.api.service.SkuService;
 import br.com.brm.scp.api.service.status.MessageBootstrap;
 import br.com.brm.scp.api.service.status.SkuFiltroEnum;
+import br.com.brm.scp.api.vo.PedidoVO;
+import br.com.brm.scp.api.vo.ReturnChartVO;
 import br.com.brm.scp.controller.exception.SkuNotFoundWebException;
 import br.com.brm.scp.fw.helper.ExceptionHelper;
 import br.com.brm.scp.fw.helper.RestHelper;
@@ -42,6 +45,9 @@ public class SkuController extends RestHelper implements Serializable {
 	
 	@Autowired
 	private SkuService service;
+	
+	@Autowired
+	private PedidoService pedidoService;
 
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.POST)
@@ -155,6 +161,22 @@ public class SkuController extends RestHelper implements Serializable {
 			logger.info(getLabel(e.getMessage()));
 		}
 		return chain;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "chart/{id}", method = RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+	ReturnChartVO chart(@PathVariable("id") String id) {
+		ReturnChartVO chart = new ReturnChartVO();
+		try {
+			SkuResponseDTO response = service.find(SkuFiltroEnum.ID, id);
+			Collection<PedidoVO> demanda = pedidoService.findFaturamentoByMonth(response.getId(), 30);
+			chart.setResponse(response);
+			chart.setDemanda(demanda);
+		} catch (SkuNotFoundException e) {
+		}
+		
+		return chart;
 	}
 
 }

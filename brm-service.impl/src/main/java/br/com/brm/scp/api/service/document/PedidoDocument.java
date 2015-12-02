@@ -14,6 +14,7 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 import br.com.brm.scp.api.dto.response.SkuResponseDTO;
 import br.com.brm.scp.api.dto.response.UsuarioResponseDTO;
 import br.com.brm.scp.api.service.status.PedidoStatus;
+import br.com.brm.scp.api.service.status.PedidoType;
 import br.com.brm.scp.fw.annotations.BindingClass;
 
 @Document
@@ -24,6 +25,8 @@ public class PedidoDocument implements Serializable {
 	@Id
 	private String id;
 
+	private PedidoType tipo = PedidoType.INTERNO;
+
 	private String origem; // ID SKU ORIGEM
 
 	private String destino; // ID SKU ORIGEM
@@ -33,9 +36,10 @@ public class PedidoDocument implements Serializable {
 	private PedidoStatus status;
 
 	/*
-	 * INDICA QUE UMA SKU NAO TINHA A QUANTIDADE NECESSARIA EM ESTOQUE PARA LIBERAR, ENTÃO FOI CRIADA
-	 * UM NOVO PEDIDO PARA CIMA. ex: SKU1 solicita 1000 -> SKU2 não tem 1000, entao ela pede para o de cima
-	 * OBS: BASICAMENTE SERVE PARA ESCONDER O BOTAO SEND DA DATABLE PEDIDOS
+	 * INDICA QUE UMA SKU NAO TINHA A QUANTIDADE NECESSARIA EM ESTOQUE PARA
+	 * LIBERAR, ENTÃO FOI CRIADA UM NOVO PEDIDO PARA CIMA. ex: SKU1 solicita
+	 * 1000 -> SKU2 não tem 1000, entao ela pede para o de cima OBS: BASICAMENTE
+	 * SERVE PARA ESCONDER O BOTAO SEND DA DATABLE PEDIDOS
 	 */
 	private boolean escalonada = false;
 
@@ -53,7 +57,7 @@ public class PedidoDocument implements Serializable {
 	private UsuarioDocument usuarioCriacao;
 
 	private String descricao;
-	
+
 	private String idPedidoDestino;
 
 	private Collection<String> log = new ArrayList<>();
@@ -161,5 +165,13 @@ public class PedidoDocument implements Serializable {
 	public void setIdPedidoDestino(String idPedidoDestino) {
 		this.idPedidoDestino = idPedidoDestino;
 	}
-	
+
+	public PedidoType getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(PedidoType tipo) {
+		this.tipo = tipo;
+	}
+
 }

@@ -11,6 +11,7 @@ import br.com.brm.scp.api.annotation.BindingClassMeta;
 import br.com.brm.scp.api.dto.response.SkuResponseDTO;
 import br.com.brm.scp.api.dto.response.UsuarioResponseDTO;
 import br.com.brm.scp.api.service.status.PedidoStatus;
+import br.com.brm.scp.api.service.status.PedidoType;
 
 public class PedidoRequestDTO implements Serializable {
 
@@ -19,6 +20,8 @@ public class PedidoRequestDTO implements Serializable {
 	@Id
 	private String id;
 
+	private PedidoType tipo = PedidoType.INTERNO;
+	
 	private String origem;
 
 	private String destino;
@@ -152,6 +155,14 @@ public class PedidoRequestDTO implements Serializable {
 
 	public void setIdPedidoDestino(String idPedidoDestino) {
 		this.idPedidoDestino = idPedidoDestino;
+	}
+
+	public PedidoType getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(PedidoType tipo) {
+		this.tipo = tipo;
 	}
 
 }

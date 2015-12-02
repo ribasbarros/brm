@@ -9,6 +9,7 @@ import org.springframework.data.annotation.Id;
 
 import br.com.brm.scp.api.annotation.BindingClassMeta;
 import br.com.brm.scp.api.service.status.PedidoStatus;
+import br.com.brm.scp.api.service.status.PedidoType;
 
 public class PedidoResponseDTO implements Serializable {
 
@@ -17,6 +18,8 @@ public class PedidoResponseDTO implements Serializable {
 	@Id
 	private String id;
 
+	private PedidoType tipo = PedidoType.INTERNO;
+	
 	private String origem;
 
 	private String destino;
@@ -149,6 +152,14 @@ public class PedidoResponseDTO implements Serializable {
 
 	public void setIdPedidoDestino(String idPedidoDestino) {
 		this.idPedidoDestino = idPedidoDestino;
+	}
+
+	public PedidoType getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(PedidoType tipo) {
+		this.tipo = tipo;
 	}
 
 }

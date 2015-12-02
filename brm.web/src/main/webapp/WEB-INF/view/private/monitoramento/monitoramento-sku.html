@@ -1,0 +1,21 @@
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<div ng-controller="MonitoramentoSkuController">
+
+	<div class="col-lg-4">
+		<div class="input-group">
+			<select class="form-control"
+				ng-options="sku.id as sku.showTags for sku in listaSku track by sku.id"
+				ng-model="selected.id"></select> <span class="input-group-btn">
+				<button ng-click="doChart()" class="btn btn-default" type="button">
+					<span class="glyphicon glyphicon-signal" aria-hidden="true"></span>
+				</button>
+			</span>
+		</div>
+	</div>
+	<div ng-if="data">
+		<brm-sku-chart data="data" />
+	</div>
+</div>

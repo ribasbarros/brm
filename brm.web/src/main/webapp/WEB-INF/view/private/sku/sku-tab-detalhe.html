@@ -56,7 +56,7 @@
 		</div>
 
 		<div class="row">
-			<div class="col-md-5">
+			<div class="col-md-3">
 				<div class="form-group ">
 					<label>Tipos de Planejamento</label> <select class="form-control"
 						disabled="true" name="modelo" id="modelo" ng-model="sku.modelo">
@@ -66,7 +66,7 @@
 				</div>
 			</div>
 
-			<div class="col-md-5">
+			<div class="col-md-3">
 				<div class="form-group large-padded-row">
 					<label>Tipos de Reposição</label> <select class="form-control"
 						name="status" id="status" ng-model="sku.status">
@@ -74,6 +74,24 @@
 							ng-value="option.nome">{{option.nome}}</option>
 					</select>
 
+				</div>
+			</div>
+			
+			<div class="col-md-2">
+				<div class="form-group large-padded-row">
+					<label>Nível de Serviço</label> 
+					<input type="number" max="3.72" min="0.25"
+						class="form-control" ng-model="sku.nivelServico"
+						name="nivelServico" />
+				</div>
+			</div>
+			
+			<div class="col-md-2">
+				<div class="form-group large-padded-row">
+					<label>Lote de Reposição (ddv)</label> 
+					<input type="number" 
+						class="form-control" ng-model="sku.loteReposicao"
+						name="loteReposicao" />
 				</div>
 			</div>
 		</div>
@@ -109,16 +127,10 @@
 			<label>Estoque Máximo</label> {{sku.estoqueMaximo | number}}
 		</div>
 		<div class="form-group">
-			<label>Estoque Ideal</label> {{sku.estoqueIdeal | number}}
-		</div>
-		<div class="form-group">
-			<label>Estoque Ideal</label> {{sku.estoqueIdeal | number}}
+			<label>Estoque de Segurança</label> {{sku.estoqueSeguranca | number}}
 		</div>
 		<div class="form-group">
 			<label>Estoque Atual</label> {{sku.estoqueAtual | number}}
-		</div>
-		<div class="form-group">
-			<label>Custo Unitário</label> {{sku.custoUnitario | currency}}
 		</div>
 	</div>
 </div>
