@@ -14,6 +14,7 @@ import org.testng.annotations.Test;
 
 import br.com.brm.scp.api.dto.request.TagRequestDTO;
 import br.com.brm.scp.api.exceptions.TagExistenteException;
+import br.com.brm.scp.api.exceptions.TagIsUsedException;
 import br.com.brm.scp.api.exceptions.TagNotFoundException;
 import br.com.brm.scp.api.service.TagService;
 import br.com.brm.scp.api.service.repositories.TagRepository;
@@ -70,13 +71,13 @@ public class TagServiceTest extends AbstractTestNGSpringContextTests {
 	
 	
 	@org.testng.annotations.Test(enabled = TEST_CRUD, groups = "CRUD", priority = 5, dataProvider = "novoTagAlterado")
-	public void delete(TagRequestDTO request) throws TagNotFoundException {
+	public void delete(TagRequestDTO request) throws TagNotFoundException, TagIsUsedException {
 		assertNotNull(request);
 		service.delete(request.getId());		
 	}
 	
 	@org.testng.annotations.Test(enabled = TEST_CRUD, groups = "CRUD",expectedExceptions=TagNotFoundException.class, priority = 6, dataProvider = "novoTagAlterado")
-	public void deleteTagNotFoundException(TagRequestDTO request) throws TagNotFoundException {
+	public void deleteTagNotFoundException(TagRequestDTO request) throws TagNotFoundException, TagIsUsedException {
 		assertNotNull(request);
 		request.setId(ID_INVALIDO);
 		service.delete(request.getId());		

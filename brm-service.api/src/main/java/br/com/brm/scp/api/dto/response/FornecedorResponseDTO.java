@@ -9,7 +9,7 @@ import br.com.brm.scp.api.annotation.BindingClassMeta;
 import br.com.brm.scp.api.dto.ContatoDTO;
 import br.com.brm.scp.api.dto.FornecedorCentroDTO;
 
-public class FornecedorResponseDTO extends ReturnMessage implements Serializable {
+public class FornecedorResponseDTO implements Serializable {
 
 	private static final long serialVersionUID = -9082309408255141102L;
 
@@ -27,7 +27,17 @@ public class FornecedorResponseDTO extends ReturnMessage implements Serializable
 	private Date dataCriacao;
 	private Date dataAlteracao;
 	
+	@BindingClassMeta("USUARIO")
+	private UsuarioResponseDTO usuarioCriacao;
 	
+	public UsuarioResponseDTO getUsuarioCriacao() {
+		return usuarioCriacao;
+	}
+
+	public void setUsuarioCriacao(UsuarioResponseDTO usuarioCriacao) {
+		this.usuarioCriacao = usuarioCriacao;
+	}
+
 	public Date getDataCriacao() {
 		return dataCriacao;
 	}

@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,61 +15,96 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import br.com.brm.scp.api.dto.request.TagRequestDTO;
+import br.com.brm.scp.api.dto.response.ReturnMessage;
 import br.com.brm.scp.api.dto.response.TagResponseDTO;
-import br.com.brm.scp.api.dto.response.TagResponseDTO;
-import br.com.brm.scp.api.exceptions.TagNotFoundException;
-import br.com.brm.scp.api.exceptions.TagExistenteException;
+import br.com.brm.scp.api.exceptions.TagIsUsedException;
 import br.com.brm.scp.api.exceptions.TagNotFoundException;
 import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.pages.SearchPageableVO;
 import br.com.brm.scp.api.service.TagService;
-import br.com.brm.scp.api.service.status.TagFiltroEnum;
+import br.com.brm.scp.api.service.status.MessageBootstrap;
 import br.com.brm.scp.api.service.status.TagFiltroEnum;
 import br.com.brm.scp.controller.exception.TagNotFoundWebException;
-import br.com.brm.scp.controller.exception.TagExistenteWebException;
-import br.com.brm.scp.controller.exception.TagNotFoundWebException;
+import br.com.brm.scp.fw.helper.ExceptionHelper;
+import br.com.brm.scp.fw.helper.RestHelper;
 
 @Controller
 @RequestMapping("tag")
-public class TagController implements Serializable {
+public class TagController extends RestHelper implements Serializable {
 	@Autowired
 	TagService service;
 	private static final long serialVersionUID = -2800018523116809156L;
-	
+
+	private static final String TAG_CRIADO_COM_SUCESSO = "tag.savesuccess";
+	private static final String TAG_ALTERADO_COM_SUCESSO = "tag.updatesuccess";
+	private static final String TAG_DELETADO_COM_SUCESSO = "tag.deletesucess";
+
+
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.POST)
-	@ResponseStatus(HttpStatus.CREATED)
-	TagResponseDTO create(@RequestBody TagRequestDTO request) {
-		TagResponseDTO response = null;
+	ResponseEntity<ReturnMessage<TagResponseDTO>> create(@RequestBody TagRequestDTO request) {
+		ReturnMessage<TagResponseDTO> restResponse = new ReturnMessage<>();
+		HttpStatus status = HttpStatus.CREATED;
+
 		try {
-			response = service.create(request);
-		} catch (TagExistenteException e) {
-			throw new TagExistenteWebException();
+			TagResponseDTO response = service.create(request);
+
+			restResponse.setResult(response);
+			restResponse.setHttpMensagem(getLabel(TAG_CRIADO_COM_SUCESSO));
+
+		} catch (Exception e) {
+			status = HttpStatus.BAD_REQUEST;
+
+			restResponse.setHttpMensagem(getLabel(e.getMessage()));
+			restResponse.setIco(MessageBootstrap.DANGER);
+			
+			restResponse.setDetalhe(ExceptionHelper.toString(e));
+
 		}
 
-		return response;
+		return new ResponseEntity<>(restResponse, status);
 	}
 
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.PUT)
-	@ResponseStatus(HttpStatus.OK)
-	void update(@RequestBody TagRequestDTO request) {
+	ResponseEntity<ReturnMessage<TagResponseDTO>> update(@RequestBody TagRequestDTO request) {
+		ReturnMessage<TagResponseDTO> restResponse = new ReturnMessage<>();
+		HttpStatus status = HttpStatus.CREATED;
 		try {
-			service.update(request);
-		} catch (TagNotFoundException e) {
-			throw new TagNotFoundWebException(e.getMessage());
+			TagResponseDTO response = service.update(request);
+
+			restResponse.setResult(response);
+			restResponse.setHttpMensagem(getLabel(TAG_ALTERADO_COM_SUCESSO));
+		} catch (Exception e) {
+			status = HttpStatus.BAD_REQUEST;
+
+			restResponse.setHttpMensagem(getLabel(e.getMessage()));
+			restResponse.setIco(MessageBootstrap.DANGER);
+			
+			restResponse.setDetalhe(ExceptionHelper.toString(e));
 		}
+		return new ResponseEntity<>(restResponse, status);
 	}
+
 	
 	@ResponseBody
 	@RequestMapping(value= "{id}", method = RequestMethod.DELETE)
-	@ResponseStatus(HttpStatus.OK)
-	void delete(@PathVariable("id") String id) {
+	ResponseEntity<ReturnMessage<TagResponseDTO>> delete(@PathVariable("id") String id) {
+		ReturnMessage<TagResponseDTO> restResponse = new ReturnMessage<>();
+		HttpStatus status = HttpStatus.OK;
 		try {
 			service.delete(id);
-		} catch (TagNotFoundException e) {
-			throw new TagNotFoundWebException(e.getMessage());
+			restResponse.setHttpMensagem(getLabel(TAG_DELETADO_COM_SUCESSO));
+		} catch (Exception e) {
+			status = HttpStatus.BAD_REQUEST;
+
+			restResponse.setHttpMensagem(getLabel(e.getMessage()));
+			restResponse.setIco(MessageBootstrap.DANGER);
+			
+			restResponse.setDetalhe(ExceptionHelper.toString(e));
 		}
+		
+		return new ResponseEntity<>(restResponse, status);
 	}
 	
 	@ResponseBody

@@ -3,6 +3,9 @@ package br.com.brm.scp.api.dto.request;
 import java.io.Serializable;
 import java.util.Date;
 
+import br.com.brm.scp.api.annotation.BindingClassMeta;
+import br.com.brm.scp.api.dto.response.UsuarioResponseDTO;
+
 public class CategoriaRequestDTO implements Serializable {
 
 	private static final long serialVersionUID = -4794728247225374251L;
@@ -11,6 +14,18 @@ public class CategoriaRequestDTO implements Serializable {
 	private String nome;
 	private Date dataCriacao;
 	private Date dataAlteracao;
+	@BindingClassMeta("USUARIO")
+	private UsuarioResponseDTO usuarioCriacao;
+	
+	
+
+	public UsuarioResponseDTO getUsuarioCriacao() {
+		return usuarioCriacao;
+	}
+
+	public void setUsuarioCriacao(UsuarioResponseDTO usuarioCriacao) {
+		this.usuarioCriacao = usuarioCriacao;
+	}
 	
 	
 	public Date getDataCriacao() {

@@ -15,7 +15,7 @@ public interface DfuService {
 
 	void delete(String id) throws DfuNotFoundException;
 
-	void update(DfuRequestDTO request) throws DfuNotFoundException;
+	DfuResponseDTO update(DfuRequestDTO request) throws DfuNotFoundException;
 
 	DfuResponseDTO find(DfuFiltroEnum filtro, Object value) throws DfuNotFoundException;
 	

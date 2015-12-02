@@ -17,7 +17,7 @@ public interface PerfilService {
 
 	void delete(String id) throws PerfilNotFoundException;
 
-	void update(PerfilRequestDTO request) throws PerfilNotFoundException;
+	PerfilResponseDTO update(PerfilRequestDTO request) throws PerfilNotFoundException;
 
 	PerfilResponseDTO find(PerfilFiltroEnum filtro, Object value) throws PerfilNotFoundException;
 

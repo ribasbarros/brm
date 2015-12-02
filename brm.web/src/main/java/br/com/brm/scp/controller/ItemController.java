@@ -6,6 +6,7 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,53 +17,72 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import br.com.brm.scp.api.dto.request.ItemRequestDTO;
 import br.com.brm.scp.api.dto.response.ItemResponseDTO;
-import br.com.brm.scp.api.exceptions.ItemCategoriaNotFoundException;
-import br.com.brm.scp.api.exceptions.ItemExistenteException;
+import br.com.brm.scp.api.dto.response.ReturnMessage;
 import br.com.brm.scp.api.exceptions.ItemNotFoundException;
 import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.pages.SearchPageableVO;
 import br.com.brm.scp.api.service.ItemService;
 import br.com.brm.scp.api.service.status.ItemFiltroEnum;
 import br.com.brm.scp.api.service.status.ItemStatus;
-import br.com.brm.scp.controller.exception.ItemCategoriaNotFoundWebException;
-import br.com.brm.scp.controller.exception.ItemExistenteWebException;
+import br.com.brm.scp.api.service.status.MessageBootstrap;
 import br.com.brm.scp.controller.exception.ItemNotFoundWebException;
+import br.com.brm.scp.fw.helper.ExceptionHelper;
+import br.com.brm.scp.fw.helper.RestHelper;
 
 @Controller
 @RequestMapping("item")
-public class ItemController implements Serializable {
+public class ItemController extends RestHelper implements Serializable {
 	@Autowired
 	ItemService service;
 	
+	private static final String ITEM_CRIADO_COM_SUCESSO = "item.savesuccess";
+	private static final String ITEM_ALTERADO_COM_SUCESSO = "item.updatesuccess";
 	private static final long serialVersionUID = -9194937403856686721L;
 	
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.POST)
-	@ResponseStatus(HttpStatus.CREATED)
-	ItemResponseDTO create(@RequestBody ItemRequestDTO request) {
-		ItemResponseDTO response = null;
+	ResponseEntity<ReturnMessage<ItemResponseDTO>> create(@RequestBody ItemRequestDTO request) {
+		ReturnMessage<ItemResponseDTO> restResponse = new ReturnMessage<>();
+		HttpStatus status = HttpStatus.CREATED;
+
 		try {
-			response = service.create(request);
-		} catch (ItemExistenteException e) {
-			throw new ItemExistenteWebException();
-		} catch (ItemCategoriaNotFoundException e) {
-			throw new ItemCategoriaNotFoundWebException();
+			ItemResponseDTO response = service.create(request);
+
+			restResponse.setResult(response);
+			restResponse.setHttpMensagem(getLabel(ITEM_CRIADO_COM_SUCESSO));
+
+		} catch (Exception e) {
+			status = HttpStatus.BAD_REQUEST;
+
+			restResponse.setHttpMensagem(getLabel(e.getMessage()));
+			restResponse.setIco(MessageBootstrap.DANGER);
+			
+			restResponse.setDetalhe(ExceptionHelper.toString(e));
+
 		}
 
-		return response;
+		return new ResponseEntity<>(restResponse, status);
 	}
 
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.PUT)
-	@ResponseStatus(HttpStatus.OK)
-	void update(@RequestBody ItemRequestDTO request) {
+	ResponseEntity<ReturnMessage<ItemResponseDTO>> update(@RequestBody ItemRequestDTO request) {
+		ReturnMessage<ItemResponseDTO> restResponse = new ReturnMessage<>();
+		HttpStatus status = HttpStatus.CREATED;
 		try {
-			service.update(request);
-		} catch (ItemCategoriaNotFoundException e) {
-			throw new ItemCategoriaNotFoundWebException();
-		} catch (ItemNotFoundException e) {
-			throw new ItemNotFoundWebException(e.getMessage());
+			ItemResponseDTO response = service.update(request);
+
+			restResponse.setResult(response);
+			restResponse.setHttpMensagem(getLabel(ITEM_ALTERADO_COM_SUCESSO));
+		} catch (Exception e) {
+			status = HttpStatus.BAD_REQUEST;
+
+			restResponse.setHttpMensagem(getLabel(e.getMessage()));
+			restResponse.setIco(MessageBootstrap.DANGER);
+			
+			restResponse.setDetalhe(ExceptionHelper.toString(e));
 		}
+		return new ResponseEntity<>(restResponse, status);
 	}
 	
 	@ResponseBody

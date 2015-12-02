@@ -25,6 +25,7 @@ import br.com.brm.scp.api.dto.response.FornecedorResponseDTO;
 import br.com.brm.scp.api.exceptions.FornecedorCentroExistenteException;
 import br.com.brm.scp.api.exceptions.FornecedorException;
 import br.com.brm.scp.api.exceptions.FornecedorExistenteException;
+import br.com.brm.scp.api.exceptions.FornecedorIsUsedException;
 import br.com.brm.scp.api.exceptions.FornecedorNotFoundException;
 import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.service.FornecedorService;
@@ -154,7 +155,7 @@ public class FornecedorServiceTest extends AbstractTestNGSpringContextTests {
 	}
 
 	@Test(enabled = TEST_CRUD && DISABLED, groups = "CRUD", priority = 9, dataProvider = "RequestSuccess4Delete")
-	public void testDelete(FornecedorRequestDTO request) throws FornecedorNotFoundException {
+	public void testDelete(FornecedorRequestDTO request) throws FornecedorNotFoundException, FornecedorIsUsedException {
 
 		FornecedorDocument document = fRepo
 				.save((FornecedorDocument) ConverterHelper.convert(request, FornecedorDocument.class));
@@ -169,7 +170,7 @@ public class FornecedorServiceTest extends AbstractTestNGSpringContextTests {
 	}
 
 	@Test(enabled = TEST_CRUD && DISABLED, groups = "CRUD", priority = 10, dataProvider = "RequestSuccess4Delete", expectedExceptions = FornecedorNotFoundException.class)
-	public void testDeleteFornecedorNotFoundException(FornecedorRequestDTO request) throws FornecedorNotFoundException {
+	public void testDeleteFornecedorNotFoundException(FornecedorRequestDTO request) throws FornecedorNotFoundException, FornecedorIsUsedException {
 		service.delete(request.getId());
 	}
 

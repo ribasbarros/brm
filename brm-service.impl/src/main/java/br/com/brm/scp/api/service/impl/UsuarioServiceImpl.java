@@ -12,20 +12,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import br.com.brm.scp.api.dto.request.UsuarioRequestDTO;
-import br.com.brm.scp.api.dto.response.GrupoResponseDTO;
 import br.com.brm.scp.api.dto.response.UsuarioResponseDTO;
-import br.com.brm.scp.api.dto.response.UsuarioResponseDTO;
-import br.com.brm.scp.api.exceptions.UsuarioNotFoundException;
 import br.com.brm.scp.api.exceptions.UsuarioExistentException;
 import br.com.brm.scp.api.exceptions.UsuarioNotFoundException;
 import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.service.UsuarioService;
 import br.com.brm.scp.api.service.document.GrupoDocument;
-import br.com.brm.scp.api.service.document.PerfilDocument;
-import br.com.brm.scp.api.service.document.UsuarioDocument;
 import br.com.brm.scp.api.service.document.UsuarioDocument;
 import br.com.brm.scp.api.service.repositories.UsuarioRepository;
 import br.com.brm.scp.api.service.status.UsuarioFiltroEnum;
+import br.com.brm.scp.fw.helper.UsuarioLogadoHelper;
 import br.com.brm.scp.fw.helper.converters.ConverterHelper;
 import br.com.brm.scp.fw.helper.validators.EmailValidator;
 
@@ -68,6 +64,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		}
 		UsuarioDocument document = invokeDocument(request);
 		document.setDataCriacao(new Date());
+		document.setUsuarioCriacao((UsuarioDocument) ConverterHelper.convert(getUsuarioLogado(),UsuarioDocument.class));
 		document = repository.save(document);
 
 		UsuarioResponseDTO response = invokeResponse(document);
@@ -95,7 +92,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 	}
 
 	@Override
-	public void update(UsuarioRequestDTO request)
+	public UsuarioResponseDTO update(UsuarioRequestDTO request)
 			throws UsuarioNotFoundException {
 		Assert.notNull(request.getId(), USUARIO_ID);
 		Assert.notNull(request, USUARIO_NOTNULL);
@@ -111,7 +108,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		}
 		UsuarioDocument document = invokeDocument(request);
 		document.setDataAlteracao(new Date());
-		repository.save(document);
+		return invokeResponse(repository.save(document));
 	}
 
 	@Override
@@ -212,6 +209,11 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 		return new br.com.brm.scp.api.pages.Pageable<UsuarioResponseDTO>(response, numberOfElements, totalPages,
 				pageIndex);
+	}
+
+	@Override
+	public UsuarioResponseDTO getUsuarioLogado() {
+		return invokeResponse(repository.findByLogin(UsuarioLogadoHelper.getUsuarioLogado().getUsername()));
 	}
 
 }

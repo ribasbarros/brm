@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,65 +16,98 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import br.com.brm.scp.api.dto.request.CategoriaRequestDTO;
 import br.com.brm.scp.api.dto.response.CategoriaResponseDTO;
+import br.com.brm.scp.api.dto.response.ReturnMessage;
 import br.com.brm.scp.api.dto.response.CategoriaResponseDTO;
-import br.com.brm.scp.api.dto.response.CategoriaResponseDTO;
-import br.com.brm.scp.api.exceptions.CategoriaExistenteException;
-import br.com.brm.scp.api.exceptions.CategoriaNotFoundException;
-import br.com.brm.scp.api.exceptions.CategoriaNotFoundException;
 import br.com.brm.scp.api.exceptions.CategoriaNotFoundException;
 import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.pages.SearchPageableVO;
 import br.com.brm.scp.api.service.CategoriaService;
 import br.com.brm.scp.api.service.status.CategoriaFiltroEnum;
-import br.com.brm.scp.api.service.status.CategoriaFiltroEnum;
-import br.com.brm.scp.controller.exception.CategoriaExistenteWebException;
+import br.com.brm.scp.api.service.status.MessageBootstrap;
 import br.com.brm.scp.controller.exception.CategoriaNotFoundWebException;
-import br.com.brm.scp.controller.exception.CategoriaNotFoundWebException;
-import br.com.brm.scp.controller.exception.CategoriaNotFoundWebException;
+import br.com.brm.scp.fw.helper.ExceptionHelper;
+import br.com.brm.scp.fw.helper.RestHelper;
 
 @Controller
 @RequestMapping("categoria")
-public class CategoriaController implements Serializable {
+public class CategoriaController extends RestHelper implements Serializable {
 
 	private static final long serialVersionUID = 1933782146057829577L;
+	
+	private static final String CATEGORIA_CRIADO_COM_SUCESSO = "categoria.savesuccess";
+	private static final String CATEGORIA_ALTERADO_COM_SUCESSO = "categoria.updatesuccess";
+	private static final String CATEGORIA_DELETADO_COM_SUCESSO = "categoria.deletesuccess";
 
 	@Autowired
 	private CategoriaService service;
 
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.POST)
-	@ResponseStatus(HttpStatus.CREATED)
-	CategoriaResponseDTO create(@RequestBody CategoriaRequestDTO request) {
-		CategoriaResponseDTO response = null;
+	ResponseEntity<ReturnMessage<CategoriaResponseDTO>> create(@RequestBody CategoriaRequestDTO request) {
+		ReturnMessage<CategoriaResponseDTO> restResponse = new ReturnMessage<>();
+		HttpStatus status = HttpStatus.CREATED;
+
 		try {
-			response = service.create(request);
-		} catch (CategoriaExistenteException e) {
-			throw new CategoriaExistenteWebException();
+			CategoriaResponseDTO response = service.create(request);
+
+			restResponse.setResult(response);
+			restResponse.setHttpMensagem(getLabel(CATEGORIA_CRIADO_COM_SUCESSO));
+
+		} catch (Exception e) {
+			status = HttpStatus.BAD_REQUEST;
+
+			restResponse.setHttpMensagem(getLabel(e.getMessage()));
+			restResponse.setIco(MessageBootstrap.DANGER);
+			
+			restResponse.setDetalhe(ExceptionHelper.toString(e));
+
 		}
 
-		return response;
+		return new ResponseEntity<>(restResponse, status);
 	}
+
+
 
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.PUT)
-	@ResponseStatus(HttpStatus.OK)
-	void update(@RequestBody CategoriaRequestDTO request) {
+	ResponseEntity<ReturnMessage<CategoriaResponseDTO>> update(@RequestBody CategoriaRequestDTO request) {
+		ReturnMessage<CategoriaResponseDTO> restResponse = new ReturnMessage<>();
+		HttpStatus status = HttpStatus.CREATED;
 		try {
-			service.update(request);
-		} catch (CategoriaNotFoundException e) {
-			throw new CategoriaNotFoundWebException(e.getMessage());
+			CategoriaResponseDTO response = service.update(request);
+
+			restResponse.setResult(response);
+			restResponse.setHttpMensagem(getLabel(CATEGORIA_ALTERADO_COM_SUCESSO));
+		} catch (Exception e) {
+			status = HttpStatus.BAD_REQUEST;
+
+			restResponse.setHttpMensagem(getLabel(e.getMessage()));
+			restResponse.setIco(MessageBootstrap.DANGER);
+			
+			restResponse.setDetalhe(ExceptionHelper.toString(e));
 		}
+		return new ResponseEntity<>(restResponse, status);
 	}
 
+	
 	@ResponseBody
-	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-	@ResponseStatus(HttpStatus.OK)
-	void delete(@PathVariable("id") String id) {
+	@RequestMapping(value= "{id}", method = RequestMethod.DELETE)
+	ResponseEntity<ReturnMessage<CategoriaResponseDTO>> delete(@PathVariable("id") String id) {
+		ReturnMessage<CategoriaResponseDTO> restResponse = new ReturnMessage<>();
+		HttpStatus status = HttpStatus.OK;
 		try {
 			service.delete(id);
-		} catch (CategoriaNotFoundException e) {
-			throw new CategoriaNotFoundWebException(e.getMessage());
+			restResponse.setHttpMensagem(getLabel(CATEGORIA_DELETADO_COM_SUCESSO));
+		} catch (Exception e) {
+			status = HttpStatus.BAD_REQUEST;
+
+			restResponse.setHttpMensagem(getLabel(e.getMessage()));
+			restResponse.setIco(MessageBootstrap.DANGER);
+			
+			restResponse.setDetalhe(ExceptionHelper.toString(e));
 		}
+		
+		return new ResponseEntity<>(restResponse, status);
 	}
 	
 	

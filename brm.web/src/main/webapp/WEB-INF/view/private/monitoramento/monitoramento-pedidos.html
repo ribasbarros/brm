@@ -1,0 +1,46 @@
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<div ng-controller="MonitoramentoPedidoController">
+	<div class="row">
+		<div ng-repeat="entry in pedidos | orderBy : '-quantidade'">
+			<div class="col-sm-3">
+				<div class="thumbnail">
+					<div class="caption">
+						<div class="row" style="margin-left: 10px; margin-right: 10px;">
+							<div style="float: left"><h4>{{entry.skuOrigem.item.nome}}</h4></div>
+							<div style="font-weight: bold; float: right"><brm-show-info tipo="'SKU'" id="entry.origem" /></div>
+						</div>
+						<div class="row" style="margin-left: 10px; margin-right: 10px;">
+							<div style="float: left">Estoque Atual:</div>
+							<div style="font-weight: bold; float: right">{{entry.skuOrigem.estoqueAtual | number}}</div>
+						</div>
+						<div class="row" style="margin-left: 10px; margin-right: 10px;"> 
+							<div style="float: left">Estoque Ideal:</div>
+							<div style="font-weight: bold; float: right">{{entry.skuOrigem.estoqueIdeal | number}}</div>
+						</div>
+						<div class="row" style="margin-left: 10px; margin-right: 10px;">
+							<div style="float: left">Estoque Máximo:</div>
+							<div style="font-weight: bold; float: right">{{entry.skuOrigem.estoqueMaximo | number}}</div>
+						</div>
+						<div class="row" style="margin-left: 10px; margin-right: 10px;">
+							<div style="float: left">Estoque Minimo:</div>
+							<div style="font-weight: bold; float: right">{{entry.skuOrigem.estoqueMinimo | number}}</div>
+						</div>
+						<hr>
+						<div class="row" style="margin-left: 10px; margin-right: 10px;">
+							<div style="float: left">Entrada:</div>
+							<div style="font-weight: bold; color: red; float: right;">{{entry.quantidade | number}}</div>
+						</div>
+						<br />
+						<br />
+						<p>
+							<a href="#/private/sku/sku-edit/{{entry.origem}}" class="btn btn-primary" role="button">SKU</a> <a
+								href="#" class="btn btn-default" role="button">Button</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -17,7 +17,9 @@ public interface TagRepository extends MongoRepository<TagDocument, String> {
 	@Query("{ 'nome' : ?0 }")
 	TagDocument findByNome(String value);
 	
-	@Query("{ 'nome': {'$regex': ?0 , $options: 'i'} }")
-	Page<TagDocument> findByName(String searchTerm, Pageable pageable);
+	@Query("{ $or: [ { 'nome': {'$regex': ?0 , $options: 'i'} } , "
+			+ "{ 'nivel': {'$regex': ?0, $options: 'i'} } ]}")
+	Page<TagDocument> findByAttrs(String searchTerm, Pageable pageable);
 
+	
 }

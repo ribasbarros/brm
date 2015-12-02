@@ -6,6 +6,7 @@ import br.com.brm.scp.api.dto.request.CategoriaRequestDTO;
 import br.com.brm.scp.api.dto.response.CategoriaResponseDTO;
 import br.com.brm.scp.api.dto.response.CategoriaResponseDTO;
 import br.com.brm.scp.api.exceptions.CategoriaExistenteException;
+import br.com.brm.scp.api.exceptions.CategoriaIsUsedException;
 import br.com.brm.scp.api.exceptions.CategoriaNotFoundException;
 import br.com.brm.scp.api.exceptions.CategoriaNotFoundException;
 import br.com.brm.scp.api.pages.Pageable;
@@ -15,11 +16,11 @@ public interface CategoriaService {
 
 	CategoriaResponseDTO create(CategoriaRequestDTO request) throws CategoriaExistenteException;
 
-	void update(CategoriaRequestDTO request) throws CategoriaNotFoundException;	
+	CategoriaResponseDTO update(CategoriaRequestDTO request) throws CategoriaNotFoundException;	
 	
 	CategoriaResponseDTO find(CategoriaFiltroEnum filtro, Object value) throws CategoriaNotFoundException;
 
-	void delete(String id) throws CategoriaNotFoundException;
+	void delete(String id) throws CategoriaNotFoundException, CategoriaIsUsedException;
 	
 	Collection<CategoriaResponseDTO> all() throws CategoriaNotFoundException;
 	

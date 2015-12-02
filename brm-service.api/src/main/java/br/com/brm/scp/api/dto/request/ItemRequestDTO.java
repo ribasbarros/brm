@@ -6,6 +6,7 @@ import java.util.Date;
 
 import br.com.brm.scp.api.annotation.BindingClassMeta;
 import br.com.brm.scp.api.dto.response.CategoriaResponseDTO;
+import br.com.brm.scp.api.dto.response.UsuarioResponseDTO;
 import br.com.brm.scp.api.service.status.ItemStatus;
 
 public class ItemRequestDTO implements Serializable {
@@ -21,8 +22,23 @@ public class ItemRequestDTO implements Serializable {
 	private String descricao;
 	private Date dataCriacao;
 	private Date dataAlteracao;
+	@BindingClassMeta("USUARIO")
+	private UsuarioResponseDTO usuarioCriacao;
 	
 	
+	
+	public UsuarioResponseDTO getUsuarioCriacao() {
+		return usuarioCriacao;
+	}
+
+	public void setUsuarioCriacao(UsuarioResponseDTO usuarioCriacao) {
+		this.usuarioCriacao = usuarioCriacao;
+	}
+
+	public void setDataAlteracao(Date dataAlteracao) {
+		this.dataAlteracao = dataAlteracao;
+	}
+
 	public Date getDataCriacao() {
 		return dataCriacao;
 	}

@@ -28,9 +28,8 @@ public class SkuResponseDTO implements Serializable {
 	@BindingClassMeta("TAGS")
 	private Collection<TagResponseDTO> tags;
 
-	@DateTimeFormat(iso = ISO.DATE_TIME)
 	private Date dataMaturidade;
-	@DateTimeFormat(iso = ISO.DATE_TIME)
+
 	private Date dataDescontinuacao;
 	private PlanejamentoSku modelo;
 
@@ -39,9 +38,10 @@ public class SkuResponseDTO implements Serializable {
 	private StatusReposicaoEnum status;
 	private String descricao;
 
+	private double nivelServico;
+
 	private Integer estoqueMaximo;
-	private Integer estoqueMinimo;
-	private Integer estoqueIdeal;
+	private Integer estoqueSeguranca;
 	private Integer estoqueAtual;
 
 	private BigDecimal custoUnitario;
@@ -54,6 +54,19 @@ public class SkuResponseDTO implements Serializable {
 
 	@BindingClassMeta("ORIGEM")
 	private Collection<OrigemSkuResponseDTO> origens;
+
+	@BindingClassMeta("USUARIO")
+	private UsuarioResponseDTO usuarioCriacao;
+
+	private Integer loteReposicao;
+
+	public UsuarioResponseDTO getUsuarioCriacao() {
+		return usuarioCriacao;
+	}
+
+	public void setUsuarioCriacao(UsuarioResponseDTO usuarioCriacao) {
+		this.usuarioCriacao = usuarioCriacao;
+	}
 
 	public String getId() {
 		return id;
@@ -143,20 +156,12 @@ public class SkuResponseDTO implements Serializable {
 		this.estoqueMaximo = estoqueMaximo;
 	}
 
-	public Integer getEstoqueMinimo() {
-		return estoqueMinimo;
+	public Integer getEstoqueSeguranca() {
+		return estoqueSeguranca;
 	}
 
-	public void setEstoqueMinimo(Integer estoqueMinimo) {
-		this.estoqueMinimo = estoqueMinimo;
-	}
-
-	public Integer getEstoqueIdeal() {
-		return estoqueIdeal;
-	}
-
-	public void setEstoqueIdeal(Integer estoqueIdeal) {
-		this.estoqueIdeal = estoqueIdeal;
+	public void setEstoqueSeguranca(Integer estoqueSeguranca) {
+		this.estoqueSeguranca = estoqueSeguranca;
 	}
 
 	public Integer getEstoqueAtual() {
@@ -205,6 +210,22 @@ public class SkuResponseDTO implements Serializable {
 
 	public void setClasse(ClasseEnum classe) {
 		this.classe = classe;
+	}
+
+	public double getNivelServico() {
+		return nivelServico;
+	}
+
+	public void setNivelServico(double nivelServico) {
+		this.nivelServico = nivelServico;
+	}
+
+	public Integer getLoteReposicao() {
+		return loteReposicao;
+	}
+
+	public void setLoteReposicao(Integer loteReposicao) {
+		this.loteReposicao = loteReposicao;
 	}
 
 }

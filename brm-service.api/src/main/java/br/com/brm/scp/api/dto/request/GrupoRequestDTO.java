@@ -16,6 +16,12 @@ public class GrupoRequestDTO implements Serializable {
 	private String nome;
 	private Date dataCriacao;
 	private Date dataAlteracao;
+		
+	@BindingClassMeta("PERFIS")
+	private Collection<PerfilResponseDTO> perfis = new ArrayList<>();
+	
+	@BindingClassMeta("USUARIO")
+	private UsuarioResponseDTO usuarioCriacao;
 	
 	
 	public Date getDataCriacao() {
@@ -30,12 +36,7 @@ public class GrupoRequestDTO implements Serializable {
 		return dataAlteracao;
 	}
 
-	@BindingClassMeta("PERFIS")
-	private Collection<PerfilResponseDTO> perfis = new ArrayList<>();
-	
-	@BindingClassMeta("USUARIO")
-	private UsuarioResponseDTO usuarioCriacao;
-	
+
 	public String getId() {
 		return id;
 	}

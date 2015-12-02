@@ -25,6 +25,7 @@ import br.com.brm.scp.api.exceptions.DfuNotFoundException;
 import br.com.brm.scp.api.exceptions.DfuNotFoundException;
 import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.service.DfuService;
+import br.com.brm.scp.api.service.UsuarioService;
 import br.com.brm.scp.api.service.document.DfuDocument;
 import br.com.brm.scp.api.service.document.DfuDocument;
 import br.com.brm.scp.api.service.document.DfuDocument;
@@ -34,6 +35,7 @@ import br.com.brm.scp.api.service.document.DfuDocument;
 import br.com.brm.scp.api.service.document.RelacaoSkuDocument;
 import br.com.brm.scp.api.service.document.SkuDocument;
 import br.com.brm.scp.api.service.document.TagDocument;
+import br.com.brm.scp.api.service.document.UsuarioDocument;
 import br.com.brm.scp.api.service.repositories.DfuRepository;
 import br.com.brm.scp.api.service.status.DfuFiltroEnum;
 import br.com.brm.scp.fw.helper.converters.ConverterHelper;
@@ -49,7 +51,9 @@ public class DfuServiceImpl implements DfuService {
 
 	@Autowired
 	DfuRepository repository;
-
+	@Autowired
+	UsuarioService usuarioService;
+	
 	@Override
 	public DfuResponseDTO create(DfuRequestDTO request)
 			throws DfuExistenteException {
@@ -68,7 +72,8 @@ public class DfuServiceImpl implements DfuService {
 		DfuDocument document = invokeDocument(request);
 		document.setDataCriacao(new Date());
 		document = repository.save(document);
-		
+		document.setUsuarioCriacao((UsuarioDocument) ConverterHelper.convert(usuarioService.getUsuarioLogado(),UsuarioDocument.class));
+
 		DfuResponseDTO response = invokeResponse(document);
 
 		return response;
@@ -85,7 +90,7 @@ public class DfuServiceImpl implements DfuService {
 	}
 
 	@Override
-	public void update(DfuRequestDTO request) throws DfuNotFoundException {
+	public DfuResponseDTO update(DfuRequestDTO request) throws DfuNotFoundException {
 		Assert.notNull(request, DFU_NULL);
 		Assert.notNull(request.getId(), DFU_ID);
 
@@ -95,7 +100,7 @@ public class DfuServiceImpl implements DfuService {
 
 		DfuDocument document = invokeDocument(request);
 		document.setDataAlteracao(new Date());
-		repository.save(document);
+		return invokeResponse(repository.save(document));
 	}
 
 	@Override

@@ -18,10 +18,10 @@
 		</div>
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-3">
-			<button ng-click="save()" class="btn btn-primary btn-sm navbar-btn">
+			<button ng-click="save(false)" class="btn btn-primary btn-sm navbar-btn">
 				<span class="glyphicon glyphicon-check"></span> Salvar
 			</button>
-			<button ng-click="saveAndClose()"
+			<button ng-click="save(true)"
 				class="btn btn-danger btn-sm navbar-btn">
 				<span class="glyphicon glyphicon-ok"></span> Salvar & Fechar
 			</button>
@@ -39,7 +39,6 @@
 <center>
 	<h3>Cadastro de Fornecedor</h3>
 </center>
-<p ng-show="mensagem.length" class="alert alert-info">{{mensagem}}</p>
 
 <div class="row">
 	<div class="col-md-6">
@@ -116,3 +115,5 @@
 		</div>
 	</div>
 </div>
+
+<brm-show-message />

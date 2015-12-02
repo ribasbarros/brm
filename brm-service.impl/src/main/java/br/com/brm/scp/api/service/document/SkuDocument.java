@@ -14,6 +14,7 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 import br.com.brm.scp.api.dto.request.OrigemSkuResponseDTO;
 import br.com.brm.scp.api.dto.response.ItemResponseDTO;
 import br.com.brm.scp.api.dto.response.TagResponseDTO;
+import br.com.brm.scp.api.dto.response.UsuarioResponseDTO;
 import br.com.brm.scp.api.service.status.ClasseEnum;
 import br.com.brm.scp.api.service.status.PlanejamentoSku;
 import br.com.brm.scp.api.service.status.StatusReposicaoEnum;
@@ -48,9 +49,10 @@ public class SkuDocument implements Serializable {
 	private StatusReposicaoEnum status;
 	private String descricao;
 
+	private double nivelServico;
+
 	private Integer estoqueMaximo;
-	private Integer estoqueMinimo;
-	private Integer estoqueIdeal;
+	private Integer estoqueSeguranca;
 	private Integer estoqueAtual;
 
 	private BigDecimal custoUnitario;
@@ -63,6 +65,19 @@ public class SkuDocument implements Serializable {
 
 	@BindingClass(OrigemSkuResponseDTO.class)
 	private Collection<OrigemSkuDocument> origens;
+
+	@BindingClass(UsuarioResponseDTO.class)
+	private UsuarioDocument usuarioCriacao;
+
+	private Integer loteReposicao;
+
+	public UsuarioDocument getUsuarioCriacao() {
+		return usuarioCriacao;
+	}
+
+	public void setUsuarioCriacao(UsuarioDocument usuarioCriacao) {
+		this.usuarioCriacao = usuarioCriacao;
+	}
 
 	public String getId() {
 		return id;
@@ -152,20 +167,12 @@ public class SkuDocument implements Serializable {
 		this.estoqueMaximo = estoqueMaximo;
 	}
 
-	public Integer getEstoqueMinimo() {
-		return estoqueMinimo;
+	public Integer getEstoqueSeguranca() {
+		return estoqueSeguranca;
 	}
 
-	public void setEstoqueMinimo(Integer estoqueMinimo) {
-		this.estoqueMinimo = estoqueMinimo;
-	}
-
-	public Integer getEstoqueIdeal() {
-		return estoqueIdeal;
-	}
-
-	public void setEstoqueIdeal(Integer estoqueIdeal) {
-		this.estoqueIdeal = estoqueIdeal;
+	public void setEstoqueSeguranca(Integer estoqueSeguranca) {
+		this.estoqueSeguranca = estoqueSeguranca;
 	}
 
 	public Integer getEstoqueAtual() {
@@ -214,6 +221,22 @@ public class SkuDocument implements Serializable {
 
 	public void setClasse(ClasseEnum classe) {
 		this.classe = classe;
+	}
+
+	public double getNivelServico() {
+		return nivelServico;
+	}
+
+	public void setNivelServico(double nivelServico) {
+		this.nivelServico = nivelServico;
+	}
+
+	public Integer getLoteReposicao() {
+		return loteReposicao;
+	}
+
+	public void setLoteReposicao(Integer loteReposicao) {
+		this.loteReposicao = loteReposicao;
 	}
 
 }

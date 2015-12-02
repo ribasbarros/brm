@@ -118,7 +118,8 @@
 								data-toggle="dropdown">MONITORAMENTO <span class="caret"></span></a>
 								<ul class="dropdown-menu" role="menu">
 									<li><a href="#">DFU</a></li>
-									<li><a href="#">SKU</a></li>
+									<li><a href="#/private/monitoramento/monitoramento-sku">SKU</a></li>
+									<li><a href="#/private/monitoramento/monitoramento-pedidos">Pedidos</a></li>
 									<li><a href="#">Integrações</a></li>
 								</ul></li>
 							<li class="dropdown"><a href="" class="dropdown-toggle"
@@ -181,9 +182,9 @@
 						</div>
 						<div class="col-md-4">
 							<h3>Monitoramento</h3>
-							<p>DFU</p>
-							<p>SKU</p>
-							<p>Cadeia de Suplimentos</p>
+							<p><a href="#/private/dfu/dfu-view">DFU</a></p>
+							<p><a href="#/private/sku/sku-view">SKU</a></p>
+							<p><a href="#/private/tag/tag-view">Cadeia de Suplimentos</a></p>
 						</div>
 						<div class="col-md-4">
 							<h3>O Sistema</h3>
@@ -222,6 +223,11 @@
 	<script src="resources/angular/angular-route.js"></script>
 	<script src="resources/angular/angular-cookies.js"></script>
 	<script src="resources/angular/i18n/angular-locale_pt-br.js"></script>
+	
+	<script src="resources/d3/d3.min.js"></script>
+	<script src="resources/d3/nv.d3.min.js"></script>
+	<script src="resources/d3/angular-nvd3.min.js"></script>
+	<link rel="stylesheet" href="resources/css/nv.d3.css">
 
 	<!-- AngularJS App Code ==================================================== -->
 	<script src="resources/js/app.js"></script>
@@ -233,7 +239,6 @@
 	<script src="resources/angular/ui-mask/mask.min.js"></script>
     <script src="resources/js/ng-tags-input.min.js"></script>
     
-	
 	
 	<!-- <script src="resources/js/filters.js"></script>
 	 -->

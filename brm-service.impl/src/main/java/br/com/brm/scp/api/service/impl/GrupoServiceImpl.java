@@ -17,8 +17,10 @@ import br.com.brm.scp.api.exceptions.GrupoExistenteException;
 import br.com.brm.scp.api.exceptions.GrupoNotFoundException;
 import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.service.GrupoService;
+import br.com.brm.scp.api.service.UsuarioService;
 import br.com.brm.scp.api.service.document.GrupoDocument;
 import br.com.brm.scp.api.service.document.PerfilDocument;
+import br.com.brm.scp.api.service.document.UsuarioDocument;
 import br.com.brm.scp.api.service.repositories.GrupoRepository;
 import br.com.brm.scp.api.service.status.GrupoFiltroEnum;
 import br.com.brm.scp.fw.helper.converters.ConverterHelper;
@@ -27,7 +29,9 @@ import br.com.brm.scp.fw.helper.converters.ConverterHelper;
 public class GrupoServiceImpl implements GrupoService {
 	@Autowired
 	GrupoRepository repository;
-
+	@Autowired
+	UsuarioService usuarioService;
+	
 	private static Logger logger = Logger.getLogger(GrupoServiceImpl.class);
 	private static final String GRUPO_NOME = "grupo.nome";
 	private static final String GRUPO_ID = "grupo.id";
@@ -52,6 +56,7 @@ public class GrupoServiceImpl implements GrupoService {
 				
 		GrupoDocument document = invokeDocument(request);
 		document.setDataCriacao(new Date());
+		document.setUsuarioCriacao((UsuarioDocument) ConverterHelper.convert(usuarioService.getUsuarioLogado(),UsuarioDocument.class));
 		document = repository.save(document);
 		GrupoResponseDTO response = invokeResponse(document);
 		
@@ -89,7 +94,7 @@ public class GrupoServiceImpl implements GrupoService {
 	}
 
 	@Override
-	public void update(GrupoRequestDTO request) throws GrupoNotFoundException {
+	public GrupoResponseDTO update(GrupoRequestDTO request) throws GrupoNotFoundException {
 		Assert.notNull(request, GRUPO_NULL);
 		Assert.notNull(request.getId(), GRUPO_ID);
 		Assert.notNull(request.getNome(), GRUPO_NOME);
@@ -100,7 +105,7 @@ public class GrupoServiceImpl implements GrupoService {
 
 		GrupoDocument document = invokeDocument(request);
 		document.setDataAlteracao(new Date());
-		repository.save(document);
+		return invokeResponse(repository.save(document));
 	}
 
 	@Override

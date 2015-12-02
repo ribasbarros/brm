@@ -1,39 +1,77 @@
 package br.com.brm.scp.api.dto.response;
 
 import java.io.Serializable;
-import java.util.Calendar;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+
+import org.springframework.data.annotation.Id;
 
 import br.com.brm.scp.api.annotation.BindingClassMeta;
-import br.com.brm.scp.api.service.status.StatusPedido;
+import br.com.brm.scp.api.service.status.PedidoStatus;
+import br.com.brm.scp.api.service.status.PedidoType;
 
 public class PedidoResponseDTO implements Serializable {
 
-	private static final long serialVersionUID = 754950276721603193L;
-	
-	private Long id;
-	private Long idSku;
-	private String descricao;
-	private Integer quantidade;
-	private StatusPedido status;
+	private static final long serialVersionUID = 1523733837080681498L;
 
-	private Calendar dataCriacao;
+	@Id
+	private String id;
+
+	private PedidoType tipo = PedidoType.INTERNO;
+	
+	private String origem;
+
+	private String destino;
+
+	private Integer quantidade;
+
+	private PedidoStatus status;
+	
+	/*
+	 * INDICA QUE UMA SKU NAO TINHA A QUANTIDADE NECESSARIA EM ESTOQUE PARA LIBERAR, ENTÃO FOI CRIADA
+	 * UM NOVO PEDIDO PARA CIMA. ex: SKU1 solicita 1000 -> SKU2 não tem 1000, entao ela pede para o de cima
+	 * OBS: BASICAMENTE SERVE PARA ESCONDER O BOTAO SEND DA DATABLE PEDIDOS
+	 */
+	private boolean escalonada = false;
+
+	private Date dataCriacao;
+
+	private Date dataSolicitacao;
+
+	private Date dataFinalizacao;
+
 	@BindingClassMeta("USUARIO")
 	private UsuarioResponseDTO usuarioCriacao;
 
-	public Long getId() {
+	private String descricao;
+
+	private String idPedidoDestino;
+	
+	private Collection<String> log = new ArrayList<>();
+
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public String getOrigem() {
+		return origem;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setOrigem(String origem) {
+		this.origem = origem;
+	}
+
+	public String getDestino() {
+		return destino;
+	}
+
+	public void setDestino(String destino) {
+		this.destino = destino;
 	}
 
 	public Integer getQuantidade() {
@@ -44,20 +82,28 @@ public class PedidoResponseDTO implements Serializable {
 		this.quantidade = quantidade;
 	}
 
-	public StatusPedido getStatus() {
+	public PedidoStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(StatusPedido status) {
+	public void setStatus(PedidoStatus status) {
 		this.status = status;
 	}
 
-	public Calendar getDataCriacao() {
-		return dataCriacao;
+	public Date getDataSolicitacao() {
+		return dataSolicitacao;
 	}
 
-	public void setDataCriacao(Calendar dataCriacao) {
-		this.dataCriacao = dataCriacao;
+	public void setDataSolicitacao(Date dataSolicitacao) {
+		this.dataSolicitacao = dataSolicitacao;
+	}
+
+	public Date getDataFinalizacao() {
+		return dataFinalizacao;
+	}
+
+	public void setDataFinalizacao(Date dataFinalizacao) {
+		this.dataFinalizacao = dataFinalizacao;
 	}
 
 	public UsuarioResponseDTO getUsuarioCriacao() {
@@ -68,12 +114,52 @@ public class PedidoResponseDTO implements Serializable {
 		this.usuarioCriacao = usuarioCriacao;
 	}
 
-	public Long getIdSku() {
-		return idSku;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setIdSku(Long idSku) {
-		this.idSku = idSku;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public Collection<String> getLog() {
+		return log;
+	}
+
+	public void setLog(Collection<String> log) {
+		this.log = log;
+	}
+
+	public Date getDataCriacao() {
+		return dataCriacao;
+	}
+
+	public void setDataCriacao(Date dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+
+	public boolean isEscalonada() {
+		return escalonada;
+	}
+
+	public void setEscalonada(boolean escalonada) {
+		this.escalonada = escalonada;
+	}
+
+	public String getIdPedidoDestino() {
+		return idPedidoDestino;
+	}
+
+	public void setIdPedidoDestino(String idPedidoDestino) {
+		this.idPedidoDestino = idPedidoDestino;
+	}
+
+	public PedidoType getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(PedidoType tipo) {
+		this.tipo = tipo;
 	}
 
 }

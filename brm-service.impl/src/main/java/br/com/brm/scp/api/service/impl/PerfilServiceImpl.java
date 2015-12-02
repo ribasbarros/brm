@@ -21,9 +21,11 @@ import br.com.brm.scp.api.exceptions.PerfilExistenteException;
 import br.com.brm.scp.api.exceptions.PerfilNotFoundException;
 import br.com.brm.scp.api.pages.Pageable;
 import br.com.brm.scp.api.service.PerfilService;
+import br.com.brm.scp.api.service.UsuarioService;
 import br.com.brm.scp.api.service.document.PerfilDocument;
 import br.com.brm.scp.api.service.document.PerfilDocument;
 import br.com.brm.scp.api.service.document.PerfilDocument;
+import br.com.brm.scp.api.service.document.UsuarioDocument;
 import br.com.brm.scp.api.service.repositories.PerfilRepository;
 import br.com.brm.scp.api.service.status.PerfilFiltroEnum;
 import br.com.brm.scp.fw.helper.converters.ConverterHelper;
@@ -32,6 +34,8 @@ import br.com.brm.scp.fw.helper.converters.ConverterHelper;
 public class PerfilServiceImpl implements PerfilService {
 	@Autowired
 	PerfilRepository repository;
+	@Autowired
+	UsuarioService usuarioService;
 
 	private static Logger logger = Logger.getLogger(PerfilServiceImpl.class);
 	private static final String PERFIL_NOME = "perfil.nome";
@@ -57,6 +61,7 @@ public class PerfilServiceImpl implements PerfilService {
 		
 		PerfilDocument document = invokeDocument(request);
 		document.setDataCriacao(new Date());
+		document.setUsuarioCriacao((UsuarioDocument) ConverterHelper.convert(usuarioService.getUsuarioLogado(),UsuarioDocument.class));
 		document = repository.save(document);
 
 		PerfilResponseDTO response = invokeResponse(document);
@@ -93,7 +98,7 @@ public class PerfilServiceImpl implements PerfilService {
 	}
 
 	@Override
-	public void update(PerfilRequestDTO request) throws PerfilNotFoundException {
+	public PerfilResponseDTO update(PerfilRequestDTO request) throws PerfilNotFoundException {
 		Assert.notNull(request, PERFIL_NULL);
 		Assert.notNull(request.getId(), PERFIL_ID);
 		Assert.notNull(request.getNome(), PERFIL_NOME);
@@ -104,7 +109,7 @@ public class PerfilServiceImpl implements PerfilService {
 
 		PerfilDocument document = invokeDocument(request);
 		document.setDataAlteracao(new Date());
-		repository.save(document);
+		return invokeResponse(repository.save(document));
 	}
 
 	private PerfilDocument findByFiltro(PerfilFiltroEnum filtro, Object value)

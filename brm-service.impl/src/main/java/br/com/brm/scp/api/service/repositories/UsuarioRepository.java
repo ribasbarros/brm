@@ -22,12 +22,12 @@ public interface UsuarioRepository extends
 	UsuarioDocument findByEmail(String email);
 
 	
-	@Query("{ $or: [{ 'nome': {'$regex': ?0 , $options: 'i'}}, "
-			+" { 'cargo': {'$regex': ?0 , $options: 'i'}},"
-			+" { 'email': {'$regex': ?0 , $options: 'i'}}, "
-			+ "{ 'perfis.$id' : { '$all' : ?1 } }, "
-			+ "{ 'perfis' : { '$exists' : true}} ]}")
-
+	
+	@Query("{ $or: [ { 'nome': {'$regex': ?0 , $options: 'i'} } , "
+			+ "{ 'cargo': {'$regex': ?0, $options: 'i'} }, "
+			+ "{ 'email': {'$regex': ?0 , $options: 'i'} }, "
+			+ "{ grupos : {'$ref' : 'grupoDocument' , '$id' : ?0}}"
+			+ "] }")
 	Page<UsuarioDocument> findByNomeCargoEmailGrupos(String searchTerm,
 			Pageable constructPageSpecification);
 

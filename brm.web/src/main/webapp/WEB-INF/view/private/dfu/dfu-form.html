@@ -18,10 +18,11 @@
 		</div>
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-3">
-			<button type="submit" class="btn btn-primary btn-sm navbar-btn">
+			<button ng-click="save(false)" class="btn btn-primary btn-sm navbar-btn">
 				<span class="glyphicon glyphicon-check"></span> Salvar
 			</button>
-			<button type="submit" class="btn btn-danger btn-sm navbar-btn">
+			<button ng-click="save(true)"
+				class="btn btn-danger btn-sm navbar-btn">
 				<span class="glyphicon glyphicon-ok"></span> Salvar & Fechar
 			</button>
 			<button type="button" class="btn btn-success btn-sm navbar-btn"
@@ -71,7 +72,7 @@
 		<div class="controls form-group has-feedback">
 			<label>Data de lançamento</label> <input type="date"
 				class="form-control" ng-model="dfu.dataLancamento"
-				name="dataMaturidade" />
+				name="dataLancamento" />
 		</div>
 	</div>
 
@@ -134,4 +135,6 @@
 		</div>
 	</div>
 </div>
+
+<brm-show-message />
 

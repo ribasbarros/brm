@@ -11,7 +11,7 @@ public interface UsuarioService {
 
 	UsuarioResponseDTO create(UsuarioRequestDTO request) throws UsuarioExistentException;
 
-	void update(UsuarioRequestDTO request) throws UsuarioNotFoundException;
+	UsuarioResponseDTO update(UsuarioRequestDTO request) throws UsuarioNotFoundException;
 
 	void delete(String id) throws UsuarioNotFoundException;
 	
@@ -20,5 +20,7 @@ public interface UsuarioService {
 	Pageable<UsuarioResponseDTO> search(String searchTerm, int pageIndex, int size) throws UsuarioNotFoundException;
 	
 	Pageable<UsuarioResponseDTO> all(int pageIndex, int size) throws UsuarioNotFoundException;
-
+	
+	UsuarioResponseDTO getUsuarioLogado();
+	
 }

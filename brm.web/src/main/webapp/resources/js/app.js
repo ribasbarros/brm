@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('brm', ['ngTagsInput', 'ngCpfCnpj', 'ui.mask', 'ngRoute', 'ngCookies', 'brm.controllers',
+var app = angular.module('brm', ['nvd3' , 'ngTagsInput', 'ngCpfCnpj', 'ui.mask', 'ngRoute', 'ngCookies', 'brm.controllers',
 		'brm.controllers.comp', 'brm.directives', 'brm.services' ]);
 
 app.config(function($routeProvider) {

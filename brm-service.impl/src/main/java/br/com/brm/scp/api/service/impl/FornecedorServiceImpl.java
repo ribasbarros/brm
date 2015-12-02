@@ -16,13 +16,16 @@ import br.com.brm.scp.api.dto.request.FornecedorRequestDTO;
 import br.com.brm.scp.api.dto.response.FornecedorResponseDTO;
 import br.com.brm.scp.api.exceptions.FornecedorCentroExistenteException;
 import br.com.brm.scp.api.exceptions.FornecedorExistenteException;
+import br.com.brm.scp.api.exceptions.FornecedorIsUsedException;
 import br.com.brm.scp.api.exceptions.FornecedorNotFoundException;
 import br.com.brm.scp.api.service.FornecedorService;
+import br.com.brm.scp.api.service.UsuarioService;
 import br.com.brm.scp.api.service.document.ContatoDocument;
 import br.com.brm.scp.api.service.document.FornecedorCentroDocument;
 import br.com.brm.scp.api.service.document.FornecedorDocument;
-import br.com.brm.scp.api.service.document.OrigemSkuDocument;
+import br.com.brm.scp.api.service.document.UsuarioDocument;
 import br.com.brm.scp.api.service.repositories.FornecedorRepository;
+import br.com.brm.scp.api.service.repositories.SkuRepository;
 import br.com.brm.scp.api.service.status.FornecedorFiltroEnum;
 import br.com.brm.scp.fw.helper.converters.ConverterHelper;
 import br.com.brm.scp.fw.helper.validators.CNPJValidator;
@@ -62,10 +65,20 @@ public class FornecedorServiceImpl implements FornecedorService {
 	private static final String FORNECEDOR_CENTRONRO = "fornecedor.centro.nro";
 
 	private static final String FORNECEDOR_CENTROEXISTENTE = "fornecedor.centroexistente";
+	
+	private static final String FORNECEDOR_CENTROCNPJ = "fornecedor.centrocnpj";
+
+	private static final String FORNECEDOR_CENTRO = "fornecedor.centro";
+
+	private static final String FORNECEDOR_SENDOUSADO = "fornecedor.sendousado";
 
 	@Autowired
 	private FornecedorRepository repository;
-
+	@Autowired
+	private SkuRepository skuRepository;
+	@Autowired
+	UsuarioService usuarioService;
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -81,9 +94,15 @@ public class FornecedorServiceImpl implements FornecedorService {
 		Assert.notNull(request.getDescricao(), FORNECEDOR_DESCRICAO);
 		Assert.notNull(request.getNomeFantasia(), FORNECEDOR_NOMEFANTASIA);
 		Assert.notNull(request.getRazaoSocial(), FORNECEDOR_RAZAOSOCIAL);
+		Assert.notNull(request.getCentros(), FORNECEDOR_CENTRO);
+		Assert.isTrue(!request.getCentros().isEmpty(), FORNECEDOR_CENTRO);
 		Assert.isTrue(NumberHelper.isNumber(request.getCnpj()), FORNECEDOR_CNPJINVALIDO);
 		Assert.isTrue(CNPJValidator.isCNPJ(request.getCnpj()), FORNECEDOR_CNPJINVALIDO);
 
+		for(FornecedorCentroDTO centro : request.getCentros() ){
+			Assert.isTrue(NumberHelper.isNumber(centro.getCnpj()), FORNECEDOR_CENTROCNPJ);
+			Assert.isTrue(CNPJValidator.isCNPJ(centro.getCnpj()), FORNECEDOR_CENTROCNPJ);
+		}
 		try {
 			hasRegister(request);
 		} catch (FornecedorNotFoundException e) {
@@ -92,6 +111,8 @@ public class FornecedorServiceImpl implements FornecedorService {
 
 		FornecedorDocument document = (FornecedorDocument) ConverterHelper.convert(request, FornecedorDocument.class);
 		document.setDataCriacao(new Date());
+		document.setUsuarioCriacao((UsuarioDocument) ConverterHelper.convert(usuarioService.getUsuarioLogado(),UsuarioDocument.class));
+
 		document = repository.save(document);
 		FornecedorResponseDTO response = invokeResponse(document);
 
@@ -153,12 +174,16 @@ public class FornecedorServiceImpl implements FornecedorService {
 	 * br.com.brm.scp.api.service.FornecedorService#delete(java.lang.String)
 	 */
 	@Override
-	public void delete(String id) throws FornecedorNotFoundException {
+	public void delete(String id) throws FornecedorNotFoundException, FornecedorIsUsedException {
 
 		Assert.notNull(id, FORNECEDOR_ID);
 
 		if (findByFiltro(FornecedorFiltroEnum.ID, id) == null) {
 			throw new FornecedorNotFoundException(FORNECEDOR_ID);
+		}else{
+			if(!skuRepository.findSkuByFornecedor(id).isEmpty()){
+				throw new FornecedorIsUsedException(FORNECEDOR_SENDOUSADO);
+			}			
 		}
 
 		repository.delete(id);
@@ -181,9 +206,16 @@ public class FornecedorServiceImpl implements FornecedorService {
 		Assert.notNull(request.getDescricao(), FORNECEDOR_DESCRICAO);
 		Assert.notNull(request.getNomeFantasia(), FORNECEDOR_NOMEFANTASIA);
 		Assert.notNull(request.getRazaoSocial(), FORNECEDOR_RAZAOSOCIAL);
+		Assert.notNull(request.getCentros(), FORNECEDOR_CENTRO);
+		Assert.isTrue(!request.getCentros().isEmpty(), FORNECEDOR_CENTRO);
 		Assert.isTrue(NumberHelper.isNumber(request.getCnpj()), FORNECEDOR_CNPJINVALIDO);
 		Assert.isTrue(CNPJValidator.isCNPJ(request.getCnpj()), FORNECEDOR_CNPJINVALIDO);
 
+		for(FornecedorCentroDTO centro : request.getCentros() ){
+			Assert.isTrue(NumberHelper.isNumber(centro.getCnpj()), FORNECEDOR_CENTROCNPJ);
+			Assert.isTrue(CNPJValidator.isCNPJ(centro.getCnpj()), FORNECEDOR_CENTROCNPJ);
+		}
+		
 		try {
 			hasRegister(request);
 		} catch (FornecedorExistenteException e) {
