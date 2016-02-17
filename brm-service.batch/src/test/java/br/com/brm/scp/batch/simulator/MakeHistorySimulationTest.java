@@ -82,6 +82,13 @@ public class MakeHistorySimulationTest extends AbstractTestNGSpringContextTests 
 		}
 
 		Map<Integer, Collection<SkuResponseDTO>> map = orderByNiveis(chain);
+		
+		try {
+			atualizaCalculos();
+		} catch (SkuNotFoundException | ItemNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		do {
 			for (Collection<SkuResponseDTO> skus : map.values()) {
@@ -91,14 +98,16 @@ public class MakeHistorySimulationTest extends AbstractTestNGSpringContextTests 
 					}
 					validaEstoqueSeguranca(sku, calStart);
 					resolverPedidos(sku.getId(), calStart);
-					try {
-						atualizaCalculos();
-					} catch (SkuNotFoundException | ItemNotFoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
 				}
 			}
+			
+			try {
+				atualizaCalculos();
+			} catch (SkuNotFoundException | ItemNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			calStart.add(Calendar.DATE, 1);
 			System.out.println(String.format("DIA %s/%s/%s", calStart.get(Calendar.DATE),
 					(calStart.get(Calendar.MONTH) + 1), calStart.get(Calendar.YEAR)));
